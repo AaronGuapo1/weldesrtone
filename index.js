@@ -13,6 +13,8 @@ console.log('App listening on port 3000')
 })
 
 const inicioController= require('./controllers/inicio')
+const TiendaController= require('./controllers/tienda')
+
 //mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
 mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 
@@ -20,3 +22,4 @@ mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: tru
 
     
 app.get('/',inicioController)
+app.get('/tienda',TiendaController)
