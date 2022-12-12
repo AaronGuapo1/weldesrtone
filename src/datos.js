@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 var XLSX = require("xlsx")
  
-mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 
 var prueba = [{
 Descripcion:"Hola",
