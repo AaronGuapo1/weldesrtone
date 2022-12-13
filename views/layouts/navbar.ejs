@@ -24,17 +24,6 @@
                     <li class="nav-item ms-2">
                         <a class="nav-link" href="#">Contacto</a>
                     </li>
-                    <% if(!loggedIn) { %>
-                        <li class="nav-item"><a class="nav-link" href="/registrarse">Registrarse</a></li>
-                        
-                        <li class="nav-item"><a class="nav-link" href="/login">Logearse</a></li>
-                        <% } %>
-                        <% if(loggedIn) { %>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/logout">Salir</a>
-                            </li>
-                            <% } %>
                 </ul>
             </div>
         </div>
@@ -59,6 +48,22 @@
                 <li class="nav-item">
                     <a class="nav-link ms-3" href="#"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
                 </li>
+                <% if(!loggedIn) { %>
+                    <!-- Boton Registrarse -->
+                    <li class="nav-item">
+                        <a class="nav-link ms-3" href="/registrarse"><button type="button" class="btn btn-outline-danger">Registrarse</button></a>
+                    </li>
+                    <!-- Boton Iniciar Sesion -->
+                    <li class="nav-item">
+                        <a class="nav-link ms-1" href="/login"><button type="button" class="btn btn-outline-dark">Iniciar Sesión</button></a>
+                    </li>
+                    <% } %>
+                    <% if(loggedIn) { %>
+                    <!-- Boton Salir -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"><button type="button" class="btn btn-outline-danger">Salir</button></a>
+                        </li>
+                <% } %>
             </ul>
         </div>
     </div>
