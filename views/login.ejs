@@ -58,6 +58,7 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
+
                     <form action="/logearse" method="POST" enctype="multipart/form-data" class="login100-form validate-form">
                         <!-- Logo -->
                         <span class="login100-form-title p-b-48">
@@ -66,7 +67,7 @@
                         
                         <!-- Input Nombre de Usuario -->
                         <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-                            <input class="input100" type="text" name="username" id="username">
+                            <input class="input100" type="text" name="username" id="username" required>
                             <span class="focus-input100" data-placeholder="Nombre de Usuario"></span>
                         </div>
                         
@@ -75,7 +76,7 @@
                             <span class="btn-show-pass">
                                 <i class="zmdi zmdi-eye"></i>
                             </span>
-                            <input class="input100" type="password" id="password" name="password">
+                            <input class="input100" type="password" id="password" name="password" required>
                             <span class="focus-input100" data-placeholder="Contraseña"></span>
                         </div>
                         

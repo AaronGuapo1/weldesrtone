@@ -7,6 +7,8 @@ if (user){
 bcrypt.compare(password, user.password, (error, same) =>{
 if(same){ 
 req.session.userId = user._id
+req.session.role= user.role
+req.session.username=user.username
 
 res.redirect('/')
 }

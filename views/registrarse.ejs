@@ -56,6 +56,13 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
+                    <% if(errors != null && errors.length > 0){ %>
+                        <ul class="list-group"></ul>
+                        <% for (var i = 0; i < errors.length; i++) { %>
+                        <li class="list-group-item list-group-item-danger"><%= errors[i] %></li>
+                        <% } %>
+                        </ul>
+                        <% } %>
                     <form action="/registrar" method="POST" enctype="multipart/form-data" class="login100-form validate-form">
                         <!-- Logo -->
                         <span class="login100-form-title p-b-48">
@@ -64,7 +71,8 @@
                         
                         <!-- Input Nombre de Usuario -->
                         <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
-                            <input class="input100" type="text" name="username" id="username">
+                            <input class="input100" type="text" name="username" id="username"  value="<%=
+                            username %>" required>
                             <span class="focus-input100" data-placeholder="Nombre de Usuario"></span>
                         </div>
                         
@@ -73,7 +81,8 @@
                             <span class="btn-show-pass">
                                 <i class="zmdi zmdi-eye"></i>
                             </span>
-                            <input class="input100" type="password" id="password" name="password">
+                            <input class="input100" type="password" id="password" name="password" value="
+                            <%= password %>" required>
                             <span class="focus-input100" data-placeholder="Contraseña"></span>
                         </div>
                         
