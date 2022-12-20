@@ -35,6 +35,38 @@
 
             <div class="container">
                 <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                <form action="/AgregarMaterialPost" method="POST" enctype="multipart/form-data">
+                <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                <label  class="btn col-sm-3 form-label">Agregar Nuevos Materiales</label>
+                <input type="text" class="form-control" placeholder="Descripcion"
+                id="Descripcion" name="Descripcion" required>
+                <input type="text" class="form-control" placeholder="Codigo"
+                id="Codigo" name="Codigo" >
+                <input type="text" class="form-control" placeholder="Unidad"
+                id="Unidad" name="Unidad" >
+                <input type="number" class="form-control" placeholder="Precio Unitario"
+                id="PrecioUnitario" name="PrecioUnitario" >
+                <input type="text" class="form-control" placeholder="Familia"
+                id="Familia" name="Familia" >
+                <input type="text" class="form-control" placeholder="Sub Familia"
+                id="SubFam" name="SubFam" >
+                </div>
+                </div>
+      
+                <br>
+                <div class="form-group">
+                <button type="submit" id="sendMessageButton">Agregar</button>
+                </div>
+                </form>
+                </div>
+                </div>
+                </div>
+                
+
+            <div class="container">
+                <div class="row">
                     <div class="col-lg-8 col-md-10 mx-auto">
                             <div class="row row-cols-1">
                                 <table>
@@ -51,33 +83,49 @@
                                     </tr>
 
 <form action="/EdicionMaterialesPost" method="POST" enctype="multipart/form-data">
+
+    <input type="hidden" class="form-control" id="Descripcion" name="Descripcion" value="tamales"> 
+    <input type="hidden" class="form-control"  id="Codigo" name="Codigo"value="tamales"> 
+    <input type="hidden" class="form-control"  id="Unidad" name="Unidad"value="tamales" >
+    <input type="hidden" class="form-control" id="PrecioUnitario" name="PrecioUnitario"value="312913289">
+    <input type="hidden" class="form-control" id="Familia" name="Familia"value="tamales">
+    <input type="hidden" class="form-control"  id="SubFam" name="SubFam"value="tamales">
+    <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="tamales">
+
 <% for (var a = 0; a < materiales.length; a++) { %>
 
 <tr> 
 
-    <th> <%=materiales[a].Descripcion%> <input type="text" class="form-control" placeholder="Descripcion" id="Descripcion" name="Descripcion"> 
-                                            <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
-    </th>
-    <th>    <%=materiales[a].Codigo%> <input type="text" class="form-control" placeholder="Codigo" id="Codigo" name="Codigo"> 
+    <th> <%=materiales[a].Descripcion%> <input type="text" class="form-control" id="Descripcion" name="Descripcion"> 
+    </th>                                
+    <th>    <%=materiales[a].Codigo%> <input type="text" class="form-control"  id="Codigo" name="Codigo"> 
                                         
     </th>
-    <th>  <%=materiales[a].Unidad%> <input type="text" class="form-control" placeholder="Unidad" id="Unidad" name="Unidad">
+    <th>  <%=materiales[a].Unidad%> <input type="text" class="form-control"  id="Unidad" name="Unidad" >
                                         
     </th>
-    <th>  <%=materiales[a].PrecioUnitario%> <input type="number" class="form-control" placeholder="PrecioUnitario" id="PrecioUnitario" name="PrecioUnitario">
+    <th>  <%=materiales[a].PrecioUnitario%> <input type="number" class="form-control" id="PrecioUnitario" name="PrecioUnitario">
 
     </th>
-    <th>   <%=materiales[a].Familia%> <input type="text" class="form-control" placeholder="Familia" id="Familia" name="Familia">
+    <th>   <%=materiales[a].Familia%> <input type="text" class="form-control" id="Familia" name="Familia">
                                         
     </th>
-    <th>   <%=materiales[a].SubFam%> <input type="text" class="form-control" placeholder="SubFam" id="SubFam" name="SubFam">
+    <th>   <%=materiales[a].SubFam%> <input type="text" class="form-control"  id="SubFam" name="SubFam">
                                         
     </th>
+    <th> 
+        <form action="/EliminarMaterialPost" method="POST" enctype="multipart/form-data">
+            <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
 
+            <button type="submit" id="sendMessageButton">Eliminar</button></form>
+
+    </form>
+    </th>
 </tr>      
 <% } %>
+</table>
 <button type="submit" id="sendMessageButton">Guardar Cambios</button></form>
-                        </table>
+                       
                         </div>
 
 
@@ -96,5 +144,6 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+        <!--<script type="module" src="js/BorrarMaterial.js"  ></script>-->
     </body>
 </html>

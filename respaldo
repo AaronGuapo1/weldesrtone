@@ -1,3 +1,23 @@
+<th> 
+<form action="/EliminarMaterialPost" method="POST" enctype="multipart/form-data"> 
+    <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
+
+    <button type="submit" id="sendMessageButton">Eliminar</button>
+</form>
+</th>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* 
         await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i],Codigo:req.body.Codigo[i],Unidad:req.body.Unidad[i],PrecioUnitario:req.body.PrecioUnitario[i],Familia:req.body.Familia[i],SubFam:req.body.SubFam[i]}});
@@ -107,4 +127,141 @@ for(i=0; i<req.body.Descripcion.length;i++){
         await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{SubFam:req.body.SubFam[i]}},{ upsert: true });
         
         }
+
+
+
+
+
+
+
+                var sdoc = {};
+        if(req.body.Descripcion[i] !== '') {
+          sdoc['Descripcion'] = req.body.Descripcion[i]
+          material.updateOne(
+            {Descripcion:req.body.DescripcionBusqueda[i]},
+            {$set: sdoc},
+            { upsert: false });
+        }
+        if(req.body.Codigo[i] !== '') {
+          sdoc['Codigo'] = req.body.Codigo[i]
+          material.updateOne(
+            {Descripcion:req.body.DescripcionBusqueda[i]},
+            {$set: sdoc},
+            { upsert: false });
+        }
+        if(req.body.Unidad[i] !== '') {
+          sdoc['Unidad'] = req.body.Unidad[i]
+          material.updateOne(
+            {Descripcion:req.body.DescripcionBusqueda[i]},
+            {$set: sdoc},
+            { upsert: false });
+        }
+        if(req.body.PrecioUnitario[i] !== '') {
+            sdoc['PrecioUnitario'] = req.body.PrecioUnitario[i]
+            material.updateOne(
+                {Descripcion:req.body.DescripcionBusqueda[i]},
+                {$set: sdoc},
+                { upsert: false });
+          }
+          if(req.body.Familia[i] !== '') {
+            sdoc['Familia'] = req.body.Familia[i]
+            material.updateOne(
+                {Descripcion:req.body.DescripcionBusqueda[i]},
+                {$set: sdoc},
+                { upsert: false });
+          }
+          if(req.body.SubFam[i] !== '') {
+            sdoc['SubFam'] = req.body.SubFam[i]
+            material.updateOne(
+                {Descripcion:req.body.DescripcionBusqueda[i]},
+                {$set: sdoc},
+                { upsert: false });
+          }
+    
+
+
+        for (c=0; c<req.body.DescripcionBusqueda.length;c++){
+
+                for (d=0; d<req.body.DescripcionBusqueda.length;d++){
+
+                    for (e=0; e<req.body.DescripcionBusqueda.length;e++){
+
+                        for (e=0; e<req.body.DescripcionBusqueda.length;e++){
+
+                            for (f=0; f<req.body.DescripcionBusqueda.length;f++){
+
+
+
+
+//usar este
+
+
+
+
+    for (i=0; i<req.body.DescripcionBusqueda.length;i++){
+        for (a=0; a<req.body.Descripcion.length;a++){
+
+       
+        if(req.body.Descripcion[i] !== '' && i === a){
+            console.log(a+i)
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[a]}},{ upsert: true });
+        }}}
+
+
+
+
+
+
+
+
+
+  for (i=0; i<req.body.DescripcionBusqueda.length;i++){
+
+
+
+
+        for (b=0; b<req.body.Descripcion.length;b++){
+
+        if(req.body.Descripcion[i] !== ''){
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[b]}},{ upsert: false });
+        }
+    }
+    for (c=0; c<req.body.Codigo.length;c++){
+
+        if(req.body.Codigo[i] !== ''){
+        
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Codigo:req.body.Codigo[c]}},{ upsert: false });
+        
+        }}
+        for (d=0; d<req.body.Unidad.length;d++){
+
+        if(req.body.Unidad[i] !== ''){
+        
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Unidad:req.body.Unidad[d]}},{ upsert: false });
+            }}
+            for (e=0; e<req.body.PrecioUnitario.length;e++){
+
+            if(req.body.PrecioUnitario[i] !== ''){
+        
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{PrecioUnitario:req.body.PrecioUnitario[e]}},{ upsert: false });
+        
+            }}
+            for (f=0; f<req.body.Familia.length;f++){
+
+            if(req.body.Familia[i] !== ''){
+        
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Familia:req.body.Familia[f]}}),{ upsert: false };
+            }}
+            for (g=0; g<req.body.SubFam.length;g++){
+
+            if(req.body.SubFam[i] !== ''){
+        
+            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{SubFam:req.body.SubFam[g]}},{ upsert: false });
+            
+            }}
+    
+        }
+        
+
+
                 */

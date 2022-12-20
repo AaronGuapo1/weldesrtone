@@ -39,7 +39,10 @@ const AgregarProductosController = require('./controllers/agregarProductos')
 const EditarProductosController = require('./controllers/editarProductos')
 const SeguridadMiddleware= require('./middleware/seguridad')
 const EdicionMaterialesController = require('./controllers/EdicionMateriales')
-const EdicionMaterialesPostController = require('./controllers/EdicionProductosPost')
+const EdicionMaterialesPostController = require('./controllers/EdicionMaterialesPost')
+const AgregarMaterialesPostController = require('./controllers/AgregarMaterialPost')
+const EliminarMaterialPostPostController = require('./controllers/EliminarMaterialPost')
+
 global.loggedIn = null;
 global.roles = null;
 
@@ -74,6 +77,9 @@ app.get('/AgregarProductos',SeguridadMiddleware, AgregarProductosController)
 app.get('/EditarProductos', SeguridadMiddleware,EditarProductosController)
 app.get('/EdicionMateriales', SeguridadMiddleware,EdicionMaterialesController)
 app.post('/EdicionMaterialesPost',SeguridadMiddleware, EdicionMaterialesPostController)
+app.post('/AgregarMaterialPost',SeguridadMiddleware, AgregarMaterialesPostController)
+app.post('/EliminarMaterialPost',SeguridadMiddleware, EliminarMaterialPostPostController)
+
 
 app.use((req, res) => res.render('notfound'));
 
