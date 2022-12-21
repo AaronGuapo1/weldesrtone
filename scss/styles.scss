@@ -56,46 +56,112 @@ img {
 }
 
 // ---------------- CAROUSEL SECTION ---------------- // 
-@mixin mixin-photo-container($w) {
+@mixin mixin-photo-container($h) {
     overflow: hidden;
-    height: 600px;
-    width: $w;
+    height: $h;
+    width: 100%;
     display: inline-block;
 }
 
-#carousel-section {
-    margin: 50px 10%;
+#carousel-section{
+    margin: 50px 0;
+}
 
-    img {
-        position: relative;
+#desktopCarousel {
+    display: none;
+
+    @include lg(){
+        display: block;
+
+        img {
+            position: relative;
+        }
+    
+        .small-photo {
+            height: 100%;
+            bottom: 0;
+    
+            @include xl() {
+                height: fit-content;
+                width: 100%;
+                bottom: 15%;
+            }
+        }
+    
+        .medium-photo {
+            height: 100%;
+            right: 80%;
+    
+            @include xl() {
+                right: 50%;
+            }
+    
+            @include xxl {
+                right: 25%;
+            }
+        }
+    
+        .custom-medium {
+            right: 20%;
+    
+            @include xl() {
+                right: 0;
+            }
+        }
+    
+        .custom-small {
+            height: 100%;
+            bottom: 0;
+            right: 20%;
+    
+            @include xl(){
+                right: 0%;
+            }
+    
+            @include xxl {
+                height: fit-content;
+                bottom: 10%;
+            }
+        }
+    
+        .fix {
+            right: 10%;
+    
+            @include xl(){
+                right: 0;
+            }
+        }
+    
+        .photo-container {
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .photo-container-lg {
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .photo-container-final {
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .set-three {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            column-gap: 10px;
+        }
+    
+        .set-two {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            column-gap: 10px;
+        }
     }
+}
 
-    .small-photo {
-        width: 100%;
-        bottom: 15%;
+#mobile-carousel {
+    @include lg(){
+        display: none;
     }
-
-    .medium-photo {
-        height: 100%;
-        right: 50%;
-    }
-
-    .custom-medium {
-        right: 0;
-    }
-
-    .custom-small {
-        bottom: 0;
-    }
-
-    .photo-container {
-        @include mixin-photo-container($w: 33%)
-    }
-
-    .photo-container-lg {
-        @include mixin-photo-container($w: 66%)
-    }
-
 }
 
 // ---------------- FILTER BUTTONS SECTION ---------------- // 

@@ -45,36 +45,128 @@ img {
 }
 
 #carousel-section {
-  margin: 50px 10%;
+  margin: 50px 0;
 }
-#carousel-section img {
-  position: relative;
+
+#desktopCarousel {
+  display: none;
 }
-#carousel-section .small-photo {
-  width: 100%;
-  bottom: 15%;
+@media (min-width: 992px) {
+  #desktopCarousel {
+    display: block;
+  }
+  #desktopCarousel img {
+    position: relative;
+  }
+  #desktopCarousel .small-photo {
+    height: 100%;
+    bottom: 0;
+  }
 }
-#carousel-section .medium-photo {
-  height: 100%;
-  right: 50%;
+@media (min-width: 992px) and (min-width: 1200px) {
+  #desktopCarousel .small-photo {
+    height: fit-content;
+    width: 100%;
+    bottom: 15%;
+  }
 }
-#carousel-section .custom-medium {
-  right: 0;
+@media (min-width: 992px) {
+  #desktopCarousel .medium-photo {
+    height: 100%;
+    right: 80%;
+  }
 }
-#carousel-section .custom-small {
-  bottom: 0;
+@media (min-width: 992px) and (min-width: 1200px) {
+  #desktopCarousel .medium-photo {
+    right: 50%;
+  }
 }
-#carousel-section .photo-container {
-  overflow: hidden;
-  height: 600px;
-  width: 33%;
-  display: inline-block;
+@media (min-width: 992px) and (min-width: 1400px) {
+  #desktopCarousel .medium-photo {
+    right: 25%;
+  }
 }
-#carousel-section .photo-container-lg {
-  overflow: hidden;
-  height: 600px;
-  width: 66%;
-  display: inline-block;
+@media (min-width: 992px) {
+  #desktopCarousel .custom-medium {
+    right: 20%;
+  }
+}
+@media (min-width: 992px) and (min-width: 1200px) {
+  #desktopCarousel .custom-medium {
+    right: 0;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .custom-small {
+    height: 100%;
+    bottom: 0;
+    right: 20%;
+  }
+}
+@media (min-width: 992px) and (min-width: 1200px) {
+  #desktopCarousel .custom-small {
+    right: 0%;
+  }
+}
+@media (min-width: 992px) and (min-width: 1400px) {
+  #desktopCarousel .custom-small {
+    height: fit-content;
+    bottom: 10%;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .fix {
+    right: 10%;
+  }
+}
+@media (min-width: 992px) and (min-width: 1200px) {
+  #desktopCarousel .fix {
+    right: 0;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .photo-container {
+    overflow: hidden;
+    height: 600px;
+    width: 100%;
+    display: inline-block;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .photo-container-lg {
+    overflow: hidden;
+    height: 600px;
+    width: 100%;
+    display: inline-block;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .photo-container-final {
+    overflow: hidden;
+    height: 600px;
+    width: 100%;
+    display: inline-block;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .set-three {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 10px;
+  }
+}
+@media (min-width: 992px) {
+  #desktopCarousel .set-two {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 10px;
+  }
+}
+
+@media (min-width: 992px) {
+  #mobile-carousel {
+    display: none;
+  }
 }
 
 #filter-buttons {
