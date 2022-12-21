@@ -16,31 +16,121 @@
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
+		<%- include('layouts/navbar'); -%>
 
-        <%- include('layouts/navbar'); -%>
+		<section id="carousel-section">
+			<div>
+				<!-- <div class="col-4 about">
+					<div class="title">
+						<h1>Somos Welderstone</h1>
+					</div>
+					<hr>
+					<div>
+						<p>Somos una empresa formada desde el año 2020 ubicada en Torreón Coahuila.</p>
+						<p>Dedicados a la fabricacion de elemetnos metálicos de cualquier dimension.</p>
+						<ul>
+							<li>Techumbres Metalicas</li>
+							<li>Puertas y Ventanas</li>
+							<li>Mobuiliario Industrial</li>
+							<li>Instalación de Tuberías Metálicas</li>
+							<li>Diseñamos cualquier idea o necesidad</li>
+						</ul>
+						<p>Nuestra meta es hacer de la construcción y de las actividades diarias de las personas, objetos prefabricados que les ayuden a hacer mas eficiente la realizacion de cualquier trabajo.</p>
+					</div>
+				</div> -->
 
+				<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+					<div class="carousel-inner">
+					  <div class="carousel-item active">
+						<div class="d-block">
+							<div class="photo-container">
+								<img class="medium-photo" src="images/carousel/carousel-01.jpg" alt="">
+							</div>
+							<div class="photo-container">
+								<img class="medium-photo" src="images/carousel/carousel-02.jpeg" alt="">
+							</div>
+							<div class="photo-container">
+								<img class="small-photo" src="images/carousel/carousel-03.jpg" alt="">
+							</div>
+						</div>
+					  </div>
+					  <div class="carousel-item">
+						<div class="d-block">
+							<div class="photo-container">
+								<img class="medium-photo custom-medium" src="images/carousel/carousel-04.jpg" alt="">
+							</div>
+							<div class="photo-container">
+								<img class="small-photo" src="images/carousel/carousel-05.jpg" alt="">
+							</div>
+							<div class="photo-container">
+								<img class="small-photo custom-small" src="images/carousel/carousel-06.jpeg" alt="">
+							</div>
+						</div>
+					  </div>
+					  <div class="carousel-item">
+						<div class="d-block">
+							<div class="photo-container-lg">
+								<img class="small-photo" src="images/carousel/carousel-07.jpeg" alt="">
+							</div>
+							<div class="photo-container">
+								<img class="small-photo custom-small" src="images/carousel/carousel-08.jpg" alt="">
+							</div>
+						</div>
+					  </div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+					  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					  <span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+					  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					  <span class="visually-hidden">Next</span>
+					</button>
+				  </div>
+			</div>
+		</section>
 
-
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Welderstone</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Soluciones en acero</p>
-                </div>
-            </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
-
-
-
-
-
-        </section>
-        <!-- Footer-->
-        <%- include('layouts/footer'); -%>
-
+		<section id="filter-buttons">
+			<div class="row">
+				<div class="col-4 item">
+					<a href="#">
+						<img src="images/filterButtons/casa.jpg" alt="">
+					</a>
+					<h2>HOGAR</h2>
+				</div>
+				<div class="col-4 item">
+					<a href="#">
+						<img src="images/filterButtons/Industria.jpg" alt="">
+					</a>
+					<h2>INDUSTRIA</h2>
+				</div>
+				<div class="col-4 item">
+					<a href="#">
+						<img src="images/filterButtons/Urbanismo.jpg" alt="">
+					</a>
+					<h2>URBANISMO</h2>
+				</div>
+				<div class="col-4 item">
+					<a href="#">
+						<img src="images/filterButtons/Ganadero.jpg" alt="">
+					</a>
+					<h2>GANADERO</h2>
+				</div>
+				<div class="col-4 item">
+					<a href="#">
+						<img src="images/filterButtons/Reciclaje.jpg" alt="">
+					</a>
+					<h2>CONSTRUCCION Y RECICLADOS</h2>
+				</div>
+				<div class="col-4 item">
+					<a href="#">
+						<img src="images/filterButtons/especiales.jpg" alt="">
+					</a>
+					<h2>ESPECIALES</h2>
+				</div>
+			</div>
+		</section>
+		
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <!-- FontAwesome-->

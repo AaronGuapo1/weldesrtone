@@ -25,15 +25,13 @@
                         <a class="nav-link" href="#">Contacto</a>
                     </li>
                     <% if(roles  === "admin") { %>
-    
                     <li class="nav-item ms-2">
-                        <a class="nav-link" href="/EditarProductos">Editar Productos</a>
+                        <a class="nav-link" href="/EditarProductos">Productos</a>
                     </li>
                     <li class="nav-item ms-2">
-                        <a class="nav-link" href="/EdicionMateriales">Editar Materiales</a>
+                        <a class="nav-link" href="/EdicionMateriales">Materiales</a>
                     </li>
                     <% } %>
-
                 </ul>
             </div>
         </div>
@@ -47,32 +45,33 @@
         <div class="col-4">
             <ul class="navbar-nav me-3 mb-2 mb-lg-0 left_nav">
                 <!-- Icono de Instagram (No linkeado) -->
-                <li class="nav-item ms-auto">
+                <li class="nav-item ms-auto icon">
                     <a class="nav-link" href="#"><i class="f-icon fa-brands fa-instagram"></i></a>
                 </li>
                 <!-- Icono de Facebook (No linkeado) -->
-                <li class="nav-item">
-                    <a class="nav-link ms-3" href="#"><i class="f-icon fa-brands fa-facebook"></i></a>
-                </li>
-                <!-- Icono de carrito de compras (No linkeado) -->
-                <li class="nav-item">
-                    <a class="nav-link ms-3" href="#"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
+                <li class="nav-item icon">
+                    <a class="nav-link ms-xxl-3" href="#"><i class="f-icon fa-brands fa-facebook"></i></a>
                 </li>
                 <% if(!loggedIn) { %>
                     <!-- Boton Registrarse -->
-                    <li class="nav-item">
-                        <a class="nav-link ms-3" href="/registrarse"><button type="button" class="btn btn-outline-danger">Registrarse</button></a>
+                    <li class="nav-item ms-auto ms-xl-0 hide">
+                        <a class="nav-link ms-xxl-3" href="/registrarse"><button type="button" class="btn btn-outline-danger">Registrarse</button></a>
                     </li>
                     <!-- Boton Iniciar Sesion -->
-                    <li class="nav-item">
-                        <a class="nav-link ms-1" href="/login"><button type="button" class="btn btn-outline-dark">Iniciar Sesión</button></a>
+                    <li class="nav-item ms-auto ms-lg-0">
+                        <a class="nav-link ms-xxl-1" href="/login"><button type="button" class="btn btn-outline-dark">Iniciar Sesión</button></a>
                     </li>
                     <% } %>
                     <% if(loggedIn) { %>
+                    <!-- Icono de carrito de compras (No linkeado) -->
+                    <li class="nav-item ms-auto">
+                        <a class="nav-link ms-xxl-3" href="#"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
+                    </li>
+
                     <!-- Boton Salir -->
                     <li class="nav-item">
                         <a class="nav-link" href="/logout"><button type="button" class="btn btn-outline-danger">Salir</button></a>
-                        </li>
+                    </li>
                 <% } %>
             </ul>
         </div>

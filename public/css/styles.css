@@ -1,7 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 nav img {
   display: block;
   margin: 0 auto;
   width: 35%;
+}
+nav .icon {
+  display: none;
+}
+@media (min-width: 1200px) {
+  nav .icon {
+    display: block;
+  }
+}
+nav .hide {
+  display: none;
+}
+@media (min-width: 992px) {
+  nav .hide {
+    display: block;
+  }
 }
 
 .container-fluid {
@@ -15,6 +33,69 @@ nav img {
 
 .left_nav {
   align-items: center;
+}
+
+section {
+  overflow: hidden;
+}
+
+img {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+#carousel-section {
+  margin: 50px 10%;
+}
+#carousel-section img {
+  position: relative;
+}
+#carousel-section .small-photo {
+  width: 100%;
+  bottom: 15%;
+}
+#carousel-section .medium-photo {
+  height: 100%;
+  right: 50%;
+}
+#carousel-section .custom-medium {
+  right: 0;
+}
+#carousel-section .custom-small {
+  bottom: 0;
+}
+#carousel-section .photo-container {
+  overflow: hidden;
+  height: 600px;
+  width: 33%;
+  display: inline-block;
+}
+#carousel-section .photo-container-lg {
+  overflow: hidden;
+  height: 600px;
+  width: 66%;
+  display: inline-block;
+}
+
+#filter-buttons {
+  margin: 110px 0;
+  padding: 0 20%;
+}
+#filter-buttons h2 {
+  font-size: 1.2rem;
+  font-family: "Jost", sans-serif;
+  font-weight: 700;
+}
+#filter-buttons img {
+  width: 100%;
+  margin: 20px 0;
+  border-radius: 20px;
+}
+#filter-buttons img:hover {
+  border: 2px solid red;
+}
+#filter-buttons div {
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

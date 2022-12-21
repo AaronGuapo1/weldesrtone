@@ -16,7 +16,7 @@ const UserSchema = new Schema({
     role: {
         type: String,
         }
-    });
+});
     
 UserSchema.pre('save', function(next){
     const user = this
@@ -24,10 +24,9 @@ UserSchema.pre('save', function(next){
     user.password = hash
     next()
     })
-    })
+})
 
-    UserSchema.plugin(uniqueValidator);
-
+UserSchema.plugin(uniqueValidator);
 
 // export model
 const User = mongoose.model('User',UserSchema);

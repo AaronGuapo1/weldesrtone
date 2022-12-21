@@ -1,2 +1,125 @@
 @use "navbar";
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+// ---------------- VARIABLES ---------------- // 
+$screen-sm-min: 576px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+$screen-xxl-min: 1400px;
 
+
+// ---------------- MEDIA MIXINS ---------------- // 
+// - Small devices
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+ 
+// - Medium devices
+@mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+ 
+// - Large devices
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
+ 
+// - Extra large devices
+@mixin xl {
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
+}
+
+// - Extra extra large devices
+@mixin xxl {
+    @media (min-width: #{$screen-xxl-min}) {
+        @content;
+    }
+}
+
+// ---------------- ELEMENT TAGS ---------------- // 
+section {
+    overflow: hidden;
+}
+
+img {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+// ---------------- CAROUSEL SECTION ---------------- // 
+@mixin mixin-photo-container($w) {
+    overflow: hidden;
+    height: 600px;
+    width: $w;
+    display: inline-block;
+}
+
+#carousel-section {
+    margin: 50px 10%;
+
+    img {
+        position: relative;
+    }
+
+    .small-photo {
+        width: 100%;
+        bottom: 15%;
+    }
+
+    .medium-photo {
+        height: 100%;
+        right: 50%;
+    }
+
+    .custom-medium {
+        right: 0;
+    }
+
+    .custom-small {
+        bottom: 0;
+    }
+
+    .photo-container {
+        @include mixin-photo-container($w: 33%)
+    }
+
+    .photo-container-lg {
+        @include mixin-photo-container($w: 66%)
+    }
+
+}
+
+// ---------------- FILTER BUTTONS SECTION ---------------- // 
+#filter-buttons {
+    margin: 110px 0;
+    padding: 0 20%;
+
+    h2 {
+        font-size: 1.2rem;
+        font-family: 'Jost', sans-serif;   
+        font-weight: 700; 
+    }
+
+    img {
+        width: 100%;
+        margin: 20px 0;
+        border-radius: 20px;
+    }
+
+    img:hover {
+        border: 2px solid red; 
+    }
+
+    div {
+        text-align: center;
+    }
+}
