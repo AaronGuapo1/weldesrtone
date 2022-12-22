@@ -1,0 +1,138 @@
+@use "mediaMixins";
+
+@mixin mixin-photo-container($h) {
+    overflow: hidden;
+    height: $h;
+    width: 100%;
+}
+
+#carousel-section{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#desktopCarousel {
+    display: none;
+
+    @include mediaMixins.min-lg(){
+        display: block;
+
+        img {
+            position: relative;
+        }
+    
+        .small-photo {
+            height: 100%;
+            bottom: 0;
+    
+            @include mediaMixins.min-xl() {
+                height: fit-content;
+                width: 100%;
+                bottom: 15%;
+            }
+        }
+
+        .test {
+            height: 100%;
+        }
+
+        .test-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .medium-photo {
+            height: 100%;
+            right: 80%;
+    
+            @include mediaMixins.min-xl() {
+                right: 50%;
+            }
+    
+            @include mediaMixins.min-xxl {
+                right: 25%;
+            }
+        }
+    
+        .custom-medium {
+            right: 20%;
+    
+            @include mediaMixins.min-xl() {
+                right: 0;
+            }
+        }
+    
+        .custom-small {
+            height: 100%;
+            bottom: 0;
+            right: 20%;
+    
+            @include mediaMixins.min-xl(){
+                right: 0%;
+            }
+    
+            @include mediaMixins.min-xxl {
+                height: fit-content;
+                bottom: 10%;
+            }
+        }
+    
+        .fix {
+            right: 10%;
+    
+            @include mediaMixins.min-xl(){
+                right: 0;
+            }
+        }
+    
+        .photo-container {
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .photo-container-lg {
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .photo-container-final {
+            @include mixin-photo-container($h: 600px);
+        }
+    
+        .set-three {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            column-gap: 10px;
+        }
+    
+        .set-two {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            column-gap: 10px;
+        }
+    }
+}
+
+#mobile-carousel {
+    display: none;
+
+    img {
+        height: 100%;
+        position: relative;
+        right: 75%;
+    }
+
+    @include mediaMixins.lg(){
+        display: block;
+        .photo-container {
+            @include mixin-photo-container($h: 75vh);
+        }
+
+        .set-two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: 10px;
+            justify-content: center;
+        }
+    }
+}
