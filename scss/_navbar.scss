@@ -25,6 +25,8 @@ nav {
 }
 
 .navbar {
+    background-color: #d10101;
+
     @include mediaMixins.lg(){
         position: sticky;
         top: 0;

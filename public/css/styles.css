@@ -22,6 +22,9 @@ nav .hide {
   }
 }
 
+.navbar {
+  background-color: #d10101;
+}
 @media (max-width: 992px) {
   .navbar {
     position: sticky;
