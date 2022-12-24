@@ -42,7 +42,7 @@ const EdicionMaterialesController = require('./controllers/EdicionMateriales')
 const EdicionMaterialesPostController = require('./controllers/EdicionMaterialesPost')
 const AgregarMaterialesPostController = require('./controllers/AgregarMaterialPost')
 const EliminarMaterialPostPostController = require('./controllers/EliminarMaterialPost')
-
+const AgregarProductosPostController = require('./controllers/AgregarProductosPost')
 global.loggedIn = null;
 global.roles = null;
 
@@ -79,7 +79,7 @@ app.get('/EdicionMateriales', SeguridadMiddleware,EdicionMaterialesController)
 app.post('/EdicionMaterialesPost',SeguridadMiddleware, EdicionMaterialesPostController)
 app.post('/AgregarMaterialPost',SeguridadMiddleware, AgregarMaterialesPostController)
 app.post('/EliminarMaterialPost',SeguridadMiddleware, EliminarMaterialPostPostController)
-
+app.post('/AgregarProductosPost',SeguridadMiddleware, AgregarProductosPostController)
 
 app.use((req, res) => res.render('notfound'));
 

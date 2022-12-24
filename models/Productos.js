@@ -5,10 +5,11 @@ const bodyParser = require('body-parser')
 
 const ProductoSchema = new Schema({
 
-_id:{type:String},
-materiales:[{nombre:{type:String}}],
-precio:{type:Float},
-imagen:{},
+IdProducto:{type:String},
+MaterialesProductos:[{type:String}],
+//materiales:{type:String},
+precio:{type:Number},
+image:{type:String},
 nombre:{type:String},
 descripcion:{type:String},
 
