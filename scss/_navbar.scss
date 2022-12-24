@@ -1,8 +1,36 @@
+@use "mediaMixins";
+
 nav {
     img {
         display: block;
         margin: 0 auto;
         width: 35%;
+    }
+
+    .icon {
+        display: block;
+    
+        @include mediaMixins.xl {
+            display: none;
+        }
+    }
+
+    .hide {
+        display: block;
+    
+        @include mediaMixins.lg {
+            display: none;
+        }
+    }
+}
+
+.navbar {
+    background-color: #d10101;
+
+    @include mediaMixins.lg(){
+        position: sticky;
+        top: 0;
+        z-index: 1020;
     }
 }
 

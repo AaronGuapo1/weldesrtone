@@ -1,2 +1,75 @@
+// ---------------- PARTIALS ---------------- // 
+// -  NavBar
 @use "navbar";
+@use "mediaMixins";
+// - Carousel
+@use "carousel";
+// ---------------- FONTS ---------------- // 
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+// ---------------- ELEMENT TAGS ---------------- // 
+h1 {
+    color: #C1C1C1;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+}
+
+section {
+    overflow: hidden;
+}
+
+img {
+    display: inline-block;
+    margin: 0 auto;
+}
+
+// ---------------- FILTER BUTTONS SECTION ---------------- // 
+#filter-buttons {
+    margin-top: 150px;
+    margin-bottom: 200px;
+    padding: 0 10%;
+
+    div {
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        font-family: 'Jost', sans-serif;   
+        font-weight: 400; 
+    }
+
+    img {
+        margin: 20px 0;
+        border-radius: 20px;
+        width: 100%;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    i {
+        font-size: 4rem;
+        color: white;
+        margin: auto;
+    }
+
+    .filter-button {
+        background-color: #C1C1C1;
+        width: 18vh;
+        height: 18vh;
+        border-radius: 100%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        margin-top: 50px;
+    }
+
+    .filter-button:hover {
+        background-color: #d10101;
+    }
+
+}
