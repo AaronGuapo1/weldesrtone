@@ -1,6 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const bodyParser = require('body-parser')
+const mongoosePaginate= require('mongoose-paginate-v2')
+
 
 
 const MaterialSchema = new Schema({
@@ -12,5 +14,7 @@ const MaterialSchema = new Schema({
     SubFam:{type:String}
 });
 
+
+//MaterialSchema.plugin(mongoosePaginate);
 const Material = mongoose.model('Material',MaterialSchema);
 module.exports = Material;

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -16,7 +18,29 @@
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
 
-
+        <style type="text/css">
+            #popup{
+                left: 0;
+                position: absolute;
+                top:0;
+                width:100%;
+                z-index:1001;
+            }
+            .content-pop{
+                margin: 0px auto;
+                margin-top: 100px;
+                position: relative;
+                padding: 10px;
+                width: 1200px;
+                height: 500px;
+                min-width: 250px;
+                background-color: white;
+                border: 1px solid black;
+                overflow-y: scroll;
+            }
+            
+   
+        </style>
         <link rel="stylesheet" href="css/style.css">
                                 
         <!-- Fontawesome CDN Link -->
@@ -28,7 +52,7 @@
 
 
 
-        <!-- Header-->
+       
         <header class="bg-dark py-5">
 
             <div class="container px-4 px-lg-5 my-5">
@@ -38,6 +62,8 @@
                 </div>
             </div>
         </header>
+
+
         <!-- Section-->
 
         <section class="py-5">  
@@ -52,15 +78,30 @@
                 </div>
                 <div class="control-group">
                     <div class="form-group floating-label-form-group controls">
-                        <select name="MaterialesProductos" id="MaterialesProductos" multiple>
+                    <input type="button" name="abrirse" id="open" value="Agregar materiales">
+                     <div id="popup" style="display: none;">
+
+                        <div class="content-pop">
+                            <div><a href="#" id="close">X</a></div>
                             <% for (var a = 0; a < materiales.length; a++) { %>
+                                <div><%=materiales[a].Descripcion%>
+                                    <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
+                                    <input type="hidden" value="<%=materiales[a].Descripcion%>" name="MaterialesProductos[nombre]">
+                                </div>
+                                
+                                <% } %>
 
-                            <option value="<%=materiales[a].Descripcion%>"><%=materiales[a].Descripcion%></option>
-                            <% } %>
-
-                        </select>
-         </div>
+        
                     </div>
+
+
+                     </div>
+
+
+                    </div>
+                    </div>
+
+
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls">
                         <label>Precio del producto</label>
@@ -72,7 +113,7 @@
                             <div class="form-group floating-label-form-group controls">
                             <label>Nombre del producto</label>
                             <input type="text" class="form-control" id="nombre"
-                            name="nombre">
+                            name="nombre" required>
                             </div>
                             </div>
                             <div class="control-group">
@@ -107,6 +148,22 @@
         <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
         <script>
             new MultiSelectTag('MaterialesProductos')  // id
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+            $("#open").on("click", function (){
+                $("#popup").fadeIn("slow");
+            });
+            $("#close").on("click", function (){
+                $("#popup").fadeOut("slow");
+            });
+
+
+
+            });
         </script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>

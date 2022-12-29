@@ -1,4 +1,5 @@
-/* Barra de Navegacion */
+
+
 nav img {
     display: block;
     margin: 0 auto;
@@ -42,5 +43,57 @@ font-size: 1.5rem;
 align-items: center;
 }
 
-/* Escribe el codigo de aqui para abajo */
 
+/*
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+nav .navbar-brand{
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+}
+
+nav .nav-item .nav-link{
+  font-family: 'Kalam', cursive;
+  font-size: 20px;
+}
+
+
+.price{
+  font-weight: bold;
+  font-size: 22px;
+  color: rgb(94, 157, 216);
+}
+
+.card-header{
+  font-family: 'Kalam', cursive;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+
+.description{
+  font-family: 'kalam', cursive;
+  color: #6c93fd;
+  font-size: 1rem;
+}
+
+.zoom{
+  transition: transform .7s;
+}
+
+.zoom:hover{
+  transform: scale(1.2);
+}
+
+.img-fluid{
+  display: block;
+  margin: auto;
+}
+
+*/

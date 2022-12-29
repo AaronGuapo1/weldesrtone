@@ -1,4 +1,10 @@
+const Producto = require('../models/Productos.js')
+
+
+
 module.exports = async (req, res) =>{
-    res.render('tienda');
+    const productos = await Producto.find({})
+
+    res.render('tienda',{productos});
 }
     

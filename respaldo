@@ -1,132 +1,180 @@
-<th> 
-<form action="/EliminarMaterialPost" method="POST" enctype="multipart/form-data"> 
-    <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
-
-    <button type="submit" id="sendMessageButton">Eliminar</button>
-</form>
-</th>
+<div class="control-group">
+<div class="form-group floating-label-form-group controls">
+    <select name="MaterialesProductos" id="MaterialesProductos" multiple>
+        <% for (var a = 0; a < materiales.length; a++) { %>
 
 
+        <option  value="<%=materiales[a].Descripcion%>"><%=materiales[a].Descripcion%></option>
+        <% } %>
+
+    </select>
+</div>
+</div>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Welderstone</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <!-- CSS Stylesheet-->
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+        <style type="text/css">
+            #popup{
+                left: 0;
+                position: absolute;
+                top:0;
+                width:100%;
+                z-index:1001;
+            }
+            .content-pop{
+                margin: 0px auto;
+                margin-top: 100px;
+                position: relative;
+                padding: 10px;
+                width: 500px;
+                min-width: 250px;
+                background-color: white;
+                border: 1px solid black;
+            }
+        </style>
+        <link rel="stylesheet" href="css/style.css">
+                                
+        <!-- Fontawesome CDN Link -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    </head>
+    <body>
+
+        <%- include('layouts/navbar'); -%>
 
 
 
-
-
-
-
-
-
-
-
-
-/* 
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i],Codigo:req.body.Codigo[i],Unidad:req.body.Unidad[i],PrecioUnitario:req.body.PrecioUnitario[i],Familia:req.body.Familia[i],SubFam:req.body.SubFam[i]}});
-
-await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i],Codigo:req.body.Codigo[i],Unidad:req.body.Unidad[i],PrecioUnitario:req.body.PrecioUnitario[i],Familia:req.body.Familia[i],SubFam:req.body.SubFam[i]}},{ upsert: true });
-
-const material = require('../models/materiales.js')
-const path = require('path')
-
-module.exports = async (req,res)=>{
-
-    
-console.log(req.body.Descripcion);
-
-for(i=0; i<req.body.Descripcion.length;i++){
-    if(req.body.Descripcion[i] !== ''||req.body.Codigo[i] !== '' || req.body.Unidad[i] !== '',req.body.PrecioUnitario[i] !== '',req.body.Familia[i] !== '',req.body.SubFam[i] !== ''){
-           const a= await material.find({Descripcion:req.body.DescripcionBusqueda[i]}).count()
-    
        
-        if(a==0){  
-         
-                await material.create({...req.body,Descripcion:req.body.DescripionBusqueda[i]})  
-                
-        }else{
-    
-                await material.updateOne({Descripcion:req.body.DescripionBusqueda[i]},{$set:{...req.body}})
-        
-        }  
+        <header class="bg-dark py-5">
+
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Welderstone</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">Soluciones en acero</p>
+                </div>
+            </div>
+        </header>
+
   
-    }
-}
- 
-    
-    res.redirect('/')
-    
+        <!-- Section-->
 
+        <section class="py-5">  
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
 
-    
+            <form action="/AgregarProductosPost" method="POST" enctype="multipart/form-data">
+                <label>Id del producto</label>
+                <input type="text" class="form-control" id="IdProducto"
+                name="IdProducto">
+                </div>
+                </div>
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                    <input type="button" name="abrirse" id="open" value="Agregar materiales">
+                     <div id="popup" style="display: none;">
 
+                        <div class="content-pop">
+                            <div><a href="#" id="close">X</a></div>
 
-                //const res = await Character.updateOne({ name: 'Jean-Luc Picard' },{ $set: { age: 59 } },{ upsert: true }); // Make this update into an upsert
-
-
-
-                for(i=0; i<req.body.DescripcionBusqueda.length;i++){
-                        var sdoc = {};
-                        if(req.body.Descripcion[i] != '') {
-                          sdoc['Descripcion'] = req.body.Descripcion[i]
-                        }
-                        if(req.body.Codigo[i] != '') {
-                          sdoc['Codigo'] = req.body.Codigo[i]
-                        }
-                        if(req.body.Unidad[i] != '') {
-                          sdoc['Unidad'] = req.body.Unidad[i]
-                        }
-                        if(req.body.PrecioUnitario[i] != '') {
-                            sdoc['PrecioUnitario'] = req.body.PrecioUnitario[i]
-                          }
-                          if(req.body.Familia[i] != '') {
-                            sdoc['Familia'] = req.body.Familia[i]
-                          }
-                          if(req.body.SubFam[i] != '') {
-                            sdoc['SubFam'] = req.body.SubFam[i]
-                          }
-                        material.updateOne(
-                                {Descripcion:req.body.DescripcionBusqueda[i]},
-                                {$set: sdoc},
-                                { upsert: true });
-                    }
-
-
-
-
-
-
-
-
-
-
-
-
-                     if(req.body.Descripcion[i] !== ''){
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i]}},{ upsert: true });
-    }
-    if(req.body.Codigo[i] !== ''){
-    
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Codigo:req.body.Codigo[i]}},{ upsert: true });
-    
-    }
-    if(req.body.Unidad[i] !== ''){
-    
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Unidad:req.body.Unidad[i]}},{ upsert: true });
-        }
-    
-        if(req.body.PrecioUnitario[i] !== ''){
-    
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{PrecioUnitario:req.body.PrecioUnitario[i]}},{ upsert: true });
-    
-        }
-        if(req.body.Familia[i] !== ''){
-    
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Familia:req.body.Familia[i]}}),{ upsert: true };
-        }
-    
-        if(req.body.SubFam[i] !== ''){
-    
-        await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{SubFam:req.body.SubFam[i]}},{ upsert: true });
+                            <% for (var a = 0; a < materiales.length; a++) { %>
+                                <%=materiales[a].Descripcion%>
+                                <% } %>
         
-        }
+                    </div>
+
+
+                     </div>
+
+
+                    </div>
+                    </div>
+
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                        <label>Precio del producto</label>
+                        <input type="number" class="form-control" id="precio"
+                        name="precio">
+                        </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                            <label>Nombre del producto</label>
+                            <input type="text" class="form-control" id="nombre"
+                            name="nombre">
+                            </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="form-group floating-label-form-group controls">
+                                <label>Descripcion del producto</label>
+                                <input type="text" class="form-control" id="descripcion"
+                                name="descripcion">
+                                </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="form-group floating-label-form-group controls">
+                                    <label>Imagen del producto</label>
+                                    <input type="file" class="form-control" id="image"
+                                    name="image" required>
+                                    </div>
+                                    </div>
+                <br>
+                <div class="form-group">
+                <button type="submit" class="btn btn-primary"
+                id="sendMessageButton">Send</button>
+                </div>
+                </form>
+
+
+        </section>
+        <!-- Footer-->
+        <%- include('layouts/footer'); -%>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+        <!--Multi Select-->
+        <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+        <script>
+            new MultiSelectTag('MaterialesProductos')  // id
+        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+            $("#open").on("click", function (){
+                $("#popup").fadeIn("slow");
+            });
+            $("#close").on("click", function (){
+                $("#popup").fadeOut("slow");
+            });
+
+
+
+            });
+        </script>
+        <!-- FontAwesome-->
+        <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+    </body>
+</html>
 
 
 
@@ -134,134 +182,16 @@ for(i=0; i<req.body.Descripcion.length;i++){
 
 
 
-                var sdoc = {};
-        if(req.body.Descripcion[i] !== '') {
-          sdoc['Descripcion'] = req.body.Descripcion[i]
-          material.updateOne(
-            {Descripcion:req.body.DescripcionBusqueda[i]},
-            {$set: sdoc},
-            { upsert: false });
-        }
-        if(req.body.Codigo[i] !== '') {
-          sdoc['Codigo'] = req.body.Codigo[i]
-          material.updateOne(
-            {Descripcion:req.body.DescripcionBusqueda[i]},
-            {$set: sdoc},
-            { upsert: false });
-        }
-        if(req.body.Unidad[i] !== '') {
-          sdoc['Unidad'] = req.body.Unidad[i]
-          material.updateOne(
-            {Descripcion:req.body.DescripcionBusqueda[i]},
-            {$set: sdoc},
-            { upsert: false });
-        }
-        if(req.body.PrecioUnitario[i] !== '') {
-            sdoc['PrecioUnitario'] = req.body.PrecioUnitario[i]
-            material.updateOne(
-                {Descripcion:req.body.DescripcionBusqueda[i]},
-                {$set: sdoc},
-                { upsert: false });
-          }
-          if(req.body.Familia[i] !== '') {
-            sdoc['Familia'] = req.body.Familia[i]
-            material.updateOne(
-                {Descripcion:req.body.DescripcionBusqueda[i]},
-                {$set: sdoc},
-                { upsert: false });
-          }
-          if(req.body.SubFam[i] !== '') {
-            sdoc['SubFam'] = req.body.SubFam[i]
-            material.updateOne(
-                {Descripcion:req.body.DescripcionBusqueda[i]},
-                {$set: sdoc},
-                { upsert: false });
-          }
-    
+<% for (var a = 0; a < materiales.length; a++) { %>
+<div><%=materiales[a].Descripcion%><input type="number" value="0" name="MaterialesProductos.cantidad" min="0"></div>
 
-
-        for (c=0; c<req.body.DescripcionBusqueda.length;c++){
-
-                for (d=0; d<req.body.DescripcionBusqueda.length;d++){
-
-                    for (e=0; e<req.body.DescripcionBusqueda.length;e++){
-
-                        for (e=0; e<req.body.DescripcionBusqueda.length;e++){
-
-                            for (f=0; f<req.body.DescripcionBusqueda.length;f++){
-
-
-
-
-//usar este
-
-
-
-
-    for (i=0; i<req.body.DescripcionBusqueda.length;i++){
-        for (a=0; a<req.body.Descripcion.length;a++){
-
-       
-        if(req.body.Descripcion[i] !== '' && i === a){
-            console.log(a+i)
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[a]}},{ upsert: true });
-        }}}
+<% } %>
 
 
 
 
 
-
-
-
-
-  for (i=0; i<req.body.DescripcionBusqueda.length;i++){
-
-
-
-
-        for (b=0; b<req.body.Descripcion.length;b++){
-
-        if(req.body.Descripcion[i] !== ''){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[b]}},{ upsert: false });
-        }
-    }
-    for (c=0; c<req.body.Codigo.length;c++){
-
-        if(req.body.Codigo[i] !== ''){
-        
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Codigo:req.body.Codigo[c]}},{ upsert: false });
-        
-        }}
-        for (d=0; d<req.body.Unidad.length;d++){
-
-        if(req.body.Unidad[i] !== ''){
-        
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Unidad:req.body.Unidad[d]}},{ upsert: false });
-            }}
-            for (e=0; e<req.body.PrecioUnitario.length;e++){
-
-            if(req.body.PrecioUnitario[i] !== ''){
-        
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{PrecioUnitario:req.body.PrecioUnitario[e]}},{ upsert: false });
-        
-            }}
-            for (f=0; f<req.body.Familia.length;f++){
-
-            if(req.body.Familia[i] !== ''){
-        
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Familia:req.body.Familia[f]}}),{ upsert: false };
-            }}
-            for (g=0; g<req.body.SubFam.length;g++){
-
-            if(req.body.SubFam[i] !== ''){
-        
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{SubFam:req.body.SubFam[g]}},{ upsert: false });
-            
-            }}
-    
-        }
-        
-
-
-                */
+<div><%=materiales[0].Descripcion%>
+<input type="number" value="1" name='MaterialesProductos[cantidad]' min="0">
+<input type="hidden" value="<%=materiales[0].Descripcion%>" name="MaterialesProductos[nombre]">
+</div>
