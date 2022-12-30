@@ -1,33 +1,53 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt')
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
 
-const UserSchema = new Schema({
-    username: {
-    type: String,
-    required:  [true,'Por favor insterta un nombre de usuario'],
-    unique: true
-    },
-    password: {
-    type: String,
-    required:  [true,'Por favor inserta una contraseña']
-    },
-    role: {
-        type: String,
-        }
+// -------------- SCHEMA -------------- //
+const userSchema = new Schema({
+    email: String,
+    password: String,
+    googleId: String,
+    role: String
 });
+
+userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
     
-UserSchema.pre('save', function(next){
-    const user = this
-    bcrypt.hash(user.password, 10, (error, hash) => {
-    user.password = hash
-    next()
-    })
-})
+// -------------- MODEL -------------- //
+const User = mongoose.model("User", userSchema);
 
-UserSchema.plugin(uniqueValidator);
+// -------------- USER CONFIG -------------- //
+passport.use(User.createStrategy());
+passport.serializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        picture: user.picture
+      });
+    });
+});  
+passport.deserializeUser(function(user, cb) {
+    process.nextTick(function() {
+      return cb(null, user);
+    });
+});
 
-// export model
-const User = mongoose.model('User',UserSchema);
+// // - Google OAuth
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.GOOGLE_CLIENT_ID,
+//     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//     callbackURL: "http://localhost:3000/auth/google/welderstone"
+//   },
+//   function(accessToken, refreshToken, profile, cb) {
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
+
 module.exports = User

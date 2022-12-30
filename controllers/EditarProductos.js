@@ -1,14 +1,18 @@
-const Producto = require('../models/Productos.js')
-const Material = require('../models/materiales.js')
-const grades = require('../models/prueba.js')
-
+const Producto = require('../models/Productos.js');
+const Material = require('../models/materiales.js');
 
 module.exports = async (req, res) =>{
-    console.log(req.body)
-    const materiales = await Material.find({})
-    const productos = await Producto.find({})
-    console.log(productos[2].MaterialesProductos[0].nombre);
-    //const calificaciones = await grades.find({})
-    //console.log(calificaciones)
-    res.render('EditarProductos',{productos,materiales})
+    let role = "viewer";
+
+    if(req.session?.passport?.user != undefined){
+        role = req.session.passport.user.role;
     }
+
+    if(role == "admin"){
+        const materiales = await Material.find({});
+        const productos = await Producto.find({});
+        res.render('EditarProductos', {productos, materiales, roles: role, loggedIn: true});
+    } else{
+        res.redirect("/")
+    }
+}

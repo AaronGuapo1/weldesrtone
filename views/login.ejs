@@ -29,37 +29,11 @@
         <!--===============================================================================================-->
     </head>
     <body>
-        <!-- Aaron este es el codigo que tenias, solo lo comente por si hice algo mal, cuando este todo bien lo borras -->
-
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <form action="/logearse" method="POST" enctype="multipart/form-data">
-                        <div class="control-group">
-                            <div class="form-group floating-label-form-group controls">
-                                <label>Nombre de usuario</label>
-                                <input type="text" class="form-control" placeholder="User Name" id="username" name="username">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <div class="form-group floating-label-form-group controls">
-                                <label>Contraseña</label>
-                                <input type="password" class="form-control" placeholder="Password" id="password" name="password">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Logearse</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div> -->
-
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
 
-                    <form action="/logearse" method="POST" enctype="multipart/form-data" class="login100-form validate-form">
+                    <form action="/login" method="post" class="login100-form validate-form">
                         <!-- Logo -->
                         <span class="login100-form-title p-b-48">
                             <img class="logo" src="assets/brand/logo.png" alt="Welderstone Logo">
@@ -89,18 +63,17 @@
                                 </button>
                             </div>
                         </div>
-                        
-                        <!-- Link a Registrarse -->
-                        <div class="text-center p-t-115">
-                            <span class="txt1">
-                                ¿No tienes una cuenta?
-                            </span>
-    
-                            <a class="txt2" href="/registrarse">
-                                Registrarse
-                            </a>
-                        </div>
                     </form>
+                    <!-- Link a Registrarse -->
+                    <div class="text-center p-t-115">
+                        <span class="txt1">
+                            ¿No tienes una cuenta?
+                        </span>
+
+                        <a class="txt2" href="/registrarse">
+                            Registrarse
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

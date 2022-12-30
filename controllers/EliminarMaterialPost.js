@@ -1,28 +1,13 @@
 
-const material = require('../models/materiales.js')
-const path = require('path')
+const material = require('../models/materiales.js');
+const path = require('path');
 var express = require ('express');
 var router =express.Router();
 
-
-
-
-
-
-
-
-
-
 module.exports = async (req, res) =>{
-    console.log(req.body);
-    await material.deleteOne({DescripcionBusqueda:req.body.DescripcionBusqueda})
+    await material.deleteOne({DescripcionBusqueda:req.body.DescripcionBusqueda});
 
-    res.redirect('/EdicionMateriales')
-
-    }
-
-
-
-
+    res.redirect('/EdicionMateriales');
+}
 
 module.exports = router;

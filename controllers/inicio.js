@@ -1,5 +1,11 @@
 module.exports = async (req, res) =>{
-    console.log(req.session)
-    res.render('inicio');
+    let role = "viewer";
+    let logged = false; 
+    if(req.session?.passport?.user != undefined){
+        role = req.session.passport.user.role;
+        logged = true;
+    }
+
+    res.render('inicio', {roles: role, loggedIn: logged});
 }
     

@@ -2,8 +2,11 @@
 // -  NavBar
 @use "navbar";
 @use "mediaMixins";
+
+// -- HOME PAGE -- //
 // - Carousel
 @use "carousel";
+
 // ---------------- FONTS ---------------- // 
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
@@ -13,6 +16,10 @@ h1 {
     color: #C1C1C1;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
+}
+
+p {
+    font-family: 'Jost', sans-serif;
 }
 
 section {
@@ -71,5 +78,57 @@ img {
     .filter-button:hover {
         background-color: #d10101;
     }
+}
 
+// ---------------- ABOUT PAGE ---------------- // 
+#presentation {
+    h1 {
+        color: black;
+        font-size: 2rem;
+    }
+
+    hr {
+        margin: 1rem auto;
+        width: 75%;
+        color: black;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover{
+        color: #d10101;
+    }
+
+    .web-title {
+        color: #d10101;
+    }
+
+    .presentation-cont {
+        padding: 1% 25%;
+    }
+}
+
+// ---------------- MATERIALES ---------------- // 
+.editTitle {
+    color: #d10101;
+    text-align: center;
+}
+
+.titleContainer {
+    margin-bottom: 25px;
+    
+}
+
+.materialsPage {
+    padding: 2% 6%;
+
+    p {
+        margin: 0;
+        padding: 0;
+        color: black;
+        font-weight: 700;
+    }
 }

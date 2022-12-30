@@ -1,6 +1,10 @@
 module.exports = (req, res) =>{
-    req.session.destroy(() =>{
-    res.redirect('/')
-    })
-    }
+    req.logout(function(err){
+        if(err){
+            console.log(err);
+        } else{
+            res.redirect("/");
+        }
+    }); 
+}
     

@@ -5,12 +5,31 @@ nav img {
   margin: 0 auto;
   width: 35%;
 }
+@media (max-width: 992px) {
+  nav img {
+    width: 50%;
+  }
+}
+nav .icon-mobile {
+  display: none;
+}
+@media (max-width: 992px) {
+  nav .icon-mobile {
+    display: block;
+  }
+}
 nav .icon {
   display: block;
 }
-@media (max-width: 1200px) {
+@media (max-width: 992px) {
   nav .icon {
     display: none;
+  }
+}
+@media (max-width: 992px) {
+  nav .nav-link {
+    color: black;
+    font-weight: bold;
   }
 }
 nav .hide {
@@ -21,10 +40,13 @@ nav .hide {
     display: none;
   }
 }
-
-.navbar {
-  background-color: #d10101;
+nav .offcanvas-header {
+  border-bottom: 1px solid black;
 }
+nav #offcanvasDarkNavbarLabel {
+  color: #d10101;
+}
+
 @media (max-width: 992px) {
   .navbar {
     position: sticky;
@@ -33,7 +55,7 @@ nav .hide {
   }
 }
 
-.container-fluid {
+.nav-items {
   margin: 0;
   padding: 1.5% 0.5%;
 }
@@ -42,8 +64,14 @@ nav .hide {
   font-size: 1.5rem;
 }
 
+.f-icon:hover {
+  color: #d10101;
+}
+
 .left_nav {
+  vertical-align: middle;
   align-items: center;
+  flex-direction: row;
 }
 
 #carousel-section {
@@ -209,6 +237,10 @@ h1 {
   font-weight: 700;
 }
 
+p {
+  font-family: "Jost", sans-serif;
+}
+
 section {
   overflow: hidden;
 }
@@ -257,6 +289,48 @@ img {
 }
 #filter-buttons .filter-button:hover {
   background-color: #d10101;
+}
+
+#presentation h1 {
+  color: black;
+  font-size: 2rem;
+}
+#presentation hr {
+  margin: 1rem auto;
+  width: 75%;
+  color: black;
+}
+#presentation a {
+  text-decoration: none;
+  color: black;
+}
+#presentation a:hover {
+  color: #d10101;
+}
+#presentation .web-title {
+  color: #d10101;
+}
+#presentation .presentation-cont {
+  padding: 1% 25%;
+}
+
+.editTitle {
+  color: #d10101;
+  text-align: center;
+}
+
+.titleContainer {
+  margin-bottom: 25px;
+}
+
+.materialsPage {
+  padding: 2% 6%;
+}
+.materialsPage p {
+  margin: 0;
+  padding: 0;
+  color: black;
+  font-weight: 700;
 }
 
 /*# sourceMappingURL=styles.css.map */
