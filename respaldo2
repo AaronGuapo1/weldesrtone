@@ -298,6 +298,9 @@
 
 
 
+    <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
+
+    <button type="submit" id="sendMessageButton">Eliminar</button>
 
 
 
@@ -335,3 +338,7 @@
 
 
         <%= productos[a].image %>
+
+
+
+

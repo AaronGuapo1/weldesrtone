@@ -138,6 +138,76 @@
                 </form>
 
 
+
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-10 mx-auto">
+                                <div class="row row-cols-1">
+                                    <table>
+
+                                        <tr> 
+                                            
+                                            <th> Id del Producto</th>
+                                            <th> Materiales del Producto</th>
+                                            <th> Precio</th>
+                                            <th> Imagen </th>
+                                            <th> Nombre</th>
+                                            <th> Descripcion</th>
+    
+                                        </tr>
+    
+    <form action="" method="POST" enctype="multipart/form-data">
+    
+        <input type="hidden" class="form-control" id="IdProducto" name="IdProducto" value="tamales"> 
+        <input type="hidden" class="form-control"  id="MaterialesProductos" name="MaterialesProductos"value="tamales"> 
+        <input type="hidden" class="form-control"  id="precio" name="precio"value="3121321312" >
+        <input type="hidden" class="form-control" id="imagen" name="imagen"value="tamales">
+        <input type="hidden" class="form-control"  id="nombre" name="nombre"value="tamales">
+        <input type="hidden" class="form-control" id="descripcion" name="descripcion" value="tamales">
+    
+    <% for (var a = 0; a < productos.length; a++) { %>
+    
+    <tr> 
+    
+        <th> <%=productos[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto"> 
+        </th>                                
+        <th>    <%=productos[a].MaterialesProductos%> <input type="text" class="form-control"  id="MaterialesProductos" name="MaterialesProductos"> 
+                                            
+        </th>
+        <th>  <%=productos[a].precio%> <input type="text" class="form-control"  id="precio" name="precio" >
+                                            
+        </th>
+        <th>  <%=productos[a].image%> <input type="text" class="form-control" id="imagen" name="imagen">
+    
+        </th>
+        <th>   <%=productos[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
+                                            
+        </th>
+        <th>   <%=productos[a].descripcion%> <input type="text" class="form-control"  id="descripcion" name="descripcion">
+                                            
+        </th>
+        <th> 
+                <a href="" type="submit" id="sendMessageButton">Eliminar</a>
+    
+                
+        </th>
+    </tr>      
+    <% } %>
+    </table>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        </div>
+                        
+       
+
+
+
+                
         </section>
         <!-- Footer-->
         <%- include('layouts/footer'); -%>

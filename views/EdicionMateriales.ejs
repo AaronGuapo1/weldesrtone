@@ -43,7 +43,7 @@
                 <input type="text" class="form-control" placeholder="Descripcion"
                 id="Descripcion" name="Descripcion" required>
                 <input type="text" class="form-control" placeholder="Codigo"
-                id="Codigo" name="Codigo" >
+                id="Codigo" name="Codigo" required>
                 <input type="text" class="form-control" placeholder="Unidad"
                 id="Unidad" name="Unidad" >
                 <input type="number" class="form-control" placeholder="Precio Unitario"
@@ -114,18 +114,17 @@
                                         
     </th>
     <th> 
-        <form action="/EliminarMaterialPost" method="POST" enctype="multipart/form-data">
             <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
+            <a href="/borrarMaterial/<%=materiales[a].Codigo%>" type="submit" id="sendMessageButton">Eliminar</a>
 
-            <button type="submit" id="sendMessageButton">Eliminar</button></form>
-
-    </form>
+            
     </th>
 </tr>      
 <% } %>
 </table>
 <button type="submit" id="sendMessageButton">Guardar Cambios</button></form>
-                       
+</form>
+
                         </div>
 
 
