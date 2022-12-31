@@ -8,7 +8,7 @@ const findOrCreate = require('mongoose-findorcreate');
 
 // -------------- SCHEMA -------------- //
 const userSchema = new Schema({
-    email: String,
+    username: String,
     password: String,
     googleId: String,
     role: String
@@ -45,7 +45,12 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/welderstone"
   },
   function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id, role: "costumer" }, function (err, user) {
+    User.findOrCreate({ googleId: profile.id }, async function (err, user) {
+      console.log(profile);
+      if(user?.role == undefined){
+        await User.updateMany({googleId: user.googleId}, {username: profile.displayName ,role: "costumer"});
+      }
+
       return cb(err, user);
     });
   }
