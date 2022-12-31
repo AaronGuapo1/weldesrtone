@@ -6,9 +6,6 @@ const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const findOrCreate = require('mongoose-findorcreate');
 
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
@@ -22,11 +19,12 @@ function nocache(req, res, next) { /// function used to remove cache anywhere ne
 const app = new express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public")); 
+app.use(fileUpload());
 app.set("view engine", "ejs");
 
 // -------------- SESSION CONFIG -------------- //
 app.use(session({
-    secret: "Our little secret.",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
 }));
@@ -41,44 +39,49 @@ mongoose.set('strictQuery', true);
 mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
-const inicioController= require('./controllers/inicio');
-const TiendaController= require('./controllers/tienda');
-const RegistrarController= require('./controllers/registrarse');
-const GuardarUsuario = require('./controllers/GuardarUsuario');
-const LoginController = require('./controllers/login');
-const LogearseController = require('./controllers/logearse');
-const redirectIfAuthenticatedMiddleware = require('./middleware/redirectIfAuthenticatedMiddleware');
+const inicioController = require('./controllers/inicio');
+const tiendaController = require('./controllers/tienda');
+const registrarControllerGET = require('./controllers/registrarseGET');
+const registrarControllerPOST = require('./controllers/registrarsePOST');
+const loginController = require('./controllers/login');
 const logoutController = require('./controllers/logout');
-const AgregarProductosController = require('./controllers/agregarProductos');
-const EditarProductosController = require('./controllers/editarProductos');
-const SeguridadMiddleware= require('./middleware/seguridad');
-const EdicionMaterialesController = require('./controllers/EdicionMateriales');
-const EdicionMaterialesPostController = require('./controllers/EdicionMaterialesPost');
-const AgregarMaterialesPostController = require('./controllers/AgregarMaterialPost');
-const AgregarProductosPostController = require('./controllers/AgregarProductosPost');
-const borrarMaterialController=require('./controllers/borrarMaterial');
+const productosGET = require('./controllers/productosGET');
+const materialesGET = require('./controllers/materialesGET');
+const materialesEdicionPOST = require('./controllers/materialesEdicionPOST');
+const materialesAgregarPOST = require('./controllers/materialesAgregarPOST');
+const productosEdicionPOST = require("./controllers/productosEdicionPOST");
+const productosAgregarPOST = require('./controllers/productosAgregarPOST');
+const materialBorrar = require('./controllers/materialBorrar');
+const aboutGET = require("./controllers/about")
 
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
-app.get('/tienda', TiendaController);
-app.get('/registrarse', RegistrarController);
-app.get('/login', LoginController);
+app.get('/tienda', tiendaController);
+app.get("/about", aboutGET);
+app.get('/registrarse', registrarControllerGET);    
+app.get('/login', loginController);
 app.get('/logout', logoutController);
-app.get('/AgregarProductos', nocache, AgregarProductosController);
-app.get('/EditarProductos', nocache, EditarProductosController);
-app.get('/EdicionMateriales', nocache,EdicionMaterialesController);
+app.get('/productos', nocache, productosGET);
+app.get('/materiales', nocache, materialesGET);
+// - Google Auth
+app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
+app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login"}), function(req, res){
+    res.redirect("/")
+});
 
 // - POST METHOD - //
 app.post("/login", passport.authenticate("local", {failureRedirect: "/login"}), function(req, res){
     res.redirect("/");
 });
-app.post('/registrar', GuardarUsuario);
-app.post('/EdicionMaterialesPost', EdicionMaterialesPostController);
-app.post('/AgregarMaterialPost', AgregarMaterialesPostController);
-app.post('/AgregarProductosPost', AgregarProductosPostController);
-app.use('/borrarMaterial/:id',borrarMaterialController);
-
+app.post('/registrarse', registrarControllerPOST);
+// - Materiales
+app.post('/materiales/edicion', materialesEdicionPOST);
+app.post('/materiales/agregar', materialesAgregarPOST);
+app.use('/material/borrar/:id', materialBorrar);
+// - Productos
+app.post("/productos/edicion", productosEdicionPOST);
+app.post('/productos/agregar', productosAgregarPOST);
 
 app.use((req, res) => res.render('notfound'));
 

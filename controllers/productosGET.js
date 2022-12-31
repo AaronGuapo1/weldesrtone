@@ -11,7 +11,7 @@ module.exports = async (req, res) =>{
     if(role == "admin"){
         const materiales = await Material.find({});
         const productos = await Producto.find({});
-        res.render('EditarProductos', {productos, materiales, roles: role, loggedIn: true});
+        res.render('productos', {productos, materiales, roles: role, loggedIn: true});
     } else{
         res.redirect("/")
     }

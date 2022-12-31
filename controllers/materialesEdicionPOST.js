@@ -1,10 +1,6 @@
 const material = require('../models/materiales.js');
-const path = require('path');
-const { Console } = require('console');
 
 module.exports = async (req,res)=>{
-    console.log(req.body)
-
     for (i=1; i<req.body.DescripcionBusqueda.length;i++){
         if(req.body.Descripcion[i] !== '' ){
             await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i]}});
@@ -29,9 +25,8 @@ module.exports = async (req,res)=>{
         if(req.body.SubFam[i] !== '' ){
             await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{SubFam:req.body.SubFam[i]}});
         }
-    
     }
 
-    res.redirect('/EdicionMateriales')
+    res.redirect('/materiales')
 }
 

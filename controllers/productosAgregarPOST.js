@@ -1,5 +1,4 @@
 const Producto = require('../models/Productos.js');
-const fileUpload = require('express-fileupload');
 const path = require('path');
 
 module.exports = (req,res)=>{   
@@ -14,7 +13,7 @@ module.exports = (req,res)=>{
             }
         }
         
-        res.redirect('/AgregarProductos')
+        res.redirect('/productos')
     })
 }
     

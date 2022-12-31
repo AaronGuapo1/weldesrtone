@@ -36,7 +36,7 @@
             <div class="container">
                 <div class="row">
                 <div class="col-lg-8 col-md-10 mx-auto">
-                <form action="/AgregarMaterialPost" method="POST" enctype="multipart/form-data">
+                <form action="/materiales/agregar" method="POST" enctype="multipart/form-data">
                 <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                 <label  class="btn col-sm-3 form-label">Agregar Nuevos Materiales</label>
@@ -82,7 +82,7 @@
 
                                     </tr>
 
-<form action="/EdicionMaterialesPost" method="POST" enctype="multipart/form-data">
+<form action="/materiales/edicion" method="POST" enctype="multipart/form-data">
 
     <input type="hidden" class="form-control" id="Descripcion" name="Descripcion" value="tamales"> 
     <input type="hidden" class="form-control"  id="Codigo" name="Codigo"value="tamales"> 
@@ -115,7 +115,7 @@
     </th>
     <th> 
             <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
-            <a href="/borrarMaterial/<%=materiales[a].Codigo%>" type="submit" id="sendMessageButton">Eliminar</a>
+            <a href="/material/borrar/<%=materiales[a].Codigo%>" type="submit" id="sendMessageButton">Eliminar</a>
 
             
     </th>

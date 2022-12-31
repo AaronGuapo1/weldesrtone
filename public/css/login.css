@@ -49,6 +49,10 @@
       margin: 0px;
   }
   
+  hr {
+    margin: 25px 0;
+  }
+  
   p {
       font-family: 'Poppins', sans-serif;
       font-weight: 400;      font-size: 14px;
@@ -158,7 +162,7 @@
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
-    padding: 77px 55px 33px 55px;
+    padding: 40px 55px 40px 55px;
   
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
@@ -171,7 +175,7 @@
   /*------------------------------------------------------------------
   [ Form ]*/
   .logo {
-    width: 50%;
+    width: 65%;
   }
 
   .login100-form {
@@ -183,7 +187,7 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 700;    
     font-size: 30px;
-    color: #333333;
+    color: black;
     line-height: 1.2;
     text-align: center;
   }

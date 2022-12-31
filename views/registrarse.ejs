@@ -24,6 +24,7 @@
         <!--===============================================================================================-->	
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-social.css">
         <link rel="stylesheet" type="text/css" href="css/util.css">
         <link rel="stylesheet" type="text/css" href="css/login.css">
         <!--===============================================================================================-->
@@ -33,6 +34,10 @@
             <div class="container-login100">
                 <div class="wrap-login100">
                     <form action="/registrar" method="post" class="login100-form validate-form">
+                        <span class="login100-form-title p-b-26">
+                            Registrarse
+                        </span>
+
                         <!-- Logo -->
                         <span class="login100-form-title p-b-48">
                             <img class="logo" src="assets/brand/logo.png" alt="Welderstone Logo">
@@ -63,9 +68,15 @@
                             </div>
                         </div>
                     </form>
+
+                    <hr>
+
+                    <a class="btn btn-social btn-google btn-sm w-100" href="/auth/google" role="button">
+                        <span class="fa fa-google"></span> Registrate con Google
+                    </a>
                                             
                     <!-- Link a Registrarse -->
-                    <div class="text-center p-t-115">
+                    <div class="text-center p-t-25">
                         <span class="txt1">
                             ¿Ya tienes una cuenta?
                         </span>
