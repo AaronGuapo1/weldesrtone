@@ -7,132 +7,91 @@
 }
 
 #carousel-section{
-    margin-top: 100px;
+    margin-top: 75px;
     margin-bottom: 50px;
+
+    .square-img {
+        height: 100%;
+    }
 }
 
 #desktopCarousel {
-    display: none;
+    display: block;
 
-    @include mediaMixins.min-lg(){
-        display: block;
+    .photo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @include mixin-photo-container($h: 650px);
+    }
 
-        img {
-            position: relative;
-        }
-    
-        .small-photo {
+    .large-img {
+        width: 100%;
+        @include mediaMixins.media-custom(1400px){
+            width: auto;
             height: 100%;
-            bottom: 0;
-    
-            @include mediaMixins.min-xl() {
-                height: fit-content;
-                width: 100%;
-                bottom: 15%;
-            }
-        }
-
-        .test {
-            height: 100%;
-        }
-
-        .test-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @include mixin-photo-container($h: 600px);
-        }
-    
-        .medium-photo {
-            height: 100%;
-            right: 80%;
-    
-            @include mediaMixins.min-xl() {
-                right: 50%;
-            }
-    
-            @include mediaMixins.min-xxl {
-                right: 25%;
-            }
-        }
-    
-        .custom-medium {
-            right: 20%;
-    
-            @include mediaMixins.min-xl() {
-                right: 0;
-            }
-        }
-    
-        .custom-small {
-            height: 100%;
-            bottom: 0;
-            right: 20%;
-    
-            @include mediaMixins.min-xl(){
-                right: 0%;
-            }
-    
-            @include mediaMixins.min-xxl {
-                height: fit-content;
-                bottom: 10%;
-            }
-        }
-    
-        .fix {
-            right: 10%;
-    
-            @include mediaMixins.min-xl(){
-                right: 0;
-            }
-        }
-    
-        .photo-container {
-            @include mixin-photo-container($h: 600px);
-        }
-    
-        .photo-container-lg {
-            @include mixin-photo-container($h: 600px);
-        }
-    
-        .photo-container-final {
-            @include mixin-photo-container($h: 600px);
-        }
-    
-        .set-three {
-            display: grid;
-            grid-template-columns: auto auto auto;
-            column-gap: 10px;
-        }
-    
-        .set-two {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            column-gap: 10px;
         }
     }
-}
 
-#mobile-carousel {
-    display: none;
-
-    img {
-        height: 100%;
-        position: relative;
-        right: 75%;
+    .set-three {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        column-gap: 10px;
     }
 
     @include mediaMixins.lg(){
+        display: none;
+    }
+}
+
+#tablet-carousel {
+    display: none;
+
+    @include mediaMixins.lg(){
         display: block;
+
         .photo-container {
-            @include mixin-photo-container($h: 75vh);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include mixin-photo-container($h: 650px);
+        }
+
+        .large-img {
+            width: 100%;
+            @include mediaMixins.media-custom(900px){
+                width: auto;
+                height: 100%;
+            }
         }
 
         .set-two {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: auto auto;
             column-gap: 10px;
+        }
+    }
+
+    @include mediaMixins.md(){
+        display: none;
+    }
+}
+
+#mobile-carousel{
+    display: none;
+
+    @include mediaMixins.md(){
+        display: block;
+
+        .large-img {
+            width: 100%;
+        }
+
+        .photo-container {
+            display: flex;
             justify-content: center;
+            align-items: center;
+            @include mixin-photo-container($h: 650px);
         }
     }
 }

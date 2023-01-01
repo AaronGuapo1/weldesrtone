@@ -34,8 +34,16 @@ img {
 // ---------------- FILTER BUTTONS SECTION ---------------- // 
 #filter-buttons {
     margin-top: 150px;
-    margin-bottom: 200px;
+    margin-bottom: 175px;
     padding: 0 10%;
+
+    @include mediaMixins.lg(){
+        padding: 0 20%;
+    }
+
+    @include mediaMixins.md(){
+        padding: 0 15%;
+    }
 
     div {
         text-align: center;
@@ -45,6 +53,10 @@ img {
         font-size: 1.2rem;
         font-family: 'Jost', sans-serif;   
         font-weight: 400; 
+
+        @include mediaMixins.md(){
+            font-size: 1rem;
+        }
     }
 
     img {
@@ -61,6 +73,10 @@ img {
         font-size: 4rem;
         color: white;
         margin: auto;
+
+        @include mediaMixins.xxl(){
+            font-size: 3rem;
+        }
     }
 
     .filter-button {
@@ -73,6 +89,16 @@ img {
         align-items: center;
         margin-bottom: 25px;
         margin-top: 50px;
+
+        @include mediaMixins.xxl(){
+            width: 15vh;
+            height: 15vh;
+        }
+
+        @include mediaMixins.md(){
+            width: 13vh;
+            height: 13vh;
+        }
     }
 
     .filter-button:hover {
@@ -119,7 +145,6 @@ img {
 
 .titleContainer {
     margin-bottom: 25px;
-    
 }
 
 .materialsPage {
