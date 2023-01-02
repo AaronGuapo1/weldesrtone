@@ -33,7 +33,7 @@
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
-                    <form action="/registrarse" method="post" class="login100-form validate-form">
+                    <form action="/registrarse" method="post" class="login100-form validate-form" name="registerForm" onsubmit="return checkform()">
                         <span class="login100-form-title p-b-26">
                             Registrarse
                         </span>
@@ -46,7 +46,7 @@
                         <!-- Input Nombre de Usuario -->
                         <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
                             <input class="input100" type="email" name="username" id="username" required>
-                            <span class="focus-input100" data-placeholder="Nombre de Usuario"></span>
+                            <span class="focus-input100" data-placeholder="Email"></span>
                         </div>
                         
                         <!-- Input Contraseña -->
@@ -56,6 +56,15 @@
                             </span>
                             <input class="input100" type="password" id="password" name="password" required>
                             <span class="focus-input100" data-placeholder="Contraseña"></span>
+                        </div>
+
+                        <!-- Input Contraseña Confirmacion -->
+                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                            <span class="btn-show-pass">
+                                <i class="zmdi zmdi-eye"></i>
+                            </span>
+                            <input class="input100" type="password" id="confirmation" name="confirmation" required>
+                            <span class="focus-input100" data-placeholder="Confirma tu contraseña"></span>
                         </div>
                         
                         <!-- Boton Iniciar Sesion -->
@@ -103,6 +112,7 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <!--===============================================================================================-->
-        <script src="login.js"></script>
+        <script src="js/login.js"></script>
+        <script src="js/registerValidation.js"></script>
     </body>
 </html>

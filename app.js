@@ -60,18 +60,18 @@ app.get('/', inicioController);
 app.get('/tienda', tiendaController);
 app.get("/about", aboutGET);
 app.get('/registrarse', registrarControllerGET);    
-app.get('/login', loginController);
+app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
 app.get('/materiales', nocache, materialesGET);
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
-app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login"}), function(req, res){
+app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login/false"}), function(req, res){
     res.redirect("/")
 });
 
 // - POST METHOD - //
-app.post("/login", passport.authenticate("local", {failureRedirect: "/login"}), function(req, res){
+app.post("/login", passport.authenticate("local", {failureRedirect: "/login/false"}), function(req, res){
     res.redirect("/");
 });
 app.post('/registrarse', registrarControllerPOST);
