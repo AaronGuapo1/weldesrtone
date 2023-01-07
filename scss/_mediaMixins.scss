@@ -84,3 +84,10 @@ $screen-xxl-min: 1400px;
         @content;
     }
 }
+
+// - Extra extra large devices
+@mixin media-custom($screen) {
+    @media (max-width: #{$screen}) {
+        @content;
+    }
+}

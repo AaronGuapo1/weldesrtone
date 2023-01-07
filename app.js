@@ -41,8 +41,6 @@ mongoose.set('strictQuery', true);
 // ---------------- CONTROLLERS ---------------- //
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
-const registrarControllerGET = require('./controllers/registrarseGET');
-const registrarControllerPOST = require('./controllers/registrarsePOST');
 const loginController = require('./controllers/login');
 const logoutController = require('./controllers/logout');
 const productosGET = require('./controllers/productosGET');
@@ -60,22 +58,34 @@ const aboutGET = require("./controllers/about")
 app.get('/', inicioController);
 app.get('/tienda', tiendaController);
 app.get("/about", aboutGET);
-app.get('/registrarse', registrarControllerGET);    
-app.get('/login', loginController);
+app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
 app.get('/materiales', nocache, materialesGET);
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
-app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login"}), function(req, res){
+app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login/false"}), function(req, res){
+    console.log(req.session);
     res.redirect("/")
+});
+// - Facebook Auth
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/welderstone', passport.authenticate('facebook', { failureRedirect: '/login/false' }), function(req, res) {
+    console.log(req.session);
+    res.redirect('/');
+});
+// - Microsoft Auth
+app.get('/auth/microsoft',
+passport.authenticate('microsoft', {
+  prompt: 'select_account',
+}));
+app.get('/auth/microsoft/welderstone', 
+passport.authenticate('microsoft', { failureRedirect: '/login/false' }),
+function(req, res) {
+  res.redirect('/');
 });
 
 // - POST METHOD - //
-app.post("/login", passport.authenticate("local", {failureRedirect: "/login"}), function(req, res){
-    res.redirect("/");
-});
-app.post('/registrarse', registrarControllerPOST);
 // - Materiales
 app.post('/materiales/edicion', materialesEdicionPOST);
 app.post('/materiales/agregar', materialesAgregarPOST);
