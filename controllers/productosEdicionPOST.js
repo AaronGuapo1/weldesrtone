@@ -29,9 +29,9 @@ module.exports =  async (req,res)=>{
 
         var image = req.files.image;
         //console.log(image)
-        for (i=1; i<req.body.NombreBusqueda.length;i++){
+        for (i=0; i<req.body.NombreBusqueda.length;i++){
 
-        image.mv(path.resolve(__dirname,'..','public/img',image.name),async (error)=>{
+        image[i].mv(path.resolve(__dirname,'..','public/img',image[i].name),async (error)=>{
             //console.log({image: '/img/' + image.name})
             //console.log(req.body.nombre)
             console.log(image[i])
@@ -46,6 +46,8 @@ module.exports =  async (req,res)=>{
         */
         })
     }
+
+    
       }
 
     catch (error) {
