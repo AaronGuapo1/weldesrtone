@@ -1,5 +1,9 @@
 @use "mediaMixins";
 
+.navbar-div {
+    border-bottom: red solid 2px;
+}
+
 nav {
     img {
         display: block;

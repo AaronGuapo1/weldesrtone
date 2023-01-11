@@ -160,7 +160,7 @@
     
                                         </tr>
     
-                                        <% for (var a = 0; a < productos.length; a++) { %>
+                                        <% for (var a = 0; a < productos.docs.length; a++) { %>
 
     <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
     
@@ -170,22 +170,22 @@
     
     <tr> 
     
-        <th> <%=productos[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto"> 
+        <th> <%=productos.docs[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto"> 
         </th>                                
         <th>       
 
-            <a href="/productos/MaterialesEdicion/<%=productos[a].nombre%>" type="submit" id="sendMessageButton">Editar materiales</a>
+            <a href="/productos/MaterialesEdicion/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Editar materiales</a>
 
 
 
         </th>
 
-        <th>  <%=productos[a].precio%> <input type="text" class="form-control"  id="precio" name="precio" >
+        <th>  <%=productos.docs[a].precio%> <input type="text" class="form-control"  id="precio" name="precio" >
                                             
         </th>
         <th> 
      
-            <img src="<%= productos[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
+            <img src="<%= productos.docs[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
             <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                 <input type="file" class="form-control" id="image" name="image">
@@ -194,15 +194,15 @@
                 </div>
     
         </th>
-        <th>   <%=productos[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
+        <th>   <%=productos.docs[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
                                             
         </th>
-        <th>   <%=productos[a].descripcion%> <input type="text" class="form-control"  id="descripcion" name="descripcion">
+        <th>   <%=productos.docs[a].descripcion%> <input type="text" class="form-control"  id="descripcion" name="descripcion">
                                             
         </th>
         <th> 
-            <input type="hidden" name="NombreBusqueda" value="<%=productos[a].nombre%>">
-                <a href="/productos/borrar/<%=productos[a].nombre%>" type="submit" id="sendMessageButton">Eliminar</a>
+            <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
+                <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar</a>
     
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary"
@@ -229,7 +229,11 @@
                         
                     
 
-
+                        <% for (var a = 1; a < productos.totalPages+1; a++) { %> 
+              
+                            <a href="/productos?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
+                          
+                            <% } %>
                 
         </section>
         <!-- Footer-->

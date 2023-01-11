@@ -8,8 +8,19 @@ module.exports = async (req, res) =>{
     }
 
     if(role == "admin"){
-        const materiales = await material.find({});
+        var page = req.query.page;
+       
+        console.log(page)
+        if (page === undefined){
+           
+        const materiales = await material.paginate({},{page:1},{limit:10},);
+       
         res.render('materiales', {materiales, roles: role, loggedIn: true});
+    }else{
+        const materiales = await material.paginate({},{page},{limit:10},);
+       
+        res.render('materiales', {materiales, roles: role, loggedIn: true});
+    }
     } else{
         res.redirect("/")
     }

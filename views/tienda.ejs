@@ -35,7 +35,7 @@
             <div class="container">
 
                 <div class="row mt-5">
-                    <% for (var a = 0; a < productos.length; a++) { %>
+                    <% for (var a = 0; a < productos.docs.length; a++) { %>
 
                     <div class="col-md-4">
 
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="card-body">
-                                <img src="<%= productos[a].image %>" alt="" class="img-fluid zoom" style="height: 200px;">
+                                <img src="<%= productos.docs[a].image %>" alt="" class="img-fluid zoom" style="height: 200px;">
                                 <hr />
                                 <h3></h3>
                                 <p class="description"></p>
@@ -74,7 +74,11 @@
 
             </div>
 
-
+            <% for (var a = 1; a < productos.totalPages+1; a++) { %> 
+              
+                <a href="/tienda?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
+              
+                <% } %>
      
         <!-- Footer-->
         <%- include('layouts/footer'); -%>

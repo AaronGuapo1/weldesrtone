@@ -16,133 +16,183 @@
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
-
         <%- include('layouts/navbar'); -%>
 
+        <section id="materialsPage">
+             <!-- Agregar material -->
+            <div class="card text-bg-danger mb-4">
+                <div class="card-header">Agregar materiales</div>
+                <div class="card-body">
+                    <h5 class="card-title">Agregue aqui las especificaciones del material que desea agregar.</h5>
 
+                    <form action="/materiales/agregar" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <!-- Descripcion -->
+                            <div class="form-floating mt-3 mb-3 col-12">
+                                <input type="text" class="form-control" id="Descripcion" name="Descripcion" placeholder="Descripcion" autocomplete="off" required>
+                                <label for="Descripcion">Descripción</label>
+                            </div>
 
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Welderstone</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Soluciones en acero</p>
+                            <!-- Codigo -->
+                            <div class="form-floating mb-3 col-2 pe-1">
+                                <input type="text" class="form-control" placeholder="Codigo" id="Codigo" name="Codigo" autocomplete="off" required>
+                                <label for="Codigo">Codigo</label>
+                            </div>
+
+                            <!-- Unidad -->
+                            <div class="form-floating mb-3 col-2 pe-1">
+                                <input type="text" class="form-control" placeholder="Unidad" id="Unidad" name="Unidad">
+                                <label for="Unidad">Unidad</label>
+                            </div>
+
+                            <!-- Precio Unitario -->
+                            <div class="form-floating mb-3 col-2 pe-1">
+                                <input type="number" step="any" class="form-control" placeholder="Precio Unitario" id="PrecioUnitario" name="PrecioUnitario" autocomplete="off">
+                                <label for="PrecioUnitario">Precio Unitario</label>
+                            </div>
+                            
+                            <!-- Familia -->
+                            <div class="form-floating mb-3 col-3 pe-1">
+                                <input type="text" class="form-control" placeholder="Familia" id="Familia" name="Familia">
+                                <label for="Familia">Familia</label>
+                            </div>
+
+                            <!-- Sub Familia -->
+                            <div class="form-floating mb-3 col-3 pe-1">
+                                <input type="text" class="form-control" placeholder="Sub Familia" id="SubFam" name="SubFam">
+                                <label for="SubFam">Sub Familia</label>
+                            </div>
+
+                            <button class="btn btn-dark" type="submit" id="sendMessageButton"><strong>Agregar</strong></button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </header>
-        <!-- Section-->
-        <section class="py-5">
+        
+            <!-- Edicion de Materiales -->
+            <div class="card border-danger">
+                <div class="card-header">Inventario de Materiales</div>
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Edite los materiales que sean necesarios y al finalizar presione el botón de Guardar Cambios.</h5>
+                    <form action="/materiales/edicion" method="post">
+                        <% for (var a = 0; a < materiales.docs.length; a++) { %> 
+                     
+                            <!-- Material Card -->
+                            <div class="card text-bg-danger mb-3">
+                                <!-- Cuerpo de la Card -->
+                                <div class="card-body row">
+                                    <!-- Descripcion del material -->
+                                    <div class="col-12 mb-1">
+                                        <strong>Descripción: </strong><span><%=materiales.docs[a].Descripcion%></span>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong>Codigo: </strong><%=materiales.docs[a].Codigo%>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong>Unidad: </strong><%=materiales.docs[a].Unidad%>
+                                    </div>
+                                    <div class="col-2">
+                                        <strong>Precio Unitario: </strong>$<%=materiales.docs[a].PrecioUnitario%>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Familia: </strong><%=materiales.docs[a].Familia%>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Subfamilia: </strong><%=materiales.docs[a].SubFam%>
+                                    </div>
 
-            <div class="container">
-                <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                <form action="/materiales/agregar" method="POST" enctype="multipart/form-data">
-                <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                <label  class="btn col-sm-3 form-label">Agregar Nuevos Materiales</label>
-                <input type="text" class="form-control" placeholder="Descripcion"
-                id="Descripcion" name="Descripcion" required>
-                <input type="text" class="form-control" placeholder="Codigo"
-                id="Codigo" name="Codigo" required>
-                <input type="text" class="form-control" placeholder="Unidad"
-                id="Unidad" name="Unidad" >
-                <input type="number" class="form-control" placeholder="Precio Unitario"
-                id="PrecioUnitario" name="PrecioUnitario" >
-                <input type="text" class="form-control" placeholder="Familia"
-                id="Familia" name="Familia" >
-                <input type="text" class="form-control" placeholder="Sub Familia"
-                id="SubFam" name="SubFam" >
-                </div>
-                </div>
-      
-                <br>
-                <div class="form-group">
-                <button type="submit" id="sendMessageButton">Agregar</button>
-                </div>
-                </form>
-                </div>
-                </div>
-                </div>
-                
+                                    <!-- Linea de separacion -->
+                                    <div class="px-3">
+                                        <hr class="border border-light border-1 opacity-100 mt-3">
+                                    </div>
 
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                            <div class="row row-cols-1">
-                                <table>
+                                    <!-- Inputs de Edicion de Material -->
+                                    <div hidden class="<%=materiales.docs[a].Codigo%>">
+                                        <!-- Inputs -->
+                                        <div class="row px-3">
+                                            <!-- Codigo Input -->
+                                            <div class="form-floating mb-3 col-2 pe-1">
+                                                <input type="text" class="form-control" placeholder="Codigo" id="Codigo" name="Codigo" autocomplete="off" disabled>
+                                                <label for="Codigo">Codigo</label>
+                                            </div>
+        
+                                            <!-- Unidad Input -->
+                                            <div class="form-floating mb-3 col-2 pe-1">
+                                                <input type="text" class="form-control" placeholder="Unidad" id="Unidad" name="Unidad" disabled>
+                                                <label for="Unidad">Unidad</label>
+                                            </div>
+        
+                                            <!-- Precio Unitario Input -->
+                                            <div class="form-floating mb-3 col-2 pe-1">
+                                                <input type="number" step="any" class="form-control" placeholder="Precio Unitario" id="PrecioUnitario" name="PrecioUnitario" disabled autocomplete="off">
+                                                <label for="PrecioUnitario">Precio Unitario</label>
+                                            </div>
+                                            
+                                            <!-- Familia Input -->
+                                            <div class="form-floating mb-3 col-3 pe-1">
+                                                <input type="text" class="form-control" placeholder="Familia" id="Familia" name="Familia" disabled>
+                                                <label for="Familia">Familia</label>
+                                            </div>
+        
+                                            <!-- Sub Familia Input -->
+                                            <div class="form-floating mb-3 col-3 pe-1">
+                                                <input type="text" class="form-control" placeholder="Sub Familia" id="SubFam" name="SubFam" disabled>
+                                                <label for="SubFam">Sub Familia</label>
+                                            </div>
 
-                                    <tr> 
-                                        
-                                        <th> Descripcion</th>
-                                        <th> Codigo</th>
-                                        <th> Unidad</th>
-                                        <th> Precio Unitario</th>
-                                        <th> Familia</th>
-                                        <th> Sub Familia</th>
+                                            <input type="hidden" class="secret" name="id" value="<%= materiales.docs[a]._id %>" disabled>
+                                        </div>
+                                    </div>
 
-                                    </tr>
+                                    <!-- Boton de edicion -->
+                                    <div class="col-6 mt-1">
+                                        <button type="button" class="btn btn-primary w-100 edit" id="<%=materiales.docs[a].Codigo%>">Editar</button>
+                                    </div>
 
-<form action="/materiales/edicion" method="POST" enctype="multipart/form-data">
+                                    <!-- Boton de Borrar -->
+                                    <div class="col-6 mt-1">
+                                        <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales.docs[a].Codigo%>">
+                                            Eliminar
+                                        </button>                                        
+                                    </div>
 
-    <input type="hidden" class="form-control" id="Descripcion" name="Descripcion" value="tamales"> 
-    <input type="hidden" class="form-control"  id="Codigo" name="Codigo"value="tamales"> 
-    <input type="hidden" class="form-control"  id="Unidad" name="Unidad"value="tamales" >
-    <input type="hidden" class="form-control" id="PrecioUnitario" name="PrecioUnitario"value="312913289">
-    <input type="hidden" class="form-control" id="Familia" name="Familia"value="tamales">
-    <input type="hidden" class="form-control"  id="SubFam" name="SubFam"value="tamales">
-    <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="tamales">
-
-<% for (var a = 0; a < materiales.length; a++) { %>
-
-<tr> 
-
-    <th> <%=materiales[a].Descripcion%> <input type="text" class="form-control" id="Descripcion" name="Descripcion"> 
-    </th>                                
-    <th>    <%=materiales[a].Codigo%> <input type="text" class="form-control"  id="Codigo" name="Codigo"> 
-                                        
-    </th>
-    <th>  <%=materiales[a].Unidad%> <input type="text" class="form-control"  id="Unidad" name="Unidad" >
-                                        
-    </th>
-    <th>  <%=materiales[a].PrecioUnitario%> <input type="number" class="form-control" id="PrecioUnitario" name="PrecioUnitario">
-
-    </th>
-    <th>   <%=materiales[a].Familia%> <input type="text" class="form-control" id="Familia" name="Familia">
-                                        
-    </th>
-    <th>   <%=materiales[a].SubFam%> <input type="text" class="form-control"  id="SubFam" name="SubFam">
-                                        
-    </th>
-    <th> 
-            <input type="hidden" class="form-control" id="DescripcionBusqueda" name="DescripcionBusqueda" value="<%=materiales[a].Descripcion%>">
-            <a href="/material/borrar/<%=materiales[a].Codigo%>" type="submit" id="sendMessageButton">Eliminar</a>
-
-            
-    </th>
-</tr>      
-<% } %>
-</table>
-<button type="submit" id="sendMessageButton">Guardar Cambios</button></form>
-</form>
-
-                        </div>
-
-
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="backdrop<%=materiales.docs[a].Codigo%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color: #d10101;">Eliminar material</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" style="color: black;">
+                                                El material <strong><%=materiales.docs[a].Descripcion%></strong> se eliminara definitivamente. ¿Quiere continuar?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <a href="/material/borrar/<%=materiales.docs[a].Codigo%>" type="submit" id="sendMessageButton" class="btn btn-dark">Sí, eliminar</a>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        </div>
-                        
-       
-
+                        <% } %>
+                        <button class="btn btn-outline-danger btn-lg w-100" type="submit" id="sendMessageButton">Guardar Cambios</button>
+                    </form>
+                </div>
+            </div>
+            <% for (var a = 1; a < materiales.totalPages+1; a++) { %> 
+              
+            <a href="/materiales?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
+          
+            <% } %>
 
         </section>
-        <!-- Footer-->
-        <%- include('layouts/footer'); -%>
 
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
-        <!--<script type="module" src="js/BorrarMaterial.js"  ></script>-->
+        <script src="js/materiales.js"></script>
     </body>
 </html>
