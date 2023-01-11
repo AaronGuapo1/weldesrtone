@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+.navbar-div {
+  border-bottom: red solid 2px;
+}
+
 nav img {
   display: block;
   margin: 0 auto;
@@ -171,7 +175,7 @@ nav #offcanvasDarkNavbarLabel {
   }
 }
 
-h1 {
+h1, h2 {
   color: #C1C1C1;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
@@ -275,10 +279,29 @@ img {
   background-color: black;
   padding: 2% 10%;
 }
+@media (max-width: 768px) {
+  #instagramFeed .instagram-desktop {
+    display: none;
+  }
+}
+#instagramFeed .instagram-mobile {
+  display: none;
+  padding: 1% 0;
+}
+@media (max-width: 768px) {
+  #instagramFeed .instagram-mobile {
+    display: block;
+    background-color: black;
+  }
+}
 
 #presentation h1 {
   color: black;
   font-size: 2rem;
+}
+#presentation h3 {
+  color: black;
+  font-weight: 400;
 }
 #presentation hr {
   margin: 1rem auto;
@@ -299,23 +322,20 @@ img {
   padding: 1% 25%;
 }
 
-.editTitle {
-  color: #d10101;
-  text-align: center;
+#materialsPage {
+  padding: 2% 15%;
 }
-
-.titleContainer {
-  margin-bottom: 25px;
-}
-
-.materialsPage {
-  padding: 2% 6%;
-}
-.materialsPage p {
-  margin: 0;
-  padding: 0;
+#materialsPage label {
   color: black;
-  font-weight: 700;
+}
+#materialsPage form {
+  padding: 0 1%;
+}
+#materialsPage .center {
+  align-items: center;
+}
+#materialsPage .form-floating {
+  padding: 0;
 }
 
 /*# sourceMappingURL=styles.css.map */

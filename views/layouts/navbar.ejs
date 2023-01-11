@@ -1,78 +1,80 @@
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid row nav-items">
-        <!-- Vinculos de la izquieda -->
-        <div class="col-4">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarOffcanvasLgLabel">
-                <div class="offcanvas-header">
-                    <h4 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welderstone</h5>
-                    <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+<div class="navbar-div">
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid row nav-items">
+            <!-- Vinculos de la izquieda -->
+            <div class="col-4">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarOffcanvasLgLabel">
+                    <div class="offcanvas-header">
+                        <h4 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welderstone</h5>
+                        <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                        <!-- Inicio -->
+                        <li class="nav-item ms-3 ms-lg-2">
+                            <a class="nav-link" href="/">Inicio</a>
+                        </li>
+                        <!-- Tienda -->
+                        <li class="nav-item ms-3 ms-lg-2">
+                            <a class="nav-link" href="/tienda">Tienda</a>
+                        </li>
+                        <!-- Acerca de (No linkeado) -->
+                        <li class="nav-item ms-3 ms-lg-2">
+                            <a class="nav-link" href="/about">Welderstone</a>
+                        </li>
+                        <% if(roles  === "admin") { %>
+                        <li class="nav-item ms-3 ms-lg-2">
+                            <a class="nav-link" href="/productos">Productos</a>
+                        </li>
+                        <li class="nav-item ms-3 ms-lg-2">
+                            <a class="nav-link" href="/materiales">Materiales</a>
+                        </li>
+                        <% } %>
+                    </ul>
                 </div>
-                <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-                    <!-- Inicio -->
-                    <li class="nav-item ms-3 ms-lg-2">
-                        <a class="nav-link" href="/">Inicio</a>
+            </div>
+    
+            <!-- Logo de en medio -->
+            <div class="col-4">
+                <img src="assets/brand/logo.png" alt="Welderstone Logo">
+            </div>
+    
+            <!-- Vinculos de la derecha -->
+            <div class="col-4">
+                <ul class="navbar-nav me-3 mb-2 mb-lg-0 left_nav">
+                    <!-- Icono de Instagram (No linkeado) -->
+                    <li class="nav-item ms-auto icon">
+                        <a class="nav-link" href="https://www.instagram.com/welderstone_/"><i class="f-icon fa-brands fa-instagram"></i></a>
                     </li>
-                    <!-- Tienda -->
-                    <li class="nav-item ms-3 ms-lg-2">
-                        <a class="nav-link" href="/tienda">Tienda</a>
+                    <!-- Icono de Facebook (No linkeado) -->
+                    <li class="nav-item icon">
+                        <a class="nav-link ms-3" href="https://www.facebook.com/WELDERSTONESHOP"><i class="f-icon fa-brands fa-facebook"></i></a>
                     </li>
-                    <!-- Acerca de (No linkeado) -->
-                    <li class="nav-item ms-3 ms-lg-2">
-                        <a class="nav-link" href="/about">Welderstone</a>
+                    <!-- Icono de Shopping -->
+                    <li class="nav-item ms-auto ms-lg-0">
+                        <a class="nav-link ms-3 me-3 me-lg-0" href="#"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
                     </li>
-                    <% if(roles  === "admin") { %>
-                    <li class="nav-item ms-3 ms-lg-2">
-                        <a class="nav-link" href="/productos">Productos</a>
-                    </li>
-                    <li class="nav-item ms-3 ms-lg-2">
-                        <a class="nav-link" href="/materiales">Materiales</a>
-                    </li>
+                    <% if(!loggedIn) { %>
+                        <!-- Icono de Login -->
+                        <li class="nav-item">
+                            <a class="nav-link ms-3" href="/login/welderstone"><i class="f-icon fa-solid fa-user"></i></a>
+                        </li>
+                    <% } %>
+                    <% if(loggedIn) { %>
+                        <!-- Icono de Ajustes -->
+                        <li class="nav-item icon">
+                            <a class="nav-link ms-3" href="/#"><i class="f-icon fa-solid fa-gear"></i></a>
+                        </li>
+                        <!-- Boton Salir -->
+                        <li class="nav-item">
+                            <a class="nav-link ms-3" href="/logout"><button type="button" class="btn btn-outline-danger">Salir</button></a>
+                        </li>
                     <% } %>
                 </ul>
             </div>
         </div>
-
-        <!-- Logo de en medio -->
-        <div class="col-4">
-            <img src="assets/brand/logo.png" alt="Welderstone Logo">
-        </div>
-
-        <!-- Vinculos de la derecha -->
-        <div class="col-4">
-            <ul class="navbar-nav me-3 mb-2 mb-lg-0 left_nav">
-                <!-- Icono de Instagram (No linkeado) -->
-                <li class="nav-item ms-auto icon">
-                    <a class="nav-link" href="https://www.instagram.com/welderstone_/"><i class="f-icon fa-brands fa-instagram"></i></a>
-                </li>
-                <!-- Icono de Facebook (No linkeado) -->
-                <li class="nav-item icon">
-                    <a class="nav-link ms-3" href="https://www.facebook.com/WELDERSTONESHOP"><i class="f-icon fa-brands fa-facebook"></i></a>
-                </li>
-                <!-- Icono de Shopping -->
-                <li class="nav-item ms-auto ms-lg-0">
-                    <a class="nav-link ms-3 me-3 me-lg-0" href="#"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
-                </li>
-                <% if(!loggedIn) { %>
-                    <!-- Icono de Login -->
-                    <li class="nav-item">
-                        <a class="nav-link ms-3" href="/login/welderstone"><i class="f-icon fa-solid fa-user"></i></a>
-                    </li>
-                <% } %>
-                <% if(loggedIn) { %>
-                    <!-- Icono de Ajustes -->
-                    <li class="nav-item icon">
-                        <a class="nav-link ms-3" href="/#"><i class="f-icon fa-solid fa-gear"></i></a>
-                    </li>
-                    <!-- Boton Salir -->
-                    <li class="nav-item">
-                        <a class="nav-link ms-3" href="/logout"><button type="button" class="btn btn-outline-danger">Salir</button></a>
-                    </li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-</nav>
+    </nav>
+</div>

@@ -1,32 +1,68 @@
 const material = require('../models/materiales.js');
 
-module.exports = async (req,res)=>{
-    for (i=1; i<req.body.DescripcionBusqueda.length;i++){
-        if(req.body.Descripcion[i] !== '' ){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i]}});
-        }
+module.exports = async (req,res)=>{        
+    const obj_ids = req.body.id;
+    console.log(req.body);
 
-        if(req.body.Codigo[i] !== '' ){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Codigo:req.body.Codigo[i]}});
-        }
+    if(obj_ids != undefined ){
+        if(typeof obj_ids != "string"){
+            for (let i = 0; i < obj_ids.length; i++) {
+    
+                const params = {};
+    
+                if(req.body.Codigo[i] != ""){
+                    params.Codigo = req.body.Codigo[i];
+                }
+    
+                if(req.body.Unidad[i] != ""){
+                    params.Unidad = req.body.Unidad[i];
+                }
+    
+                if(req.body.PrecioUnitario[i] != ""){
+                    params.PrecioUnitario = parseFloat(req.body.PrecioUnitario[i]);
+                }
+    
+                if(req.body.Familia[i] != ""){
+                    params.Familia = req.body.Familia[i];
+                }
+    
+                if(req.body.SubFam[i] != ""){
+                    params.SubFam = req.body.SubFam[i];
+                }
+    
+                console.log(params);
+    
+                await material.findByIdAndUpdate(obj_ids[i], params);
+            }
+        } else{
+            const params = {}
+    
+            if(req.body.Codigo != ""){
+                params.Codigo = req.body.Codigo;
+            }
+    
+            if(req.body.Unidad != ""){
+                params.Unidad = req.body.Unidad;
+            }
+    
+            if(req.body.PrecioUnitario != ""){
+                params.PrecioUnitario = parseFloat(req.body.PrecioUnitario);
+            }
+    
+            if(req.body.Familia != ""){
+                params.Familia = req.body.Familia;
+            }
+    
+            if(req.body.SubFam != ""){
+                params.SubFam = req.body.SubFam;
+            }
 
-        if(req.body.Unidad[i] !== ''){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Unidad:req.body.Unidad[i]}});
-        }
-
-        if(req.body.PrecioUnitario[i] !== ''){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{PrecioUnitario:req.body.PrecioUnitario[i]}});
-        }
-
-        if(req.body.Familia[i] !== '' ){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Familia:req.body.Familia[i]}});
-        }
-
-        if(req.body.SubFam[i] !== '' ){
-            await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{SubFam:req.body.SubFam[i]}});
+            if(params != {}){
+                await material.findByIdAndUpdate(obj_ids, params);
+            }
         }
     }
-
-    res.redirect('/materiales')
+    
+    res.redirect("/materiales")
 }
 
