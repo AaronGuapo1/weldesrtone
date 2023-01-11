@@ -1,6 +1,8 @@
 const material = require('../models/materiales.js');
 
 module.exports = async (req,res)=>{
+
+   
     for (i=1; i<req.body.DescripcionBusqueda.length;i++){
         if(req.body.Descripcion[i] !== '' ){
             await material.updateOne({Descripcion:req.body.DescripcionBusqueda[i]},{$set:{Descripcion:req.body.Descripcion[i]}});

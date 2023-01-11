@@ -160,16 +160,13 @@
     
                                         </tr>
     
+                                        <% for (var a = 0; a < productos.length; a++) { %>
+
     <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
     
-        <input type="hidden" class="form-control" id="IdProducto" name="IdProducto" value="tamales"> 
-        <input type="hidden" class="form-control"  id="MaterialesProductos" name="MaterialesProductos"value="tamales"> 
-        <input type="hidden" class="form-control"  id="precio" name="precio"value="3121321312" >
-        <input type="hidden" class="form-control"  id="nombre" name="nombre"value="tamales">
-        <input type="hidden" class="form-control" id="descripcion" name="descripcion" value="tamales">
-        <input type="hidden" class="form-control" id="NombreBusqueda" name="NombreBusqueda" value="tamales">
 
-    <% for (var a = 0; a < productos.length; a++) { %>
+
+    
     
     <tr> 
     
@@ -191,8 +188,7 @@
             <img src="<%= productos[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
             <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                <input type="file" class="form-control" id="image"
-                name="image">
+                <input type="file" class="form-control" id="image" name="image">
                 
                 </div>
                 </div>
@@ -206,23 +202,24 @@
         </th>
         <th> 
             <input type="hidden" name="NombreBusqueda" value="<%=productos[a].nombre%>">
-                <a href="" type="submit" id="sendMessageButton">Eliminar</a>
+                <a href="/productos/borrar/<%=productos[a].nombre%>" type="submit" id="sendMessageButton">Eliminar</a>
     
-                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary"
+                    id="sendMessageButton">Actualizar</button>
+                    </div>
+                </form>
+
         </th>
    
     </tr>      
 
 
     <% } %>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary"
-        id="sendMessageButton">Guardar Cambios</button>
-        </div>
+
     </table>
 
-        </form>
-
+       
                                 </div>
 
 
