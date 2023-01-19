@@ -12,17 +12,17 @@ module.exports = async (req, res) =>{
 
         var page = req.query.page;
        
-        console.log(page)
+        //console.log(page)
         if (page === undefined){
 
         const materiales = await Material.find({});
         const productos = await Producto.paginate({},{page:1},{limit:10},);
-        console.log(productos)
+        //console.log(productos)
         res.render('productos', {productos, materiales, roles: role, loggedIn: true});
         }else{
             const materiales = await Material.find({});
         const productos = await Producto.paginate({},{page},{limit:10},);
-        console.log(productos)
+        //console.log(productos)
         res.render('productos', {productos, materiales, roles: role, loggedIn: true});
         }
     } else{

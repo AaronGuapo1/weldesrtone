@@ -9,7 +9,7 @@ module.exports = async (req, res) =>{
     }
     var page = req.query.page;
        
-    console.log(page)
+    //console.log(page)
     if (page === undefined){
     const productos = await Producto.paginate({},{page:1},{limit:10},);
 

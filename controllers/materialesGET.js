@@ -10,7 +10,7 @@ module.exports = async (req, res) =>{
     if(role == "admin"){
         var page = req.query.page;
        
-        console.log(page)
+        //console.log(page)
         if (page === undefined){
            
         const materiales = await material.paginate({},{page:1},{limit:10},);
