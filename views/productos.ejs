@@ -156,7 +156,7 @@
 
             
                     <%=materiales[a].Descripcion%> <button type="button" class="btn btn-primary w-100 edit" id="Material<%=materiales[a].Codigo%>">Quitar</button>
-                    <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
+                    <input type="number" value="0" step="any" name='MaterialesProductos[cantidad]' min="0">
                     <input type="hidden" value="<%=materiales[a].Descripcion%>" name="MaterialesProductos[nombre]">
                     <input type="hidden" value="<%=materiales[a].Codigo%>" name="MaterialesProductos[codigo]">
                     <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="MaterialesProductos[PrecioUnitario]">
@@ -177,14 +177,14 @@
                                         <div class="control-group">
                                             <div class="form-group floating-label-form-group controls">
                                             <label>Mano de obra material</label>
-                                            <input type="number" value="0" min="0"class="form-control" id="ManoObMaterial"
+                                            <input type="number" value="0" min="0" step="any" class="form-control" id="ManoObMaterial"
                                             name="ManoObMaterial">
                                             </div>
                                             </div>
                                             <div class="control-group">
                                                 <div class="form-group floating-label-form-group controls">
                                                 <label>Porcentaje material</label>
-                                                <input type="number" value="0" min="0" class="form-control" id="PorcentajeMaterial"
+                                                <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajeMaterial"
                                                 name="PorcentajeMaterial">
                                                 </div>
                                                 </div>
@@ -196,7 +196,7 @@
                                                     
                                                            
                                                                <%=materiales[a].Descripcion%> <button type="button" class="btn btn-primary w-100 edit" id="Pintura<%=materiales[a].Codigo%>">Quitar</button>
-                                                               <input type="number" value="0" name='PinturaProductos[cantidad]' min="0">
+                                                               <input type="number" value="0" step="any" name='PinturaProductos[cantidad]' min="0">
                                                                <input type="hidden" value="<%=materiales[a].Descripcion%>" name="PinturaProductos[nombre]">
                                                                <input type="hidden" value="<%=materiales[a].Codigo%>" name="PinturaProductos[codigo]">
                                                                <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="PinturaProductos[PrecioUnitario]">
@@ -216,14 +216,14 @@
                                                 <div class="control-group">
                                                     <div class="form-group floating-label-form-group controls">
                                                     <label>Mano de obra pintura</label>
-                                                    <input type="number" value="0" min="0" class="form-control" id="ManoObPintura"
+                                                    <input type="number" value="0" min="0" step="any" class="form-control" id="ManoObPintura"
                                                     name="ManoObPintura">
                                                     </div>
                                                     </div>
                                                     <div class="control-group">
                                                         <div class="form-group floating-label-form-group controls">
                                                         <label>Porcentaje pintura</label>
-                                                        <input type="number" value="0" min="0" class="form-control" id="PorcentajePintura"
+                                                        <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajePintura"
                                                         name="PorcentajePintura">
                                                         </div>
                                                         </div>
@@ -235,7 +235,7 @@
                                                                 <div class="form-floating mb-3 col-2 pe-1">
 
                                                                        <%=materiales[a].Descripcion%> <button type="button" class="btn btn-primary w-100 edit" id="Instalacion<%=materiales[a].Codigo%>">Quitar</button>
-                                                                       <input type="number" value="0" name='InstalacionProductos[cantidad]' min="0">
+                                                                       <input type="number" value="0" step="any" name='InstalacionProductos[cantidad]' min="0">
                                                                        <input type="hidden" value="<%=materiales[a].Descripcion%>" name="InstalacionProductos[nombre]">
                                                                        <input type="hidden" value="<%=materiales[a].Codigo%>" name="InstalacionProductos[codigo]">
                                                                        <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="InstalacionProductos[PrecioUnitario]">
@@ -256,14 +256,14 @@
                                                         <div class="control-group">
                                                             <div class="form-group floating-label-form-group controls">
                                                             <label>Mano de Obra instalacion</label>
-                                                            <input type="number" value="0" min="0" class="form-control" id="ManoObInstalacion"
+                                                            <input type="number" value="0" min="0" step="any" class="form-control" id="ManoObInstalacion"
                                                             name="ManoObInstalacion">
                                                             </div>
                                                             </div>
                                                             <div class="control-group">
                                                                 <div class="form-group floating-label-form-group controls">
                                                                 <label>Porcentaje de instalacion</label>
-                                                                <input type="number" value="0" min="0" class="form-control" id="PorcentajeInstalacion"
+                                                                <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajeInstalacion"
                                                                 name="PorcentajeInstalacion">
                                                                 </div>
                                                                 </div>

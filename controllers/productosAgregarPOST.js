@@ -83,8 +83,8 @@ var sumaSolventes3Por=((sumaSolventes2Mano * MaterialesASumar[0].PorcentajePintu
          var sumaInsumos3Por = ((sumaInsumos * MaterialesASumar[0].PorcentajeInstalacion)/100) + sumaInsumos2Mano;
 
 
-         var SubTotal= Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
-
+         var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
+         var SubTotal=Math.round(x)
 
          await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } });
 
@@ -109,37 +109,3 @@ var sumaSolventes3Por=((sumaSolventes2Mano * MaterialesASumar[0].PorcentajePintu
 }
     
 
-/*
-const Producto = require('../models/Productos.js');
-const path = require('path');
-
-module.exports = (req,res)=>{   
-
-
-    let image = req.files.image;
-
-    image.mv(path.resolve(__dirname,'..','public/img',image.name),async (error)=>{
-        await Producto.create({...req.body, image: '/img/' + image.name});
-
-        for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
-                await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { nombre:req.body['MaterialesProductos[nombre]'][a] ,cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a]}}});
-            
-        }
-        
-        res.redirect('/productos')
-    })
-}
-
-
-
-
-*/
-
-
-/*
-
-
-         console.log(suma) 
-         console.log(sumaSolventes)
-         console.log(sumaInsumos)
-*/
