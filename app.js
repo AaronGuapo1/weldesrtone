@@ -121,8 +121,8 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-//  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+ mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
 const inicioController = require('./controllers/inicio');
@@ -138,7 +138,7 @@ const productosAgregarPOST = require('./controllers/productosAgregarPOST');
 const productosEdicionMaterialesPOST = require('./controllers/productosEdicionMateriales');
 const materialBorrar = require('./controllers/materialBorrar');
 const aboutGET = require("./controllers/about")
-
+const productoBorrar= require('./controllers/productoBorrar');
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -181,6 +181,7 @@ app.use('/material/borrar/:id', materialBorrar);
 app.post("/productos/edicion", productosEdicionPOST);
 app.post('/productos/agregar', productosAgregarPOST);
 app.get('/productos/MaterialesEdicion/:id',productosEdicionMaterialesPOST );
+app.use('/productos/borrar/:id', productoBorrar);
 
 
 

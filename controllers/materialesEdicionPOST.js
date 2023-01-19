@@ -1,8 +1,10 @@
 const material = require('../models/materiales.js');
 
+
 module.exports = async (req,res)=>{        
     const obj_ids = req.body.id;
     console.log(req.body);
+
 
     if(obj_ids != undefined ){
         if(typeof obj_ids != "string"){

@@ -7,9 +7,17 @@ module.exports = async (req, res) =>{
         role = req.session.passport.user.role;
         logged = true;
     }
-    
-    const productos = await Producto.find({});
+    var page = req.query.page;
+       
+    //console.log(page)
+    if (page === undefined){
+    const productos = await Producto.paginate({},{page:1},{limit:10},);
 
     res.render('tienda',{productos, roles: role, loggedIn: logged});
+    }else {
+        const productos = await Producto.paginate({},{page},{limit:10},);
+
+        res.render('tienda',{productos, roles: role, loggedIn: logged});
+    }
 }
     

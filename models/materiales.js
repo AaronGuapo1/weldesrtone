@@ -15,6 +15,6 @@ const MaterialSchema = new Schema({
 });
 
 
-//MaterialSchema.plugin(mongoosePaginate);
+MaterialSchema.plugin(mongoosePaginate);
 const Material = mongoose.model('Material',MaterialSchema);
 module.exports = Material;

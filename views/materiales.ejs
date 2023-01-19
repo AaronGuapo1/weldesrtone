@@ -68,36 +68,37 @@
                     </form>
                 </div>
             </div>
-
+        
             <!-- Edicion de Materiales -->
             <div class="card border-danger">
                 <div class="card-header">Inventario de Materiales</div>
                 <div class="card-body">
                     <h5 class="card-title mb-3">Edite los materiales que sean necesarios y al finalizar presione el botón de Guardar Cambios.</h5>
                     <form action="/materiales/edicion" method="post">
-                        <% for (var a = 0; a < materiales.length; a++) { %> 
+                        <% for (var a = 0; a < materiales.docs.length; a++) { %> 
+                     
                             <!-- Material Card -->
                             <div class="card text-bg-danger mb-3">
                                 <!-- Cuerpo de la Card -->
                                 <div class="card-body row">
                                     <!-- Descripcion del material -->
                                     <div class="col-12 mb-1">
-                                        <strong>Descripción: </strong><span><%=materiales[a].Descripcion%></span>
+                                        <strong>Descripción: </strong><span><%=materiales.docs[a].Descripcion%></span>
                                     </div>
                                     <div class="col-2">
-                                        <strong>Codigo: </strong><%=materiales[a].Codigo%>
+                                        <strong>Codigo: </strong><%=materiales.docs[a].Codigo%>
                                     </div>
                                     <div class="col-2">
-                                        <strong>Unidad: </strong><%=materiales[a].Unidad%>
+                                        <strong>Unidad: </strong><%=materiales.docs[a].Unidad%>
                                     </div>
                                     <div class="col-2">
-                                        <strong>Precio Unitario: </strong>$<%=materiales[a].PrecioUnitario%>
+                                        <strong>Precio Unitario: </strong>$<%=materiales.docs[a].PrecioUnitario%>
                                     </div>
                                     <div class="col-3">
-                                        <strong>Familia: </strong><%=materiales[a].Familia%>
+                                        <strong>Familia: </strong><%=materiales.docs[a].Familia%>
                                     </div>
                                     <div class="col-3">
-                                        <strong>Subfamilia: </strong><%=materiales[a].SubFam%>
+                                        <strong>Subfamilia: </strong><%=materiales.docs[a].SubFam%>
                                     </div>
 
                                     <!-- Linea de separacion -->
@@ -106,7 +107,7 @@
                                     </div>
 
                                     <!-- Inputs de Edicion de Material -->
-                                    <div hidden class="<%=materiales[a].Codigo%>">
+                                    <div hidden class="<%=materiales.docs[a].Codigo%>">
                                         <!-- Inputs -->
                                         <div class="row px-3">
                                             <!-- Codigo Input -->
@@ -139,24 +140,24 @@
                                                 <label for="SubFam">Sub Familia</label>
                                             </div>
 
-                                            <input type="hidden" class="secret" name="id" value="<%= materiales[a]._id %>" disabled>
+                                            <input type="hidden" class="secret" name="id" value="<%= materiales.docs[a]._id %>" disabled>
                                         </div>
                                     </div>
 
                                     <!-- Boton de edicion -->
                                     <div class="col-6 mt-1">
-                                        <button type="button" class="btn btn-primary w-100 edit" id="<%=materiales[a].Codigo%>">Editar</button>
+                                        <button type="button" class="btn btn-primary w-100 edit" id="<%=materiales.docs[a].Codigo%>">Editar</button>
                                     </div>
 
                                     <!-- Boton de Borrar -->
                                     <div class="col-6 mt-1">
-                                        <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales[a].Codigo%>">
+                                        <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales.docs[a].Codigo%>">
                                             Eliminar
                                         </button>                                        
                                     </div>
 
                                     <!-- Modal -->
-                                    <div class="modal fade" id="backdrop<%=materiales[a].Codigo%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal fade" id="backdrop<%=materiales.docs[a].Codigo%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -164,11 +165,11 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body" style="color: black;">
-                                                El material <strong><%=materiales[a].Descripcion%></strong> se eliminara definitivamente. ¿Quiere continuar?
+                                                El material <strong><%=materiales.docs[a].Descripcion%></strong> se eliminara definitivamente. ¿Quiere continuar?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                <a href="/material/borrar/<%=materiales[a].Codigo%>" type="submit" id="sendMessageButton" class="btn btn-dark">Sí, eliminar</a>
+                                                <a href="/material/borrar/<%=materiales.docs[a].Codigo%>" type="submit" id="sendMessageButton" class="btn btn-dark">Sí, eliminar</a>
                                             </div>
                                             </div>
                                         </div>
@@ -180,6 +181,12 @@
                     </form>
                 </div>
             </div>
+            <% for (var a = 1; a < materiales.totalPages+1; a++) { %> 
+              
+            <a href="/materiales?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
+          
+            <% } %>
+
         </section>
 
         <!-- Bootstrap core JS-->
