@@ -193,4 +193,20 @@ img {
     .form-floating {
         padding: 0;
     }
+
+    @include mediaMixins.xl(){
+        padding: 2% 10%;
+        
+        .card-desc {
+            font-size: .9rem;
+        }
+    }
+
+    @include mediaMixins.lg(){
+        padding: 2% 3%;
+
+        .card-btn {
+            padding-left: 0;
+        }
+    }
 }

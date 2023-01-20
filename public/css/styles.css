@@ -53,6 +53,7 @@ nav #offcanvasDarkNavbarLabel {
 
 @media (max-width: 992px) {
   .navbar {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -109,7 +110,8 @@ nav #offcanvasDarkNavbarLabel {
 #desktopCarousel .set-three {
   display: grid;
   grid-template-columns: auto auto auto;
-  column-gap: 10px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
 }
 @media (max-width: 992px) {
   #desktopCarousel {
@@ -146,7 +148,8 @@ nav #offcanvasDarkNavbarLabel {
   #tablet-carousel .set-two {
     display: grid;
     grid-template-columns: auto auto;
-    column-gap: 10px;
+    -moz-column-gap: 10px;
+         column-gap: 10px;
   }
 }
 @media (max-width: 768px) {
@@ -337,5 +340,19 @@ img {
 #materialsPage .form-floating {
   padding: 0;
 }
-
-/*# sourceMappingURL=styles.css.map */
+@media (max-width: 1200px) {
+  #materialsPage {
+    padding: 2% 10%;
+  }
+  #materialsPage .card-desc {
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 992px) {
+  #materialsPage {
+    padding: 2% 3%;
+  }
+  #materialsPage .card-btn {
+    padding-left: 0;
+  }
+}/*# sourceMappingURL=styles.css.map */

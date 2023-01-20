@@ -82,32 +82,41 @@
                                 <!-- Cuerpo de la Card -->
                                 <div class="card-body row">
                                     <!-- Descripcion del material -->
-                                    <div class="col-12 mb-1">
+                                    <div class="col-11 mb-1 card-desc">
                                         <strong>Descripción: </strong><span><%=materiales.docs[a].Descripcion%></span>
                                     </div>
-                                    <div class="col-2">
+                                    <!-- Boton de edicion -->
+                                    <div class="col-1 mb-2 card-btn">
+                                        <button type="button" class="btn btn-primary w-100 edit" id="<%=materiales.docs[a].Codigo%>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    </div>
+                                    <div class="col-2 card-desc">
                                         <strong>Codigo: </strong><%=materiales.docs[a].Codigo%>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-2 card-desc">
                                         <strong>Unidad: </strong><%=materiales.docs[a].Unidad%>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-3 card-desc">
                                         <strong>Precio Unitario: </strong>$<%=materiales.docs[a].PrecioUnitario%>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2 card-desc">
                                         <strong>Familia: </strong><%=materiales.docs[a].Familia%>
                                     </div>
-                                    <div class="col-3">
+                                    <div class="col-2 card-desc">
                                         <strong>Subfamilia: </strong><%=materiales.docs[a].SubFam%>
                                     </div>
-
-                                    <!-- Linea de separacion -->
-                                    <div class="px-3">
-                                        <hr class="border border-light border-1 opacity-100 mt-3">
+                                    <!-- Boton de Borrar -->
+                                    <div class="col-1 card-btn">
+                                        <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales.docs[a].Codigo%>">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>                                        
                                     </div>
 
                                     <!-- Inputs de Edicion de Material -->
                                     <div hidden class="<%=materiales.docs[a].Codigo%>">
+                                        <!-- Linea de separacion -->
+                                        <div class="px-3">
+                                            <hr class="border border-light border-1 opacity-100 mt-3">
+                                        </div>
                                         <!-- Inputs -->
                                         <div class="row px-3">
                                             <!-- Codigo Input -->
@@ -144,18 +153,6 @@
                                         </div>
                                     </div>
 
-                                    <!-- Boton de edicion -->
-                                    <div class="col-6 mt-1">
-                                        <button type="button" class="btn btn-primary w-100 edit" id="<%=materiales.docs[a].Codigo%>">Editar</button>
-                                    </div>
-
-                                    <!-- Boton de Borrar -->
-                                    <div class="col-6 mt-1">
-                                        <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales.docs[a].Codigo%>">
-                                            Eliminar
-                                        </button>                                        
-                                    </div>
-
                                     <!-- Modal -->
                                     <div class="modal fade" id="backdrop<%=materiales.docs[a].Codigo%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -179,13 +176,15 @@
                         <% } %>
                         <button class="btn btn-outline-danger btn-lg w-100" type="submit" id="sendMessageButton">Guardar Cambios</button>
                     </form>
+                    <div class="mt-2 px-2" style="text-align: right;">
+                        <% for (var a = 1; a < materiales.totalPages+1; a++) { %> 
+                            <div>
+                                <a href="/materiales?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
+                            </div>
+                        <% } %>
+                    </div>
                 </div>
             </div>
-            <% for (var a = 1; a < materiales.totalPages+1; a++) { %> 
-              
-            <a href="/materiales?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
-          
-            <% } %>
 
         </section>
 
