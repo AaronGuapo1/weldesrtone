@@ -7,9 +7,9 @@ const mongoosePaginate= require('mongoose-paginate-v2')
 const ProductoSchema = new Schema({
 
 IdProducto:{type:String},
-MaterialesProductos:[{nombre:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
-PinturaProductos:[{nombre:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
-InstalacionProductos:[{nombre:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
+MaterialesProductos:[{Descripcion:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
+PinturaProductos:[{Descripcion:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
+InstalacionProductos:[{Descripcion:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
 precio:{type:Number},
 image:{type:String},
 nombre:{type:String},

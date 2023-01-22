@@ -18,7 +18,7 @@ module.exports = async (req, res) =>{
 
         const productos = await Producto.find({});
     
-        res.render('ProductosMateriales', {productos, materiales, roles: role, loggedIn: true,ProductoAEditar});
+        res.render('ProductosMateriales', {productos, materiales, roles: role, loggedIn: true, ProductoAEditar});
       
   
     } else{ 

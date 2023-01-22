@@ -1,94 +1,19 @@
+<% const {MaterialesProductos} = ProductoAEditar[0] %> 
 
-let suma = 0;
+<% const {PinturaProductos} = ProductoAEditar[0] %> 
 
-for (let i=0; i<MaterialesProductos.length; i++){
+<% const {InstalacionProductos} = ProductoAEditar[0] %> 
 
-    if (MaterialesProductos[i].familia === "Aceros"){
-
-
-         suma = suma + (MaterialesProductos[i].preciounitario * MaterialesProductos[i].cantidad)
-         if (i=MaterialesProductos.length){
-            console.log(suma)
-    
-            }
-    }
-}
+<% for( var c = 0; c < MaterialesProductos.length; c++ ) { %>
 
 
 
-let sumaSolventes = 0;
+        <%=MaterialesProductos[c].nombre%> 
+        
+        <div>
+            <input type="number" value="<%=MaterialesProductos[c].cantidad%>" name='MaterialesProductos[cantidad]' min="0">
 
-for (let m=0; m<MaterialesProductos.length; m++){
-
-    if (MaterialesProductos[m].familia === "Solventes"  ){
-
-
-        sumaSolventes = sumaSolventes + (MaterialesProductos[m].preciounitario * MaterialesProductos[m].cantidad);
-
-        if (m=MaterialesProductos.length){
-            console.log(sumaSolventes)
-    
-            }
-        }
-    }
+        </div> 
 
 
-let sumaInsumos = 0;
-    for (let n=0; n<MaterialesProductos.length; n++){
-    
-        if (MaterialesProductos[n].familia === "Insumos" ){
-    
-
-            sumaInsumos = sumaInsumos + (MaterialesProductos[n].preciounitario * MaterialesProductos[n].cantidad);
-    
-             if (n=MaterialesProductos.length){
-                 console.log(sumaInsumos)
-         
-                 }
-             }
-    
-         }
-      
-         <!--<% if( ){ %>
-            
-            <% } %>-->
-
-
-    
-            
-            
-            
-            var sumaSolventes = 0;
-            
-            for (let m=0; m<MaterialesProductos.length; m++){
-            
-                if (MaterialesProductos[m].familia === "Solventes" || MaterialesProductos[m].familia === "Pintura" ){
-            
-            
-                    sumaSolventes = sumaSolventes + (MaterialesProductos[m].preciounitario * MaterialesProductos[m].cantidad);
-            
-                
-                    }
-            
-                }
-            
-                var sumaInsumos = 0;
-            
-                for (let n=0; n<MaterialesProductos.length; n++){
-            
-                    if (MaterialesProductos[n].familia === "Insumos" ){
-                
-            
-                        sumaInsumos = sumaInsumos + (MaterialesProductos[n].preciounitario * MaterialesProductos[n].cantidad);
-            
-                
-                         }
-            
-                     }
-             
-                     console.log(suma)
-                     console.log(sumaSolventes)
-                     console.log(sumaInsumos)
-            
-            
-            
+        <% } %>

@@ -11,7 +11,6 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
-
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -139,6 +138,8 @@ const productosEdicionMaterialesPOST = require('./controllers/productosEdicionMa
 const materialBorrar = require('./controllers/materialBorrar');
 const aboutGET = require("./controllers/about")
 const productoBorrar= require('./controllers/productoBorrar');
+const productosEMPOST = require('./controllers/productosEMPost')
+
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -180,6 +181,7 @@ app.use('/material/borrar/:id', materialBorrar);
 // - Productos
 app.post("/productos/edicion", productosEdicionPOST);
 app.post('/productos/agregar', productosAgregarPOST);
+app.post('/productos/EditarMateriales', productosEMPOST);
 app.get('/productos/MaterialesEdicion/:id',productosEdicionMaterialesPOST );
 app.use('/productos/borrar/:id', productoBorrar);
 
