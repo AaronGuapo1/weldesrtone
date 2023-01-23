@@ -34,14 +34,14 @@
                         <a href="">
                             <div class="card line">
                                 <!-- Imagen -->
-                                <img class="card-img-top mx-auto d-block" src="#" alt="Product 1">
+                                <img class="card-img-top mx-auto d-block" src="<%=productos.docs[a].image%>" alt="Product 1">
                                 <div class="card-body">
-                                    <!-- Familia -->
-                                    <h5>Familia</h5>
+                             
                                     <!-- Nombre del producto -->
-                                    <h4 class="card-title">Producto 1</h4>
+                                    
+                                    <h4 class="card-title"><%=productos.docs[a].nombre%></h4>
                                     <!-- Precio -->
-                                    <p class="card-text">Precio: <span class="price">$10</span></p>
+                                    <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio%></span></p>
                                 </div>
                             </div>
                         </a>
