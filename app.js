@@ -139,7 +139,11 @@ const materialBorrar = require('./controllers/materialBorrar');
 const aboutGET = require("./controllers/about")
 const productoBorrar= require('./controllers/productoBorrar');
 const productosEMPOST = require('./controllers/productosEMPost')
-
+const getProducts= require('./controllers/GetProducts')
+const getProductsCart= require('./controllers/GetProductsCart')
+const addProductCart = require('./controllers/AddProductCart')
+const putProduct= require('./controllers/PutProduct')
+const cart = require('./controllers/cart')
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -184,6 +188,18 @@ app.post('/productos/agregar', productosAgregarPOST);
 app.post('/productos/EditarMateriales', productosEMPOST);
 app.get('/productos/MaterialesEdicion/:id',productosEdicionMaterialesPOST );
 app.use('/productos/borrar/:id', productoBorrar);
+
+//carrito
+
+app.get("/products", getProducts);
+app.get("/cart", cart);
+
+
+app.get("/products-cart", getProductsCart);
+
+app.post("/products-cart", addProductCart);
+
+app.use("/products-cart/:productId", putProduct);
 
 
 

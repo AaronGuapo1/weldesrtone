@@ -20,7 +20,8 @@ PorcentajeMaterial:{type:Number},
 ManoObPintura:{type:Number},
 PorcentajePintura:{type:Number},
 ManoObInstalacion:{type:Number},
-PorcentajeInstalacion:{type:Number}
+PorcentajeInstalacion:{type:Number},
+inCart:{type:Boolean,default:false}
 
 });
 

@@ -1,4 +1,5 @@
 const Producto = require('../models/Productos.js');
+const Cart = require("../models/Cart");
 
 module.exports = async (req, res) =>{
     let role = "viewer";
@@ -12,12 +13,13 @@ module.exports = async (req, res) =>{
     //console.log(page)
     if (page === undefined){
     const productos = await Producto.paginate({},{page:1},{limit:10},);
-
-    res.render('tienda',{productos, roles: role, loggedIn: logged});
+    const cart = await Cart.find({});
+    res.render('tienda',{productos, roles: role, loggedIn: logged,cart});
     }else {
         const productos = await Producto.paginate({},{page},{limit:10},);
+        const cart = await Cart.find({});
 
-        res.render('tienda',{productos, roles: role, loggedIn: logged});
+        res.render('tienda',{productos, roles: role, loggedIn: logged,cart});
     }
 }
     
