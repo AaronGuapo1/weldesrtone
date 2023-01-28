@@ -133,12 +133,15 @@ const productosGET = require('./controllers/productosGET');
 const materialesGET = require('./controllers/materialesGET');
 const materialesEdicionPOST = require('./controllers/materialesEdicionPOST');
 const materialesAgregarPOST = require('./controllers/materialesAgregarPOST');
+const materialesBusqueda = require("./controllers/materialesBusqueda");
 const productosEdicionPOST = require("./controllers/productosEdicionPOST");
 const productosAgregarPOST = require('./controllers/productosAgregarPOST');
 const productosEdicionMaterialesPOST = require('./controllers/productosEdicionMateriales');
 const materialBorrar = require('./controllers/materialBorrar');
 const aboutGET = require("./controllers/about")
 const productoBorrar= require('./controllers/productoBorrar');
+const productoGET = require("./controllers/productoGET")
+
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -147,6 +150,7 @@ app.get("/about", aboutGET);
 app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
+app.get("/producto", productoGET)
 app.get('/materiales', nocache, materialesGET);
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
@@ -175,6 +179,7 @@ function(req, res) {
 // - Materiales
 app.post('/materiales/edicion', materialesEdicionPOST);
 app.post('/materiales/agregar', materialesAgregarPOST);
+app.post("/materiales/busqueda", materialesBusqueda);
 app.use('/material/borrar/:id', materialBorrar);
 
 // - Productos

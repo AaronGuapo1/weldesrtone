@@ -79,6 +79,80 @@ nav #offcanvasDarkNavbarLabel {
   flex-direction: row;
 }
 
+.go-top-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  width: 5.6rem;
+  height: 5.6rem;
+  z-index: -1;
+}
+
+.go-top-button {
+  width: 0rem;
+  height: 0rem;
+  background-color: #d10101;
+  border-radius: 50%;
+  transition: 0.2s;
+  cursor: pointer;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+.go-top-button i {
+  position: absolute;
+  font-size: 1.6rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  color: #fff;
+  transform: 0.2s;
+}
+
+.show {
+  z-index: 10;
+}
+.show .go-top-button {
+  -webkit-animation: popup 0.3s ease-in-out;
+          animation: popup 0.3s ease-in-out;
+  width: 5.6rem;
+  height: 5.6rem;
+  z-index: 11;
+}
+.show i {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@-webkit-keyframes popup {
+  0% {
+    width: 0rem;
+    height: 0rem;
+  }
+  50% {
+    width: 7rem;
+    height: 7rem;
+  }
+  100% {
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+}
+
+@keyframes popup {
+  0% {
+    width: 0rem;
+    height: 0rem;
+  }
+  50% {
+    width: 7rem;
+    height: 7rem;
+  }
+  100% {
+    width: 5.6rem;
+    height: 5.6rem;
+  }
+}
 #carousel-section {
   margin-top: 75px;
   margin-bottom: 50px;
@@ -268,6 +342,9 @@ img {
 }
 #filter-buttons .filter-button:hover {
   background-color: #d10101;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 0px 10px 0px black;
+  transform: translateY(-5px);
 }
 
 #instagramFeed h1 {
@@ -333,6 +410,9 @@ img {
 }
 #materialsPage form {
   padding: 0 1%;
+}
+#materialsPage .busquedaInput {
+  width: 70%;
 }
 #materialsPage .center {
   align-items: center;
@@ -409,4 +489,15 @@ img {
 #tienda-productos a:hover {
   text-decoration: none;
   color: inherit;
+}
+
+#productoGet {
+  padding: 2% 4%;
+}
+#productoGet h1 {
+  color: black;
+}
+#productoGet .cantidad {
+  display: inline-block;
+  text-align: center;
 }/*# sourceMappingURL=styles.css.map */
