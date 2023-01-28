@@ -1,300 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welderstone - About</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- CSS Stylesheet-->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- FontAwesome-->
-    <script src="https://kit.fontawesome.com/c1d78340ca.js" crossorigin="anonymous"></script>  
-</head>
-<body>
-    <!-- NAVBAR -->
-    <%- include('layouts/navbar'); -%>
-    
-    <section id="presentation">
-        <table>
+const Cart = require("../models/Cart");
+const Product = require("../models/Productos");
 
-            <tr> 
-                
-                <th>Material</th>
- 
-            </tr>
-   
+const putProduct = async (req, res) => {
 
-           
+  console.log("hola")
 
-      
-            <% for (var b = 0; b < materiales.length; b++) { %>
 
+  const { productId } = req.params;
+  const { query } = req.query;
+  const body = req.body;
+  var prueba = Number(body.amount);
 
-        <tr> 
-    
-            <th>
-                <%=materiales[b].Descripcion%>
+  /* Buscamos el producto en el carrito */
+  const productBuscado = await Cart.findById(productId);
 
-                <% const {MaterialesProductos} = ProductoAEditar[0] %> 
-                <% for( var c = 0; c < MaterialesProductos.length; c++ ) { %>
 
-                    <% if( MaterialesProductos[c].nombre === materiales[b].Descripcion){ %>
-                        <div>
-                            <input type="number" value="<%= MaterialesProductos[c].cantidad %>" name='MaterialesProductos[cantidad]' min="0">
-    
-                        </div>
-                        
-    
-                        <% } else { %>
-                            <div>
-                                <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
-                            </div>
-                            
-    
-                        <% } %>    
+if(query=== "del" && prueba === 1){
 
-               
-            </th>                                
+  const { productId } = req.params;
 
-            <% } %>
+  /* Buscamos el producto en el carrito */
+  const productInCart = await Cart.findById(productId);
 
-    
-            <% } %>
+  /* Buscamos el producto en nuestra DB por el nombre del que esta en el carrito */
+  const { nombre, image, precio, _id } = await Product.findOne({
+    nombre: productInCart.nombre,
+  });
 
-    </section>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
-</body>
-</html>
-
-
-const Producto = require('../models/Productos.js');
-const Material = require('../models/materiales.js');
-
-module.exports = async (req, res) =>{
-    console.log(req.params.id)
-
-    let role = "viewer";
-
-    if(req.session?.passport?.user != undefined){
-        role = req.session.passport.user.role;
-    }
-
-    if(role == "admin"){
-        const materiales = await Material.find({});
-        const materialesEditados= await Material.find({});
-        const productos = await Producto.find({});
-        const ProductoAEditar = await Producto.find({nombre:req.params.id})
-        const {MaterialesProductos} = ProductoAEditar[0];
-        console.log(MaterialesProductos[0].nombre)
-        console.log(MaterialesProductos[0].cantidad)
-
-
-        for (b=0; b<ProductoAEditar.length;b++){
-        for (a=0; a<materiales.length;a++){
-            const materialesEditados = await materiales.updateOne({Descripcion:},)
-
-        }
-    }
-        
-
-
-        res.render('ProductosMateriales', {productos, materialesEditados, roles: role, loggedIn: true,ProductoAEditar});
-    } else{
-        res.redirect("/")
-    }
-}
-
-
-
-
-<% for (var b = 0; b < materiales.length; b++) { %>
-    <% const {MaterialesProductos} = ProductoAEditar[0] %> 
-
-            <% for( var c = 0; c < MaterialesProductos.length; c++ ) { %>
-
-                <% if( MaterialesProductos[c].nombre !== materiales[b].Descripcion){ %>
-                    <div>
-                        <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
-
-                    </div>
-                    
-
-                    <% } %>     
-                    <% } %>
-                    <% } %>
-
-
-
-
-
-
-
-                    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welderstone - About</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <!-- CSS Stylesheet-->
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- FontAwesome-->
-    <script src="https://kit.fontawesome.com/c1d78340ca.js" crossorigin="anonymous"></script>  
-</head>
-<body>
-    <!-- NAVBAR -->
-    <%- include('layouts/navbar'); -%>
-    
-    <section id="presentation">
-        <table>
-
-            <tr> 
-                
-                <th>Material</th>
- 
-            </tr>
-   
-
-           
-
-      
-            <% for (var b = 0; b < materiales.length; b++) { %>
-
-
-        <tr> 
-    
-            <th>
-
-                <% const {MaterialesProductos} = ProductoAEditar[0] %> 
-                <% for( var c = 0; c < MaterialesProductos.length; c++ ) { %>
-
-                    <% if( MaterialesProductos[c].nombre === materiales[b].Descripcion){ %>
-                        <%=materiales[b].Descripcion%>
-
-                        <div>
-                            <input type="number" value="<%= MaterialesProductos[c].cantidad %>" name='MaterialesProductos[cantidad]' min="0">
-    
-                        </div>
-                        
-    
-                        <% } %>     
-                        <% } %>
-                        <% } %>
-
-                        <% for (var d = 0; d < materiales.length; d++) { %>
-
-                            <% const {MaterialesProductos} = ProductoAEditar[0] %> 
-
-                            <% for( var c = 0; c < MaterialesProductos.length/MaterialesProductos.length; c++ ) { %>
-                                <% if( MaterialesProductos[c].nombre != materiales[d].Descripcion){ %>
-
-                            <%=materiales[d].Descripcion%>
-                            <div>
-                                <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
-        
-                            </div>
-                            <% } %>
-
-                            <% } %>     
-
-                                            <% } %>
-                            
-            </th>                                
-
-           
-    
-           
-    </section>
-
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
-</body>
-</html>
-
-
-<% } %>
-
-<% for (var d = 0; d < materiales.length; d++) { %>
-
-
-    
-    <% for( var c = 0; c < MaterialesProductos.length; c++ ) { %>
-
-
-        <% if(materiales[b].Descripcion  != MaterialesProductos[c].nombre  ){ %>
-
-    <%=materiales[b].Descripcion%>
-    <div>
-        <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
-
-    </div>
-    <% } %>
-
-    <% } %>     
-
-
-
-
-    <table>
-
-        <tr> 
-            
-            <th>Material</th>
-
-        </tr>
-
-
-       
-
+  /* Buscamos y eliminamos el producto con la id */
+  await Cart.findByIdAndDelete(productId);
   
-        <% for (var b = 0; b < materiales.length; b++) { %>
+  /* Buscamos y editamos la prop inCart: false */
+  /* Le pasamos la id del producto en la DB */
+  /* La prop a cambiar y las demas */
+  /* Y el new para devolver el producto editado */
+  await Product.findByIdAndUpdate(
+    _id,
+    { inCart: false, nombre, image, precio },
+    { new: true }
+  )
+    .then((product) => {
+      res.json({
+        mensaje: `El producto ${product.nombre} fue eliminado del carrito`,
+      });
+    })
+    .catch((error) => res.json({ mensaje: "Hubo un error" }));
 
-
-    <tr> 
-
-        <th>
-            <%=materiales[b].Descripcion%>
-
-            <% const {MaterialesProductos} = ProductoAEditar[0] %> 
-            <% for( var c = 0; c < MaterialesProductos.length; c++ ) { %>
-
-                
-
-                <% if( MaterialesProductos[c].nombre === materiales[b].Descripcion){ %>
-
-                    <div>
-                        <input type="number" value="<%= MaterialesProductos[c].cantidad %>" name='MaterialesProductos[cantidad]' min="0">
-
-                    </div>
-                    
-
-                    <% } %>     
-                    <% } %>
-
-                    <div>
-                        <input type="number" value="0" name='MaterialesProductos[cantidad]' min="0">
-
-                    </div>
-               
-
-                                        <% } %>
-                        
-        </th>                                
-
-       
+}

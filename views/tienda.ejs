@@ -29,23 +29,43 @@
         <section id="tienda-productos">
             <div class="row">
                 <% for (var a = 0; a < productos.docs.length; a++) { %>
+                    <form action="/products-cart" method="POST">
 
                     <div class="col-sm-2">
-                        <a href="">
+                        <!--<a href="">-->
                             <div class="card line">
                                 <!-- Imagen -->
-                                <img class="card-img-top mx-auto d-block" src="#" alt="Product 1">
+                                <img class="card-img-top mx-auto d-block" src="<%=productos.docs[a].image%>" alt="Product 1">
                                 <div class="card-body">
-                                    <!-- Familia -->
-                                    <h5>Familia</h5>
+                             
                                     <!-- Nombre del producto -->
-                                    <h4 class="card-title">Producto 1</h4>
+     
+                                    <h4 class="card-title"><%=productos.docs[a].nombre%></h4>
+
                                     <!-- Precio -->
-                                    <p class="card-text">Precio: <span class="price">$10</span></p>
+                                    <input type="hidden" name="nombre" value="<%=productos.docs[a].nombre%>">
+                                    <input type="hidden" name="image" value="<%=productos.docs[a].image%>">
+                                    <input type="hidden" name="precio" value="<%=productos.docs[a].precio%>">
+                                    <input type="hidden" name="_id" value="<%=productos.docs[a]._id%>">
+                                    <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio%></span></p>
+                                    <% if( productos.docs[a].inCart === false){ %>
+                                        <button type="submit" class="btn btn-primary">Añadir al carro</button>
+                                        <% } %> 
+                                        <% if(productos.docs[a].inCart === true){ %>
+                                            Agregado al carrito
+                                            <% } %> 
+
+                            </form>
+
                                 </div>
                             </div>
-                        </a>
+                        <!--</a>-->
                     </div>
+<!--<a href="/materiales?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
+
+
+                                            <a href="/products-cart/<%=productos.docs[a]._id%>?query=add"  class="btn btn-primary" role="button">Añadir otro</a>
+-->
 
                 <% } %>
             </div>
@@ -62,3 +82,4 @@
     </body>
 </html>
 
+                         

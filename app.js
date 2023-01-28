@@ -11,7 +11,6 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
-
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -121,8 +120,8 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-//  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
 const inicioController = require('./controllers/inicio');
@@ -140,8 +139,12 @@ const productosEdicionMaterialesPOST = require('./controllers/productosEdicionMa
 const materialBorrar = require('./controllers/materialBorrar');
 const aboutGET = require("./controllers/about")
 const productoBorrar= require('./controllers/productoBorrar');
-const productoGET = require("./controllers/productoGET")
-
+const productosEMPOST = require('./controllers/productosEMPost')
+const getProducts= require('./controllers/GetProducts')
+const getProductsCart= require('./controllers/GetProductsCart')
+const addProductCart = require('./controllers/AddProductCart')
+const putProduct= require('./controllers/PutProduct')
+const cart = require('./controllers/cart')
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -185,8 +188,21 @@ app.use('/material/borrar/:id', materialBorrar);
 // - Productos
 app.post("/productos/edicion", productosEdicionPOST);
 app.post('/productos/agregar', productosAgregarPOST);
+app.post('/productos/EditarMateriales', productosEMPOST);
 app.get('/productos/MaterialesEdicion/:id',productosEdicionMaterialesPOST );
 app.use('/productos/borrar/:id', productoBorrar);
+
+//carrito
+
+app.get("/products", getProducts);
+app.get("/cart", cart);
+
+
+app.get("/products-cart", getProductsCart);
+
+app.post("/products-cart", addProductCart);
+
+app.use("/products-cart/:productId", putProduct);
 
 
 
