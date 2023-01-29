@@ -38,7 +38,7 @@
                                         <h4 class="card-title"><%=productos[a].nombre%></h4>
 
                                        <input type="hidden" name="amount" value="<%=cart[b].amount%>">
-                                       <%=cart[b].amount%>
+                                       
                                        <button type="submit" class="btn btn-primary">Añadir otro</button>
    
                                    </form>
@@ -50,17 +50,51 @@
                                    <button type="submit" class="btn btn-primary">borrar</button>
 
                                </form>
-                                   <% } %> 
+
+                               
+                            </form>
+                            <% } %> 
                                    
    
-                                   <% } %> 
+                            <% } %> 
+                            <% } %>
+                 
                             </div>
                         </div>
                 </div>
 
 
-            <% } %>
+            
         </div>
+        <form action="/create-payment" method="POST">
+            <input type="hidden" name="precio" value="0"> 
+            <input type="hidden" name="amount" value="0">  
+        <% for (var a = 0; a < productos.length; a++) { %>
+
+
+            <% for (var b = 0; b < cart.length; b++) { %>
+
+                <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre ){ %>
+      
+
+            <input type="hidden" name="amount" value="<%=cart[b].amount%>">      <%=cart[b].amount%>
+            <input type="hidden" name="precio" value="<%=productos[a].precio%>"> <%=productos[a].precio%>
+
+
+
+       
+            
+       
+        <% } %> 
+                                   
+   
+        <% } %> 
+        <% } %>
+
+        <% if( cart.length > 0 ){ %>
+        <button type="submit" class="btn btn-primary">Pagar</button>
+        <% } %>
+    </form>
     </section>
 
     <!-- Bootstrap core JS-->

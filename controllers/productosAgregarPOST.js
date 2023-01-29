@@ -20,73 +20,53 @@ module.exports = async (req,res)=>{
         
 }
 
-const MaterialesASumar = await Producto.find({nombre:req.body.nombre})
-const {MaterialesProductos} = MaterialesASumar[0];
-const {PinturaProductos} = MaterialesASumar[0];
-const {InstalacionProductos} = MaterialesASumar[0];
+//Obtiene el precio
 
+const productos = await Producto.find({nombre:req.body.nombre});
+const materiales = await Material.find({});
+
+
+const {MaterialesProductos} = productos[0];
+const {PinturaProductos} = productos[0];
+const {InstalacionProductos} = productos[0];
 
 
 var suma = 0;
 
 for (let i=0; i<MaterialesProductos.length; i++){
-
-
-
-         suma = suma + (MaterialesProductos[i].preciounitario * MaterialesProductos[i].cantidad)
-
-
+        if (MaterialesProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
+         suma = suma + (MaterialesProductos[i].cantidad *  materiales[i].PrecioUnitario)
+        }
 }
-
-var Suma2Mano= ((suma * MaterialesASumar[0].ManoObMaterial)/100) + suma;
-var Suma3Por= ((Suma2Mano * MaterialesASumar[0].PorcentajeMaterial)/100) +Suma2Mano;
-
+var Suma2Mano= ((suma * productos[0].ManoObMaterial)/100) + suma;
+var Suma3Por= ((Suma2Mano * productos[0].PorcentajeMaterial)/100) +Suma2Mano;
 
 var sumaSolventes = 0;
-            
-for (let m=0; m<PinturaProductos.length; m++){
 
+for (let i=0; i<PinturaProductos.length; i++){
+        if (PinturaProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
+            sumaSolventes = sumaSolventes + (PinturaProductos[i].cantidad *  materiales[i].PrecioUnitario)
+        }
+}
+var sumaSolventes2Mano= ((sumaSolventes * productos[0].ManoObPintura)/100) + sumaSolventes;
+var sumaSolventes3Por=((sumaSolventes2Mano * productos[0].PorcentajePintura)/100) +sumaSolventes2Mano;
 
+var sumaInsumos = 0;
 
-        sumaSolventes = sumaSolventes + (PinturaProductos[m].preciounitario * PinturaProductos[m].cantidad);
-
-    
-       
-
+for (let i=0; i<InstalacionProductos.length; i++){
+    if (InstalacionProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
+        sumaInsumos = sumaInsumos + (InstalacionProductos[i].cantidad *  materiales[i].PrecioUnitario)
     }
+}
+var sumaInsumos2Mano = ((sumaInsumos * productos[0].ManoObInstalacion)/100) + sumaInsumos;
+var sumaInsumos3Por = ((sumaInsumos * productos[0].PorcentajeInstalacion)/100) + sumaInsumos2Mano;
 
+var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
+var SubTotal=Math.round(x)
+console.log(SubTotal)
 
+await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } });
 
-var sumaSolventes2Mano= ((sumaSolventes * MaterialesASumar[0].ManoObPintura)/100) + sumaSolventes;
-var sumaSolventes3Por=((sumaSolventes2Mano * MaterialesASumar[0].PorcentajePintura)/100) +sumaSolventes2Mano;
-
-
-
-
-
-
-    var sumaInsumos = 0;
-            
-    for (let n=0; n<InstalacionProductos.length; n++){
-
-    
-    
-
-            sumaInsumos = sumaInsumos + (InstalacionProductos[n].preciounitario * InstalacionProductos[n].cantidad);
-
-    
-             
-
-         }
-
-         var sumaInsumos2Mano = ((sumaInsumos * MaterialesASumar[0].ManoObInstalacion)/100) + sumaInsumos;
-         var sumaInsumos3Por = ((sumaInsumos * MaterialesASumar[0].PorcentajeInstalacion)/100) + sumaInsumos2Mano;
-
-
-         var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
-         var SubTotal=Math.round(x)
-
-         await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } });
 
         try {
             let image = req.files.image;

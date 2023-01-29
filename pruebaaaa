@@ -1,49 +1,64 @@
-const Cart = require("../models/Cart");
-const Product = require("../models/Productos");
+//Paypal
 
-const putProduct = async (req, res) => {
+const createPayment =(req,res)=>{
+  var suma = 0;
+  for (var i=0; i<req.body.precio.length; i++){
+ 
+  suma = suma + (req.body.amount[i]*req.body.precio[i])
+  }
+  //console.log(suma)
 
-  console.log("hola")
-
-
-  const { productId } = req.params;
-  const { query } = req.query;
-  const body = req.body;
-  var prueba = Number(body.amount);
-
-  /* Buscamos el producto en el carrito */
-  const productBuscado = await Cart.findById(productId);
-
-
-if(query=== "del" && prueba === 1){
-
-  const { productId } = req.params;
-
-  /* Buscamos el producto en el carrito */
-  const productInCart = await Cart.findById(productId);
-
-  /* Buscamos el producto en nuestra DB por el nombre del que esta en el carrito */
-  const { nombre, image, precio, _id } = await Product.findOne({
-    nombre: productInCart.nombre,
-  });
-
-  /* Buscamos y eliminamos el producto con la id */
-  await Cart.findByIdAndDelete(productId);
   
-  /* Buscamos y editamos la prop inCart: false */
-  /* Le pasamos la id del producto en la DB */
-  /* La prop a cambiar y las demas */
-  /* Y el new para devolver el producto editado */
-  await Product.findByIdAndUpdate(
-    _id,
-    { inCart: false, nombre, image, precio },
-    { new: true }
-  )
-    .then((product) => {
-      res.json({
-        mensaje: `El producto ${product.nombre} fue eliminado del carrito`,
-      });
-    })
-    .catch((error) => res.json({ mensaje: "Hubo un error" }));
+  const body ={
+    intent: 'CAPTURE',
+    purchase_units:[{
+      amount:{
+        currency_code: 'USD', //https://developer.paypal.com/reference/currency-codes/
+        value: suma //costo del producto
+      }
+    }],
+  application_context:{
+brand_name:'EmpresaNombre.com' ,
+landing_page: 'NO_PREFERENCE',
+user_action:'PAY_NOW',
+return_url:`http://localhost:3000/execute-payment`,
+cancel_url:`http://localhost:3000/cancel-payment`
 
+  }
+
+
+
+  }
+
+
+  request.post(`${PAYPAL_API}/v2/checkout/orders`,{
+    auth,
+    body,
+    json:true
+  },(err,response)=>{
+      res.json({data:response.body})
+  })
+
+  
+}
+
+const executePayment =(req,res)=>{
+
+  const token = req.query.token;
+  
+  request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
+    auth,
+    body:{},
+    json:true
+
+  },(err,response)=>{
+    res.json({data:response.body})
+  })
+
+  
+}
+
+const cancelPayment =(req,res)=>{
+
+ res.redirect('/cart')
 }

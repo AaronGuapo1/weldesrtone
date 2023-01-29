@@ -11,6 +11,9 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
+const cors = require('cors')
+const request = require('request');
+
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -21,6 +24,7 @@ function nocache(req, res, next) { /// function used to remove cache anywhere ne
 
 // ---------------- APP CONFIG ---------------- // 
 const app = new express();
+app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public")); 
 app.use(fileUpload());
@@ -124,6 +128,12 @@ mongoose.set('strictQuery', true);
 //mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
+const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q6ToD9NrLHm1Vga3';
+const SECRET = 'ELwDrZw6HUnHgle6kfri5qG9RBuLnbCWpYz2zWhqtCidQvhq8HgQmJT1c5Qut1TijbgHxWaTi_c31YMr';
+const PAYPAL_API= 'https://api-m.sandbox.paypal.com'; //https://api-m.paypal.com
+const auth ={ user: CLIENT, pass: SECRET}
+
+
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
 const loginController = require('./controllers/login');
@@ -144,6 +154,79 @@ const getProductsCart= require('./controllers/GetProductsCart')
 const addProductCart = require('./controllers/AddProductCart')
 const putProduct= require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
+const pagado = require('./controllers/pagado')
+
+//Paypal
+
+const createPayment =(req,res)=>{
+  var suma = 0;
+  for (var i=1; i<req.body.precio.length; i++){
+ 
+  suma = suma + (req.body.amount[i]*req.body.precio[i])
+  }
+  //console.log(suma)
+
+  
+  const body ={
+    intent: 'CAPTURE',
+    purchase_units:[{
+      amount:{
+        currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
+        value: suma //costo del producto
+      }
+    }],
+  application_context:{
+brand_name:'EmpresaNombre.com' ,
+landing_page: 'NO_PREFERENCE',
+user_action:'PAY_NOW',
+return_url:`http://localhost:3000/execute-payment`,
+cancel_url:`http://localhost:3000/cancel-payment`
+
+  }
+
+
+
+  }
+
+
+  request.post(`${PAYPAL_API}/v2/checkout/orders`,{
+    auth,
+    body,
+    json:true
+  },(err,response)=>{
+    const datos = ({data:response.body})
+    //console.log(datos)
+    var {data} = datos
+    //console.log(data.links[1].href,data.links[1].rel)
+    const pago = data.links[1].href
+      //res.json({data:response.body})
+      res.redirect(pago);
+  })
+
+  
+}
+
+const executePayment =(req,res)=>{
+
+  const token = req.query.token;
+  
+  request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
+    auth,
+    body:{},
+    json:true
+
+  },(err,response)=>{
+    //res.json({data:response.body})
+    res.redirect('/pagado')
+  })
+
+  
+}
+
+const cancelPayment =(req,res)=>{
+
+ res.redirect('/cart')
+}
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -190,18 +273,17 @@ app.get('/productos/MaterialesEdicion/:id',productosEdicionMaterialesPOST );
 app.use('/productos/borrar/:id', productoBorrar);
 
 //carrito
-
 app.get("/products", getProducts);
 app.get("/cart", cart);
-
-
 app.get("/products-cart", getProductsCart);
-
 app.post("/products-cart", addProductCart);
-
 app.use("/products-cart/:productId", putProduct);
 
-
+//paypal
+app.post(`/create-payment`, createPayment)
+app.get(`/execute-payment`, executePayment)
+app.get('/cancel-payment', cancelPayment)
+app.get('/pagado', pagado)
 
 app.use((req, res) => res.render('notfound'));
 
