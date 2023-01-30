@@ -23,7 +23,7 @@ module.exports = async (req, res) =>{
 
 
 const productos = await Producto.find({});
-const materiales = await Material.find({});
+const materiales = await material.find({});
 
 for (let a =0; a< productos.length; a++){
 

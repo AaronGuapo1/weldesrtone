@@ -1,5 +1,7 @@
 const Producto = require('../models/Productos.js');
 const path = require('path');
+const Material = require('../models/materiales.js');
+
 module.exports = async (req,res)=>{   
 
 
@@ -9,7 +11,7 @@ module.exports = async (req,res)=>{
 for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
 
 
-    await Producto.updateOne({nombre:req.body.ProductoAEditar}, { $set: {"MaterialesProductos.$[item]":{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[familia]'][a],preciounitario:req.body['MaterialesProductos[preciounitario]'][a]}}}, {arrayFilters: [{"item.codigo":req.body['MaterialesProductos[codigo]'][a]}]});
+    await Producto.updateOne({nombre:req.body.ProductoAEditar}, { $set: {"MaterialesProductos.$[item]":{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[familia]'][a]}}}, {arrayFilters: [{"item.codigo":req.body['MaterialesProductos[codigo]'][a]}]});
 
 
     
@@ -17,12 +19,12 @@ for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
 
 
 for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
-    await Producto.updateOne({nombre:req.body.ProductoAEditar}, { $set: {"PinturaProductos.$[item]":{Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[familia]'][b],preciounitario:req.body['PinturaProductos[preciounitario]'][b]}}}, {arrayFilters: [{"item.codigo":req.body['PinturaProductos[codigo]'][b]}]});
+    await Producto.updateOne({nombre:req.body.ProductoAEditar}, { $set: {"PinturaProductos.$[item]":{Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[familia]'][b]}}}, {arrayFilters: [{"item.codigo":req.body['PinturaProductos[codigo]'][b]}]});
 
 }
 
 for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
-    await Producto.updateOne({nombre:req.body.ProductoAEditar}, { $set: {"InstalacionProductos.$[item]":{Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[familia]'][c],preciounitario:req.body['InstalacionProductos[preciounitario]'][c]}}}, {arrayFilters: [{"item.codigo":req.body['InstalacionProductos[codigo]'][c]}]});
+    await Producto.updateOne({nombre:req.body.ProductoAEditar}, { $set: {"InstalacionProductos.$[item]":{Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[familia]'][c]}}}, {arrayFilters: [{"item.codigo":req.body['InstalacionProductos[codigo]'][c]}]});
 
 }
 
@@ -68,7 +70,7 @@ var sumaInsumos3Por = ((sumaInsumos * productos[a].PorcentajeInstalacion)/100) +
 
 var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
 var SubTotal=Math.round(x)
-console.log(SubTotal)
+
 
 await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });
 

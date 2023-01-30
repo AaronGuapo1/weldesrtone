@@ -36,6 +36,7 @@
    
                                     <form action="/products-cart/<%=productos[a]._id%>?query=add" method="POST">
                                         <h4 class="card-title"><%=productos[a].nombre%></h4>
+                                        <img src="<%= productos[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
 
                                        <input type="hidden" name="amount" value="<%=cart[b].amount%>">
                                        
@@ -77,8 +78,8 @@
                 <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre ){ %>
       
 
-            <input type="hidden" name="amount" value="<%=cart[b].amount%>">      <%=cart[b].amount%>
-            <input type="hidden" name="precio" value="<%=productos[a].precio%>"> <%=productos[a].precio%>
+            <input type="hidden" name="amount" value="<%=cart[b].amount%>">     Cantidad: <%=cart[b].amount%>
+            <input type="hidden" name="precio" value="<%=productos[a].precio%>"> Precio: <%=productos[a].precio%>
 
 
 

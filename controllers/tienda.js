@@ -12,11 +12,12 @@ module.exports = async (req, res) =>{
        
     //console.log(page)
     if (page === undefined){
-    const productos = await Producto.paginate({},{page:1},{limit:10},);
+    const productos = await Producto.paginate({},{page:1,limit:30});
     const cart = await Cart.find({});
+    console.log(productos);
     res.render('tienda',{productos, roles: role, loggedIn: logged,cart});
     }else {
-        const productos = await Producto.paginate({},{page},{limit:10},);
+        const productos = await Producto.paginate({},{page,limit:30});
         const cart = await Cart.find({});
 
         res.render('tienda',{productos, roles: role, loggedIn: logged,cart});

@@ -1,5 +1,6 @@
 const Producto = require('../models/Productos.js');
 const path = require('path');
+const Material = require('../models/materiales.js');
 
 module.exports = async (req,res)=>{   
 

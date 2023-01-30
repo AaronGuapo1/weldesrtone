@@ -13,11 +13,11 @@ module.exports = async (req, res) =>{
         //console.log(page)
         if (page === undefined){
            
-        const materiales = await material.paginate({},{page:1},{limit:10},);
+        const materiales = await material.paginate({},{page:1,limit:10});
        
         res.render('materiales', {materiales, roles: role, loggedIn: true});
     }else{
-        const materiales = await material.paginate({},{page},{limit:10},);
+        const materiales = await material.paginate({},{page,limit:10});
        
         res.render('materiales', {materiales, roles: role, loggedIn: true});
     }
