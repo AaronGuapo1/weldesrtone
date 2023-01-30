@@ -32,6 +32,26 @@ img {
     margin: 0 auto;
 }
 
+// ---------------- GLOBAL ---------------- // 
+.center-all {
+    text-align: center;
+    line-height: 40px;
+}
+
+.rb-red {
+    border-right: 1px solid red;
+}
+
+.filter-format {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    color: black;
+}
+
+.filter-format:hover {
+    color: #d10101;
+}
+
 // ---------------- FILTER BUTTONS SECTION ---------------- // 
 #filter-buttons {
     margin-top: 150px;
@@ -221,7 +241,7 @@ img {
 
 // ---------------- TIENDA ---------------- // 
 #tienda-productos {
-    padding: 2% 5%;
+    padding: 0 5%;
 
     .card {
         background-color: white;

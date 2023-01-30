@@ -271,6 +271,25 @@ img {
   margin: 0 auto;
 }
 
+.center-all {
+  text-align: center;
+  line-height: 40px;
+}
+
+.rb-red {
+  border-right: 1px solid red;
+}
+
+.filter-format {
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  color: black;
+}
+
+.filter-format:hover {
+  color: #d10101;
+}
+
 #filter-buttons {
   margin-top: 150px;
   margin-bottom: 175px;
@@ -438,7 +457,7 @@ img {
 }
 
 #tienda-productos {
-  padding: 2% 5%;
+  padding: 0 5%;
 }
 #tienda-productos .card {
   background-color: white;
