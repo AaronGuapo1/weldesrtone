@@ -3,7 +3,6 @@ const Product = require("../models/Productos");
 
 const putProduct = async (req, res) => {
 
-  console.log("hola")
 
 
   const { productId } = req.params;
