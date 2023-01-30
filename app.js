@@ -133,7 +133,6 @@ const SECRET = 'ELwDrZw6HUnHgle6kfri5qG9RBuLnbCWpYz2zWhqtCidQvhq8HgQmJT1c5Qut1Ti
 const PAYPAL_API= 'https://api-m.sandbox.paypal.com'; //https://api-m.paypal.com
 const auth ={ user: CLIENT, pass: SECRET}
 
-
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
 const loginController = require('./controllers/login');
@@ -158,76 +157,58 @@ const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
 const pagado = require('./controllers/pagado')
 
-//Paypal
-
+// - Paypal
 const createPayment =(req,res)=>{
-  var suma = 0;
-  for (var i=1; i<req.body.precio.length; i++){
- 
-  suma = suma + (req.body.amount[i]*req.body.precio[i])
-  }
-  //console.log(suma)
+    var suma = 0;
 
-  
-  const body ={
-    intent: 'CAPTURE',
-    purchase_units:[{
-      amount:{
-        currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
-        value: suma //costo del producto
-      }
-    }],
-  application_context:{
-brand_name:'EmpresaNombre.com' ,
-landing_page: 'NO_PREFERENCE',
-user_action:'PAY_NOW',
-return_url:`http://localhost:3000/execute-payment`,
-cancel_url:`http://localhost:3000/cancel-payment`
+    for (var i=1; i<req.body.precio.length; i++){
+        suma = suma + (req.body.amount[i]*req.body.precio[i])
+    }
 
-  }
+    const body = {
+        intent: 'CAPTURE',
+        purchase_units:[{
+            amount: {
+                currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
+                value: suma //costo del producto
+            }
+        }],
+        application_context: {
+            brand_name:'EmpresaNombre.com' ,
+            landing_page: 'NO_PREFERENCE',
+            user_action:'PAY_NOW',
+            return_url:`http://localhost:3000/execute-payment`,
+            cancel_url:`http://localhost:3000/cancel-payment`
+        }
+    }
 
-
-
-  }
-
-
-  request.post(`${PAYPAL_API}/v2/checkout/orders`,{
-    auth,
-    body,
-    json:true
-  },(err,response)=>{
-    const datos = ({data:response.body})
-    //console.log(datos)
-    var {data} = datos
-    //console.log(data.links[1].href,data.links[1].rel)
-    const pago = data.links[1].href
-      //res.json({data:response.body})
-      res.redirect(pago);
-  })
-
-  
+    request.post(`${PAYPAL_API}/v2/checkout/orders`,{
+        auth,
+        body,
+        json:true
+    }, (err,response)=>{
+        const datos = ({data:response.body})
+        var {data} = datos
+        const pago = data.links[1].href
+        res.redirect(pago);
+    })
 }
 
-const executePayment =(req,res)=>{
+const executePayment = (req,res)=>{
+    const token = req.query.token;
 
-  const token = req.query.token;
-  
-  request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
+    request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
     auth,
     body:{},
     json:true
-
-  },(err,response)=>{
+    }, (err,response)=>{
     //res.json({data:response.body})
     res.redirect('/pagado')
-  })
-
-  
+    })
 }
 
 const cancelPayment =(req,res)=>{
-
- res.redirect('/cart')
+    res.redirect('/cart')
 }
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
@@ -259,7 +240,7 @@ passport.authenticate('microsoft', {
 app.get('/auth/microsoft/welderstone', 
 passport.authenticate('microsoft', { failureRedirect: '/login/false' }),
 function(req, res) {
-  res.redirect('/');
+    res.redirect('/');
 });
 
 // - POST METHOD - //
