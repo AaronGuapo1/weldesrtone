@@ -22,7 +22,7 @@ if(query=== "del" && prueba === 1){
   const productInCart = await Cart.findById(productId);
 
   /* Buscamos el producto en nuestra DB por el nombre del que esta en el carrito */
-  const { nombre, image, precio, _id } = await Product.findOne({
+  const { nombre, image, precio, _id, UsuarioId } = await Product.findOne({
     nombre: productInCart.nombre,
   });
 
@@ -35,7 +35,7 @@ if(query=== "del" && prueba === 1){
   /* Y el new para devolver el producto editado */
   await Product.findByIdAndUpdate(
     _id,
-    { inCart: false, nombre, image, precio },
+    { inCart: false, nombre, image, precio, UsuarioId },
     { new: true }
   )
     .then((product) => {

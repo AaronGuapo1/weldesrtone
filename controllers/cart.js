@@ -1,6 +1,5 @@
 const Producto = require('../models/Productos.js');
 const Cart = require("../models/Cart");
-
 module.exports = async (req, res) =>{
     let role = "viewer";
     let logged = false; 
@@ -8,8 +7,9 @@ module.exports = async (req, res) =>{
         role = req.session.passport.user.role;
         logged = true;
     }
+    const IdUsuario = req.session.passport.user.id;
     const productos = await Producto.find({});
     const cart = await Cart.find({});
-    res.render('cart',{productos,cart,roles: role, loggedIn: logged});
+    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario});
     }
     

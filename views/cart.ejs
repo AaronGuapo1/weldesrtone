@@ -32,10 +32,11 @@
 
                                 <% for (var b = 0; b < cart.length; b++) { %>
 
-                                    <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre ){ %>
+                                    <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre  && IdUsuario === cart[b].UsuarioId){ %>
    
                                     <form action="/products-cart/<%=productos[a]._id%>?query=add" method="POST">
                                         <h4 class="card-title"><%=productos[a].nombre%></h4>
+                                        <img src="<%= productos[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
 
                                        <input type="hidden" name="amount" value="<%=cart[b].amount%>">
                                        
@@ -66,6 +67,9 @@
 
             
         </div>
+
+   
+
         <form action="/create-payment" method="POST">
             <input type="hidden" name="precio" value="0"> 
             <input type="hidden" name="amount" value="0">  
@@ -74,24 +78,25 @@
 
             <% for (var b = 0; b < cart.length; b++) { %>
 
-                <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre ){ %>
+                <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre && IdUsuario === cart[b].UsuarioId ){ %>
       
 
-            <input type="hidden" name="amount" value="<%=cart[b].amount%>">      <%=cart[b].amount%>
-            <input type="hidden" name="precio" value="<%=productos[a].precio%>"> <%=productos[a].precio%>
+            <input type="hidden" name="amount" value="<%=cart[b].amount%>">     Cantidad: <%=cart[b].amount%>
+            <input type="hidden" name="precio" value="<%=productos[a].precio%>"> Precio: <%=productos[a].precio%>
 
 
 
        
-            
+
        
         <% } %> 
                                    
-   
+
         <% } %> 
         <% } %>
 
-        <% if( cart.length > 0 ){ %>
+        <% if(cart.UsuarioId === IdUsuario){ %>
+
         <button type="submit" class="btn btn-primary">Pagar</button>
         <% } %>
     </form>

@@ -1,7 +1,10 @@
 const Producto = require('../models/Productos.js');
 const path = require('path');
+const Material = require('../models/materiales.js');
 
 module.exports = async (req,res)=>{   
+
+//agregar middleware nombre único
 
     await Producto.create({...req.body});
 

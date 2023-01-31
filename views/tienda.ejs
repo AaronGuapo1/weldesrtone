@@ -56,6 +56,7 @@
         <section id="tienda-productos">
             <div class="row">
                 <% for (var a = 0; a < productos.docs.length; a++) { %> 
+
                     <div class="col-sm-2">
                         <a href="#">
                             <div class="card line">
@@ -65,25 +66,35 @@
                                 <div class="card-body">
                                     <!-- Nombre del producto -->
                                     <h4 class="card-title"><%=productos.docs[a].nombre%> </h4>
-                                    <form action="/products-cart" method="POST"></form>
+                                    <form action="/products-cart" method="POST">
                                         <!-- Precio -->
                                         <input type="hidden" name="nombre" value="<%=productos.docs[a].nombre%>">
                                         <input type="hidden" name="image" value="<%=productos.docs[a].image%>">
                                         <input type="hidden" name="precio" value="<%=productos.docs[a].precio%>">
                                         <input type="hidden" name="_id" value="<%=productos.docs[a]._id%>">
+                                        <% if(loggedIn) { %>
+
+                                        <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
+                                        <% } %>
+
                                         <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio%></span></p>
+                                        <% if(loggedIn) { %>
+
                                         <% if( productos.docs[a].inCart === false){ %> 
-                                            <button type="submit" class="btn btn-danger w-100"><i class="fa-solid fa-cart-shopping me-2"></i>Añadir al carro</button>
+                                            <button type="submit" class="btn btn-danger w-100" class="fa-solid fa-cart-shopping me-2">Añadir al carro</button>
                                         <% } %>
                                         <% if(productos.docs[a].inCart === true){ %> 
                                             <p>Agregado al carrito</p> 
                                         <% } %>
+                                        <% } %>
+
                                     </form>
                                 </div>
                             </div>
                         </a>
                     </div>
                 <% } %>
+
             </div>
 
             <div style="text-align: end;">
