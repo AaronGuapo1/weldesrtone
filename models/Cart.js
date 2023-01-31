@@ -10,6 +10,7 @@ nombre:{type:String,required:true,unique:true},
 image:{type:String,required:false},
 amount:{type:Number,required:true},
 precio:{type:Number,required:true},
+UsuarioId:{type:String,required:true}
 
 
 });

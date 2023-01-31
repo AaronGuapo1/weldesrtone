@@ -21,6 +21,9 @@
                         <li class="nav-item ms-3 ms-lg-2">
                             <a class="nav-link" href="/tienda">Tienda</a>
                         </li>
+                        <li class="nav-item ms-3 ms-lg-2">
+                            <a class="nav-link" href="/producto">Producto</a>
+                        </li>
                         <!-- Acerca de (No linkeado) -->
                         <li class="nav-item ms-3 ms-lg-2">
                             <a class="nav-link" href="/about">Welderstone</a>
@@ -39,7 +42,7 @@
     
             <!-- Logo de en medio -->
             <div class="col-4">
-                <img src="assets/brand/logo.png" alt="Welderstone Logo">
+                <img src="/assets/brand/logo.png" alt="Welderstone Logo">
             </div>
     
             <!-- Vinculos de la derecha -->
@@ -53,11 +56,10 @@
                     <li class="nav-item icon">
                         <a class="nav-link ms-3" href="https://www.facebook.com/WELDERSTONESHOP"><i class="f-icon fa-brands fa-facebook"></i></a>
                     </li>
-                    <!-- Icono de Shopping -->
-                    <li class="nav-item ms-auto ms-lg-0">
-                        <a class="nav-link ms-3 me-3 me-lg-0" href="/cart"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
-                    </li>
+
+            
                     <% if(!loggedIn) { %>
+
                         <!-- Icono de Login -->
                         <li class="nav-item">
                             <a class="nav-link ms-3" href="/login/welderstone"><i class="f-icon fa-solid fa-user"></i></a>
@@ -72,9 +74,13 @@
                         <li class="nav-item">
                             <a class="nav-link ms-3" href="/logout"><button type="button" class="btn btn-outline-danger">Salir</button></a>
                         </li>
+                        <li class="nav-item ms-auto ms-lg-0">
+                            <a class="nav-link ms-3 me-3 me-lg-0" href="/cart"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
+                        </li>
                     <% } %>
                 </ul>
             </div>
         </div>
     </nav>
 </div>
+

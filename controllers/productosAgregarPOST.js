@@ -4,6 +4,8 @@ const Material = require('../models/materiales.js');
 
 module.exports = async (req,res)=>{   
 
+//agregar middleware nombre único
+
     await Producto.create({...req.body});
 
         for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){

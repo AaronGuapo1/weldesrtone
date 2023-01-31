@@ -21,6 +21,14 @@ ManoObPintura:{type:Number},
 PorcentajePintura:{type:Number},
 ManoObInstalacion:{type:Number},
 PorcentajeInstalacion:{type:Number},
+CapacidadCarga:{type:String}, //here
+CaracEsp:{type:String},
+Color:{type:String},
+Material:{type:String},
+NombreMarca:{type:String},
+NumArt:{type:Number},
+NumPiezas:{type:String},
+Tamaño:{type:String},
 inCart:{type:Boolean,default:false}
 
 });

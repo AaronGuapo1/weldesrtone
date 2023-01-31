@@ -84,32 +84,57 @@
                         <div class="content-pop">
                             <div><a href="#" id="close">X</a></div>
                             <% for (var a = 0; a < materiales.length; a++) { %>
-                                <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">
-
-                      
-                                      <button type="button" class="btn btn-primary w-100 edit" id="Material<%=materiales[a].Codigo%>">Material</button>
-                                      <button type="button" class="btn btn-primary w-100 edit" id="Pintura<%=materiales[a].Codigo%>">Pintura</button>
-                                      <button type="button" class="btn btn-primary w-100 edit" id="Instalacion<%=materiales[a].Codigo%>">Instalacion</button>
-
+                                <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">                     
+                                      <button type="button" class="btn btn-primary w-100 edit" id="Material<%=materiales[a].Codigo%>">Agregar</button>
 
                                 </div>
-        
-
-
                                 </div>
-                                
                                 <% } %>
-                           
-
-        
                     </div>
-
-
                      </div>
-
-
                     </div>
                     </div>
+
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                        <input type="button" name="abrirse2" id="open2" value="Agregar materiales Pintura">
+                         <div id="popup2" style="display: none;">
+    
+                            <div class="content-pop">
+                                <div><a href="#" id="close2">X</a></div>
+                                <% for (var a = 0; a < materiales.length; a++) { %>
+                                    <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">                     
+                                          <button type="button" class="btn btn-primary w-100 edit" id="Pintura<%=materiales[a].Codigo%>">Agregar</button>
+                                    </div>
+                                    </div>
+                                    <% } %>
+                        </div>
+                         </div>
+                        </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                            <input type="button" name="abrirse3" id="open3" value="Agregar materiales Instalacion">
+                             <div id="popup3" style="display: none;">
+        
+                                <div class="content-pop">
+                                    <div><a href="#" id="close3">X</a></div>
+                                    <% for (var a = 0; a < materiales.length; a++) { %>
+                                        <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">                     
+
+                                              <button type="button" class="btn btn-primary w-100 edit" id="Instalacion<%=materiales[a].Codigo%>">Agregar</button>
+                                        </div>
+                                        </div>
+                                        <% } %>
+                            </div>
+                             </div>
+                            </div>
+                            </div>
+        
+
+
+
 
                         <div class="control-group">
                             <div class="form-group floating-label-form-group controls">
@@ -265,8 +290,68 @@
                                                                 <label>Porcentaje de instalacion</label>
                                                                 <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajeInstalacion"
                                                                 name="PorcentajeInstalacion">
-                                                                </div>
-                                                                </div>
+                                                            </div>
+                                                            </div>
+                                                           <div class="control-group">
+                                                                   <div class="form-group floating-label-form-group controls">
+                                                                <label>Capacidad de carga</label>
+                                                                   <input type="text" class="form-control" id="CapacidadCarga" name="CapacidadCarga">
+                                                                    
+                                                                   </div>
+                                                                  </div>
+                                                                  <div class="control-group">
+                                                                      <div class="form-group floating-label-form-group controls">
+                                                                       <label>Caracteristicas especiales</label>
+                                                                      <input type="text" class="form-control" id="CaracEsp" name="CaracEsp">
+                                                                      
+                                                                      </div>
+                                                                      </div>
+                                                                      <div class="control-group">
+                                                                          <div class="form-group floating-label-form-group controls">
+                                                                           <label>Color</label>
+                                                                           <input type="text" class="form-control" id="Color" name="Color">
+                                                                        
+                                                                        </div>
+                                                                        </div>
+                                                                        <div class="control-group">
+                                                                            <div class="form-group floating-label-form-group controls">
+                                                                             <label>Material</label>
+                                                                             <input type="text" class="form-control" id="Material" name="Material">
+                                                                          
+                                                                          </div>
+                                                                          </div>
+                                                                          <div class="control-group">
+                                                                            <div class="form-group floating-label-form-group controls">
+                                                                             <label>Nombre de la marca</label>
+                                                                             <input type="text" class="form-control" id="NombreMarca" name="NombreMarca">
+                                                                          
+                                                                          </div>
+                                                                          </div>
+                                                                          <div class="control-group">
+                                                                            <div class="form-group floating-label-form-group controls">
+                                                                             <label>Numero de articulo</label>
+                                                                             <input type="number" class="form-control" id="NumArt" name="NumArt">
+                                                                          
+                                                                          </div>
+                                                                          </div>
+                                                                          <div class="control-group">
+                                                                            <div class="form-group floating-label-form-group controls">
+                                                                             <label>Numero de piezas</label>
+                                                                             <input type="text" class="form-control" id="NumPiezas" name="NumPiezas">
+                                                                          
+                                                                          </div>
+                                                                          </div>
+                                                                          <div class="control-group">
+                                                                            <div class="form-group floating-label-form-group controls">
+                                                                             <label>Tamaño</label>
+                                                                             <input type="text" class="form-control" id="Tamaño" name="Tamaño">
+                                                                          
+                                                                          </div>
+                                                                          </div>
+                                                                     
+
+
+
                 <br>
                 <div class="form-group">
                 <button type="submit" class="btn btn-primary"
@@ -277,14 +362,17 @@
 
 
 
-
+                <br>
+                <br>
+                <br>
 
                 
 
-
-                <div class="container">
+<!--
                     <div class="row">
                         <div class="col-lg-8 col-md-10 mx-auto">
+-->
+
                                 <div class="row row-cols-1">
                                     <table>
 
@@ -296,7 +384,22 @@
                                             <th> Imagen </th>
                                             <th> Nombre</th>
                                             <th> Descripcion</th>
-    
+                                            <th> Unidad </th>
+                                            <th> Mano  de Obra Material </th>
+                                            <th> Porcentaje Material </th>
+                                            <th> Mano  de Obra Pintura </th>
+                                            <th> Porcentaje Pintura </th>
+                                            <th> Mano  de Obra Instalacion </th>
+                                            <th> Porcentaje Instalacion</th>
+                                            <th> Capacidad de carga</th>
+                                            <th> Caracteristicas especiales</th>
+                                            <th> Color</th>
+                                            <th> Material</th>
+                                            <th> Nombre de la marca</th>
+                                            <th> Numero de articulo</th>
+                                            <th> Numero de piezas</th>
+                                            <th> Tamaño</th>
+
                                         </tr>
     
                                         <% for (var a = 0; a < productos.docs.length; a++) { %>
@@ -339,21 +442,67 @@
         <th>   <%=productos.docs[a].descripcion%> <input type="text" class="form-control"  id="descripcion" name="descripcion">
                                             
         </th>
-        <th> 
-            <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
-                <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar</a>
-    
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary"
-                    id="sendMessageButton">Actualizar</button>
-                    </div>
-                </form>
+ 
 
+        <th>    <%=productos.docs[a].unidad%> <input type="text" class="form-control"  id="unidad" name="unidad">
+                                            
         </th>
-   
-    </tr>      
+        <th>     <%=productos.docs[a].ManoObMaterial%> <input type="number" class="form-control"  id="ManoObMaterial" name="ManoObMaterial">
+                                            
+        </th>
 
+        <th>   <%=productos.docs[a].PorcentajeMaterial%> <input type="number" class="form-control"  id="PorcentajeMaterial" name="PorcentajeMaterial">
+                                            
+        </th>
+        <th>  <%=productos.docs[a].ManoObPintura%> <input type="number" class="form-control"  id="ManoObPintura" name="ManoObPintura">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].PorcentajePintura%> <input type="number" class="form-control"  id="PorcentajePintura" name="PorcentajePintura">
+                                            
+        </th>
+        
+        <th>    <%=productos.docs[a].ManoObInstalacion%> <input type="number" class="form-control"  id="ManoObInstalacion" name="ManoObInstalacion">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].PorcentajeInstalacion%> <input type="number" class="form-control"  id="PorcentajeInstalacion" name="PorcentajeInstalacion">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].CapacidadCarga%> <input type="text" class="form-control"  id="CapacidadCarga" name="CapacidadCarga">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].CaracEsp%> <input type="text" class="form-control"  id="CaracEsp" name="CaracEsp">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].Color%> <input type="text" class="form-control"  id="Color" name="Color">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].Material%> <input type="text" class="form-control"  id="Material" name="Material">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].NombreMarca%> <input type="text" class="form-control"  id="NombreMarca" name="NombreMarca">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].NumArt%> <input type="text" class="form-control"  id="NumArt" name="NumArt">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].NumPiezas%> <input type="number" class="form-control"  id="NumPiezas" name="NumPiezas">
+                                            
+        </th>
+        <th>    <%=productos.docs[a].Tamaño%> <input type="text" class="form-control"  id="Tamaño" name="Tamaño">
+                                            
+        </th>
+    <th> 
+        <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
+            <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar</a>
 
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary"
+                id="sendMessageButton">Actualizar</button>
+                </div>
+            </form>
+
+    </th>
+</tr>  
     <% } %>
 
     </table>
@@ -361,12 +510,11 @@
        
                                 </div>
 
-
+<!--
                             </div>
                         </div>
-                        </div>
                         
-                    
+                    -->
 
                         <% for (var a = 1; a < productos.totalPages+1; a++) { %> 
               
@@ -421,6 +569,22 @@
     });
 </script>
 
+
+<script type="text/javascript">
+                    
+    $(document).ready(function(){
+    $("#open3").on("click", function (){
+        $("#popup3").fadeIn("slow");
+    });
+    $("#close3").on("click", function (){
+        $("#popup3").fadeOut("slow");
+    });
+
+
+
+    });
+</script>
+
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
 
@@ -428,3 +592,6 @@
 </html>
 
 
+<!--     <th>    <input type="number" class="form-control"  id="" name="">
+                                            
+        </th>-->

@@ -124,7 +124,7 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+ mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 //mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
@@ -132,7 +132,6 @@ const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q
 const SECRET = 'ELwDrZw6HUnHgle6kfri5qG9RBuLnbCWpYz2zWhqtCidQvhq8HgQmJT1c5Qut1TijbgHxWaTi_c31YMr';
 const PAYPAL_API= 'https://api-m.sandbox.paypal.com'; //https://api-m.paypal.com
 const auth ={ user: CLIENT, pass: SECRET}
-
 
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
@@ -142,90 +141,74 @@ const productosGET = require('./controllers/productosGET');
 const materialesGET = require('./controllers/materialesGET');
 const materialesEdicionPOST = require('./controllers/materialesEdicionPOST');
 const materialesAgregarPOST = require('./controllers/materialesAgregarPOST');
+const materialesBusqueda = require("./controllers/materialesBusqueda");
 const productosEdicionPOST = require("./controllers/productosEdicionPOST");
 const productosAgregarPOST = require('./controllers/productosAgregarPOST');
 const productosEdicionMaterialesPOST = require('./controllers/productosEdicionMateriales');
 const materialBorrar = require('./controllers/materialBorrar');
-const aboutGET = require("./controllers/about")
+const aboutGET = require("./controllers/about");
+const productoGET = require("./controllers/productoGET")
 const productoBorrar= require('./controllers/productoBorrar');
 const productosEMPOST = require('./controllers/productosEMPost')
-const getProducts= require('./controllers/GetProducts')
-const getProductsCart= require('./controllers/GetProductsCart')
+const getProducts = require('./controllers/GetProducts')
+const getProductsCart = require('./controllers/GetProductsCart')
 const addProductCart = require('./controllers/AddProductCart')
-const putProduct= require('./controllers/PutProduct')
+const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
 const pagado = require('./controllers/pagado')
 
-//Paypal
-
+// - Paypal
 const createPayment =(req,res)=>{
-  var suma = 0;
-  for (var i=1; i<req.body.precio.length; i++){
- 
-  suma = suma + (req.body.amount[i]*req.body.precio[i])
-  }
-  //console.log(suma)
+    var suma = 0;
 
-  
-  const body ={
-    intent: 'CAPTURE',
-    purchase_units:[{
-      amount:{
-        currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
-        value: suma //costo del producto
-      }
-    }],
-  application_context:{
-brand_name:'EmpresaNombre.com' ,
-landing_page: 'NO_PREFERENCE',
-user_action:'PAY_NOW',
-return_url:`http://localhost:3000/execute-payment`,
-cancel_url:`http://localhost:3000/cancel-payment`
+    for (var i=1; i<req.body.precio.length; i++){
+        suma = suma + (req.body.amount[i]*req.body.precio[i])
+    }
 
-  }
+    const body = {
+        intent: 'CAPTURE',
+        purchase_units:[{
+            amount: {
+                currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
+                value: suma //costo del producto
+            }
+        }],
+        application_context: {
+            brand_name:'EmpresaNombre.com' ,
+            landing_page: 'NO_PREFERENCE',
+            user_action:'PAY_NOW',
+            return_url:`http://localhost:3000/execute-payment`,
+            cancel_url:`http://localhost:3000/cancel-payment`
+        }
+    }
 
-
-
-  }
-
-
-  request.post(`${PAYPAL_API}/v2/checkout/orders`,{
-    auth,
-    body,
-    json:true
-  },(err,response)=>{
-    const datos = ({data:response.body})
-    //console.log(datos)
-    var {data} = datos
-    //console.log(data.links[1].href,data.links[1].rel)
-    const pago = data.links[1].href
-      //res.json({data:response.body})
-      res.redirect(pago);
-  })
-
-  
+    request.post(`${PAYPAL_API}/v2/checkout/orders`,{
+        auth,
+        body,
+        json:true
+    }, (err,response)=>{
+        const datos = ({data:response.body})
+        var {data} = datos
+        const pago = data.links[1].href
+        res.redirect(pago);
+    })
 }
 
-const executePayment =(req,res)=>{
+const executePayment = (req,res)=>{
+    const token = req.query.token;
 
-  const token = req.query.token;
-  
-  request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
+    request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
     auth,
     body:{},
     json:true
-
-  },(err,response)=>{
+    }, (err,response)=>{
     //res.json({data:response.body})
     res.redirect('/pagado')
-  })
-
-  
+    })
 }
 
 const cancelPayment =(req,res)=>{
-
- res.redirect('/cart')
+    res.redirect('/cart')
 }
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
@@ -235,6 +218,7 @@ app.get("/about", aboutGET);
 app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
+app.get("/producto", productoGET)
 app.get('/materiales', nocache, materialesGET);
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
@@ -256,13 +240,14 @@ passport.authenticate('microsoft', {
 app.get('/auth/microsoft/welderstone', 
 passport.authenticate('microsoft', { failureRedirect: '/login/false' }),
 function(req, res) {
-  res.redirect('/');
+    res.redirect('/');
 });
 
 // - POST METHOD - //
 // - Materiales
 app.post('/materiales/edicion', materialesEdicionPOST);
 app.post('/materiales/agregar', materialesAgregarPOST);
+app.post("/materiales/busqueda", materialesBusqueda);
 app.use('/material/borrar/:id', materialBorrar);
 
 // - Productos
