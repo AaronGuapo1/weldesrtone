@@ -1,6 +1,7 @@
 const Producto = require('../models/Productos.js');
 const path = require('path');
 const Material = require('../models/materiales.js');
+const Cart = require("../models/Cart");
 
 module.exports = async (req,res)=>{   
 
@@ -73,6 +74,7 @@ var SubTotal=Math.round(x)
 
 
 await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });
+await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
 
 
 }

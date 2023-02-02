@@ -1,16 +1,20 @@
 const Producto = require('../models/Productos.js');
 const path = require('path');
 const material = require('../models/materiales.js');
+const Cart = require("../models/Cart");
 
 module.exports =  async (req,res)=>{   
 
 
     if(req.body.IdProducto !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{IdProducto:req.body.IdProducto}});
+
     }
 
     if(req.body.nombre !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{nombre:req.body.nombre}});
+        await Cart.update({nombre:req.body.NombreBusqueda},{$set:{nombre:req.body.nombre}});
+
     }
 
 
@@ -85,6 +89,7 @@ module.exports =  async (req,res)=>{
     
     for (let i=0; i<MaterialesProductos.length; i++){
             if (MaterialesProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
+                console.log(materiales[i].Descripcion )
              suma = suma + (MaterialesProductos[i].cantidad *  materiales[i].PrecioUnitario)
             }
     }
@@ -116,7 +121,8 @@ module.exports =  async (req,res)=>{
     console.log(SubTotal)
     
     await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });
-    
+    await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
+
     
     }
     
@@ -129,7 +135,8 @@ module.exports =  async (req,res)=>{
         image.mv(path.resolve(__dirname,'..','public/img',image.name),async (error)=>{
 
             await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image: '/img/' + image.name}});
-    
+            await Cart.update({nombre:req.body.NombreBusqueda},{ $set:{ image: '/img/' + image.name}});
+
         })
     }
     

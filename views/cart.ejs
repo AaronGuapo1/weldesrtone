@@ -27,37 +27,33 @@
                         <div class="card line">
                             <div class="card-body">
                          
-                                <% for (var a = 0; a < productos.length; a++) { %>
 
 
-                                <% for (var b = 0; b < cart.length; b++) { %>
+                                <% for (var a = 0; a < cart.length; a++) { %>
 
-                                    <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre  && IdUsuario === cart[b].UsuarioId){ %>
-   
-                                    <form action="/products-cart/<%=productos[a]._id%>?query=add" method="POST">
-                                        <h4 class="card-title"><%=productos[a].nombre%></h4>
-                                        <img src="<%= productos[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
+                                    <% if( IdUsuario === cart[a].UsuarioId){ %>
 
-                                       <input type="hidden" name="amount" value="<%=cart[b].amount%>">
+                                    <form action="/products-cart/<%=cart[a].nombre%>?query=add" method="POST">
+                                        <h4 class="card-title"><%=cart[a].nombre%></h4>
+                                        <img src="<%= cart[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
+                                       <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
                                        
                                        <button type="submit" class="btn btn-primary">Añadir otro</button>
    
                                    </form>
 
-                                   <form action="/products-cart/<%=productos[a]._id%>?query=del" method="POST">
-
-                                   <input type="hidden" name="amount" value="<%=cart[b].amount%>">
+                                   <form action="/products-cart/<%=cart[a].nombre%>?query=del" method="POST">
+                                    <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
+                                
+                                    <button type="submit" class="btn btn-primary">borrar</button>
+ 
+                                </form>
+ 
                                
-                                   <button type="submit" class="btn btn-primary">borrar</button>
 
-                               </form>
-
-                               
-                            </form>
-                            <% } %> 
                                    
    
-                            <% } %> 
+                                    <% } %> 
                             <% } %>
                  
                             </div>
@@ -78,7 +74,7 @@
 
             <% for (var b = 0; b < cart.length; b++) { %>
 
-                <% if( productos[a].inCart === true && productos[a].nombre === cart[b].nombre && IdUsuario === cart[b].UsuarioId ){ %>
+                <% if( productos[a].nombre === cart[b].nombre && IdUsuario === cart[b].UsuarioId ){ %>
       
 
             <input type="hidden" name="amount" value="<%=cart[b].amount%>">     Cantidad: <%=cart[b].amount%>
@@ -95,10 +91,12 @@
         <% } %> 
         <% } %>
 
-        <% if(cart.UsuarioId === IdUsuario){ %>
+        
+        <% if( HayProductoUsuario >0 ){ %>
 
         <button type="submit" class="btn btn-primary">Pagar</button>
         <% } %>
+
     </form>
     </section>
 

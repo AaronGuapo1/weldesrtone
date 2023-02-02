@@ -4,9 +4,16 @@ const Material = require('../models/materiales.js');
 
 module.exports = async (req,res)=>{   
 
-//agregar middleware nombre único
 
+
+const BusquedaNombre = await Producto
+        .find({ nombre: req.body.nombre })
+        .count();
+    if (BusquedaNombre === 0) {
+   
     await Producto.create({...req.body});
+  
+
 
         for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
                 await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],preciounitario:req.body['MaterialesProductos[PrecioUnitario]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});
@@ -86,9 +93,14 @@ await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } })
                 res.redirect('/productos')
             }
 
+
+        }
+            else if (BusquedaNombre > 0){
+                console.log("ya creado")
+                res.redirect('/productos')
         
-       
-    
+            }
+   
 }
     
 

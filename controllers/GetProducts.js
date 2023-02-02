@@ -1,6 +1,7 @@
 const Product = require("../models/Productos");
 
 const getProducts = async (req, res) => {
+  
   const products = await Product.find();
 
   if (products) {
