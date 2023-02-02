@@ -11,7 +11,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
-const cors = require('cors')
+const cors = require('cors');
 const request = require('request');
 
 // -------------- MIDDLEWARE -------------- //

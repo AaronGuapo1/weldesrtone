@@ -4,46 +4,46 @@
     border-bottom: red solid 2px;
 }
 
+#welderstone-navbar {
+    padding: unset;
+}
+
 nav {
+    height: 10vh;
+
     img {
-        display: block;
-        margin: 0 auto;
-        width: 35%;
-
-        @include mediaMixins.lg(){
-            width: 50%;
-        }
-    }
-
-    .icon-mobile {
-        display: none;
-    
-        @include mediaMixins.lg {
-            display: block;
-        }
-    }
-
-    .icon {
-        display: block;
-    
-        @include mediaMixins.lg {
-            display: none;
-        }
+        height: 50%;
     }
 
     .nav-link {
-        @include mediaMixins.lg{
-            color: black;
-            font-weight: bold;
+        color: #7B7977;
+    }
+
+    .exit:hover{
+        color: #d10101;
+    }
+
+    .right-icons {
+        display: inline-block;
+    }
+
+    .hide-lg {
+        @include mediaMixins.lg(){
+            display: none;
+        }
+    }
+    
+    .hide-425 {
+        @include mediaMixins.media-custom(425px){
+            display: none;
         }
     }
 
-    .hide {
-        display: block;
-    
-        @include mediaMixins.lg {
-            display: none;
-        }
+    .brand-container {
+        display: flex;
+        align-items: center;
+        justify-items: center;
+        height: 10vh;
     }
 
     .offcanvas-header {
@@ -53,19 +53,15 @@ nav {
     #offcanvasDarkNavbarLabel {
         color: #d10101;
     }
-}
 
-.navbar {
-    @include mediaMixins.lg(){
-        position: sticky;
-        top: 0;
-        z-index: 1020;
+    #dropdown-custom {
+        top: unset;
     }
 }
 
 .nav-items {
     margin: 0;
-    padding: 1.5% .5%;
+    height: 10vh;
 }
 
 .f-icon {
@@ -76,9 +72,3 @@ nav {
     color: #d10101;
 }
 
-.left_nav {
-    vertical-align: middle;
-    align-items: center;
-    flex-direction: row;
-
-}
