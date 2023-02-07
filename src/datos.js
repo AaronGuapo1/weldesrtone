@@ -4,27 +4,15 @@ const mongoose = require('mongoose');
 
 var XLSX = require("xlsx")
  
-//mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-
-var prueba = [{
-Descripcion:"Hola",
-Codigo:"hola2",
-Unidad:"hola3",
-PrecioUnitario:132132,
-Familia:"hola5",
-SubFam:"hola6"
-
-}];
-
+mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 
 
 const ExcelAJSON =  ()=>{
 
 
 
-
     const excel = XLSX.readFile(
-        "C:\\Users\\mraar\\Desktop\\weelderstone\\datos.xlsx"
+        "C:\\Users\\mraar\\Desktop\\weldesrtone-main\\prueba.xlsx"
     );
     var nombreHoja = excel.SheetNames;
     let datos = XLSX.utils.sheet_to_json(excel.Sheets[nombreHoja[0]], {

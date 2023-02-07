@@ -13,7 +13,7 @@ const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
 const cors = require('cors');
 const request = require('request');
-
+const expressLayouts = require('express-ejs-layouts');
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -26,6 +26,7 @@ function nocache(req, res, next) { /// function used to remove cache anywhere ne
 const app = new express();
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(expressLayouts)
 app.use(express.static("public")); 
 app.use(fileUpload());
 app.set("view engine", "ejs");
@@ -156,9 +157,11 @@ const addProductCart = require('./controllers/AddProductCart')
 const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
 const pagado = require('./controllers/pagado')
-
+const url = require('url');
+const HistorialCompras = require('./controllers/HistorialCompras');
+const factura = require ('./controllers/factura');
 // - Paypal
-const createPayment =(req,res)=>{
+const createPayment = (req,res)=>{
     var suma = 0;
 
     for (var i=1; i<req.body.precio.length; i++){
@@ -186,28 +189,53 @@ const createPayment =(req,res)=>{
         auth,
         body,
         json:true
-    }, (err,response)=>{
+    }, async (err,response) =>  {
         const datos = ({data:response.body})
         var {data} = datos
         const pago = data.links[1].href
-        res.redirect(pago);
+
+        const Compra = require("./models/compra");
+        const IdUsuario = req.session.passport.user.id;
+       
+        await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
+        for (a=1; a<req.body.precio.length;a++){
+        await Compra.updateOne({Id_usuario:IdUsuario}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
+  }
+
+
+
+       res.redirect(pago);
     })
 }
+const executePayment =  (req,res)=>{
+  const Compra = require("./models/compra");
+  const Cart = require("./models/Cart");
+  const IdUsuario = req.session.passport.user.id;
 
-const executePayment = (req,res)=>{
+  console.log(req.query)
     const token = req.query.token;
-
     request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
     auth,
     body:{},
     json:true
-    }, (err,response)=>{
+    }, async (err,response)  =>  {
     //res.json({data:response.body})
-    res.redirect('/pagado')
+    console.log({data:response.body})
+    var datos = {data:response.body}
+    var {data} = datos
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    await Compra.updateOne({Id_transaccion:data.id}, {$set:{Correo_comprador:data.payer.email_address,Pais_comprador:data.payer.address.country_code,Id_comprador:data.payer.payer_id,Nombre_comprador:data.payer.name.given_name,Apellidos_comprador:data.payer.name.surname,status:data.status,Fecha_compra:date}})
+    await Cart.deleteMany({UsuarioId:IdUsuario});
+    res.render('pagado', {data})
+
+
     })
 }
 
 const cancelPayment =(req,res)=>{
+  //borrar colección
     res.redirect('/cart')
 }
 // ---------------- SERVER ---------------- // 
@@ -270,6 +298,11 @@ app.get(`/execute-payment`, executePayment)
 app.get('/cancel-payment', cancelPayment)
 app.get('/pagado', pagado)
 
+//compras
+app.get('/HistorialCompras', HistorialCompras )
+app.get('/factura', factura)
+
+
 app.use((req, res) => res.render('notfound'));
 
 app.listen(3000, ()=>{
@@ -278,3 +311,14 @@ app.listen(3000, ()=>{
 
 
     
+
+
+/*
+res.redirect(url.format({
+  pathname:pago,
+  query: {
+    IdUsuario
+   }
+
+}))
+*/

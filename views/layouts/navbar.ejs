@@ -33,12 +33,18 @@
             <div class="col-6 brand-container">
                 <img src="/assets/brand/logo.png" alt="Welderstone Logo">
             </div>
-    
+
             <!-- Vinculos de la derecha -->
             <div class="col-3" style="text-align: end;">
                 <a class="nav-link ms-4 right-icons hide-lg" href="https://www.instagram.com/welderstone_/"><i class="f-icon fa-brands fa-instagram"></i></a>
                 <a class="nav-link ms-4 right-icons hide-lg" href="https://www.facebook.com/WELDERSTONESHOP"><i class="f-icon fa-brands fa-facebook"></i></a>
+                <% if(loggedIn) { %>
+
                 <a class="nav-link ms-4 right-icons hide-425" href="/cart"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
+                <a href="/HistorialCompras">Historial</a>
+
+                <% } %>
+
                 <% if(!loggedIn) { %>
                     <!-- Icono de Login -->
                     <a class="nav-link ms-4 right-icons" href="/login/welderstone"><i class="f-icon fa-solid fa-user"></i></a>
@@ -50,11 +56,13 @@
                         <% if(roles  === "admin") { %>
                             <li><a class="dropdown-item" href="/productos">Productos</a></li>
                             <li><a class="dropdown-item" href="/materiales">Materiales</a></li>
+
                         <% } %>
         
                         <li><a class="dropdown-item" href="/producto">Producto</a></li>
         
                         <li><a class="dropdown-item exit" href="/logout">Cerrar Sesión</a></li>
+
                     </ul>
                 <% } %>
             </div>

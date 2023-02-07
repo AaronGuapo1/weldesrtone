@@ -1,21 +1,60 @@
-           <% if(loggedIn) { %>
+% for (var a = 0; a < compra.length; a++) { %>
+    <% const {ProductosComprados} = compra[a] %> 
 
-                                            <button type="submit" class="btn btn-danger w-100" class="fa-solid fa-cart-shopping me-2">Añadir al carro</button>
-
-
-
+    <% if( role === 'admin' ){ %>
 
 
 
-                                            <% for (var b = 0; b < cart.length; b++) { %>
 
-                                            <% if(cart[b].nombre === productos.docs[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
-                                                <p>Agregado al carrito</p> 
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+         Nombre del comprador:   <%= compra[a].Nombre_comprador%> <%= compra[a].Apellidos_comprador%>
+        </div>
+    </div>
+    
 
-                                            <% } %>  
 
-                                                    <% } %>                                 
+
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+          Total:  <%= compra[a].PrecioTotal%>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+          Fecha de la compra:  <%= compra[a].Fecha_compra%>
+        </div>
+    </div>
+
             
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    Id transacción: <%= compra[a].Id_transaccion%>
 
-                                                    <% } %>
-                                    </form>
+                    
+                </div>
+            </div>
+            <% for (var b = 0; b < ProductosComprados.length; b++) { %>
+                <img src="<%= ProductosComprados[b].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        
+                       Nombre del producto: <%=ProductosComprados[b].nombre%>
+                       Precio: <%=ProductosComprados[b].precio%>
+                       Cantidad:  <%=ProductosComprados[b].cantidad%>
+
+
+                
+                    </div>
+                </div>
+           
+<% } %> 
+
+
+
+
+<% } %> 
+
+<% } %>
