@@ -10,6 +10,8 @@ module.exports = async (req, res) =>{
     const IdUsuario = req.session.passport.user.id;
     const productos = await Producto.find({});
     const cart = await Cart.find({});
-    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario});
+    const HayProductoUsuario = await Cart.find({ UsuarioId: IdUsuario }).count();
+    console.log(HayProductoUsuario)
+    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario,HayProductoUsuario});
     }
     
