@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -17,16 +15,16 @@
         <!-- CSS Stylesheet-->
         <link rel="stylesheet" href="css/styles.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
-
         <style type="text/css">
-            #popup{
+            #popup {
                 left: 0;
                 position: absolute;
-                top:0;
-                width:100%;
-                z-index:1001;
+                top: 0;
+                width: 100%;
+                z-index: 1001;
             }
-            .content-pop{
+
+            .content-pop {
                 margin: 0px auto;
                 margin-top: 100px;
                 position: relative;
@@ -38,560 +36,471 @@
                 border: 1px solid black;
                 overflow-y: scroll;
             }
-            
-   
         </style>
         <link rel="stylesheet" href="css/style.css">
-                                
         <!-- Fontawesome CDN Link -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     </head>
     <body>
-
-        <%- include('layouts/navbar'); -%>
-
-
-
-       
-        <header class="bg-dark py-5">
-
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Welderstone</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Soluciones en acero</p>
-                </div>
-            </div>
+        <header>
+            <%- include('layouts/navbar'); -%> 
         </header>
 
-
-        <!-- Section-->
-
-        <section class="py-5">  
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-
-            <form action="/productos/agregar" method="POST" enctype="multipart/form-data">
-                <label>Id del producto</label>
-                <input type="text" class="form-control" id="IdProducto"
-                name="IdProducto">
-                </div>
-                </div>
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                    <input type="button" name="abrirse" id="open" value="Agregar materiales">
-                     <div id="popup" style="display: none;">
-
-                        <div class="content-pop">
-                            <div><a href="#" id="close">X</a></div>
-                            <% for (var a = 0; a < materiales.length; a++) { %>
-                                <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">                     
-                                      <button type="button" class="btn btn-primary w-100 edit" id="Material<%=materiales[a].Codigo%>">Agregar</button>
-
-                                </div>
-                                </div>
-                                <% } %>
-                    </div>
-                     </div>
-                    </div>
-                    </div>
-
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls">
-                        <input type="button" name="abrirse2" id="open2" value="Agregar materiales Pintura">
-                         <div id="popup2" style="display: none;">
-    
-                            <div class="content-pop">
-                                <div><a href="#" id="close2">X</a></div>
-                                <% for (var a = 0; a < materiales.length; a++) { %>
-                                    <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">                     
-                                          <button type="button" class="btn btn-primary w-100 edit" id="Pintura<%=materiales[a].Codigo%>">Agregar</button>
-                                    </div>
-                                    </div>
-                                    <% } %>
-                        </div>
-                         </div>
-                        </div>
-                        </div>
-
-                        <div class="control-group">
-                            <div class="form-group floating-label-form-group controls">
-                            <input type="button" name="abrirse3" id="open3" value="Agregar materiales Instalacion">
-                             <div id="popup3" style="display: none;">
-        
-                                <div class="content-pop">
-                                    <div><a href="#" id="close3">X</a></div>
-                                    <% for (var a = 0; a < materiales.length; a++) { %>
-                                        <div><%=materiales[a].Descripcion%>     <div class="col-6 mt-1">                     
-
-                                              <button type="button" class="btn btn-primary w-100 edit" id="Instalacion<%=materiales[a].Codigo%>">Agregar</button>
+        <main id="productos-page">
+            <section id="agregar-producto">
+                <div class="accordion" id="accordion-ap">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Agregar Productos
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <form action="">
+                                    <h5>Datos Generales</h5>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <!-- Codigo -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="IdProducto" placeholder="Codigo" name="IdProducto" required>
+                                                <label for="IdProducto">Codigo</label>
+                                            </div>
+                                            <!-- Nombre -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+                                                <label for="IdProducto">Nombre</label>
+                                            </div>
+                                            <!-- Descripcion -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripcion">
+                                                <label for="IdProducto">Descripcion</label>
+                                            </div>
+                                            <!-- Unidad -->
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="unidad" name="unidad" placeholder="Unidad">
+                                                <label for="IdProducto">Unidad</label>
+                                            </div>
                                         </div>
+                                        <div class="col-6">
+                                            <!-- Imagen -->
+                                            <div class="mb-3">
+                                                <label for="formFile" class="form-label">Selecciona una imagen para el producto</label>
+                                                <input class="form-control" type="file" id="image" name="image">
+                                            </div>
+                                            <div>
+                                                <!-- Si puedes aqui abajo haz que aparezca la imagen -->
+
+
+                                                <!-- Si puedes aqui arriba haz que aparezca la imagen -->
+                                            </div>
                                         </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <h5>Materiales</h5>
+                                    <div>
+                                        <% for (var a = 0; a < materiales.length; a++) { %> 
+                                            <div hidden class="Material<%=materiales[a].Codigo%>">
+                                                <div class="mb-3">
+                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u  </p>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text">Cantidad</span>
+                                                        <input type="number" step="any" value="0" id="Material<%=materiales[a].Codigo%>" class="form-control material-input" name='MaterialesProductos[cantidad]' min="0">
+                                                        <button type="button" class="btn btn-primary edit agregar-Material<%=materiales[a].Codigo%>" id="Material<%=materiales[a].Codigo%>">Quitar</button>
+                                                    </div>
+                                                    <input type="hidden" value="<%=materiales[a].Descripcion%>" name="MaterialesProductos[nombre]">
+                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="MaterialesProductos[codigo]">
+                                                    <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="MaterialesProductos[PrecioUnitario]">
+                                                    <input type="hidden" value="<%=materiales[a].Familia%>" name="MaterialesProductos[Familia]">
+                                                </div>
+
+                                                <hr class="border border-danger border-1 opacity-25 w-75 mx-auto">
+                                            </div>
                                         <% } %>
+                                    </div>
+
+                                    <!-- Boton Agregar Materiales -->
+                                    <button style="border-radius: 50px;" type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#agregar-materiales">
+                                        Agregar Materiales
+                                    </button>
+
+                                    <!-- Modal Materiales -->
+                                    <div class="modal fade" id="agregar-materiales" tabindex="-1" aria-labelledby="agregar-materiales" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content modal-dialog-scrollable">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" style="color: black">Materiales</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <% for (var a = 0; a < materiales.length; a++) { %> 
+                                                        <div class="row mb-2" style="padding-right: 5%;">
+                                                            <div class="col-10 cv-flex">
+                                                                <%=materiales[a].Descripcion%> 
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <button type="button" class="btn btn-danger edit agregar-Material<%=materiales[a].Codigo%>" id="Material<%=materiales[a].Codigo%>" value="<%=materiales[a].PrecioUnitario%>">Agregar</button>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Precio Materiales -->
+                                    <div>
+                                        <p class="resaltar-rojo">Precio de Materiales: $<span id="precio-materiales">0</span> mxn</p>
+                                    </div>
+
+                                    <!-- Porcentajes -->
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Mano de Obra</span>
+                                                <input type="number" value="0" min="0" step="any" class="form-control material-porcentaje" id="ManoObMaterial" name="ManoObMaterial">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Porcentaje</span>
+                                                <input type="number" value="0" min="0" step="any" class="form-control material-porcentaje" id="PorcentajeMaterial" name="PorcentajeMaterial">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <h5>Pintura</h5>
+                                    <div>
+                                        <% for (var a = 0; a < materiales.length; a++) { %> 
+                                            <div hidden class="Pintura<%=materiales[a].Codigo%>">
+                                                <div class="mb-3">
+                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u  </p>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text">Cantidad</span>
+                                                        <input type="number" step="any" value="0" id="Pintura<%=materiales[a].Codigo%>" class="form-control pintura-input" name='PinturaProductos[cantidad]' min="0">
+                                                        <button type="button" class="btn btn-primary edit agregar-Pintura<%=materiales[a].Codigo%>" id="Pintura<%=materiales[a].Codigo%>">Quitar</button>
+                                                    </div>
+                                                    <input type="hidden" value="<%=materiales[a].Descripcion%>" name="PinturaProductos[nombre]">
+                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="PinturaProductos[codigo]">
+                                                    <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="PinturaProductos[PrecioUnitario]">
+                                                    <input type="hidden" value="<%=materiales[a].Familia%>" name="PinturaProductos[Familia]">
+                                                </div>
+
+                                                <hr class="border border-danger border-1 opacity-25 w-75 mx-auto">
+                                            </div>
+                                        <% } %>
+                                    </div>
+
+                                    <!-- Boton Agregar Pintura -->
+                                    <button style="border-radius: 50px;" type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#agregar-pintura">
+                                        Agregar Pintura
+                                    </button>
+
+                                    <!-- Modal Pintura -->
+                                    <div class="modal fade" id="agregar-pintura" tabindex="-1" aria-labelledby="agregar-pintura" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content modal-dialog-scrollable">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" style="color: black">Pintura</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <% for (var a = 0; a < materiales.length; a++) { %> 
+                                                        <div class="row mb-2" style="padding-right: 5%;">
+                                                            <div class="col-10 cv-flex">
+                                                                <%=materiales[a].Descripcion%> 
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <button type="button" class="btn btn-danger edit agregar-Pintura<%=materiales[a].Codigo%>" id="Pintura<%=materiales[a].Codigo%>" value="<%=materiales[a].PrecioUnitario%>">Agregar</button>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Precio Pintura -->
+                                    <div>
+                                        <p class="resaltar-rojo">Precio de Pintura: $<span id="precio-pintura">0</span> mxn</p>
+                                    </div>
+
+                                    <!-- Porcentajes -->
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Mano de Obra</span>
+                                                <input type="number" value="0" min="0" step="any" class="form-control pintura-porcentaje" id="ManoObPintura" name="ManoObPintura">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Porcentaje</span>
+                                                <input type="number" value="0" min="0" step="any" class="form-control pintura-porcentaje" id="PorcentajePintura" name="PorcentajePintura">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <h5>Instalación</h5>
+                                    <div>
+                                        <% for (var a = 0; a < materiales.length; a++) { %> 
+                                            <div hidden class="Instalacion<%=materiales[a].Codigo%>">
+                                                <div class="mb-3">
+                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u  </p>
+                                                    <div class="input-group mb-3">
+                                                        <span class="input-group-text">Cantidad</span>
+                                                        <input type="number" step="any" value="0" id="Instalacion<%=materiales[a].Codigo%>" class="form-control instalacion-input" name='InstalacionProductos[cantidad]' min="0">
+                                                        <button type="button" class="btn btn-primary edit agregar-Instalacion<%=materiales[a].Codigo%>" id="Instalacion<%=materiales[a].Codigo%>">Quitar</button>
+                                                    </div>
+                                                    <input type="hidden" value="<%=materiales[a].Descripcion%>" name="InstalacionProductos[nombre]">
+                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="InstalacionProductos[codigo]">
+                                                    <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="InstalacionProductos[PrecioUnitario]">
+                                                    <input type="hidden" value="<%=materiales[a].Familia%>" name="InstalacionProductos[Familia]">
+                                                </div>
+
+                                                <hr class="border border-danger border-1 opacity-25 w-75 mx-auto">
+                                            </div>
+                                        <% } %>
+                                    </div>
+
+                                    <!-- Boton Agregar Instalacion -->
+                                    <button style="border-radius: 50px;" type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#agregar-instalacion">
+                                        Agregar Material Instalación
+                                    </button>
+
+                                    <!-- Modal Pintura -->
+                                    <div class="modal fade" id="agregar-instalacion" tabindex="-1" aria-labelledby="agregar-instalacion" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content modal-dialog-scrollable">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" style="color: black">Materiales Instalación</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <% for (var a = 0; a < materiales.length; a++) { %> 
+                                                        <div class="row mb-2" style="padding-right: 5%;">
+                                                            <div class="col-10 cv-flex">
+                                                                <%=materiales[a].Descripcion%> 
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <button type="button" class="btn btn-danger edit agregar-Instalacion<%=materiales[a].Codigo%>" id="Instalacion<%=materiales[a].Codigo%>" value="<%=materiales[a].PrecioUnitario%>">Agregar</button>
+                                                            </div>
+                                                        </div>
+                                                    <% } %>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Precio Instalacion -->
+                                    <div>
+                                        <p class="resaltar-rojo">Precio de Materiales Instalación: $<span id="precio-instalacion">0</span> mxn</p>
+                                    </div>
+
+                                    <!-- Porcentajes -->
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Mano de Obra</span>
+                                                <input type="number" value="0" min="0" step="any" class="form-control instalacion-porcentaje" id="ManoObInstalacion" name="ManoObInstalacion">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group">
+                                                <span class="input-group-text">Porcentaje</span>
+                                                <input type="number" value="0" min="0" step="any" class="form-control instalacion-porcentaje" id="PorcentajeInstalacion" name="PorcentajeInstalacion">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <h5>Especificaciones</h5>
+                                    <div>
+                                        <!-- Aqui abajo pon los input para poner especificaciones -->
+
+
+
+                                        <!-- Aqui arriba pon los input para poner especificaciones -->
+                                    </div>
+
+                                    <hr>
+
+                                    <div id="subtotal"><!-- Aqui ira el subtotal --></div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-dark" id="calculate-subtotal">Calcular Subtotal</button>
+                                        </div>
+                                        <div class="col-6" style="text-align: end;">
+                                            <button type="submit" class="btn btn-danger" id="sendMessageButton">Agregar Producto</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                             </div>
-                            </div>
-                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
         
+        
+        <section class="py-5">
 
-
-
-
-                        <div class="control-group">
-                            <div class="form-group floating-label-form-group controls">
-                            <label>Nombre del producto</label>
-                            <input type="text" class="form-control" id="nombre"
-                            name="nombre" required>
-                            </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group controls">
-                                <label>Descripcion del producto</label>
-                                <input type="text" class="form-control" id="descripcion"
-                                name="descripcion">
-                                </div>
-                                </div>
+            <div class="row row-cols-1">
+                <table>
+                    <tr>
+                        <th> Id del Producto</th>
+                        <th> Materiales del Producto</th>
+                        <th> Precio</th>
+                        <th> Imagen </th>
+                        <th> Nombre</th>
+                        <th> Descripcion</th>
+                        <th> Unidad </th>
+                        <th> Mano de Obra Material </th>
+                        <th> Porcentaje Material </th>
+                        <th> Mano de Obra Pintura </th>
+                        <th> Porcentaje Pintura </th>
+                        <th> Mano de Obra Instalacion </th>
+                        <th> Porcentaje Instalacion</th>
+                        <th> Capacidad de carga</th>
+                        <th> Caracteristicas especiales</th>
+                        <th> Color</th>
+                        <th> Material</th>
+                        <th> Nombre de la marca</th>
+                        <th> Numero de articulo</th>
+                        <th> Numero de piezas</th>
+                        <th> Tamaño</th>
+                    </tr><% for (var a = 0; a < productos.docs.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
+                        <tr>
+                            <th><%=productos.docs[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto">
+                            </th>
+                            <th>
+                                <a href="/productos/MaterialesEdicion/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Editar materiales </a>
+                            </th>
+                            <th><%=productos.docs[a].precio%> </th>
+                            <th>
+                                <img src="<%= productos.docs[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
                                 <div class="control-group">
                                     <div class="form-group floating-label-form-group controls">
-                                    <label>Imagen del producto</label>
-                                    <input type="file" class="form-control" id="image"
-                                    name="image">
-                                    </div>
-                                    </div>
-                                    <div class="control-group">
-                                        <div class="form-group floating-label-form-group controls">
-                                        <label>Unidad</label>
-                                        <input type="text" class="form-control" id="unidad"
-                                        name="unidad">
-                                        </div>
-                                        </div>
-
-                                        <!--No me gusta-->
-                                   
-         <!-- Inputs de Edicion de Material -->
-
-         <% for (var a = 0; a < materiales.length; a++) { %>
-           
-         <div hidden class="Material<%=materiales[a].Codigo%>">
-            <div class="row px-3">
-                        
-                <div class="form-floating mb-3 col-2 pe-1">
-
-          
-<!--Select-->
-
-            
-                    <%=materiales[a].Descripcion%> <button type="button" class="btn btn-primary w-100 edit" id="Material<%=materiales[a].Codigo%>">Quitar</button>
-                    <input type="number" value="0" step="any" name='MaterialesProductos[cantidad]' min="0">
-                    <input type="hidden" value="<%=materiales[a].Descripcion%>" name="MaterialesProductos[nombre]">
-                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="MaterialesProductos[codigo]">
-                    <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="MaterialesProductos[PrecioUnitario]">
-                    <input type="hidden" value="<%=materiales[a].Familia%>" name="MaterialesProductos[Familia]">
-
-
-
+                                        <input type="file" class="form-control" id="image" name="image">
                                     </div>
                                 </div>
-
-                       
-                    </div>
-
-                    
-                                <% } %>
-
-
-                                        <div class="control-group">
-                                            <div class="form-group floating-label-form-group controls">
-                                            <label>Mano de obra material</label>
-                                            <input type="number" value="0" min="0" step="any" class="form-control" id="ManoObMaterial"
-                                            name="ManoObMaterial">
-                                            </div>
-                                            </div>
-                                            <div class="control-group">
-                                                <div class="form-group floating-label-form-group controls">
-                                                <label>Porcentaje material</label>
-                                                <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajeMaterial"
-                                                name="PorcentajeMaterial">
-                                                </div>
-                                                </div>
-
-                                                <% for (var a = 0; a < materiales.length; a++) { %>
-                                                    <div hidden class="Pintura<%=materiales[a].Codigo%>">
-                                                       <div class="row px-3">
-                                                        <div class="form-floating mb-3 col-2 pe-1">
-                                                    
-                                                           
-                                                               <%=materiales[a].Descripcion%> <button type="button" class="btn btn-primary w-100 edit" id="Pintura<%=materiales[a].Codigo%>">Quitar</button>
-                                                               <input type="number" value="0" step="any" name='PinturaProductos[cantidad]' min="0">
-                                                               <input type="hidden" value="<%=materiales[a].Descripcion%>" name="PinturaProductos[nombre]">
-                                                               <input type="hidden" value="<%=materiales[a].Codigo%>" name="PinturaProductos[codigo]">
-                                                               <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="PinturaProductos[PrecioUnitario]">
-                                                               <input type="hidden" value="<%=materiales[a].Familia%>" name="PinturaProductos[Familia]">
-                                           
-                                           
-                                           
-                                                                               </div>
-                                                                           </div>
-                                                                        </div>
-
-                                                                           <% } %>
-
-
-
-
-                                                <div class="control-group">
-                                                    <div class="form-group floating-label-form-group controls">
-                                                    <label>Mano de obra pintura</label>
-                                                    <input type="number" value="0" min="0" step="any" class="form-control" id="ManoObPintura"
-                                                    name="ManoObPintura">
-                                                    </div>
-                                                    </div>
-                                                    <div class="control-group">
-                                                        <div class="form-group floating-label-form-group controls">
-                                                        <label>Porcentaje pintura</label>
-                                                        <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajePintura"
-                                                        name="PorcentajePintura">
-                                                        </div>
-                                                        </div>
-                                                        <% for (var a = 0; a < materiales.length; a++) { %>
-
-
-                                                            <div hidden class="Instalacion<%=materiales[a].Codigo%>">
-                                                               <div class="row px-3">
-                                                                <div class="form-floating mb-3 col-2 pe-1">
-
-                                                                       <%=materiales[a].Descripcion%> <button type="button" class="btn btn-primary w-100 edit" id="Instalacion<%=materiales[a].Codigo%>">Quitar</button>
-                                                                       <input type="number" value="0" step="any" name='InstalacionProductos[cantidad]' min="0">
-                                                                       <input type="hidden" value="<%=materiales[a].Descripcion%>" name="InstalacionProductos[nombre]">
-                                                                       <input type="hidden" value="<%=materiales[a].Codigo%>" name="InstalacionProductos[codigo]">
-                                                                       <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="InstalacionProductos[PrecioUnitario]">
-                                                                       <input type="hidden" value="<%=materiales[a].Familia%>" name="InstalacionProductos[Familia]">
-                                                   
-                                                   
-                                                   
-                                                                                       
-                                                                                   </div>
-                                                                                </div>
-
-                                                                            </div>
-
-                                                                                   <% } %>
-
-
-
-                                                        <div class="control-group">
-                                                            <div class="form-group floating-label-form-group controls">
-                                                            <label>Mano de Obra instalacion</label>
-                                                            <input type="number" value="0" min="0" step="any" class="form-control" id="ManoObInstalacion"
-                                                            name="ManoObInstalacion">
-                                                            </div>
-                                                            </div>
-                                                            <div class="control-group">
-                                                                <div class="form-group floating-label-form-group controls">
-                                                                <label>Porcentaje de instalacion</label>
-                                                                <input type="number" value="0" min="0" step="any" class="form-control" id="PorcentajeInstalacion"
-                                                                name="PorcentajeInstalacion">
-                                                            </div>
-                                                            </div>
-                                                           <div class="control-group">
-                                                                   <div class="form-group floating-label-form-group controls">
-                                                                <label>Capacidad de carga</label>
-                                                                   <input type="text" class="form-control" id="CapacidadCarga" name="CapacidadCarga">
-                                                                    
-                                                                   </div>
-                                                                  </div>
-                                                                  <div class="control-group">
-                                                                      <div class="form-group floating-label-form-group controls">
-                                                                       <label>Caracteristicas especiales</label>
-                                                                      <input type="text" class="form-control" id="CaracEsp" name="CaracEsp">
-                                                                      
-                                                                      </div>
-                                                                      </div>
-                                                                      <div class="control-group">
-                                                                          <div class="form-group floating-label-form-group controls">
-                                                                           <label>Color</label>
-                                                                           <input type="text" class="form-control" id="Color" name="Color">
-                                                                        
-                                                                        </div>
-                                                                        </div>
-                                                                        <div class="control-group">
-                                                                            <div class="form-group floating-label-form-group controls">
-                                                                             <label>Material</label>
-                                                                             <input type="text" class="form-control" id="Material" name="Material">
-                                                                          
-                                                                          </div>
-                                                                          </div>
-                                                                          <div class="control-group">
-                                                                            <div class="form-group floating-label-form-group controls">
-                                                                             <label>Nombre de la marca</label>
-                                                                             <input type="text" class="form-control" id="NombreMarca" name="NombreMarca">
-                                                                          
-                                                                          </div>
-                                                                          </div>
-                                                                          <div class="control-group">
-                                                                            <div class="form-group floating-label-form-group controls">
-                                                                             <label>Numero de articulo</label>
-                                                                             <input type="number" class="form-control" id="NumArt" name="NumArt">
-                                                                          
-                                                                          </div>
-                                                                          </div>
-                                                                          <div class="control-group">
-                                                                            <div class="form-group floating-label-form-group controls">
-                                                                             <label>Numero de piezas</label>
-                                                                             <input type="text" class="form-control" id="NumPiezas" name="NumPiezas">
-                                                                          
-                                                                          </div>
-                                                                          </div>
-                                                                          <div class="control-group">
-                                                                            <div class="form-group floating-label-form-group controls">
-                                                                             <label>Tamaño</label>
-                                                                             <input type="text" class="form-control" id="Tamaño" name="Tamaño">
-                                                                          
-                                                                          </div>
-                                                                          </div>
-                                                                     
-
-
-
-                <br>
-                <div class="form-group">
-                <button type="submit" class="btn btn-primary"
-                id="sendMessageButton">Send</button>
-                </div>
-                </form>
-
-
-
-
-                <br>
-                <br>
-                <br>
-
-                
-
-<!--
-                    <div class="row">
-                        <div class="col-lg-8 col-md-10 mx-auto">
--->
-
-                                <div class="row row-cols-1">
-                                    <table>
-
-                                        <tr> 
-                                            
-                                            <th> Id del Producto</th>
-                                            <th> Materiales del Producto</th>
-                                            <th> Precio</th>
-                                            <th> Imagen </th>
-                                            <th> Nombre</th>
-                                            <th> Descripcion</th>
-                                            <th> Unidad </th>
-                                            <th> Mano  de Obra Material </th>
-                                            <th> Porcentaje Material </th>
-                                            <th> Mano  de Obra Pintura </th>
-                                            <th> Porcentaje Pintura </th>
-                                            <th> Mano  de Obra Instalacion </th>
-                                            <th> Porcentaje Instalacion</th>
-                                            <th> Capacidad de carga</th>
-                                            <th> Caracteristicas especiales</th>
-                                            <th> Color</th>
-                                            <th> Material</th>
-                                            <th> Nombre de la marca</th>
-                                            <th> Numero de articulo</th>
-                                            <th> Numero de piezas</th>
-                                            <th> Tamaño</th>
-
-                                        </tr>
-    
-                                        <% for (var a = 0; a < productos.docs.length; a++) { %>
-
-    <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
-    
-
-
-    
-    
-    <tr> 
-    
-        <th> <%=productos.docs[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto"> 
-        </th>                                
-        <th>       
-
-            <a href="/productos/MaterialesEdicion/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Editar materiales</a>
-
-
-
-        </th>
-
-        <th>  <%=productos.docs[a].precio%> 
-                                            
-        </th>
-        <th> 
-     
-            <img src="<%= productos.docs[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
-            <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                <input type="file" class="form-control" id="image" name="image">
-                
-                </div>
-                </div>
-    
-        </th>
-        <th>   <%=productos.docs[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
-                                            
-        </th>
-        <th>   <%=productos.docs[a].descripcion%> <input type="text" class="form-control"  id="descripcion" name="descripcion">
-                                            
-        </th>
- 
-
-        <th>    <%=productos.docs[a].unidad%> <input type="text" class="form-control"  id="unidad" name="unidad">
-                                            
-        </th>
-        <th>     <%=productos.docs[a].ManoObMaterial%> <input type="number" class="form-control"  id="ManoObMaterial" name="ManoObMaterial">
-                                            
-        </th>
-
-        <th>   <%=productos.docs[a].PorcentajeMaterial%> <input type="number" class="form-control"  id="PorcentajeMaterial" name="PorcentajeMaterial">
-                                            
-        </th>
-        <th>  <%=productos.docs[a].ManoObPintura%> <input type="number" class="form-control"  id="ManoObPintura" name="ManoObPintura">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].PorcentajePintura%> <input type="number" class="form-control"  id="PorcentajePintura" name="PorcentajePintura">
-                                            
-        </th>
-        
-        <th>    <%=productos.docs[a].ManoObInstalacion%> <input type="number" class="form-control"  id="ManoObInstalacion" name="ManoObInstalacion">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].PorcentajeInstalacion%> <input type="number" class="form-control"  id="PorcentajeInstalacion" name="PorcentajeInstalacion">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].CapacidadCarga%> <input type="text" class="form-control"  id="CapacidadCarga" name="CapacidadCarga">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].CaracEsp%> <input type="text" class="form-control"  id="CaracEsp" name="CaracEsp">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].Color%> <input type="text" class="form-control"  id="Color" name="Color">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].Material%> <input type="text" class="form-control"  id="Material" name="Material">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].NombreMarca%> <input type="text" class="form-control"  id="NombreMarca" name="NombreMarca">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].NumArt%> <input type="text" class="form-control"  id="NumArt" name="NumArt">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].NumPiezas%> <input type="number" class="form-control"  id="NumPiezas" name="NumPiezas">
-                                            
-        </th>
-        <th>    <%=productos.docs[a].Tamaño%> <input type="text" class="form-control"  id="Tamaño" name="Tamaño">
-                                            
-        </th>
-    <th> 
-        <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
-            <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar</a>
-
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary"
-                id="sendMessageButton">Actualizar</button>
-                </div>
-            </form>
-
-    </th>
-</tr>  
-    <% } %>
-
-    </table>
-
-       
+                            </th>
+                            <th><%=productos.docs[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
+                            </th>
+                            <th><%=productos.docs[a].descripcion%> <input type="text" class="form-control" id="descripcion" name="descripcion">
+                            </th>
+                            <th><%=productos.docs[a].unidad%> <input type="text" class="form-control" id="unidad" name="unidad">
+                            </th>
+                            <th><%=productos.docs[a].ManoObMaterial%> <input type="number" class="form-control" id="ManoObMaterial" name="ManoObMaterial">
+                            </th>
+                            <th><%=productos.docs[a].PorcentajeMaterial%> <input type="number" class="form-control" id="PorcentajeMaterial" name="PorcentajeMaterial">
+                            </th>
+                            <th><%=productos.docs[a].ManoObPintura%> <input type="number" class="form-control" id="ManoObPintura" name="ManoObPintura">
+                            </th>
+                            <th><%=productos.docs[a].PorcentajePintura%> <input type="number" class="form-control" id="PorcentajePintura" name="PorcentajePintura">
+                            </th>
+                            <th><%=productos.docs[a].ManoObInstalacion%> <input type="number" class="form-control" id="ManoObInstalacion" name="ManoObInstalacion">
+                            </th>
+                            <th><%=productos.docs[a].PorcentajeInstalacion%> <input type="number" class="form-control" id="PorcentajeInstalacion" name="PorcentajeInstalacion">
+                            </th>
+                            <th><%=productos.docs[a].CapacidadCarga%> <input type="text" class="form-control" id="CapacidadCarga" name="CapacidadCarga">
+                            </th>
+                            <th><%=productos.docs[a].CaracEsp%> <input type="text" class="form-control" id="CaracEsp" name="CaracEsp">
+                            </th>
+                            <th><%=productos.docs[a].Color%> <input type="text" class="form-control" id="Color" name="Color">
+                            </th>
+                            <th><%=productos.docs[a].Material%> <input type="text" class="form-control" id="Material" name="Material">
+                            </th>
+                            <th><%=productos.docs[a].NombreMarca%> <input type="text" class="form-control" id="NombreMarca" name="NombreMarca">
+                            </th>
+                            <th><%=productos.docs[a].NumArt%> <input type="text" class="form-control" id="NumArt" name="NumArt">
+                            </th>
+                            <th><%=productos.docs[a].NumPiezas%> <input type="number" class="form-control" id="NumPiezas" name="NumPiezas">
+                            </th>
+                            <th><%=productos.docs[a].Tamaño%> <input type="text" class="form-control" id="Tamaño" name="Tamaño">
+                            </th>
+                            <th>
+                                <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
+                                <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar </a>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" id="sendMessageButton">Actualizar</button>
                                 </div>
-
-<!--
-                            </div>
-                        </div>
+                    </form>
+                    </th>
+                    </tr><% } %>
+                </table>
+            </div>
+            <!--
+                            </div></div>
                         
-                    -->
-
-                        <% for (var a = 1; a < productos.totalPages+1; a++) { %> 
-              
-                            <a href="/productos?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
-                          
-                            <% } %>
-                
+                    --><% for (var a = 1; a < productos.totalPages+1; a++) { %> <a href="/productos?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%> </a><% } %>
         </section>
-        <!-- Footer-->
-        <%- include('layouts/footer'); -%>
-
+        <!-- Footer--><%- include('layouts/footer'); -%>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <!--Multi Select-->
         <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
         <script src="js/productos.js"></script>
-
         <script>
-            new MultiSelectTag('MaterialesProductos')  // id
+            new MultiSelectTag('MaterialesProductos') // id
         </script>
-        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
         <script type="text/javascript">
-
-            $(document).ready(function(){
-            $("#open").on("click", function (){
-                $("#popup").fadeIn("slow");
-            });
-            $("#close").on("click", function (){
-                $("#popup").fadeOut("slow");
-            });
-
-
-
+            $(document).ready(function() {
+                $("#open").on("click", function() {
+                    $("#popup").fadeIn("slow");
+                });
+                $("#close").on("click", function() {
+                    $("#popup").fadeOut("slow");
+                });
             });
         </script>
-
-<script type="text/javascript">
-                    
-    $(document).ready(function(){
-    $("#open2").on("click", function (){
-        $("#popup2").fadeIn("slow");
-    });
-    $("#close2").on("click", function (){
-        $("#popup2").fadeOut("slow");
-    });
-
-
-
-    });
-</script>
-
-
-<script type="text/javascript">
-                    
-    $(document).ready(function(){
-    $("#open3").on("click", function (){
-        $("#popup3").fadeIn("slow");
-    });
-    $("#close3").on("click", function (){
-        $("#popup3").fadeOut("slow");
-    });
-
-
-
-    });
-</script>
-
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#open2").on("click", function() {
+                    $("#popup2").fadeIn("slow");
+                });
+                $("#close2").on("click", function() {
+                    $("#popup2").fadeOut("slow");
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#open3").on("click", function() {
+                    $("#popup3").fadeIn("slow");
+                });
+                $("#close3").on("click", function() {
+                    $("#popup3").fadeOut("slow");
+                });
+            });
+        </script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
-
     </body>
 </html>
-
-
-<!--     <th>    <input type="number" class="form-control"  id="" name="">
-                                            
-        </th>-->
+<!--     <th><input type="number" class="form-control"  id="" name=""></th>-->

@@ -84,11 +84,7 @@ await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } })
             }
             finally {
                 res.redirect('/productos')
-            }
-
-        
-       
-    
+            }    
 }
     
 
