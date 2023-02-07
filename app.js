@@ -161,6 +161,8 @@ const url = require('url');
 const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
 const pdfDescargar = require('./controllers/descargar')
+const download = require('./controllers/download')
+
 // - Paypal
 const createPayment = (req,res)=>{
     var suma = 0;
@@ -200,7 +202,7 @@ const createPayment = (req,res)=>{
        
         await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
         for (a=1; a<req.body.precio.length;a++){
-        await Compra.updateOne({Id_usuario:IdUsuario}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
+        await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:data.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
   }
 
 
@@ -230,7 +232,7 @@ const executePayment =  (req,res)=>{
     await Compra.updateOne({Id_transaccion:data.id}, {$set:{Correo_comprador:data.payer.email_address,Pais_comprador:data.payer.address.country_code,Id_comprador:data.payer.payer_id,Nombre_comprador:data.payer.name.given_name,Apellidos_comprador:data.payer.name.surname,status:data.status,Fecha_compra:date}})
     await Cart.deleteMany({UsuarioId:IdUsuario});
     res.render('pagado', {data})
-
+    
 
     })
 }
@@ -276,6 +278,7 @@ function(req, res) {
 
 app.use('/pdfDescargar', pdfDescargar )
 
+app.use('/download', download )
 
 
 // - POST METHOD - //
