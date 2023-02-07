@@ -52,6 +52,16 @@ img {
     color: #d10101;
 }
 
+.cv-flex {
+    display: flex;
+    align-items: center;
+}
+
+.resaltar-rojo {
+    color: #DC3545; 
+    font-weight: 700
+}
+
 // ---------------- FILTER BUTTONS SECTION ---------------- // 
 #filter-buttons {
     margin-top: 150px;
@@ -238,6 +248,12 @@ img {
         }
     }
 }
+
+// ---------------- MATERIALES ---------------- // 
+#agregar-producto {
+    padding: 2% 15%;
+}
+
 
 // ---------------- TIENDA ---------------- // 
 #tienda-productos {
