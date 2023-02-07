@@ -13,7 +13,7 @@ const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
 const cors = require('cors');
 const request = require('request');
-const expressLayouts = require('express-ejs-layouts');
+
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -26,10 +26,10 @@ function nocache(req, res, next) { /// function used to remove cache anywhere ne
 const app = new express();
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressLayouts)
 app.use(express.static("public")); 
 app.use(fileUpload());
 app.set("view engine", "ejs");
+//app.use(expressLayouts)
 
 // -------------- SESSION CONFIG -------------- //
 app.use(session({
@@ -125,8 +125,8 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-// mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+ mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
 const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q6ToD9NrLHm1Vga3';
@@ -160,6 +160,7 @@ const pagado = require('./controllers/pagado')
 const url = require('url');
 const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
+const pdfDescargar = require('./controllers/descargar')
 // - Paypal
 const createPayment = (req,res)=>{
     var suma = 0;
@@ -270,6 +271,12 @@ passport.authenticate('microsoft', { failureRedirect: '/login/false' }),
 function(req, res) {
     res.redirect('/');
 });
+
+//PDF
+
+app.use('/pdfDescargar', pdfDescargar )
+
+
 
 // - POST METHOD - //
 // - Materiales
