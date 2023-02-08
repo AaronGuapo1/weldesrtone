@@ -218,7 +218,7 @@ app.get("/about", aboutGET);
 app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
-app.get("/producto", productoGET)
+app.get("/productos/:idProducto", productoGET)
 app.get('/materiales', nocache, materialesGET);
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));

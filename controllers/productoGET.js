@@ -1,3 +1,5 @@
+const Producto = require('../models/Productos.js');
+
 module.exports = async (req, res) =>{
     let role = "viewer";
     let logged = false; 
@@ -6,6 +8,8 @@ module.exports = async (req, res) =>{
         logged = true;
     }
 
-    res.render('producto', {roles: role, loggedIn: logged});
+    const productoDoc = await Producto.findOne({IdProducto: req.params.idProducto});
+
+    res.render('producto', {roles: role, loggedIn: logged, productoDoc});
 }
     
