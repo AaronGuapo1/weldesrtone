@@ -13,6 +13,7 @@ const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
 const cors = require('cors');
 const request = require('request');
+const mercadopago = require("mercadopago");
 
 // -------------- MIDDLEWARE -------------- //
 function nocache(req, res, next) { /// function used to remove cache anywhere needed
@@ -24,10 +25,11 @@ function nocache(req, res, next) { /// function used to remove cache anywhere ne
 
 // ---------------- APP CONFIG ---------------- // 
 const app = new express();
-app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public")); 
 app.use(fileUpload());
+app.use(cors());
+
 app.set("view engine", "ejs");
 //app.use(expressLayouts)
 
@@ -161,7 +163,51 @@ const url = require('url');
 const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
 const pdfDescargar = require('./controllers/descargar')
-const download = require('./controllers/download')
+
+
+// MercadoPago
+
+mercadopago.configure({
+  access_token: "TEST-3839284531017998-020712-ac9e468d300f8fc099e58dfb6672b92b-1050032368",
+});
+
+app.post("/create_preference", async (req, res) => {
+
+ console.log(req.body)
+  var compras = []
+  for (i=1; i<req.body.precio.length; i++){
+    compras.push({tittle: req.body.nombre[i], unit_price: Number(req.body.precio[i]),quantity: Number(req.body.amount[i])})
+  }
+	let preference = {
+		items:compras,
+    
+		back_urls: {
+			"success": "http://localhost:3000/feedback",
+			"failure": "http://localhost:3000/feedback",
+			"pending": "http://localhost:3000/feedback"
+		},
+		auto_return: "approved",
+	};
+
+  const response = await mercadopago.preferences.create(preference);
+  const preferenceId = response.body.id;
+  console.log(response)
+  res.render('mercado',{preferenceId})
+  //console.log(response.body)
+  //res.send({ preferenceId });
+  
+});
+
+
+app.get('/feedback', function(request, response) {
+  response.json({
+   Payment: request.query.payment_id,
+   Status: request.query.status,
+   MerchantOrder: request.query.merchant_order_id
+ })
+});
+
+
 
 // - Paypal
 const createPayment = (req,res)=>{
@@ -241,6 +287,10 @@ const cancelPayment =(req,res)=>{
   //borrar colección
     res.redirect('/cart')
 }
+
+
+
+
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -278,7 +328,6 @@ function(req, res) {
 
 app.use('/pdfDescargar', pdfDescargar )
 
-app.use('/download', download )
 
 
 // - POST METHOD - //
@@ -311,6 +360,10 @@ app.get('/pagado', pagado)
 //compras
 app.get('/HistorialCompras', HistorialCompras )
 app.get('/factura', factura)
+
+//mercadopago
+
+
 
 
 app.use((req, res) => res.render('notfound'));

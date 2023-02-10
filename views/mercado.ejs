@@ -1,0 +1,49 @@
+Elige el método de pago:
+<div class="cho-container"></div>
+
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<script>
+
+const mp = new MercadoPago('TEST-bc358634-d14e-4fe9-a09d-5965de3dd8a2', {
+  locale: 'es-MX'
+});
+
+mp.checkout({
+  preference: {
+    id: '<%=preferenceId%>'
+  },
+  render: {
+    container: '.cho-container',
+    label: 'Pagar con Mercadopago',
+  }
+});
+</script>
+
+<!--
+  
+
+Elige el método de pago:
+<div class="cho-container"></div>
+
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<script>
+
+const mp = new MercadoPago('TEST-bc358634-d14e-4fe9-a09d-5965de3dd8a2', {
+  locale: 'es-MX'
+});
+
+mp.checkout({
+  preference: {
+    id: '<%=preferenceId%>'
+  },
+  render: {
+    container: '.cho-container',
+    label: 'Pagar con Mercadopago',
+  }
+});
+</script>
+
+
+-->
