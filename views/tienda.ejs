@@ -76,7 +76,7 @@
                                             <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
                                         <% } %>
 
-                                        <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio%></span></p>
+                                        <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio.toFixed(2)%></span></p>
                                         
                                         <% if(loggedIn) { %>
                                             <button type="submit" class="btn btn-danger w-100" class="fa-solid fa-cart-shopping me-2">Añadir al carro</button>

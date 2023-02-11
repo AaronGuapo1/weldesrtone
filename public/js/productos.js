@@ -11,12 +11,26 @@ const calculateSub = document.querySelector("#calculate-subtotal");
 const materialPorcentajes = document.querySelectorAll(".material-porcentaje");
 const pinturaPorcentajes = document.querySelectorAll(".pintura-porcentaje");
 const instalacionPorcentajes = document.querySelectorAll(".instalacion-porcentaje");
+const plusOneBtn = document.querySelector("#plus-one");
+const minusOneBtn = document.querySelector("#minus-one");
+const especsDiv = document.querySelector("#especificaciones");
+// - Modals
+const materialBusqueda = document.querySelector("#mm-busqueda");
+const pinturaBusqueda = document.querySelector("#mp-busqueda");
+const instalacionBusqueda = document.querySelector("#mi-busqueda");
+
+const modalMateriales = document.querySelectorAll(".modal-materiales");
+const modalPinturas = document.querySelectorAll(".modal-pintura");
+const modalInstalacion = document.querySelectorAll(".modal-instalacion");
+
 
 
 // ---------- GLOBAL CONST AND VARIABLES ---------- // 
 const materialesUsados = {};
 const pinturaUsada = {};
 const instalacionUsada = {};
+
+let especs = 1;
 
 // ---------- FUNCTIONS ---------- // 
 function priceArray(arr, objective){
@@ -26,11 +40,15 @@ function priceArray(arr, objective){
     if(keys.length > 0){
         keys.forEach(key => {
             precio += (arr[key][0] * arr[key][1]);
+
+            let fprecio = precio.toFixed(2);
     
-            objective.innerHTML = precio;
+            objective.innerHTML = fprecio;
         });
     } else {
-        objective.innerHTML = precio;
+        let fprecio = precio.toFixed(2);
+
+        objective.innerHTML = fprecio;
     }
 }
 
@@ -52,6 +70,19 @@ function calculatePrice(inputs, objetoMateriales, objective){
             }
         })
     });
+}
+
+function filtrar(barraBusqueda, matArray){
+    const texto = barraBusqueda.value.toLowerCase();
+
+    for(let material of matArray){
+        let nombre = material.id.toLowerCase();
+        if(nombre.indexOf(texto) != -1){
+            material.classList.remove("hide");
+        }  else {
+            material.classList.add("hide");
+        }
+    }
 }
 
 // ---------- MAIN ---------- // 
@@ -175,10 +206,38 @@ calculateSub.addEventListener("click", function(){
         subtotal += instalacion_price * (parseFloat(porcentaje.value) / 100);
     });
 
-    subtotalHTML.innerHTML = `<h5 class="mb-3 resaltar-rojo">SubTotal: $${subtotal}  mxn</h5>`;
+    subtotalHTML.innerHTML = `<h5 class="mb-3 resaltar-rojo">SubTotal: $${subtotal.toFixed(2)}  mxn</h5>`;
 })
 
+plusOneBtn.addEventListener("click", function(){
+    especs++;
 
+    const div = document.createElement("div");
+    div.classList.add("input-group");
+    div.classList.add("mb-2"); 
+    div.id = `especificaciones-${especs}`;
+    div.innerHTML = `<span class="input-group-text">${especs}</span> <input type="text" name="especificacionesNombre" autocomplete="off" autocapitalize="on" aria-label="nombre-espec" class="form-control espec${especs}" placeholder="Nombre"> <input type="text" name="especificacionesDesc" autocomplete="off" autocapitalize="on" aria-label="descripcion-espec" class="form-control espec${especs}" placeholder="Descripcion"></input>`
 
+    especsDiv.appendChild(div);
+})
 
+minusOneBtn.addEventListener("click", function(){
+    const lastEspec = document.querySelector(`#especificaciones-${especs}`);
+    if(especs != 1){
+        especs--;
+        lastEspec.remove();
+    }
+})
+
+materialBusqueda.addEventListener("input", function(){
+    filtrar(materialBusqueda, modalMateriales);
+});
+
+pinturaBusqueda.addEventListener("input", function(){
+    filtrar(pinturaBusqueda, modalPinturas);
+})
+
+ instalacionBusqueda.addEventListener("input", function(){
+    filtrar(instalacionBusqueda, modalInstalacion);
+})
 
