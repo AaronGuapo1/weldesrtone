@@ -1,27 +1,16 @@
-<!--
-  
+var merchantOrder;
+switch (topic) {
+case "payment":
+const paymentId = query.id || query['data.id'];
+cosole.log(topic, 'getting payment', paymentId);
+const payment = await mercadopago.payment.findById(paymentId);
+console.log(payment);
 
-Elige el método de pago:
-<div class="cho-container"></div>
-
-<script src="https://sdk.mercadopago.com/js/v2"></script>
-
-<script>
-
-const mp = new MercadoPago('TEST-bc358634-d14e-4fe9-a09d-5965de3dd8a2', {
-  locale: 'es-MX'
-});
-
-mp.checkout({
-  preference: {
-    id: '<%=preferenceId%>'
-  },
-  render: {
-    container: '.cho-container',
-    label: 'Pagar con Mercadopago',
-  }
-});
-</script>
-
-
--->
+merchantOrder = await mercadopago.merchant_orders.findById(payment.body.order.id);
+break;
+case "merchant_order":
+ const orderId = query.id || query['data.id'];
+ console.log(topic, 'getting merchant order', orderId);
+ merchantOrder= await mercadopago.merchant_orders.findById(orderId);
+ break;
+}

@@ -127,8 +127,8 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-//  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
 const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q6ToD9NrLHm1Vga3';
@@ -158,7 +158,6 @@ const getProductsCart = require('./controllers/GetProductsCart')
 const addProductCart = require('./controllers/AddProductCart')
 const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
-const pagado = require('./controllers/pagado')
 const url = require('url');
 const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
@@ -205,12 +204,28 @@ app.post("/create_preference", async (req, res) => {
 });
 
 
-app.get('/feedback', function(request, response) {
+app.get('/feedback', async function(request, response) {
+  /*
+  const Compra = require("./models/compra");
+  const Cart = require("./models/Cart");
+  const IdUsuario = req.session.passport.user.id;
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+  await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
+  for (a=1; a<req.body.precio.length;a++){
+  await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:data.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
+}
+  await Cart.deleteMany({UsuarioId:IdUsuario});
+*/
+console.log(response)
   response.json({
    Payment: request.query.payment_id,
    Status: request.query.status,
    MerchantOrder: request.query.merchant_order_id
  })
+
+
 });
 
 
@@ -364,7 +379,6 @@ app.use("/products-cart/:productId", putProduct);
 app.post(`/create-payment`, createPayment)
 app.get(`/execute-payment`, executePayment)
 app.get('/cancel-payment', cancelPayment)
-app.get('/pagado', pagado)
 
 //compras
 app.get('/HistorialCompras', HistorialCompras )

@@ -28,3 +28,10 @@ const CompraSchema = new Schema({
 CompraSchema.plugin(mongoosePaginate);
 const Compra = mongoose.model('Compra',CompraSchema);
 module.exports = Compra;
+
+
+
+
+
+
+
