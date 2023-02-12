@@ -4,46 +4,29 @@ Elige el método de pago:
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 
 <script>
-
-const mp = new MercadoPago('TEST-bc358634-d14e-4fe9-a09d-5965de3dd8a2', {
+//TEST-bc358634-d14e-4fe9-a09d-5965de3dd8a2
+const mp = new MercadoPago('APP_USR-0ea41b09-a2c3-425d-b39c-dc89da99ad3c', {
   locale: 'es-MX'
 });
-
 mp.checkout({
   preference: {
-    id: '<%=preferenceId%>'
+    id: '<%=response.body.id%>',
+    init_point: '<%=response.body.init_point%>',
+    sandbox_init_point:'<%=response.body.sandbox_init_point%>',
+    description: '<%=preference.items[0].title%>',
+    quantity: '<%=preference.items[0].quantity%>',
+    transactionAmount: '<%=preference.items[0].unit_price * preference.items[0].quantity%>',
   },
   render: {
     container: '.cho-container',
     label: 'Pagar con Mercadopago',
+    id: '<%=response.body.id%>',
+    init_point: '<%=response.body.init_point%>',
+    sandbox_init_point:'<%=response.body.sandbox_init_point%>',
+    description: '<%=preference.items[0].title%>',
+    quantity: '<%=preference.items[0].quantity%>',
+    transactionAmount: '<%=preference.items[0].unit_price * preference.items[0].quantity%>',
   }
 });
 </script>
 
-<!--
-  
-
-Elige el método de pago:
-<div class="cho-container"></div>
-
-<script src="https://sdk.mercadopago.com/js/v2"></script>
-
-<script>
-
-const mp = new MercadoPago('TEST-bc358634-d14e-4fe9-a09d-5965de3dd8a2', {
-  locale: 'es-MX'
-});
-
-mp.checkout({
-  preference: {
-    id: '<%=preferenceId%>'
-  },
-  render: {
-    container: '.cho-container',
-    label: 'Pagar con Mercadopago',
-  }
-});
-</script>
-
-
--->

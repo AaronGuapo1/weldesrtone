@@ -168,9 +168,9 @@ const pdfDescargar = require('./controllers/descargar')
 // MercadoPago
 
 mercadopago.configure({
-  access_token: "TEST-3839284531017998-020712-ac9e468d300f8fc099e58dfb6672b92b-1050032368",
+  access_token: "APP_USR-3363834709709437-021123-c67d96e1feb214bee0c7a3da3817a59f-1307218136",
 });
-
+//TEST-3839284531017998-020712-ac9e468d300f8fc099e58dfb6672b92b-1050032368
 app.post("/create_preference", async (req, res) => {
 
  console.log(req.body)
@@ -189,13 +189,19 @@ app.post("/create_preference", async (req, res) => {
 		auto_return: "approved",
 	};
 
-  const response = await mercadopago.preferences.create(preference);
-  const preferenceId = response.body.id;
-  console.log(response)
-  res.render('mercado',{preferenceId})
-  //console.log(response.body)
-  //res.send({ preferenceId });
-  
+
+  mercadopago.preferences.create(preference)
+  .then(function(response){
+    console.log(response,response.body.sandbox_init_point)
+    console.log(preference)
+    res.render('mercado', {response,preference});
+  }).catch(function(error){
+    console.log(error);
+  });
+
+
+
+
 });
 
 
@@ -375,13 +381,3 @@ app.listen(3000, ()=>{
 
     
 
-
-/*
-res.redirect(url.format({
-  pathname:pago,
-  query: {
-    IdUsuario
-   }
-
-}))
-*/
