@@ -127,8 +127,8 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
- mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+//  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
 const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q6ToD9NrLHm1Vga3';
@@ -305,20 +305,23 @@ app.get("/about", aboutGET);
 app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
-app.get("/producto", productoGET)
+app.get("/productos/:idProducto", productoGET)
 app.get('/materiales', nocache, materialesGET);
+
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
 app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login/false"}), function(req, res){
     console.log(req.session);
     res.redirect("/")
 });
+
 // - Facebook Auth
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/welderstone', passport.authenticate('facebook', { failureRedirect: '/login/false' }), function(req, res) {
     console.log(req.session);
     res.redirect('/');
 });
+
 // - Microsoft Auth
 app.get('/auth/microsoft',
 passport.authenticate('microsoft', {

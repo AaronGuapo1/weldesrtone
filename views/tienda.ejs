@@ -59,7 +59,7 @@
                    
 
                     <div class="col-sm-2">
-                        <a href="#">
+                        <a href="/productos/<%=productos.docs[a].IdProducto%>">
                             <div class="card line">
                                 <!-- Imagen -->
                                 <img class="card-img-top mx-auto d-block" src="<%=productos.docs[a].image%>" alt="Product 1">
@@ -73,33 +73,20 @@
                                         <input type="hidden" name="image" value="<%=productos.docs[a].image%>">
                                         <input type="hidden" name="precio" value="<%=productos.docs[a].precio%>">
                                         <% if(loggedIn) { %>
-
-                                        <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
+                                            <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
                                         <% } %>
 
-                                        <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio%></span></p>
+                                        <p class="card-text">Precio: <span class="price">$<%=productos.docs[a].precio.toFixed(2)%></span></p>
+                                        
                                         <% if(loggedIn) { %>
-
-
                                             <button type="submit" class="btn btn-danger w-100" class="fa-solid fa-cart-shopping me-2">Añadir al carro</button>
 
-
-
                                             <% for (var b = 0; b < cart.length; b++) { %>
-
-
-
-            
-                                                
-                                            <% if(cart[b].nombre === productos.docs[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
-                                                <p>Agregado al carrito</p> 
-
-                                            <% } %> 
-
+                                                <% if(cart[b].nombre === productos.docs[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
+                                                    <p>Agregado al carrito</p> 
+                                                <% } %> 
                                             <% } %>                                 
-
-
-                                                    <% } %>
+                                        <% } %>
                                     </form>
                                 </div>
                             </div>

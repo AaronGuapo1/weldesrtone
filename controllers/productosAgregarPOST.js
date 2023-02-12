@@ -13,22 +13,18 @@ const BusquedaNombre = await Producto
    
     await Producto.create({...req.body});
   
+    for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],preciounitario:req.body['MaterialesProductos[PrecioUnitario]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});      
+    }
 
-
-        for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
-                await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],preciounitario:req.body['MaterialesProductos[PrecioUnitario]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});
-                
-        }
-
-        for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
-            await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],preciounitario:req.body['PinturaProductos[PrecioUnitario]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
-            
+    for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],preciounitario:req.body['PinturaProductos[PrecioUnitario]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
+        
     }
 
     for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],preciounitario:req.body['InstalacionProductos[PrecioUnitario]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});
-        
-}
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],preciounitario:req.body['InstalacionProductos[PrecioUnitario]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});    
+    }
 
 //Obtiene el precio
 

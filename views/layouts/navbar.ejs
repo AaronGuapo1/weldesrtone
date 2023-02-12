@@ -41,8 +41,7 @@
                 <% if(loggedIn) { %>
 
                 <a class="nav-link ms-4 right-icons hide-425" href="/cart"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
-                <a href="/HistorialCompras">Historial</a>
-
+                
                 <% } %>
 
                 <% if(!loggedIn) { %>
@@ -58,11 +57,9 @@
                             <li><a class="dropdown-item" href="/materiales">Materiales</a></li>
 
                         <% } %>
-        
-                        <li><a class="dropdown-item" href="/producto">Producto</a></li>
-        
-                        <li><a class="dropdown-item exit" href="/logout">Cerrar Sesión</a></li>
 
+                        <li><a class="dropdown-item" href="/HistorialCompras">Historial</a></li>
+                        <li><a class="dropdown-item exit" href="/logout">Cerrar Sesión</a></li>
                     </ul>
                 <% } %>
             </div>

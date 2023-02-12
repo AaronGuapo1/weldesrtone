@@ -97,29 +97,13 @@ nav #dropdown-custom {
   z-index: 10;
 }
 .show-popup .go-top-button {
-  -webkit-animation: popup 0.3s ease-in-out;
-          animation: popup 0.3s ease-in-out;
+  animation: popup 0.3s ease-in-out;
   width: 5.6rem;
   height: 5.6rem;
   z-index: 11;
 }
 .show-popup i {
   transform: translate(-50%, -50%) scale(1);
-}
-
-@-webkit-keyframes popup {
-  0% {
-    width: 0rem;
-    height: 0rem;
-  }
-  50% {
-    width: 7rem;
-    height: 7rem;
-  }
-  100% {
-    width: 5.6rem;
-    height: 5.6rem;
-  }
 }
 
 @keyframes popup {
@@ -281,6 +265,10 @@ img {
 .resaltar-rojo {
   color: #DC3545;
   font-weight: 700;
+}
+
+.hide {
+  display: none;
 }
 
 #filter-buttons {
