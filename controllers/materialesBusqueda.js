@@ -34,6 +34,7 @@ module.exports = async (req, res) => {
             materiales,
             roles: role,
             loggedIn: true,
+            status: true
         });
     } else {
         res.redirect("/");

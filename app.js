@@ -95,6 +95,7 @@ function(accessToken, refreshToken, profile, cb) {
 }
 ));
 
+// - Microsoft OAuth
 passport.use(new MicrosoftStrategy({
   // Standard OAuth2 options
   clientID: process.env.MICROSOFT_APP_ID,
@@ -117,8 +118,9 @@ passport.use(new MicrosoftStrategy({
 function(accessToken, refreshToken, profile, done) {
   User.findOrCreate({ microsftId: profile.id }, async function (err, user) {
     if(user?.role == undefined){
-      await User.updateMany({facebookId: profile.id}, {username: profile.displayName, role: "costumer"});
+      await User.updateMany({microsftId: profile.id}, {username: profile.displayName, role: "costumer"});
     }
+
     return done(err, user);
   });
 }
@@ -162,6 +164,7 @@ const url = require('url');
 const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
 const pdfDescargar = require('./controllers/descargar')
+
 
 
 // MercadoPago
@@ -229,6 +232,9 @@ console.log(response)
 });
 
 
+
+const tiendaBusqueda = require("./controllers/tiendaBusqueda");
+const tiendaFiltros = require("./controllers/tiendaFiltros");
 
 // - Paypal
 const createPayment = (req,res)=>{
@@ -321,19 +327,18 @@ app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
 app.get("/productos/:idProducto", productoGET)
-app.get('/materiales', nocache, materialesGET);
+app.get('/materiales/:status', nocache, materialesGET);
+app.get("/tienda/busqueda/:filtro", tiendaFiltros);
 
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));
 app.get("/auth/google/welderstone", passport.authenticate("google", {failureRedirect: "/login/false"}), function(req, res){
-    console.log(req.session);
     res.redirect("/")
 });
 
 // - Facebook Auth
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/welderstone', passport.authenticate('facebook', { failureRedirect: '/login/false' }), function(req, res) {
-    console.log(req.session);
     res.redirect('/');
 });
 
@@ -349,9 +354,7 @@ function(req, res) {
 });
 
 //PDF
-
 app.use('/pdfDescargar', pdfDescargar )
-
 
 
 // - POST METHOD - //
@@ -367,6 +370,9 @@ app.post('/productos/agregar', productosAgregarPOST);
 app.post('/productos/EditarMateriales', productosEMPOST);
 app.get('/productos/MaterialesEdicion/:id',productosEdicionMaterialesPOST );
 app.use('/productos/borrar/:id', productoBorrar);
+
+// - Tienda
+app.post("/tienda/busqueda", tiendaBusqueda);
 
 //carrito
 app.get("/products", getProducts);
@@ -384,7 +390,7 @@ app.get('/cancel-payment', cancelPayment)
 app.get('/HistorialCompras', HistorialCompras )
 app.get('/factura', factura)
 
-//mercadopago
+
 
 
 
@@ -394,7 +400,4 @@ app.use((req, res) => res.render('notfound'));
 app.listen(3000, ()=>{
     console.log('App listening on port 3000');
 })
-
-
-    
 

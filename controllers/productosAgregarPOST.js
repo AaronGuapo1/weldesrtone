@@ -12,6 +12,10 @@ const BusquedaNombre = await Producto
     if (BusquedaNombre === 0) {
    
     await Producto.create({...req.body});
+
+    await Producto.updateOne({IdProducto: req.body.IdProducto}, {IdProducto: req.body.IdProducto.trim()})
+    await Producto.updateOne({familia: req.body.familia}, {familia: req.body.familia.toLowerCase()});
+    await Producto.updateOne({precio: req.body.precio}, {precio: req.body.precio.toFixed(2)});
   
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
         await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],preciounitario:req.body['MaterialesProductos[PrecioUnitario]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});      
@@ -77,8 +81,8 @@ await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } })
         try {
             let image = req.files.image;
         
-            image.mv(path.resolve(__dirname,'..','public/img',image.name),async (error)=>{
-                await Producto.updateOne({nombre:req.body.nombre},{ $set:{ image: '/img/' + image.name}} )
+            image.mv(path.resolve(__dirname,'..','public/images/productos', image.name),async (error)=>{
+                await Producto.updateOne({nombre:req.body.nombre},{ $set:{ image: '/images/productos/' + image.name}} )
         
             })
             }

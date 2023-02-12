@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
         .count();
     if (BusquedaCodigo === 0) {
         await material.create(req.body);
+        await material.updateOne({Descripcion: req.body.Descripcion}, {Codigo: req.body.Codigo.trim()});
         await Producto.updateOne({
             $push: {
                 MaterialesProductos: {
@@ -41,9 +42,9 @@ module.exports = async (req, res) => {
             },
         });
 
-        res.redirect("/materiales");
+        res.redirect("/materiales/true");
     } else if (BusquedaCodigo === 1) {
         console.log("ya creado");
-        res.redirect("/materiales");
+        res.redirect("/materiales/false");
     }
 };
