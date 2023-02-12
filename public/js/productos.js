@@ -188,9 +188,9 @@ calculatePrice(pinturaInputs, pinturaUsada, precioPinturaSpan);
 calculatePrice(instalacionInputs, instalacionUsada, precioInstalacionSpan);
 
 calculateSub.addEventListener("click", function(){
-    let materiales_price = parseFloat(precioMaterialesSpan.innerHTML);
-    let pintura_price = parseFloat(precioPinturaSpan.innerHTML);
-    let instalacion_price = parseFloat(precioInstalacionSpan.innerHTML);
+    let materiales_price = parseFloat(precioMaterialesSpan.innerHTML.replace(",", ''));
+    let pintura_price = parseFloat(precioPinturaSpan.innerHTML.replace(",", ''));
+    let instalacion_price = parseFloat(precioInstalacionSpan.innerHTML.replace(",", ''));
 
     let subtotal = materiales_price + pintura_price + instalacion_price;
 

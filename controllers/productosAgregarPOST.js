@@ -15,7 +15,6 @@ const BusquedaNombre = await Producto
 
     await Producto.updateOne({IdProducto: req.body.IdProducto}, {IdProducto: req.body.IdProducto.trim()})
     await Producto.updateOne({familia: req.body.familia}, {familia: req.body.familia.toLowerCase()});
-    await Producto.updateOne({precio: req.body.precio}, {precio: req.body.precio.toFixed(2)});
   
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
         await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],preciounitario:req.body['MaterialesProductos[PrecioUnitario]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});      
