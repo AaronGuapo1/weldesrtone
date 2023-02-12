@@ -14,3 +14,73 @@ case "merchant_order":
  merchantOrder= await mercadopago.merchant_orders.findById(orderId);
  break;
 }
+
+
+// MercadoPago
+
+mercadopago.configure({
+  access_token: "APP_USR-3363834709709437-021123-c67d96e1feb214bee0c7a3da3817a59f-1307218136",
+});
+//TEST-3839284531017998-020712-ac9e468d300f8fc099e58dfb6672b92b-1050032368
+app.post("/create_preference", async (req, res) => {
+
+ console.log(req.body)
+  var compras = []
+  for (i=1; i<req.body.precio.length; i++){
+    compras.push({tittle: req.body.nombre[i], unit_price: Number(req.body.precio[i]),quantity: Number(req.body.amount[i])})
+  }
+	let preference = {
+		items:compras,
+    
+		back_urls: {
+			"success": "http://localhost:3000/feedback",
+			"failure": "http://localhost:3000/feedback",
+			"pending": "http://localhost:3000/feedback"
+		},
+		auto_return: "approved",
+	};
+
+
+  mercadopago.preferences.create(preference)
+  .then(function(response){
+    console.log(response,response.body.sandbox_init_point)
+    console.log(preference)
+    res.render('mercado', {response,preference});
+  }).catch(function(error){
+    console.log(error);
+  });
+
+
+
+
+});
+
+
+app.get('/feedback', async function(request, response) {
+  /*
+  const Compra = require("./models/compra");
+  const Cart = require("./models/Cart");
+  const IdUsuario = req.session.passport.user.id;
+  var today = new Date();
+  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+  await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
+  for (a=1; a<req.body.precio.length;a++){
+  await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:data.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
+}
+  await Cart.deleteMany({UsuarioId:IdUsuario});
+*/
+console.log(response)
+  response.json({
+   Payment: request.query.payment_id,
+   Status: request.query.status,
+   MerchantOrder: request.query.merchant_order_id
+ })
+
+
+});
+
+
+
+const tiendaBusqueda = require("./controllers/tiendaBusqueda");
+const tiendaFiltros = require("./controllers/tiendaFiltros");
