@@ -36,7 +36,7 @@
                                     <h1><%= productoDoc.nombre %></h1>
                                 </div>
                                 <div class="col-6" style="text-align: end;">
-                                    <h1 style="color: #DC3545;">$<%= productoDoc.precio.toFixed(2) %> mxn</h1>
+                                    <h1 style="color: #DC3545;">$<%= productoDoc.precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %> mxn</h1>
                                 </div>
                             </div>
                             <p style="font-size: .7rem;">Codigo: <%= productoDoc.IdProducto %></p>
@@ -58,14 +58,12 @@
                             <div>
                                 <h5>Especificaciones del producto</h5>
                                 <table class="table table-striped-columns">
-                                    <tr>
-                                        <td>Capacidad de carga</td>
-                                        <td>1200 libras</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Capacidad de carga</td>
-                                        <td>Giratorio</td>
-                                    </tr>
+                                    <% for (let i = 0; i < productoDoc.especificacionesNombre.length; i++) { %>
+                                        <tr>
+                                            <td><%= productoDoc.especificacionesNombre[i] %></td>
+                                            <td><%= productoDoc.especificacionesDesc[i] %></td>
+                                        </tr>
+                                    <% } %>
                                 </table>
                             </div>
                         </div>

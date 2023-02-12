@@ -19,6 +19,11 @@
         <%- include('layouts/navbar'); -%>
 
         <section id="materialsPage">
+            <% if(status == "false"){ %>
+                <div class="alert alert-danger" role="alert">
+                    El codigo del material que ha agregado ya existe y no se ha podido agregar.
+                </div>
+            <% } %>
              <!-- Agregar material -->
             <div class="card border-danger mb-4">
                 <div class="card-header">Agregar materiales</div>

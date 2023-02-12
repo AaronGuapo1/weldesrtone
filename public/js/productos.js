@@ -41,12 +41,12 @@ function priceArray(arr, objective){
         keys.forEach(key => {
             precio += (arr[key][0] * arr[key][1]);
 
-            let fprecio = precio.toFixed(2);
+            let fprecio = precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     
             objective.innerHTML = fprecio;
         });
     } else {
-        let fprecio = precio.toFixed(2);
+        let fprecio = precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
         objective.innerHTML = fprecio;
     }
@@ -206,7 +206,7 @@ calculateSub.addEventListener("click", function(){
         subtotal += instalacion_price * (parseFloat(porcentaje.value) / 100);
     });
 
-    subtotalHTML.innerHTML = `<h5 class="mb-3 resaltar-rojo">SubTotal: $${subtotal.toFixed(2)}  mxn</h5>`;
+    subtotalHTML.innerHTML = `<h5 class="mb-3 resaltar-rojo">SubTotal: $${subtotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}  mxn</h5>`;
 })
 
 plusOneBtn.addEventListener("click", function(){

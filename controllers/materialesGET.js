@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
             materiales,
             roles: role,
             loggedIn: true,
+            status: req.params.status,
         });
     } else {
         res.redirect("/");

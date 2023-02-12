@@ -74,10 +74,10 @@ module.exports = async (req,res)=>{
     for (let a=0; a<mateprod.length; a++){
     
     
-    await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"MaterialesProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].MaterialesProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].MaterialesProductos[a]._id}]});
-    await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"PinturaProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].PinturaProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].PinturaProductos[a]._id}]});
-    await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"InstalacionProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].InstalacionProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].InstalacionProductos[a]._id}]});
-    
+        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"MaterialesProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].MaterialesProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].MaterialesProductos[a]._id}]});
+        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"PinturaProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].PinturaProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].PinturaProductos[a]._id}]});
+        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"InstalacionProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].InstalacionProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].InstalacionProductos[a]._id}]});
+        
     
     }
     }
@@ -140,7 +140,7 @@ await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
 
 
 
-    res.redirect("/materiales")
+    res.redirect("/materiales/true")
 }
 
 
