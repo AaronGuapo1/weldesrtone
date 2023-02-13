@@ -45,32 +45,6 @@ module.exports =  async (req,res)=>{
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{PorcentajeInstalacion:req.body.PorcentajeInstalacion}});
     }
 
-    if(req.body.CapacidadCarga !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{CapacidadCarga:req.body.CapacidadCarga}});
-    }
-
-  if(req.body.CaracEsp !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{CaracEsp:req.body.CaracEsp}});
-    }
-    if(req.body.Color !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Color:req.body.Color}});
-    }
-    if(req.body.Material !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Material:req.body.Material}});
-    }
-    if(req.body.NombreMarca !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{NombreMarca:req.body.NombreMarca}});
-    }
-    if(req.body.NumArt !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{NumArt:req.body.NumArt}});
-    }
-    if(req.body.NumPiezas !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{NumPiezas:req.body.NumPiezas}});
-    }
-    if(req.body.Tamaño !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Tamaño:req.body.Tamaño}});
-    }
-
 
 
 
@@ -131,17 +105,16 @@ module.exports =  async (req,res)=>{
 
         var image = req.files.image;
         console.log(image)
+        console.log(req.body.NombreBusqueda)
+        image.mv(path.resolve(__dirname,'..','public/images/productos',image.name),async (error)=>{
 
-        image.mv(path.resolve(__dirname,'..','public/img',image.name),async (error)=>{
-
-            await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image: '/img/' + image.name}});
-            await Cart.update({nombre:req.body.NombreBusqueda},{ $set:{ image: '/img/' + image.name}});
+            await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image: '/images/productos/' + image.name}});
+            await Cart.update({nombre:req.body.NombreBusqueda},{ $set:{ image: '/images/productos/' + image.name}});
 
         })
     }
     
 
-    
     
 
     catch (error) {

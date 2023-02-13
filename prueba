@@ -84,3 +84,10 @@ console.log(response)
 
 const tiendaBusqueda = require("./controllers/tiendaBusqueda");
 const tiendaFiltros = require("./controllers/tiendaFiltros");
+
+
+
+cart[b].nombre !== productos[a].nombre && cart[b].UsuarioId !== IdUsuario  || 
+
+<% if(1 === 1 ){ %> 
+  <% } %>         

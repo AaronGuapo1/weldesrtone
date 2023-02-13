@@ -1,6 +1,9 @@
+<%- include('layouts/navbar'); -%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,56 +18,74 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- FontAwesome-->
     <script src="https://kit.fontawesome.com/c1d78340ca.js" crossorigin="anonymous"></script>  
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="public/assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
 </head>
+
+
 <body>
-    <!-- NAVBAR -->
-    <%- include('layouts/navbar'); -%>
     
-    <section id="">
-        <div class="row">
-        
-                <div class="col-sm-2">
-                        <div class="card line">
-                            <div class="card-body">
-                         
 
+<% if(HayProductoUsuario){ %>
+    <section>
 
-                                <% for (var a = 0; a < cart.length; a++) { %>
+<div class="row mt-5">
+    <div class="col-md-8 offset-md-2">
 
-                                    <% if( IdUsuario === cart[a].UsuarioId){ %>
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width:40%">Nombre del producto:</th>
+                    <th style="width:10%">Precio</th>
+                    <th style="width:8%">Cantidad</th>
+                    <th style="width:22%" class="text-center">Subtotal</th>
+                    <th style="width:20%">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var a = 0; a < cart.length; a++) { %>
+                    <tr>
+                    <td> <%=cart[a].nombre%></td>
+                    <td class="text-center">$ <%=cart[a].precio%></td>
+                    <td class="text-center"> <%=cart[a].amount%></td>
+                    <td class="text-center">$ <%=SubTotal[a]%></td>
+                    <td>
+                        <form action="/products-cart/<%=cart[a].nombre%>?query=add" method="POST">
+                            <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
+                           
+                            <button type="submit"   class="btn btn-info btn-sm"> <i class="fas fa-plus"></i></button>
+     
+                        </form>
+                        <a href="/cart/remove/{{ this.item._id }}" ></a>
 
-                                    <form action="/products-cart/<%=cart[a].nombre%>?query=add" method="POST">
-                                        <h4 class="card-title"><%=cart[a].nombre%></h4>
-                                        <img src="<%= cart[a].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
-                                       <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
-                                       
-                                       <button type="submit" class="btn btn-primary">Añadir otro</button>
-   
-                                   </form>
-
-                                   <form action="/products-cart/<%=cart[a].nombre%>?query=del" method="POST">
+                                <form action="/products-cart/<%=cart[a].nombre%>?query=del" method="POST">
                                     <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
                                 
-                                    <button type="submit" class="btn btn-primary">borrar</button>
- 
+                                    <button type="submit" class="btn btn-danger btn-sm" ><i class="fas fa-minus"></i></button>
+                
                                 </form>
- 
-                               
-
-                                   
-   
-                                    <% } %> 
-                            <% } %>
-                 
-                            </div>
-                        </div>
-                </div>
+                    </td>
+                </tr>
+                <% } %> 
+            </tbody>
+        </table>
 
 
-            
-        </div>
-
-   
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-8 offset-md-2">
+        <strong>Total: $<%=Total%> </strong>
+    </div>
+</div>
+<hr>
+<div class="row mt-5">
+    <div class="col-md-6 offset-md-3">
         <form action="/create_preference" method="POST" >
             <input type="hidden" name="precio" value="0"> 
             <input type="hidden" name="amount" value="0">  
@@ -79,8 +100,8 @@
                 <% if( productos[a].nombre === cart[b].nombre && IdUsuario === cart[b].UsuarioId ){ %>
       
 
-            <input type="hidden" name="amount" value="<%=cart[b].amount%>">     Cantidad: <%=cart[b].amount%>
-            <input type="hidden" name="precio" value="<%=cart[b].precio%>"> Precio: <%=productos[a].precio%>
+            <input type="hidden" name="amount" value="<%=cart[b].amount%>">    
+            <input type="hidden" name="precio" value="<%=cart[b].precio%>"> 
             <input type="hidden" name="nombre" value="<%=cart[b].nombre%>"> 
             <input type="hidden" name="image" value="<%=cart[b].image%>"> 
 
@@ -92,20 +113,44 @@
 
         <% } %> 
         <% } %>
+        <hr>
 
-        
-        <% if( HayProductoUsuario >0 ){ %>
-                <button type="submit">Proceder a pagar</button>
+        <div class="row mt-5">
+            <div class="col-md-6 offset-md-3">               
+                 <% if( HayProductoUsuario >0 ){ %>
+                <button type="submit" class="btn btn-success">Proceder a pagar</button>
 
 
         <% } %>
+    </div>
+</div>
 
-    </form>
-    </section>
+</div>
+</div>
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  
+<% } %> 
+
+<% if(!HayProductoUsuario){ %>
+
+<div class="row mt-5">
+    <div class="col-md-6 offset-md-3">
+        <br>
+                <br>
+
+        <br>
+
+        <div class="alert alert-success text-center" role="alert">
+            No hay productos en el carrito
+        </div>
+    </div>
+</div>
+<% } %> 
+</section>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="js/carrito.js"></script>
 
 
 </body>
@@ -115,12 +160,8 @@
 
 
 <!--
-<div class="cho-container">
-
-</div>
--->
-
-<!--
-
+    Botones
+    
+    <i class="fas fa-minus"></i><i  class="fa fa-trash-o"></i>
 
 -->

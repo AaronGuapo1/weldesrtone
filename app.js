@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public")); 
 app.use(fileUpload());
 app.use(cors());
-
 app.set("view engine", "ejs");
 //app.use(expressLayouts)
 
@@ -177,9 +176,13 @@ app.post("/create_preference", async (req, res) => {
 
  console.log(req.body)
   var compras = []
+  var suma = 0;
   for (i=1; i<req.body.precio.length; i++){
     compras.push({tittle: req.body.nombre[i], unit_price: Number(req.body.precio[i]),quantity: Number(req.body.amount[i])})
+    suma = suma + (req.body.amount[i]*req.body.precio[i])
+
   }
+
 	let preference = {
 		items:compras,
     
@@ -189,13 +192,22 @@ app.post("/create_preference", async (req, res) => {
 			"pending": "http://localhost:3000/feedback"
 		},
 		auto_return: "approved",
+    //notification_url: 'http://localhost:3000/feedback' //Por ahora tendrá que ser local, una vez levantado el servidor /feedback al final del URL
 	};
 
 
   mercadopago.preferences.create(preference)
-  .then(function(response){
-    console.log(response,response.body.sandbox_init_point)
-    console.log(preference)
+  .then(async function(response){
+
+
+    const Compra = require("./models/compra");
+    const IdUsuario = req.session.passport.user.id;
+  
+    await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:response.body.id})
+    for (a=1; a<req.body.precio.length;a++){
+    await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:response.body.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
+  }
+
     res.render('mercado', {response,preference});
   }).catch(function(error){
     console.log(error);
@@ -208,28 +220,23 @@ app.post("/create_preference", async (req, res) => {
 
 
 app.get('/feedback', async function(request, response) {
-  /*
+  
   const Compra = require("./models/compra");
   const Cart = require("./models/Cart");
-  const IdUsuario = req.session.passport.user.id;
+  const IdUsuario = request.session.passport.user.id;
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
-  await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
-  for (a=1; a<req.body.precio.length;a++){
-  await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:data.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
-}
-  await Cart.deleteMany({UsuarioId:IdUsuario});
-*/
-console.log(response)
-  response.json({
-   Payment: request.query.payment_id,
-   Status: request.query.status,
-   MerchantOrder: request.query.merchant_order_id
- })
-
-
+    await Compra.updateOne({Id_transaccion:request.query.preference_id}, {$set:{Id_pago:request.query.payment_id,Orden_mercancia:request.query.merchant_order_id,Nombre_comprador:request.user.username,status:request.query.status,Fecha_compra:date}})
+    await Cart.deleteMany({UsuarioId:IdUsuario});
+    response.redirect('/');
 });
+
+app.use('/notificar',(req,res)=>{
+console.log("notificar")
+});
+
+
 
 
 
