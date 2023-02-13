@@ -28,7 +28,7 @@
     "express-ejs-layouts": "^2.5.1",
     "express-fileupload": "^1.4.0",
     "express-session": "^1.17.3",
-    "mercadopago": "^1.5.14",
+    "mercadopago": "^1.5.15",
     "mongoose": "^6.8.2",
     "mongoose-findorcreate": "^3.0.0",
     "mongoose-paginate-v2": "^1.7.1",

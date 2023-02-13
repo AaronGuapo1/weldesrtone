@@ -52,9 +52,27 @@ function priceArray(arr, objective){
     }
 }
 
-function calculatePrice(inputs, objetoMateriales, objective){
-    inputs.forEach(inp => {
-        inp.addEventListener("input", function(){
+function calculatePrice(inputs, objetoMateriales, objective, event){
+    if(event){
+        inputs.forEach(inp => {
+            inp.addEventListener("input", function(){
+                if(inp.value != ""){
+                    let inp_number = parseInt(inp.value);
+        
+                    if(inp_number >= 0){
+                        objetoMateriales[inp.id][1] = inp_number;
+        
+                        priceArray(objetoMateriales, objective);
+                    }
+                } else {
+                    objetoMateriales[inp.id][1] = 0;
+        
+                    priceArray(objetoMateriales, objective);
+                }
+            })
+        });
+    } else {
+        inputs.forEach(inp => {
             if(inp.value != ""){
                 let inp_number = parseInt(inp.value);
     
@@ -68,8 +86,8 @@ function calculatePrice(inputs, objetoMateriales, objective){
     
                 priceArray(objetoMateriales, objective);
             }
-        })
-    });
+        });
+    }
 }
 
 function filtrar(barraBusqueda, matArray){
@@ -103,6 +121,15 @@ for (let i = 0; i < buttons.length; i++) {
                 rBtn.classList.remove("btn-danger");
                 rBtn.classList.add("btn-dark");
             }
+
+            for(var i = 0; i < inputs.length; i++) {
+                const inp = inputs[i];
+                inp.removeAttribute("disabled");
+            }
+
+            h_div.removeAttribute("hidden");
+
+            inputs[0].value = 1;
         
             switch(btn_id[0]){
                 case "M":
@@ -112,6 +139,8 @@ for (let i = 0; i < buttons.length; i++) {
                         enumerable: true,
                         writable: true
                     });
+
+                    calculatePrice(materialesInputs, materialesUsados, precioMaterialesSpan, false);
 
                     break;
 
@@ -123,6 +152,8 @@ for (let i = 0; i < buttons.length; i++) {
                         writable: true
                     });
 
+                    calculatePrice(pinturaInputs, pinturaUsada, precioPinturaSpan, true);
+
                     break;
 
                 case "I":
@@ -133,15 +164,10 @@ for (let i = 0; i < buttons.length; i++) {
                         writable: true
                     });
 
+                    calculatePrice(instalacionInputs, instalacionUsada, precioInstalacionSpan, true);
+
                     break;
             };
-
-            for(var i = 0; i < inputs.length; i++) {
-                const inp = inputs[i];
-                inp.removeAttribute("disabled");
-            }
-
-            h_div.removeAttribute("hidden");
         } else {
             for (let i = 0; i < relatedBtns.length; i++) {
                 const rBtn = relatedBtns[i];
@@ -183,14 +209,14 @@ for (let i = 0; i < buttons.length; i++) {
     })
 };
 
-calculatePrice(materialesInputs, materialesUsados, precioMaterialesSpan);
-calculatePrice(pinturaInputs, pinturaUsada, precioPinturaSpan);
-calculatePrice(instalacionInputs, instalacionUsada, precioInstalacionSpan);
+calculatePrice(materialesInputs, materialesUsados, precioMaterialesSpan, true);
+calculatePrice(pinturaInputs, pinturaUsada, precioPinturaSpan, true);
+calculatePrice(instalacionInputs, instalacionUsada, precioInstalacionSpan, true);
 
 calculateSub.addEventListener("click", function(){
-    let materiales_price = parseFloat(precioMaterialesSpan.innerHTML.replace(",", ''));
-    let pintura_price = parseFloat(precioPinturaSpan.innerHTML.replace(",", ''));
-    let instalacion_price = parseFloat(precioInstalacionSpan.innerHTML.replace(",", ''));
+    let materiales_price = parseFloat(precioMaterialesSpan.innerHTML.replaceAll(",", ''));
+    let pintura_price = parseFloat(precioPinturaSpan.innerHTML.replaceAll(",", ''));
+    let instalacion_price = parseFloat(precioInstalacionSpan.innerHTML.replaceAll(",", ''));
 
     let subtotal = materiales_price + pintura_price + instalacion_price;
 
