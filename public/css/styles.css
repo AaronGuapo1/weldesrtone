@@ -271,6 +271,12 @@ img {
   display: none;
 }
 
+.center-text-xy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #filter-buttons {
   margin-top: 150px;
   margin-bottom: 175px;
@@ -504,4 +510,58 @@ img {
 #productoGet .cantidad {
   display: inline-block;
   text-align: center;
+}
+
+#relacionado .card {
+  background-color: white;
+  margin-bottom: 15px;
+  border: none;
+  position: relative;
+}
+#relacionado .card:hover {
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 0px 10px 0px #d10101;
+  transform: translateY(5px);
+}
+#relacionado .card-img-top {
+  width: 100%;
+  height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#relacionado .card-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+#relacionado .card-text {
+  font-size: 18px;
+}
+#relacionado .price {
+  color: #d10101;
+  font-size: 20px;
+}
+#relacionado .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+#relacionado .col-sm-4 {
+  width: 33.33%;
+}
+#relacionado .card-img-top {
+  max-width: 100%;
+  max-height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+#relacionado a {
+  text-decoration: none;
+  color: inherit;
+}
+#relacionado a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+#relacionado .related-div {
+  padding: 0 5%;
 }/*# sourceMappingURL=styles.css.map */

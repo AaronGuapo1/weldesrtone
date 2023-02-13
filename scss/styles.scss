@@ -12,6 +12,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
+// ---------------- MIXINS ---------------- // 
+@mixin productCard(){
+    .card {
+        background-color: white;
+        margin-bottom: 15px;
+        border: none;
+        position:relative;
+    }
+  
+    .card:hover {
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0px 0px 10px 0px #d10101;
+        transform: translateY(5px);
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .card-text {
+        font-size: 18px;
+    }
+
+    .price {
+        color: #d10101;
+        font-size: 20px;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-sm-4 {
+        width: 33.33%;
+    }
+
+    .card-img-top {
+        max-width: 100%;
+        max-height: 200px;
+        object-fit: cover;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    a:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
 // ---------------- ELEMENT TAGS ---------------- // 
 h1, h2 {
     color: #C1C1C1;
@@ -64,6 +126,12 @@ img {
 
 .hide {
     display: none;
+}
+
+.center-text-xy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 // ---------------- FILTER BUTTONS SECTION ---------------- // 
@@ -263,64 +331,7 @@ img {
 #tienda-productos {
     padding: 0 5%;
 
-    .card {
-        background-color: white;
-        margin-bottom: 15px;
-        border: none;
-        position:relative;
-    }
-  
-    .card:hover {
-        transition: all 0.2s ease-in-out;
-        box-shadow: 0px 0px 10px 0px #d10101;
-        transform: translateY(5px);
-    }
-
-    .card-img-top {
-        width: 100%;
-        height: 200px;
-        object-fit: cover;
-    }
-
-    .card-title {
-        font-size: 22px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .card-text {
-        font-size: 18px;
-    }
-
-    .price {
-        color: #d10101;
-        font-size: 20px;
-    }
-
-    .row {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .col-sm-4 {
-        width: 33.33%;
-    }
-
-    .card-img-top {
-        max-width: 100%;
-        max-height: 200px;
-        object-fit: cover;
-    }
-
-    a {
-        text-decoration: none;
-        color: inherit;
-    }
-
-    a:hover {
-        text-decoration: none;
-        color: inherit;
-    }
+    @include productCard();
 }
 
 // ---------------- PRODUCTO ---------------- // 
@@ -334,5 +345,13 @@ img {
     .cantidad {
         display: inline-block;
         text-align: center;
+    }
+}
+
+#relacionado {
+    @include productCard();
+
+    .related-div {
+        padding: 0 5%;
     }
 }

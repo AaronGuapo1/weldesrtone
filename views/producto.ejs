@@ -72,7 +72,55 @@
             </section>
 
             <section id="relacionado">
+                <div>
+                    <h4 class="mb-4">Productos Relacionados</h4>
 
+                    <% if(relacionados.length > 0){ %>
+                        <div class="row related-div">
+                            <% for (let i = 0; i < relacionados.length; i++) { %> 
+                                <div class="col-sm-2">
+                                    <a href="/productos/<%=relacionados[i].IdProducto%>">
+                                        <div class="card line">
+                                            <!-- Imagen -->
+                                            <img class="card-img-top mx-auto d-block" src="<%=relacionados[i].image%>" alt="Product 1">
+                                            <!-- Cuerpo de la card -->
+                                            <div class="card-body">
+                                                <!-- Nombre del producto -->
+                                                <h4 class="card-title"><%=relacionados[i].nombre%> </h4>
+                                                <form action="/products-cart" method="POST">
+                                                    <!-- Precio -->
+                                                    <input type="hidden" name="nombre" value="<%=relacionados[i].nombre%>">
+                                                    <input type="hidden" name="image" value="<%=relacionados[i].image%>">
+                                                    <input type="hidden" name="precio" value="<%=relacionados[i].precio%>">
+                                                    <% if(loggedIn) { %>
+                                                        <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
+                                                    <% } %>
+                                                    
+                                                    <p class="card-text">Precio: <span class="price">$<%= relacionados[i].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %></span></p>
+                                                    
+                                                    <% if(loggedIn) { %>
+                                                        <button type="submit" class="btn btn-danger w-100" class="fa-solid fa-cart-shopping me-2"><i class="fa-solid fa-cart-shopping me-2"></i>Añadir al carro</button>
+            
+                                                        <% for (let b = 0; b < cart.length; b++) { %>
+                                                            <% if(cart[b].nombre === relacionados[i].nombre && cart[b].UsuarioId === IdUsuario){ %> 
+                                                                <p>Agregado al carrito</p> 
+                                                            <% } %>
+                                                        <% } %>                                 
+                                                    <% } %>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            <% } %>
+                           
+                        </div>
+                    <% } else { %>
+                        <div style="height: 200px;" class="center-text-xy">
+                            <h5>No se han encontrado productos relacionados...</h5>
+                        </div>
+                    <% } %>
+                </div>
             </section>
         </main>
 

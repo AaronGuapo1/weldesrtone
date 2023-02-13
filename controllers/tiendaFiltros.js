@@ -10,7 +10,8 @@ module.exports = async (req, res) => {
         var IdUsuario = req.session.passport.user.id;
     }
 
-    let filtro = req.params.filtro.replace("-", " ");
+    let filtro = req.params.filtro.replaceAll("-", " ");
+    console.log(filtro);
 
     let productos = await Producto.find({familia: filtro});
 
