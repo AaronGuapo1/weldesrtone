@@ -11,7 +11,6 @@ module.exports = async (req, res) =>{
     const productos = await Producto.find({});
     const cart = await Cart.find({});
     const HayProductoUsuario = await Cart.find({ UsuarioId: IdUsuario }).count();
-    console.log(HayProductoUsuario)
     const Sumas = await Cart.find({UsuarioId: IdUsuario});
     var SubTotal =[];
     var Total =0;

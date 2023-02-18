@@ -3,8 +3,6 @@ const Schema = mongoose.Schema;
 const bodyParser = require('body-parser')
 const mongoosePaginate= require('mongoose-paginate-v2')
 
-
-
 const CompraSchema = new Schema({
 
     ProductosComprados:[{nombre:{type:String},precio:{type:Number},cantidad:{type:Number},image:{type:String}}], //Ok
@@ -15,20 +13,23 @@ const CompraSchema = new Schema({
     Correo_comprador:{type:String},    
     //MercadoPAgo
     Id_transaccion:{type:String},  //Ok
-    Fecha_compra:{type:String}, //Ok
+    Fecha_compra:{type:Date}, //Ok
     Id_pago:{type:String}, //Ok
     Orden_mercancia:{type:String},
     status:{type:String}, //Ok
     
-
 });
-
 
 CompraSchema.plugin(mongoosePaginate);
 const Compra = mongoose.model('Compra',CompraSchema);
 module.exports = Compra;
 
+//  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+//       await compra.updateOne({nombre:req.body.nombre}, { $push: {años: { año:[a]}}});      
 
+
+//Fecha_compra:{type:String}, //Ok    Fecha_compra:{type:Date,default:new Date()}     años:[{año:{type:Number}}]
+ //Ok
 
 
 

@@ -32,7 +32,7 @@
 
         <div class="control-group">
             <div class="form-group floating-label-form-group controls">
-             Nombre del comprador:   <%= compra.docs[a].Nombre_comprador%> <%= compra.docs[a].Apellidos_comprador%>
+             Nombre del comprador:   <%= compra.docs[a].Nombre_comprador%>
             </div>
         </div>
         

@@ -80,26 +80,49 @@
                                         
                                         <p class="card-text">Precio: <span class="price">$<%= productos[a].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %></span></p>
                                         <% if(loggedIn) { %>
-                                                                
 
-                                            <button type="submit" class="btn btn-danger w-100 edit" id="<%=productos[a].nombre%>"><i class="fa-solid fa-cart-shopping me-2 edit" ></i>Añadir al carro</button>
-
+                                      
 
 
-                                            <% for (let b = 0; b < cart.length; b++) { %>
-                                                <% if(cart[b].nombre === productos[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
-                                                    <p>Agregado al carrito</p> 
+   
+                                            <button type="submit" class="btn btn-danger w-100 edit" id="<%=productos[a].nombre%>"><i class="fa-solid fa-cart-shopping me-2 edit"></i>
                                                 
-                                                <% } %>                                 
 
-                                            <% } %>   
-                              
-                                        <% } %>
+                                       
+
+                                      
+                                                    <% for (let b = 0; b < cart.length; b++) { %>
+
+                                                <% if( cart[b].nombre === productos[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
+                                            
+                                                     Agregado
+                                            
+                                                <% } else { %>
+
+                                                    <% } %>
+                                                    <% } %>
+
+                                            
+
+
+                                        </button>
+
+                                             
+                                     
+                <% } %>
+
+
                                     </form>
+                             
+
                                 </div>
                             </div>
                         </a>
                     </div>
+
+
+
+
                 <% } %>
                
             </div>
@@ -121,3 +144,4 @@
 
 
 <!---->
+

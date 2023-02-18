@@ -7,7 +7,7 @@ for (let i = 0; i < buttons.length; i++) {
         let h_div = document.querySelector("." + btn_id);
         let hidden = h_div.hidden;
         let inputs = h_div.getElementsByTagName("input");
-
+        console.log(btn_id)
         if (hidden) {
             for (var i = 0; i < inputs.length; i++) {
                 const inp = inputs[i];

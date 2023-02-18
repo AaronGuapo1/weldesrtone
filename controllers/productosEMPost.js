@@ -70,7 +70,7 @@ var sumaInsumos2Mano = ((sumaInsumos * productos[a].ManoObInstalacion)/100) + su
 var sumaInsumos3Por = ((sumaInsumos * productos[a].PorcentajeInstalacion)/100) + sumaInsumos2Mano;
 
 var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
-var SubTotal=Math.round(x)
+var SubTotal=Number(x.toFixed(2))
 
 
 await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });

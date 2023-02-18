@@ -49,6 +49,8 @@
             </thead>
             <tbody>
                 <% for (var a = 0; a < cart.length; a++) { %>
+                    <% if( IdUsuario === cart[a].UsuarioId){ %>
+
                     <tr>
                     <td> <%=cart[a].nombre%></td>
                     <td class="text-center">$ <%=cart[a].precio%></td>
@@ -61,7 +63,6 @@
                             <button type="submit"   class="btn btn-info btn-sm"> <i class="fas fa-plus"></i></button>
      
                         </form>
-                        <a href="/cart/remove/{{ this.item._id }}" ></a>
 
                                 <form action="/products-cart/<%=cart[a].nombre%>?query=del" method="POST">
                                     <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
@@ -69,9 +70,19 @@
                                     <button type="submit" class="btn btn-danger btn-sm" ><i class="fas fa-minus"></i></button>
                 
                                 </form>
+
+                                
+                                <form action="/products-cart/<%=cart[a].nombre%>?query=delete" method="POST">
+                                    <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
+                                
+                                    <button type="submit" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o"></i></button>
+                
+                                </form>
                     </td>
                 </tr>
                 <% } %> 
+                <% } %> 
+
             </tbody>
         </table>
 
