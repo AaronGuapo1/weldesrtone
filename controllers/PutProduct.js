@@ -25,6 +25,18 @@ if(query=== "del" && prueba === 1){
 }
 
 
+if(productBuscado && query=== "delete"){
+
+  const { productId } = req.params;
+
+  var productInCart = await Cart.find({nombre:productId,UsuarioId:IdUsuario});
+
+  await Cart.deleteOne({nombre:productId,UsuarioId:IdUsuario})
+
+    res.redirect('/cart')
+
+}
+
 
 
   if (!query) {

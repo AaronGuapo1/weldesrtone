@@ -16,9 +16,13 @@
         <link rel="stylesheet" href="/css/styles.css">
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/css/styles.css">
+
+
     </head>
     <body>
         <%- include('layouts/navbar'); -%> 
+
         <section id="tienda-filtros">
             <div class="row mt-4 px-5">
                 <div class="col-1 text-truncate center-all rb-red">
@@ -75,21 +79,50 @@
                                         <% } %>
                                         
                                         <p class="card-text">Precio: <span class="price">$<%= productos[a].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') %></span></p>
-                                        
                                         <% if(loggedIn) { %>
-                                            <button type="submit" class="btn btn-danger w-100" class="fa-solid fa-cart-shopping me-2"><i class="fa-solid fa-cart-shopping me-2"></i>Añadir al carro</button>
 
-                                            <% for (let b = 0; b < cart.length; b++) { %>
-                                                <% if(cart[b].nombre === productos[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
-                                                    <p>Agregado al carrito</p> 
-                                                <% } %>
-                                            <% } %>                                 
-                                        <% } %>
+                                      
+
+
+   
+                                            <button type="submit" class="btn btn-danger w-100 edit" id="<%=productos[a].nombre%>"><i class="fa-solid fa-cart-shopping me-2 edit"></i>
+                                                
+
+                                       
+
+                                      
+                                                    <% for (let b = 0; b < cart.length; b++) { %>
+
+                                                <% if( cart[b].nombre === productos[a].nombre && cart[b].UsuarioId === IdUsuario){ %> 
+                                            
+                                                     Agregado
+                                            
+                                                <% } else { %>
+
+                                                    <% } %>
+                                                    <% } %>
+
+                                            
+
+
+                                        </button>
+
+                                             
+                                     
+                <% } %>
+
+
                                     </form>
+                             
+
                                 </div>
                             </div>
                         </a>
                     </div>
+
+
+
+
                 <% } %>
                
             </div>
@@ -101,8 +134,14 @@
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
         </script>
-    </body>
-</html>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="/js/tiendaHide.js"></script>
+      <!-- FontAwesome-->
+      <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+         </body>
+       </html>
 
 
+<!---->
 

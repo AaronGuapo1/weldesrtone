@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,155 +14,128 @@
     <!-- Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- CSS Stylesheet-->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/historial.css">
     <!-- FontAwesome-->
     <script src="https://kit.fontawesome.com/c1d78340ca.js" crossorigin="anonymous"></script>  
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" href="public/assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
 </head>
-<body>
-    <!-- NAVBAR -->
-    <%- include('layouts/navbar'); -%>
 
-    <section id="presentation">
+<%- include('layouts/navbar'); -%>
 
-    <% for (var a = 0; a < compra.docs.length; a++) { %>
-        <% const {ProductosComprados} = compra.docs[a] %> 
+<body class="text-center">
+    <br>
+    <h1 class="text-center hola">Historial de compras</h1>
+<div class="center">
+    Pedidos realizados:
+    <form method="POST"  action="/FiltrosCompras">
+    <select name="FiltroHistorial" class="form-select-center" >
+        <option value="1mes" selected>Últimos 30 días.</option>
+        <option value="2meses">Últimos 2 meses</option>
+        <option value="3meses">Últimos 3 meses</option>
+        <% for (var i = 0; i < años.length; i++) { %>
+        <option value="<%=años[i].año%>"><%=años[i].año%></option>
+        <% } %> 
+      </select>
+      <br>
+      <br>
+      <button type="submit" class="btn btn-info btn-sm">Filtrar</button>
+    </form>
+</div>
+    <br>               
 
-        <% if( compra.docs[a].Id_usuario === IdUsuario && roles !== 'admin'){ %>
+    <section>                
 
 
+<div class="row mt-5">
+    <div class="col-md-10 offset-md-1">
 
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-             Nombre del comprador:   <%= compra.docs[a].Nombre_comprador%> <%= compra.docs[a].Apellidos_comprador%>
-            </div>
-        </div>
-        
-        <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
-
-
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              Total:  <%= compra.docs[a].PrecioTotal%>
-            </div>
-        </div>
-        
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              Fecha de la compra:  <%= compra.docs[a].Fecha_compra%>
-            </div>
-        </div>
-
-                
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                        Id transacción: <%= compra.docs[a].Id_transaccion%>
-
-                        
-                    </div>
-                </div>
-                <% for (var b = 0; b < ProductosComprados.length; b++) { %>
-                    <img src="<%= ProductosComprados[b].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
-
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls">
-                           
-                           Nombre del producto: <%=ProductosComprados[b].nombre%>
-                           Precio: <%=ProductosComprados[b].precio%>
-                           Cantidad:  <%=ProductosComprados[b].cantidad%>
-
+        <table class="table table-hover table-condensed width">
+            <thead>
+                <tr>
+                    <th style="width:20%">Nombre del comprador </th>
+                    <th style="width:20%">Fecha de la compra </th>
+                    <th style="width:40%" >Id transacción</th>
+                    <th style="width:10%"> Producto </th>
+                    <th style="width:10%"> Precio </th>
+                    <th style="width:10%"> Cantidad  </th>
+                    <th style="width:20%">SubTotal</th>
 
                     
-                        </div>
-                    </div>
+                </tr>
+            </thead>        
 
-    <% } %> 
+            <tbody>
+                <% for (var a = 0; a < compra.docs.length; a++) { %>
+                    <% if( roles === 'admin' && compra.docs[a].status === 'approved'){ %>
 
-    <% } %> 
+                        <% const {ProductosComprados} = compra.docs[a] %> 
 
-    <% } %>
+                    <tr>
+                    <td><%= compra.docs[a].Nombre_comprador%></td>
 
-
-
-
-    <% for (var a = 0; a < compra.docs.length; a++) { %>
-        <% const {ProductosComprados} = compra.docs[a] %> 
-
-        <% if( roles === 'admin'){ %>
+                    
+                    <td> <span class="meta"><%= compra.docs[a].Fecha_compra.toDateString() %></span></td>
 
 
+
+                    <td><%= compra.docs[a].Id_transaccion%> </td>
+
+                  
+
+                        <td>   <% for (var b = 0; b < ProductosComprados.length; b++) { %> <%=ProductosComprados[b].nombre%> <br><% } %> </td>
+                        <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=ProductosComprados[b].precio%> <br><% } %>  </td>
+                        <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %><%=ProductosComprados[b].cantidad%><br><% } %></td>
+                        
+    
+                    <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=SubTotal[b]%> <% } %> </td>
+                </tr>
+
+
+                <% } %> 
+
+
+                <% } %> 
+
+            </tbody>
+       
+        
+        </table>
+        <% for (var a = 0; a < compra.docs.length; a++) { %>
 
             <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-             Nombre del comprador:   <%= compra.docs[a].Nombre_comprador%> <%= compra.docs[a].Apellidos_comprador%>
-            </div>
-        </div>
-        
-
-
-
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              Total:  <%= compra.docs[a].PrecioTotal%>
-            </div>
-        </div>
-        
-        <div class="control-group">
-            <div class="form-group floating-label-form-group controls">
-              Fecha de la compra:  <%= compra.docs[a].Fecha_compra%>
-            </div>
-        </div>
-
-                
-                <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                        Id transacción: <%= compra.docs[a].Id_transaccion%>
-
-                        
-                    </div>
-                </div>
-                <% for (var b = 0; b < ProductosComprados.length; b++) { %>
-                    <img src="<%= ProductosComprados[b].image %>" alt="" class="img-fluid zoom" style="height: 100px;">
-
-                    <div class="control-group">
-                        <div class="form-group floating-label-form-group controls">
-                            
-                           Nombre del producto: <%=ProductosComprados[b].nombre%>
-                           Precio: <%=ProductosComprados[b].precio%>
-                           Cantidad:  <%=ProductosComprados[b].cantidad%>
-
-                           
-                        </div>
-                    </div>
-
-
-
-               
-    <% } %> 
-
-
-    <% } %> 
-
-    <% } %>
-
-    <div style="text-align: end;">
-        <% for (var a = 1; a < compra.totalPages+1; a++) { %> 
-            <a href="/HistorialCompras?page=<%=[a]%>" style="color:rgb(255, 248, 248)" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%></a>
-        <% } %>
+            <% } %> 
     </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
 
+<% if(FiltroPaginado === false){ %>
 
+<% for (var a = 1; a < compra.totalPages+1; a++) { %> <a href="/HistorialCompras?page=<%=[a]%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark "><%=[a]%></a><% } %>
 
-    </section>
+<% } %> 
 
+<% if(FiltroPaginado === true){ %>
+    <% for (var a = 1; a < compra.totalPages+1; a++) { %> <a href="/FiltrosCompras?page=<%=[a]%>&amp;Filtro=<%=Filtro%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
 
+    <% } %> 
 
+</section>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="js/historial.js"></script>
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
 </html>

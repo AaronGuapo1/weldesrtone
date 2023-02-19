@@ -44,7 +44,8 @@ module.exports = async (req, res) => {
 
         res.redirect("/materiales/true");
     } else if (BusquedaCodigo === 1) {
-        console.log("ya creado");
+        //console.log("ya creado");
+ 
         res.redirect("/materiales/false");
     }
 };

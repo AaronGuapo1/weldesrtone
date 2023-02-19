@@ -84,3 +84,39 @@ console.log(response)
 
 const tiendaBusqueda = require("./controllers/tiendaBusqueda");
 const tiendaFiltros = require("./controllers/tiendaFiltros");
+
+
+<% for (let b = 0; b < cart.length; b++) { %>
+
+  <% if(!cart[b].nombre === !productos[a].nombre && !cart[b].UsuarioId === IdUsuario  ){ %> 
+
+
+  <% } %>           
+
+
+  cart[b].nombre !== productos[a].nombre && cart[b].UsuarioId !== IdUsuario 
+  
+
+
+
+
+  <% for (let b = 0; b < cart.length; b++) { %>
+    <% if(cart[b].nombre !== productos[a].nombre && cart[b].UsuarioId !== IdUsuario ){ %> 
+
+         Agregar al carrito
+
+
+
+    <% } %>    
+    <% } %>    
+
+
+<% for (let b = 0; b < cart.length; b++) { %>
+<% if( productos[a].nombre === cart[b].nombre  && IdUsuario === cart[b].UsuarioId  ){ %> 
+
+     Agregado
+
+<% }%>    
+
+
+<% } %>    
