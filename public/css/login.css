@@ -108,20 +108,62 @@
   textarea:-ms-input-placeholder { color: #adadad;}
   
   /*---------------------------------------------*/
-  button {
-      outline: none !important;
-      border: none;
-      background: transparent;
-  }
-  
-  button:hover {
-      cursor: pointer;
-  }
-  
-  iframe {
-      border: none !important;
-  }
-  
+#btn-google {
+  width: 100%;
+  color: black;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#btn-google:hover {
+  background-color: #AF4C4C;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px 0 #ab3d3d;
+  color: white;
+  transform: translateY(-2px);
+}
+
+#btn-facebook {
+  width: 100%;
+  color: black;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#btn-facebook:hover {
+  background-color: #024682;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px 0 #00549D;
+  color: white;
+  transform: translateY(-2px);
+}
+
+#btn-microsoft {
+  width: 100%;
+  color: black;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+#btn-microsoft:hover {
+  background-color: #2672EC;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px 0 #1d51a3;
+  color: white;
+  transform: translateY(-2px);
+}
   
   /*//////////////////////////////////////////////////////////////////
   [ Utility ]*/

@@ -447,6 +447,34 @@ img {
   padding: 2% 15%;
 }
 
+#editar-producto {
+  padding: 0 15% 2% 15%;
+}
+#editar-producto .edit-button {
+  height: 50px;
+  border-radius: 0;
+}
+@media (min-width: 768px) {
+  #editar-producto .edit-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0.375rem;
+  }
+}
+#editar-producto .trash-button {
+  height: 50px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+@media (min-width: 768px) {
+  #editar-producto .trash-button {
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
 #tienda-productos {
   padding: 0 5%;
 }

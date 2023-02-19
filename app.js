@@ -163,7 +163,8 @@ const cart = require('./controllers/cart')
 const url = require('url');
 const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
-const pdfDescargar = require('./controllers/descargar')
+const pdfDescargar = require('./controllers/descargar');
+const productoEditarGet = require("./controllers/productoEditarGET");
 
 
 
@@ -329,6 +330,7 @@ app.get('/productos', nocache, productosGET);
 app.get("/productos/:idProducto", productoGET)
 app.get('/materiales/:status', nocache, materialesGET);
 app.get("/tienda/busqueda/:filtro", tiendaFiltros);
+app.get("/productos/editar/:Id", nocache, productoEditarGet);
 
 // - Google Auth
 app.get("/auth/google", passport.authenticate("google", {scope: ["profile"]}));

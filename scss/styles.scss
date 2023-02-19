@@ -74,6 +74,25 @@
     }
 }
 
+@mixin btn-custom(){
+    width: 100%;
+    color: black;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+@mixin btn-custom-hover($color, $shadow){
+    background-color: $color;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px 0 $shadow;
+    color: white;
+    transform: translateY(-2px);
+}
+
 // ---------------- ELEMENT TAGS ---------------- // 
 h1, h2 {
     color: #C1C1C1;
@@ -132,6 +151,14 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#btn-google {
+    @include btn-custom();
+}
+
+#btn-google:hover {
+    @include btn-custom-hover(#AF4C4C, #ab3d3d);
 }
 
 // ---------------- FILTER BUTTONS SECTION ---------------- // 
@@ -321,11 +348,40 @@ img {
     }
 }
 
-// ---------------- MATERIALES ---------------- // 
+// ---------------- PRODUCTOS ---------------- // 
 #agregar-producto {
     padding: 2% 15%;
 }
 
+#editar-producto {
+    padding: 0 15% 2% 15%;
+
+    .edit-button {
+        height: 50px;
+
+        border-radius: 0;
+        
+        @include mediaMixins.min-md(){
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0.375rem;
+        }
+    }
+
+    .trash-button {
+        height: 50px;
+
+        border-top-right-radius: 0;
+        border-top-left-radius: 0;
+
+        @include mediaMixins.min-md(){
+            border-top-left-radius: 0;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+    }
+}
 
 // ---------------- TIENDA ---------------- // 
 #tienda-productos {
