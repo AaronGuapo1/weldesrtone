@@ -1,9 +1,10 @@
 // ---------- DOM MANIPULATION ---------- // 
 const buttons = document.getElementsByClassName("edit");
-const precioMaterialesSpan = document.querySelector("#precio-materiales");
+const divs = document.querySelectorAll(".editDiv");
 const materialesInputs = document.querySelectorAll(".material-input");
 const pinturaInputs = document.querySelectorAll(".pintura-input");
 const instalacionInputs = document.querySelectorAll(".instalacion-input");
+const precioMaterialesSpan = document.querySelector("#precio-materiales");
 const precioPinturaSpan = document.querySelector("#precio-pintura");
 const precioInstalacionSpan = document.querySelector("#precio-instalacion");
 const subtotalHTML = document.querySelector("#subtotal");
@@ -14,6 +15,8 @@ const instalacionPorcentajes = document.querySelectorAll(".instalacion-porcentaj
 const plusOneBtn = document.querySelector("#plus-one");
 const minusOneBtn = document.querySelector("#minus-one");
 const especsDiv = document.querySelector("#especificaciones");
+const cap = parseInt(document.querySelector("#cap").innerHTML);
+
 // - Modals
 const materialBusqueda = document.querySelector("#mm-busqueda");
 const pinturaBusqueda = document.querySelector("#mp-busqueda");
@@ -23,14 +26,11 @@ const modalMateriales = document.querySelectorAll(".modal-materiales");
 const modalPinturas = document.querySelectorAll(".modal-pintura");
 const modalInstalacion = document.querySelectorAll(".modal-instalacion");
 
-
-
 // ---------- GLOBAL CONST AND VARIABLES ---------- // 
 const materialesUsados = {};
 const pinturaUsada = {};
 const instalacionUsada = {};
-
-let especs = 1;
+let especs = cap;
 
 // ---------- FUNCTIONS ---------- // 
 function setUp(inputs, objetoMateriales, objective){
@@ -105,6 +105,76 @@ function filtrar(barraBusqueda, matArray){
 }
 
 // ---------- MAIN ---------- // 
+for (let i = 0; i < divs.length; i++) {
+    const ediv = divs[i];
+    let hidden = ediv.hidden;
+    let inputs = ediv.getElementsByTagName('input');
+    let btn = ediv.querySelector(".edit");
+    const btn_id = btn.id;
+    const relatedBtns = document.querySelectorAll(".agregar-" + btn_id);
+
+    if (hidden) {
+        for (let i = 0; i < relatedBtns.length; i++) {
+            const rBtn = relatedBtns[i];
+
+            rBtn.innerHTML = "Quitar";
+            rBtn.classList.remove("btn-danger");
+            rBtn.classList.add("btn-dark");
+        }
+
+        for(let i = 0; i < inputs.length; i++) {
+            const inp = inputs[i];
+            inp.removeAttribute("disabled");
+        }
+
+        ediv.removeAttribute("hidden");
+    
+        switch(btn_id[0]){
+            case "M":
+                const mat = ediv.querySelector(".material-input");
+
+                Object.defineProperty(materialesUsados, btn_id, {
+                    value: [parseFloat(btn.value), 0, mat],
+                    configurable: true,
+                    enumerable: true,
+                    writable: true
+                });
+
+                calculatePrice(materialesUsados, precioMaterialesSpan, false);
+
+                break;
+
+            case "P":
+                const pint = ediv.querySelector(".pintura-input");
+
+                Object.defineProperty(pinturaUsada, btn_id, {
+                    value: [parseFloat(btn.value), 0, pint],
+                    configurable: true,
+                    enumerable: true,
+                    writable: true
+                });
+
+                calculatePrice(pinturaUsada, precioPinturaSpan, false);
+
+                break;
+
+            case "I":
+                const inst = ediv.querySelector(".instalacion-input");
+
+                Object.defineProperty(instalacionUsada, btn_id, {
+                    value: [parseFloat(btn.value), 0, inst],
+                    configurable: true,
+                    enumerable: true,
+                    writable: true
+                });
+
+                calculatePrice(instalacionUsada, precioInstalacionSpan, false);
+
+                break;
+        };
+    }
+}
+
 for (let i = 0; i < buttons.length; i++) {
     const btn = buttons[i];
     const btn_id = btn.id;
@@ -227,6 +297,7 @@ calculateSub.addEventListener("click", function(){
 
     let subtotal = materiales_price + pintura_price + instalacion_price;
 
+
     materialPorcentajes.forEach(porcentaje => {
         subtotal += materiales_price * (parseFloat(porcentaje.value) / 100);
     });
@@ -242,6 +313,20 @@ calculateSub.addEventListener("click", function(){
     subtotalHTML.innerHTML = `<h5 class="mb-3 resaltar-rojo">SubTotal: $${subtotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}  mxn</h5>`;
 })
 
+// -------------- Busqueda -------------- //
+materialBusqueda.addEventListener("input", function(){
+    filtrar(materialBusqueda, modalMateriales);
+});
+
+pinturaBusqueda.addEventListener("input", function(){
+    filtrar(pinturaBusqueda, modalPinturas);
+})
+
+ instalacionBusqueda.addEventListener("input", function(){
+    filtrar(instalacionBusqueda, modalInstalacion);
+})
+
+// -------------- Especificaciones -------------- //
 plusOneBtn.addEventListener("click", function(){
     especs++;
 
@@ -249,7 +334,7 @@ plusOneBtn.addEventListener("click", function(){
     div.classList.add("input-group");
     div.classList.add("mb-2"); 
     div.id = `especificaciones-${especs}`;
-    div.innerHTML = `<span class="input-group-text">${especs}</span> <input type="text" name="especificacionesNombre" autocomplete="off" autocapitalize="on" aria-label="nombre-espec" class="form-control espec${especs}" placeholder="Nombre"> <input type="text" name="especificacionesDesc" autocomplete="off" autocapitalize="on" aria-label="descripcion-espec" class="form-control espec${especs}" placeholder="Descripcion"></input>`
+    div.innerHTML = `<span class="input-group-text">${especs}</span> <input type="text" name="especificacionesNombre" autocomplete="off" autocapitalize="on" aria-label="nombre-espec" class="form-control espec${especs}" placeholder="Nombre" required> <input type="text" name="especificacionesDesc" autocomplete="off" autocapitalize="on" aria-label="descripcion-espec" class="form-control espec${especs}" placeholder="Descripcion" required></input>`
 
     especsDiv.appendChild(div);
 })
@@ -262,15 +347,10 @@ minusOneBtn.addEventListener("click", function(){
     }
 })
 
-materialBusqueda.addEventListener("input", function(){
-    filtrar(materialBusqueda, modalMateriales);
-});
 
-pinturaBusqueda.addEventListener("input", function(){
-    filtrar(pinturaBusqueda, modalPinturas);
-})
 
-instalacionBusqueda.addEventListener("input", function(){
-    filtrar(instalacionBusqueda, modalInstalacion);
-})
+
+
+
+
 
