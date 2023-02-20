@@ -19,7 +19,6 @@
     <script src="https://kit.fontawesome.com/c1d78340ca.js" crossorigin="anonymous"></script>  
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 	<link rel="stylesheet" href="public/assets/css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
@@ -42,12 +41,38 @@
         <option value="<%=años[i].año%>"><%=años[i].año%></option>
         <% } %> 
       </select>
-      <br>
-      <br>
       <button type="submit" class="btn btn-info btn-sm">Filtrar</button>
+      <br>
     </form>
-</div>
-    <br>               
+</div>             
+<br>
+<% if( roles === 'admin'){ %>
+
+    <form method="post" action="/FiltrosCompras2" >
+            <select name="Filtro2" class="BusquedaSelect">
+                <option value="NombreProducto" selected>Nombre del producto</option>
+                <option value="NombreCliente" selected>Nombre del cliente</option>
+                <option value="IdTrans" selected>Id de la transacción </option>
+
+            </select>
+            <input type="text" name="busqueda" class="busquedaInput" placeholder="Inserte los datos que desea filtrar">
+            <button class="btn btn-outline-danger" type="reset">Limpiar</button>
+            <button type="submit" class="btn btn-outline-danger"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+    <form method="post" action="/FiltrosCompras2" >
+        <select name="Filtro2" class="BusquedaSelect">
+            <option value="SubTotal" selected>Subtotal</option>
+            <option value="Precio" selected>Precio</option>
+
+        </select>
+        <input type="number" name="BusquedaPrecios" class="busquedaInput2" placeholder="Min">
+        <input type="number" name="BusquedaPrecios2" class="busquedaInput2" placeholder="Max">
+
+        <button class="btn2 btn-outline-danger" type="reset">Limpiar</button>
+        <button type="submit" class="btn2 btn-outline-danger"><i class="fa-solid fa-magnifying-glass"></i></button>
+</form>
+    <% } %> 
 
     <section>                
 
@@ -65,14 +90,16 @@
                     <th style="width:10%"> Precio </th>
                     <th style="width:10%"> Cantidad  </th>
                     <th style="width:20%">SubTotal</th>
+                    <th style="width:20%">Factura</th>
 
                     
                 </tr>
             </thead>        
-
+<!--&& compra.docs[a].status === 'approved'-->
             <tbody>
+                <!--Vista de administrador-->
                 <% for (var a = 0; a < compra.docs.length; a++) { %>
-                    <% if( roles === 'admin' && compra.docs[a].status === 'approved'){ %>
+                    <% if( roles === 'admin' && compra.docs[a].status === 'approved' ){ %>
 
                         <% const {ProductosComprados} = compra.docs[a] %> 
 
@@ -94,6 +121,11 @@
                         
     
                     <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=SubTotal[b]%> <% } %> </td>
+                    <td>
+                    
+                            <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
+                            
+                        </td>
                 </tr>
 
 
@@ -101,15 +133,49 @@
 
 
                 <% } %> 
+<!--Vista de Usuario-->
+
+<% for (var a = 0; a < compra.docs.length; a++) { %>
+    <% if( roles !== 'admin' && compra.docs[a].status === 'approved' && compra.docs.Id_usuario === IdUsuario){ %>
+
+        <% const {ProductosComprados} = compra.docs[a] %> 
+
+    <tr>
+    <td><%= compra.docs[a].Nombre_comprador%></td>
+
+    
+    <td> <span class="meta"><%= compra.docs[a].Fecha_compra.toDateString() %></span></td>
+
+
+
+    <td><%= compra.docs[a].Id_transaccion%> </td>
+
+  <!--Detalles-->
+
+        <td>   <% for (var b = 0; b < ProductosComprados.length; b++) { %> <%=ProductosComprados[b].nombre%> <br><% } %> </td>
+        <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=ProductosComprados[b].precio%> <br><% } %>  </td>
+        <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %><%=ProductosComprados[b].cantidad%><br><% } %></td>
+        
+
+    <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=SubTotal[b]%> <% } %> </td>
+    <td>
+
+        <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
+        
+    </td>
+</tr>
+
+
+<% } %> 
+
+
+<% } %> 
 
             </tbody>
        
         
         </table>
-        <% for (var a = 0; a < compra.docs.length; a++) { %>
-
-            <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
-            <% } %> 
+ 
     </div>
 </div>
 <br>
@@ -124,11 +190,16 @@
 
 <% } %> 
 
-<% if(FiltroPaginado === true){ %>
+<% if(FiltroPaginado === true && Filtro !== "IdTrans" && Filtro !== "NombreProducto" && Filtro !== "NombreCliente" && Filtro !== "SubTotal" && Filtro !== "Precio" ){ %>
     <% for (var a = 1; a < compra.totalPages+1; a++) { %> <a href="/FiltrosCompras?page=<%=[a]%>&amp;Filtro=<%=Filtro%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
+    Filtro 1
 
     <% } %> 
-
+    <% if(FiltroPaginado === true && Filtro === "IdTrans" || Filtro === "NombreProducto" || Filtro === "NombreCliente" || Filtro === "SubTotal" || Filtro === "Precio"){ %>
+Filtro 2
+        <% for (var a = 1; a < compra.totalPages+1; a++) { %> <a href="/FiltrosCompras2?page=<%=[a]%>&amp;Filtro=<%=Filtro%>&amp;consulta=<%=consulta%>&amp;consulta2=<%=consulta2%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
+    
+        <% } %> 
 </section>
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

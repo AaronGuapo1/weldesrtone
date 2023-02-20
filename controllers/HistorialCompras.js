@@ -33,7 +33,9 @@ module.exports = async (req, res) =>{
   
     }
 const FiltroPaginado= false;
-    res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado})
+const Filtro = "ninguno"
+
+    res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro})
        }else if(page != undefined){
         const compra = await Compra.paginate({},{page,limit:30})
         const añocreado = await Años.find({});
@@ -58,7 +60,8 @@ const FiltroPaginado= false;
    
     }
     const FiltroPaginado = false;
-        res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado})
+    const Filtro = "ninguno"
+        res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro})
 
        }
 }

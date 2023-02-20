@@ -168,7 +168,7 @@ const factura = require ('./controllers/factura');
 const FiltrosCompras = require('./controllers/FiltrosCompras');
 const pdfDescargar = require('./controllers/descargar');
 const productoEditarGet = require("./controllers/productoEditarGET");
-
+const FiltrosCompras2 = require('./controllers/FiltrosCompras2');
 
 
 // MercadoPago
@@ -403,7 +403,7 @@ app.get('/cancel-payment', cancelPayment)
 app.get('/HistorialCompras', HistorialCompras )
 app.get('/factura', factura)
 app.use('/FiltrosCompras',FiltrosCompras)
-
+app.use('/FiltrosCompras2',FiltrosCompras2)
 
 
 app.use((req, res) => res.render('notfound'));
