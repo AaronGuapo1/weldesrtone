@@ -131,8 +131,8 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
- mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+//  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 // ---------------- CONTROLLERS ---------------- //
 const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q6ToD9NrLHm1Vga3';
