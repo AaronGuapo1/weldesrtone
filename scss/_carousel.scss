@@ -1,9 +1,9 @@
 @use "mediaMixins";
 
-@mixin mixin-photo-container($h) {
-    overflow: hidden;
-    height: $h;
-    width: 100%;
+.c-img {
+    width: 100%; 
+    height: 650px; 
+    object-fit: cover;
 }
 
 #carousel-section{
@@ -18,24 +18,9 @@
 #desktopCarousel {
     display: block;
 
-    .photo-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        @include mixin-photo-container($h: 650px);
-    }
-
-    .large-img {
-        width: 100%;
-        @include mediaMixins.media-custom(1400px){
-            width: auto;
-            height: 100%;
-        }
-    }
-
     .set-three {
         display: grid;
-        grid-template-columns: auto auto auto;
+        grid-template-columns: 1fr 1fr 1fr;
         column-gap: 10px;
     }
 
@@ -50,24 +35,9 @@
     @include mediaMixins.lg(){
         display: block;
 
-        .photo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @include mixin-photo-container($h: 650px);
-        }
-
-        .large-img {
-            width: 100%;
-            @include mediaMixins.media-custom(900px){
-                width: auto;
-                height: 100%;
-            }
-        }
-
         .set-two {
             display: grid;
-            grid-template-columns: auto auto;
+            grid-template-columns: 1fr 1fr;
             column-gap: 10px;
         }
     }
@@ -82,16 +52,5 @@
 
     @include mediaMixins.md(){
         display: block;
-
-        .large-img {
-            width: 100%;
-        }
-
-        .photo-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            @include mixin-photo-container($h: 650px);
-        }
     }
 }
