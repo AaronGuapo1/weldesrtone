@@ -7,7 +7,6 @@ module.exports = async (req, res) =>{
     if(req.session?.passport?.user != undefined){
         role = req.session.passport.user.role;
     }
-
     if(role == "admin"){
 
         var page = req.query.page;

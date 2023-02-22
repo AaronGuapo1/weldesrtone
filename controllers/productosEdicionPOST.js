@@ -5,9 +5,14 @@ const Cart = require("../models/Cart");
 
 module.exports =  async (req,res)=>{   
 
+    
 
     if(req.body.IdProducto !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{IdProducto:req.body.IdProducto}});
+
+    }
+    if(req.body.familia !== '' ){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{familia:req.body.familia}});
 
     }
 
@@ -17,11 +22,12 @@ module.exports =  async (req,res)=>{
 
     }
 
-
     if(req.body.descripcion !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{descripcion:req.body.descripcion}});
     }
-
+    if(req.body.codigo !== '' ){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{codigo:req.body.codigo}});
+    }
     if(req.body.unidad !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{unidad:req.body.unidad}});
     }
@@ -47,6 +53,45 @@ module.exports =  async (req,res)=>{
 
 
 
+/*
+    for (e=0; e<.length;e++){
+
+
+
+        if( !== '' ){
+            await Producto.updateOne({nombre:req.body.NombreBusqueda},);
+
+        }
+    
+    
+        
+    }
+
+*/
+
+    for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
+
+
+
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"MaterialesProductos.$[item]":{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}}, {arrayFilters: [{"item.codigo":req.body['MaterialesProductos[codigo]'][a]}]});
+    
+    
+        
+    }
+    
+    
+    for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"PinturaProductos.$[item]":{Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}}, {arrayFilters: [{"item.codigo":req.body['PinturaProductos[codigo]'][b]}]});
+    
+    }
+    
+    for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
+
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"InstalacionProductos.$[item]":{Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}}, {arrayFilters: [{"item.codigo":req.body['InstalacionProductos[codigo]'][c]}]});
+    
+    }
+    
+
 
 
     const productos = await Producto.find({});
@@ -63,7 +108,6 @@ module.exports =  async (req,res)=>{
     
     for (let i=0; i<MaterialesProductos.length; i++){
             if (MaterialesProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
-                console.log(materiales[i].Descripcion )
              suma = suma + (MaterialesProductos[i].cantidad *  materiales[i].PrecioUnitario)
             }
     }
@@ -106,7 +150,7 @@ module.exports =  async (req,res)=>{
 
         var image = req.files.image;
         console.log(image)
-        console.log(req.body.NombreBusqueda)
+
         image.mv(path.resolve(__dirname,'..','public/images/productos',image.name),async (error)=>{
 
             await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image: '/images/productos/' + image.name}});

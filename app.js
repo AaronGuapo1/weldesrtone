@@ -131,14 +131,10 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 // mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-//  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+  mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
-// ---------------- CONTROLLERS ---------------- //
-const CLIENT ='AUJPP79ZQrRGOOcfqTUUrSb5W1_7mKl_ZS6cytwOYxbgy313Y6gOqdzeB_zcd_39q6ToD9NrLHm1Vga3';
-const SECRET = 'ELwDrZw6HUnHgle6kfri5qG9RBuLnbCWpYz2zWhqtCidQvhq8HgQmJT1c5Qut1TijbgHxWaTi_c31YMr';
-const PAYPAL_API= 'https://api-m.sandbox.paypal.com'; //https://api-m.paypal.com
-const auth ={ user: CLIENT, pass: SECRET}
+
 
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
@@ -248,88 +244,6 @@ console.log("notificar")
 const tiendaBusqueda = require("./controllers/tiendaBusqueda");
 const tiendaFiltros = require("./controllers/tiendaFiltros");
 
-// - Paypal
-const createPayment = (req,res)=>{
-    var suma = 0;
-
-    for (var i=1; i<req.body.precio.length; i++){
-        suma = suma + (req.body.amount[i]*req.body.precio[i])
-    }
-
-    const body = {
-        intent: 'CAPTURE',
-        purchase_units:[{
-            amount: {
-                currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
-                value: suma //costo del producto
-            }
-        }],
-        application_context: {
-            brand_name:'EmpresaNombre.com' ,
-            landing_page: 'NO_PREFERENCE',
-            user_action:'PAY_NOW',
-            return_url:`http://localhost:3000/execute-payment`,
-            cancel_url:`http://localhost:3000/cancel-payment`
-        }
-    }
-
-    request.post(`${PAYPAL_API}/v2/checkout/orders`,{
-        auth,
-        body,
-        json:true
-    }, async (err,response) =>  {
-        const datos = ({data:response.body})
-        var {data} = datos
-        const pago = data.links[1].href
-
-        const Compra = require("./models/compra");
-        const IdUsuario = req.session.passport.user.id;
-       
-        await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
-        for (a=1; a<req.body.precio.length;a++){
-        await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:data.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
-  }
-
-
-
-       res.redirect(pago);
-    })
-}
-const executePayment =  (req,res)=>{
-  const Compra = require("./models/compra");
-  const Cart = require("./models/Cart");
-  const IdUsuario = req.session.passport.user.id;
-
-  console.log(req.query)
-    const token = req.query.token;
-    request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
-    auth,
-    body:{},
-    json:true
-    }, async (err,response)  =>  {
-    //res.json({data:response.body})
-    console.log({data:response.body})
-    var datos = {data:response.body}
-    var {data} = datos
-    var today = new Date();
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-    await Compra.updateOne({Id_transaccion:data.id}, {$set:{Correo_comprador:data.payer.email_address,Pais_comprador:data.payer.address.country_code,Id_comprador:data.payer.payer_id,Nombre_comprador:data.payer.name.given_name,Apellidos_comprador:data.payer.name.surname,status:data.status,Fecha_compra:date}})
-    await Cart.deleteMany({UsuarioId:IdUsuario});
-    res.render('pagado', {data})
-    
-
-    })
-}
-
-const cancelPayment =(req,res)=>{
-  //borrar colección
-    res.redirect('/cart')
-}
-
-
-
-
 // ---------------- SERVER ---------------- // 
 // - GET METHOD - //
 app.get('/', inicioController);
@@ -338,7 +252,7 @@ app.get("/about", aboutGET);
 app.get('/login/:status', loginController);
 app.get('/logout', logoutController);
 app.get('/productos', nocache, productosGET);
-app.get("/productos/:idProducto", productoGET)
+app.get("/productos/:id", productoGET) //error
 app.get('/materiales/:status', nocache, materialesGET);
 app.get("/tienda/busqueda/:filtro", tiendaFiltros);
 app.get("/productos/editar/:Id", nocache, productoEditarGet);
@@ -394,10 +308,7 @@ app.get("/products-cart", getProductsCart);
 app.post("/products-cart", addProductCart);
 app.use("/products-cart/:productId", putProduct);
 
-//paypal
-app.post(`/create-payment`, createPayment)
-app.get(`/execute-payment`, executePayment)
-app.get('/cancel-payment', cancelPayment)
+
 
 //compras
 app.get('/HistorialCompras', HistorialCompras )

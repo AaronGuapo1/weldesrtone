@@ -10,7 +10,7 @@ module.exports = async (req, res) =>{
 
     if(role == "admin"){       
         const materiales = await Material.find({});
-        const producto = await Producto.find({IdProducto: req.params.Id});
+        const producto = await Producto.find({_id: req.params.Id});
         res.render('productoEditar', {productoEditar: producto[0], materiales, roles: role, loggedIn: true});
     } else{
         res.redirect("/")

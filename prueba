@@ -123,3 +123,146 @@ const tiendaFiltros = require("./controllers/tiendaFiltros");
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+// - Paypal
+const createPayment = (req,res)=>{
+    var suma = 0;
+
+    for (var i=1; i<req.body.precio.length; i++){
+        suma = suma + (req.body.amount[i]*req.body.precio[i])
+    }
+
+    const body = {
+        intent: 'CAPTURE',
+        purchase_units:[{
+            amount: {
+                currency_code: 'MXN', //https://developer.paypal.com/reference/currency-codes/
+                value: suma //costo del producto
+            }
+        }],
+        application_context: {
+            brand_name:'EmpresaNombre.com' ,
+            landing_page: 'NO_PREFERENCE',
+            user_action:'PAY_NOW',
+            return_url:`http://localhost:3000/execute-payment`,
+            cancel_url:`http://localhost:3000/cancel-payment`
+        }
+    }
+
+    request.post(`${PAYPAL_API}/v2/checkout/orders`,{
+        auth,
+        body,
+        json:true
+    }, async (err,response) =>  {
+        const datos = ({data:response.body})
+        var {data} = datos
+        const pago = data.links[1].href
+
+        const Compra = require("./models/compra");
+        const IdUsuario = req.session.passport.user.id;
+       
+        await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:data.id})
+        for (a=1; a<req.body.precio.length;a++){
+        await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:data.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
+  }
+
+
+
+       res.redirect(pago);
+    })
+}
+const executePayment =  (req,res)=>{
+  const Compra = require("./models/compra");
+  const Cart = require("./models/Cart");
+  const IdUsuario = req.session.passport.user.id;
+
+  console.log(req.query)
+    const token = req.query.token;
+    request.post(`${PAYPAL_API}/v2/checkout/orders/${token}/capture`,{
+    auth,
+    body:{},
+    json:true
+    }, async (err,response)  =>  {
+    //res.json({data:response.body})
+    console.log({data:response.body})
+    var datos = {data:response.body}
+    var {data} = datos
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    await Compra.updateOne({Id_transaccion:data.id}, {$set:{Correo_comprador:data.payer.email_address,Pais_comprador:data.payer.address.country_code,Id_comprador:data.payer.payer_id,Nombre_comprador:data.payer.name.given_name,Apellidos_comprador:data.payer.name.surname,status:data.status,Fecha_compra:date}})
+    await Cart.deleteMany({UsuarioId:IdUsuario});
+    res.render('pagado', {data})
+    
+
+    })
+}
+
+const cancelPayment =(req,res)=>{
+  //borrar colección
+    res.redirect('/cart')
+}
+
+<section class="py-5">
+
+<div class="row row-cols-1">
+    <table>
+        <tr>
+            <th> Id del Producto</th>
+            <th> Materiales del Producto</th>
+            <th> Precio</th>
+            <th> Imagen </th>
+            <th> Nombre</th>
+            <th> Descripcion</th>
+            <th> Unidad </th>
+            <th> Mano de Obra Material </th>
+            <th> Porcentaje Material </th>
+            <th> Mano de Obra Pintura </th>
+            <th> Porcentaje Pintura </th>
+            <th> Mano de Obra Instalacion </th>
+            <th> Porcentaje Instalacion</th>
+
+        </tr><% for (var a = 0; a < productos.docs.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
+            <tr>
+                <th><%=productos.docs[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto">
+                </th>
+                <th>
+                    <a href="/productos/MaterialesEdicion/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Editar materiales </a>
+                </th>
+                <th><%=productos.docs[a].precio%> </th>
+                <th>
+                    <img src="<%=productos.docs[a].image%>" alt="" class="img-fluid zoom" style="height: 100px;">
+                    <div class="control-group">
+                        <div class="form-group floating-label-form-group controls">
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+                    </div>
+                </th>
+                <th><%=productos.docs[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
+                </th>
+                <th><%=productos.docs[a].descripcion%> <input type="text" class="form-control" id="descripcion" name="descripcion">
+                </th>
+                <th><%=productos.docs[a].unidad%> <input type="text" class="form-control" id="unidad" name="unidad">
+                </th>
+                <th><%=productos.docs[a].ManoObMaterial%> <input type="number" class="form-control" id="ManoObMaterial" name="ManoObMaterial">
+                </th>
+                <th><%=productos.docs[a].PorcentajeMaterial%> <input type="number" class="form-control" id="PorcentajeMaterial" name="PorcentajeMaterial">
+                </th>
+                <th><%=productos.docs[a].ManoObPintura%> <input type="number" class="form-control" id="ManoObPintura" name="ManoObPintura">
+                </th>
+                <th><%=productos.docs[a].PorcentajePintura%> <input type="number" class="form-control" id="PorcentajePintura" name="PorcentajePintura">
+                </th>
+                <th><%=productos.docs[a].ManoObInstalacion%> <input type="number" class="form-control" id="ManoObInstalacion" name="ManoObInstalacion">
+                </th>
+                <th><%=productos.docs[a].PorcentajeInstalacion%> <input type="number" class="form-control" id="PorcentajeInstalacion" name="PorcentajeInstalacion">
+                </th>
+
+                    <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
+                    <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar </a>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="sendMessageButton">Actualizar</button>
+                    </div>
+        </form>
+        </th>
+        </tr><% } %>
+    </table>
+</div>
