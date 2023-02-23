@@ -5,7 +5,6 @@ const Cart = require("../models/Cart");
 
 module.exports =  async (req,res)=>{   
 
-    console.log(req.body)
 
   
     if(req.body.familia !== '' ){
@@ -16,24 +15,31 @@ module.exports =  async (req,res)=>{
     if(req.body.descripcion !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{descripcion:req.body.descripcion}});
     }
+    
     if(req.body.codigo !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{codigo:req.body.codigo}});
     }
+
     if(req.body.unidad !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{unidad:req.body.unidad}});
     }
+
     if(req.body.ManoObMaterial !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{ManoObMaterial:req.body.ManoObMaterial}});
     }
+
     if(req.body.PorcentajeMaterial !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{PorcentajeMaterial:req.body.PorcentajeMaterial}});
     }
+
     if(req.body.ManoObPintura !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{ManoObPintura:req.body.ManoObPintura}});
     }
+
     if(req.body.PorcentajePintura !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{PorcentajePintura:req.body.PorcentajePintura}});
     }
+    
     if(req.body.ManoObInstalacion !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{ManoObInstalacion:req.body.ManoObInstalacion}});
     }
