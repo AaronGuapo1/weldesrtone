@@ -28,8 +28,13 @@ nav .right-icons {
     display: none;
   }
 }
-@media (max-width: 425px) {
-  nav .hide-425 {
+@media (min-width: 991px) {
+  nav .hide-min-lg {
+    display: none;
+  }
+}
+@media (max-width: 576px) {
+  nav .hide-sm {
     display: none;
   }
 }

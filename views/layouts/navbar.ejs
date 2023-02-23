@@ -12,7 +12,7 @@
                         <h4 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Welderstone</h5>
                         <button type="button" class="btn-close btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+                    <ul class="navbar-nav justify-content-start flex-grow-1 pt-2 pe-3">
                         <!-- Inicio -->
                         <li class="nav-item ms-3 ms-lg-2">
                             <a class="nav-link" href="/">Inicio</a>
@@ -20,6 +20,10 @@
                         <!-- Tienda -->
                         <li class="nav-item ms-3 ms-lg-2">
                             <a class="nav-link" href="/tienda">Tienda</a>
+                        </li>
+                        <!-- Carrito -->
+                        <li class="nav-item ms-3 ms-lg-2 hide-min-lg">
+                            <a class="nav-link" href="/cart">Carrito</a>
                         </li>
                         <!-- Acerca de (No linkeado) -->
                         <li class="nav-item ms-3 ms-lg-2">
@@ -39,9 +43,8 @@
                 <a class="nav-link ms-4 right-icons hide-lg" href="https://www.instagram.com/welderstone_/"><i class="f-icon fa-brands fa-instagram"></i></a>
                 <a class="nav-link ms-4 right-icons hide-lg" href="https://www.facebook.com/WELDERSTONESHOP"><i class="f-icon fa-brands fa-facebook"></i></a>
                 <% if(loggedIn) { %>
-
-                <a class="nav-link ms-4 right-icons hide-425" href="/cart"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
-                
+                    <!-- Icono de carrito de compras -->
+                    <a class="nav-link ms-4 right-icons hide-sm" href="/cart"><i class="f-icon fa-solid fa-cart-shopping"></i></a>
                 <% } %>
 
                 <% if(!loggedIn) { %>
@@ -55,7 +58,6 @@
                         <% if(roles  === "admin") { %>
                             <li><a class="dropdown-item" href="/productos">Productos</a></li>
                             <li><a class="dropdown-item" href="/materiales/true">Materiales</a></li>
-
                         <% } %>
 
                         <li><a class="dropdown-item" href="/HistorialCompras">Historial</a></li>

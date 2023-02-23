@@ -32,9 +32,15 @@ nav {
             display: none;
         }
     }
+
+    .hide-min-lg {
+        @include mediaMixins.min-lg(){
+            display: none;
+        }
+    }
     
-    .hide-425 {
-        @include mediaMixins.media-custom(425px){
+    .hide-sm {
+        @include mediaMixins.min-sm(){
             display: none;
         }
     }
