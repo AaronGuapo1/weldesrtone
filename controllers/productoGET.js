@@ -9,9 +9,7 @@ module.exports = async (req, res) =>{
         logged = true;
         var IdUsuario = req.session.passport.user.id;
     }
-    console.log(req.params.id)
     const productoDoc = await Producto.findOne({_id: req.params.id});
-    console.log(productoDoc)
     const relacionados = await Producto.find({familia: productoDoc.familia, _id: {$ne: productoDoc._id}}).limit(6);
 
     const cart = await Cart.find({});
