@@ -12,21 +12,21 @@ const BusquedaNombre = await Producto
     if (BusquedaNombre === 0) {
    
     await Producto.create({...req.body});
-
+/*
     await Producto.updateOne({IdProducto: req.body.IdProducto}, {IdProducto: req.body.IdProducto.trim()})
     await Producto.updateOne({familia: req.body.familia}, {familia: req.body.familia.toLowerCase()});
-  
+ */
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],preciounitario:req.body['MaterialesProductos[PrecioUnitario]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});      
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});      
     }
 
     for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],preciounitario:req.body['PinturaProductos[PrecioUnitario]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
         
     }
 
     for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],preciounitario:req.body['InstalacionProductos[PrecioUnitario]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});    
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});    
     }
 
 //Obtiene el precio
@@ -44,6 +44,7 @@ var suma = 0;
 
 for (let i=0; i<MaterialesProductos.length; i++){
         if (MaterialesProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
+            console.log(MaterialesProductos[i].cantidad *  materiales[i].PrecioUnitario)
          suma = suma + (MaterialesProductos[i].cantidad *  materiales[i].PrecioUnitario)
         }
 }
@@ -72,7 +73,6 @@ var sumaInsumos3Por = ((sumaInsumos * productos[0].PorcentajeInstalacion)/100) +
 
 var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
 var SubTotal=Number(x.toFixed(2))
-
 console.log(SubTotal)
 
 await Producto.updateOne({nombre:req.body.nombre},{ $set: { precio:SubTotal } });

@@ -192,11 +192,9 @@
 
 <% if(FiltroPaginado === true && Filtro !== "IdTrans" && Filtro !== "NombreProducto" && Filtro !== "NombreCliente" && Filtro !== "SubTotal" && Filtro !== "Precio" ){ %>
     <% for (var a = 1; a < compra.totalPages+1; a++) { %> <a href="/FiltrosCompras?page=<%=[a]%>&amp;Filtro=<%=Filtro%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
-    Filtro 1
 
     <% } %> 
     <% if(FiltroPaginado === true && Filtro === "IdTrans" || Filtro === "NombreProducto" || Filtro === "NombreCliente" || Filtro === "SubTotal" || Filtro === "Precio"){ %>
-Filtro 2
         <% for (var a = 1; a < compra.totalPages+1; a++) { %> <a href="/FiltrosCompras2?page=<%=[a]%>&amp;Filtro=<%=Filtro%>&amp;consulta=<%=consulta%>&amp;consulta2=<%=consulta2%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
     
         <% } %> 

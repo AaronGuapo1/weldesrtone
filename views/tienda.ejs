@@ -61,7 +61,7 @@
             <div class="row">
                 <% for (var a = 0; a < productos.length; a++) { %> 
                     <div class="col-sm-2">
-                        <a href="/productos/<%=productos[a].IdProducto%>">
+                        <a href="/productos/<%=productos[a]._id%>">
                             <div class="card line">
                                 <!-- Imagen -->
                                 <img class="card-img-top mx-auto d-block" src="<%=productos[a].image%>" alt="Product 1">

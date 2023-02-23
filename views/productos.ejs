@@ -41,7 +41,7 @@
                                         <div class="col-6">
                                             <!-- Codigo -->
                                             <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="IdProducto" placeholder="Codigo" name="IdProducto" autocomplete="off" required>
+                                                <input type="text" class="form-control" id="IdProducto" name="codigo" placeholder="Codigo" name="IdProducto" autocomplete="off" required>
                                                 <label for="IdProducto">Codigo</label>
                                             </div>
                                             <!-- Nombre -->
@@ -398,7 +398,7 @@
                                     </div>
                                     <div class="col-md-1">
                                         <!-- Editar producto -->
-                                        <a href="/productos/editar/<%=productos.docs[a].IdProducto%>">
+                                        <a href="/productos/editar/<%=productos.docs[a]._id%>"> 
                                             <button type="button" class="btn btn-primary w-100 edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
                                         </a>
                                         <!-- Borrar Producto -->
@@ -418,70 +418,7 @@
 
         
         
-        <section class="py-5">
 
-            <div class="row row-cols-1">
-                <table>
-                    <tr>
-                        <th> Id del Producto</th>
-                        <th> Materiales del Producto</th>
-                        <th> Precio</th>
-                        <th> Imagen </th>
-                        <th> Nombre</th>
-                        <th> Descripcion</th>
-                        <th> Unidad </th>
-                        <th> Mano de Obra Material </th>
-                        <th> Porcentaje Material </th>
-                        <th> Mano de Obra Pintura </th>
-                        <th> Porcentaje Pintura </th>
-                        <th> Mano de Obra Instalacion </th>
-                        <th> Porcentaje Instalacion</th>
-
-                    </tr><% for (var a = 0; a < productos.docs.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
-                        <tr>
-                            <th><%=productos.docs[a].IdProducto%> <input type="text" class="form-control" id="IdProducto" name="IdProducto">
-                            </th>
-                            <th>
-                                <a href="/productos/MaterialesEdicion/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Editar materiales </a>
-                            </th>
-                            <th><%=productos.docs[a].precio%> </th>
-                            <th>
-                                <img src="<%=productos.docs[a].image%>" alt="" class="img-fluid zoom" style="height: 100px;">
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls">
-                                        <input type="file" class="form-control" id="image" name="image">
-                                    </div>
-                                </div>
-                            </th>
-                            <th><%=productos.docs[a].nombre%> <input type="text" class="form-control" id="nombre" name="nombre">
-                            </th>
-                            <th><%=productos.docs[a].descripcion%> <input type="text" class="form-control" id="descripcion" name="descripcion">
-                            </th>
-                            <th><%=productos.docs[a].unidad%> <input type="text" class="form-control" id="unidad" name="unidad">
-                            </th>
-                            <th><%=productos.docs[a].ManoObMaterial%> <input type="number" class="form-control" id="ManoObMaterial" name="ManoObMaterial">
-                            </th>
-                            <th><%=productos.docs[a].PorcentajeMaterial%> <input type="number" class="form-control" id="PorcentajeMaterial" name="PorcentajeMaterial">
-                            </th>
-                            <th><%=productos.docs[a].ManoObPintura%> <input type="number" class="form-control" id="ManoObPintura" name="ManoObPintura">
-                            </th>
-                            <th><%=productos.docs[a].PorcentajePintura%> <input type="number" class="form-control" id="PorcentajePintura" name="PorcentajePintura">
-                            </th>
-                            <th><%=productos.docs[a].ManoObInstalacion%> <input type="number" class="form-control" id="ManoObInstalacion" name="ManoObInstalacion">
-                            </th>
-                            <th><%=productos.docs[a].PorcentajeInstalacion%> <input type="number" class="form-control" id="PorcentajeInstalacion" name="PorcentajeInstalacion">
-                            </th>
-   
-                                <input type="hidden" name="NombreBusqueda" value="<%=productos.docs[a].nombre%>">
-                                <a href="/productos/borrar/<%=productos.docs[a].nombre%>" type="submit" id="sendMessageButton">Eliminar </a>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" id="sendMessageButton">Actualizar</button>
-                                </div>
-                    </form>
-                    </th>
-                    </tr><% } %>
-                </table>
-            </div>
             <!--
                             </div></div>
                         

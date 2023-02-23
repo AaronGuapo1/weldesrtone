@@ -74,6 +74,6 @@ await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
 }
      
      
-     res.redirect('/materiales');
+     res.redirect('/materiales/true');
 }
 

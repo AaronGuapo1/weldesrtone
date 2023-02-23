@@ -201,7 +201,7 @@ for (let i = 0; i < buttons.length; i++) {
             h_div.removeAttribute("hidden");
 
             inputs[0].value = 1;
-            console.log(btn_id[0]);
+            //console.log(btn_id[0]);
             switch(btn_id[0]){
                 case "M":
                     const mat = h_div.querySelector(".material-input");
