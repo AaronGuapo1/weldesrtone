@@ -5,20 +5,11 @@ const Cart = require("../models/Cart");
 
 module.exports =  async (req,res)=>{   
 
-    
+    console.log(req.body)
 
-    if(req.body.IdProducto !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{IdProducto:req.body.IdProducto}});
-
-    }
+  
     if(req.body.familia !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{familia:req.body.familia}});
-
-    }
-
-    if(req.body.nombre !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{nombre:req.body.nombre}});
-        await Cart.update({nombre:req.body.NombreBusqueda},{$set:{nombre:req.body.nombre}});
 
     }
 
@@ -53,21 +44,30 @@ module.exports =  async (req,res)=>{
 
 
 
-/*
-    for (e=0; e<.length;e++){
 
 
+  
 
-        if( !== '' ){
-            await Producto.updateOne({nombre:req.body.NombreBusqueda},);
+    await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {especificacionesNombre:1}} , {multi: true});
 
-        }
+
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {especificacionesNombre:req.body.especificacionesNombre}});      
+
     
-    
-        
-    }
 
-*/
+
+            await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {especificacionesDesc:1}} , {multi: true});
+
+
+                await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {especificacionesDesc:req.body.especificacionesDesc}});      
+
+
+                
+
+
+
+
+
 
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
 
@@ -137,7 +137,7 @@ module.exports =  async (req,res)=>{
     var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
     var SubTotal=Number(x.toFixed(2))
 
-    console.log(SubTotal)
+    //console.log(SubTotal)
     
     await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });
     await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
@@ -166,6 +166,13 @@ module.exports =  async (req,res)=>{
 
     }
     finally {
+
+        if(req.body.nombre !== '' ){
+            await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{nombre:req.body.nombre}});
+            await Cart.update({nombre:req.body.NombreBusqueda},{$set:{nombre:req.body.nombre}});
+    
+        }
+
         res.redirect('/productos')
 
     }
@@ -173,3 +180,6 @@ module.exports =  async (req,res)=>{
  
 }
     
+
+
+
