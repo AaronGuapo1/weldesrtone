@@ -67,7 +67,8 @@ passport.deserializeUser(function(user, cb) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/welderstone"
+    callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone"
+    //http://localhost:3000/auth/google/welderstone
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, async function (err, user) {
@@ -84,7 +85,8 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "http://localhost:3000/auth/facebook/welderstone"
+  callbackURL: "https://welderstoneprueba.onrender.com/auth/facebook/welderstone"
+  //http://localhost:3000/auth/facebook/welderstone
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ facebookId: profile.id }, async function (err, user) {
@@ -102,9 +104,9 @@ passport.use(new MicrosoftStrategy({
   // Standard OAuth2 options
   clientID: process.env.MICROSOFT_APP_ID,
   clientSecret: process.env.MICROSOFT_APP_SECRET,
-  callbackURL: "http://localhost:3000/auth/microsoft/welderstone",
+  callbackURL: "https://welderstoneprueba.onrender.com/auth/microsoft/welderstone",
   scope: ['user.read'],
-
+//http://localhost:3000/auth/microsoft/welderstone
   // Microsoft specific options
 
   // [Optional] The tenant for the application. Defaults to 'common'. 
