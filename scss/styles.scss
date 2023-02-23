@@ -123,6 +123,21 @@ img {
     border-right: 1px solid red;
 }
 
+.rb-red:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: #d10101;
+}
+
+.final-filter {
+    border-top-right-radius: .375rem;
+    border-bottom-right-radius: .375rem;
+}
+
+.final-filter:hover {
+    transition: all 0.2s ease-in-out;
+    background-color: #d10101;
+}
+
 .filter-format {
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
@@ -130,7 +145,19 @@ img {
 }
 
 .filter-format:hover {
-    color: #d10101;
+    color: white;
+}
+
+.filter-format-selected {
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+}
+
+.filter-format-selected:hover {
+    color: white;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
 }
 
 .cv-flex {
@@ -159,6 +186,16 @@ img {
 
 #btn-google:hover {
     @include btn-custom-hover(#AF4C4C, #ab3d3d);
+}
+
+.mt-xl-1rem{
+    @include mediaMixins.media-custom(1199px){
+        margin-top: 1rem;
+    }
+}
+
+.filter-selected {
+    background-color: #d10101;
 }
 
 // ---------------- FILTER BUTTONS SECTION ---------------- // 

@@ -18,8 +18,8 @@ module.exports = async (req, res) => {
     const cart = await Cart.find({});
 
     if(IdUsuario != undefined){
-        res.render('tienda',{productos, roles: role, IdUsuario, loggedIn: logged, cart});
+        res.render('tienda',{productos, roles: role, IdUsuario, loggedIn: logged, cart, filtro: filtro});
     } else {
-        res.render('tienda',{productos, roles: role, loggedIn: logged, cart});
+        res.render('tienda',{productos, roles: role, loggedIn: logged, cart, filtro: filtro});
     }
 };

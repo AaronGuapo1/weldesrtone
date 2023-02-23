@@ -8,6 +8,12 @@
     padding: unset;
 }
 
+.navbar-padding-lg {
+    @include mediaMixins.lg(){
+        padding-top: .5rem;
+    }
+}
+
 nav {
     height: 10vh;
 

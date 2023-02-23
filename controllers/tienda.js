@@ -16,9 +16,9 @@ module.exports = async (req, res) =>{
     const HayProductoUsuario = await Cart.find({ UsuarioId: IdUsuario }).count();
 
     if(IdUsuario != undefined){
-        res.render('tienda',{productos, roles: role, IdUsuario, loggedIn: logged, cart, HayProductoUsuario});
+        res.render('tienda',{productos, roles: role, IdUsuario, loggedIn: logged, cart, HayProductoUsuario, filtro: "all"});
     } else {
-        res.render('tienda',{productos, roles: role, loggedIn: logged, cart});
+        res.render('tienda',{productos, roles: role, loggedIn: logged, cart, filtro: "all"});
     }
 }
     
