@@ -21,7 +21,7 @@ module.exports = async (req, res) =>{
        }
        console.log(productos)
        let docDefinition ={
-           content:[{text:"Factura", style:"header"},
+           content:[{text:"Factura", style:"header",alignment: 'justify'},
            "Id de la transacción" +" "  +PdfDescargar[0].Id_transaccion,
            "Fecha de la compra:" +" "  + PdfDescargar[0].Fecha_compra,
                
@@ -36,7 +36,7 @@ module.exports = async (req, res) =>{
            "Nombre del comprador:" +" " +PdfDescargar[0].Nombre_comprador
        ],
            
-           styles:styles
+           styles:styles,
        }
    
        const printer = new PdfPrinter(fonts);
