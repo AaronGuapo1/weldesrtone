@@ -25,6 +25,25 @@
         <main id="productoGet">
             <section id="producto">
                 <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
+
+                    <input type="hidden" value="0" name="MaterialesProductos[nombre]">
+                    <input type="hidden" value="0" name="MaterialesProductos[Codigo]">
+                    <input type="hidden" value="0" name="MaterialesProductos[PrecioUnitario]">
+                    <input type="hidden" value="0" name="MaterialesProductos[Familia]">
+                    <input type="hidden" value="0" name="MaterialesProductos[cantidad]">
+
+                    <input type="hidden" value="0" name="PinturaProductos[nombre]">
+                    <input type="hidden" value="0" name="PinturaProductos[Codigo]">
+                    <input type="hidden" value="0" name="PinturaProductos[PrecioUnitario]">
+                    <input type="hidden" value="0" name="PinturaProductos[Familia]">
+                    <input type="hidden" value="0" name="PinturaProductos[cantidad]">
+
+                    <input type="hidden" value="0" name="InstalacionProductos[nombre]">
+                    <input type="hidden" value="0" name="InstalacionProductos[Codigo]">
+                    <input type="hidden" value="0" name="InstalacionProductos[PrecioUnitario]">
+                    <input type="hidden" value="0" name="InstalacionProductos[Familia]">
+                    <input type="hidden" value="0" name="InstalacionProductos[cantidad]">
+
                     <div class="row">
                         <div class="col-5">
                             <img class="img-fluid" src="<%= productoEditar.image %>" alt="">
