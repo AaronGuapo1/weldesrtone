@@ -36,6 +36,9 @@
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <form action="/productos/agregar" method="POST" enctype="multipart/form-data">
+
+
+
                                     <h5>Datos Generales</h5>
                                     <div class="row">
                                         <div class="col-6">
@@ -100,7 +103,7 @@
                                                         <button type="button" class="btn btn-primary edit agregar-Material<%=materiales[a].Codigo%>" id="Material<%=materiales[a].Codigo%>">Quitar</button>
                                                     </div>
                                                     <input type="hidden" value="<%=materiales[a].Descripcion%>" name="MaterialesProductos[nombre]">
-                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="MaterialesProductos[codigo]">
+                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="MaterialesProductos[Codigo]">
                                                     <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="MaterialesProductos[PrecioUnitario]">
                                                     <input type="hidden" value="<%=materiales[a].Familia%>" name="MaterialesProductos[Familia]">
                                                 </div>
@@ -183,7 +186,7 @@
                                                         <button type="button" class="btn btn-primary edit agregar-Pintura<%=materiales[a].Codigo%>" id="Pintura<%=materiales[a].Codigo%>">Quitar</button>
                                                     </div>
                                                     <input type="hidden" value="<%=materiales[a].Descripcion%>" name="PinturaProductos[nombre]">
-                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="PinturaProductos[codigo]">
+                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="PinturaProductos[Codigo]">
                                                     <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="PinturaProductos[PrecioUnitario]">
                                                     <input type="hidden" value="<%=materiales[a].Familia%>" name="PinturaProductos[Familia]">
                                                 </div>
@@ -266,7 +269,7 @@
                                                         <button type="button" class="btn btn-primary edit agregar-Instalacion<%=materiales[a].Codigo%>" id="Instalacion<%=materiales[a].Codigo%>">Quitar</button>
                                                     </div>
                                                     <input type="hidden" value="<%=materiales[a].Descripcion%>" name="InstalacionProductos[nombre]">
-                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="InstalacionProductos[codigo]">
+                                                    <input type="hidden" value="<%=materiales[a].Codigo%>" name="InstalacionProductos[Codigo]">
                                                     <input type="hidden" value="<%=materiales[a].PrecioUnitario%>" name="InstalacionProductos[PrecioUnitario]">
                                                     <input type="hidden" value="<%=materiales[a].Familia%>" name="InstalacionProductos[Familia]">
                                                 </div>
