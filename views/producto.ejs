@@ -47,15 +47,78 @@
                                     <%= productoDoc.descripcion %>
                                 </p>
                             </div>
+
+
+                            <form action="/products-cart2" method="POST">
                             <div class="mb-4 compra">
                                 <div class="me-4 cantidad">
                                     <h6>Cantidad</h6>
-                                    <input class="form-control" type="number" min="1" style="width: 6rem;">
+                                    <input class="form-control" type="number" value="0" min="1" style="width: 6rem;" name="cantidad">
                                 </div>
+                                <input type="hidden" name="id" value="<%=productoDoc._id%>">
+                                <input type="hidden" name="nombre" value="<%=productoDoc.nombre%>">
+                                <input type="hidden" name="image" value="<%=productoDoc.image%>">
+                                <input type="hidden" name="precio" value="<%=productoDoc.precio%>">
+                                <% if(loggedIn) { %>
+                                    <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
+                                <% } %>
 
-                                <button class="btn btn-danger">Agregar al carrito</button>
+
+
+
+
+
+                                <% if(loggedIn) { %>
+
+                                      
+
+
+   
+                                    <button type="submit" class="btn btn-danger w-50" class="fa-solid fa-cart-shopping me-2"><i class="fa-solid fa-cart-shopping me-2"></i>
+                                        
+
+                               
+
+                              
+                                            <% for (let b = 0; b < cart.length; b++) { %>
+
+                                        <% if( cart[b].nombre === productoDoc.nombre && cart[b].UsuarioId === IdUsuario){ %> 
+                                    
+                                             Agregado
+                                    
+                                        <% } else { %>
+
+                                            <% } %>
+                                            <% } %>
+
+                                    
+
+
+                                </button>
+
+                                     
+                             
+        <% } %>
+
+
+
+
+                                
+
+
+
+
+
+
+
+
                             </div>
                             <div>
+                               </form>
+
+
+
+
                                 <h5>Especificaciones del producto</h5>
                                 <table class="table table-striped-columns">
                                     <% for (let i = 0; i < productoDoc.especificacionesNombre.length; i++) { %>
@@ -65,6 +128,8 @@
                                         </tr>
                                     <% } %>
                                 </table>
+                            
+
                             </div>
                         </div>
                     </div>

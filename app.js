@@ -160,6 +160,8 @@ const productosEMPOST = require('./controllers/productosEMPost')
 const getProducts = require('./controllers/GetProducts')
 const getProductsCart = require('./controllers/GetProductsCart')
 const addProductCart = require('./controllers/AddProductCart')
+const addProductCart2 = require('.//controllers/AddProductCart2')
+
 const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
 const url = require('url');
@@ -313,6 +315,7 @@ app.get("/products-cart", getProductsCart);
 app.post("/products-cart", addProductCart);
 app.use("/products-cart/:productId", putProduct);
 
+app.post("/products-cart2", addProductCart2);
 
 
 //compras
