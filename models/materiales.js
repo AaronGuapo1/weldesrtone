@@ -11,7 +11,8 @@ const MaterialSchema = new Schema({
     Unidad:{type:String},
     PrecioUnitario:{type:Number},
     Familia:{type:String},
-    SubFam:{type:String}
+    SubFam:{type:String},
+    cantidad:{type:String}
 });
 
 

@@ -5,19 +5,19 @@ const Cart = require("../models/Cart");
 
 module.exports =  async (req,res)=>{   
 
-    console.log(req.body)
+  
 
   
-    if(req.body.familia !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{familia:req.body.familia}});
+    if(req.body.Familia !== '' ){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Familia:req.body.Familia}});
 
     }
 
     if(req.body.descripcion !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{descripcion:req.body.descripcion}});
     }
-    if(req.body.codigo !== '' ){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{codigo:req.body.codigo}});
+    if(req.body.Codigo !== '' ){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Codigo:req.body.Codigo}});
     }
     if(req.body.unidad !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{unidad:req.body.unidad}});
@@ -50,51 +50,52 @@ module.exports =  async (req,res)=>{
 
     await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {especificacionesNombre:1}} , {multi: true});
 
-
         await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {especificacionesNombre:req.body.especificacionesNombre}});      
 
-    
-
-
             await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {especificacionesDesc:1}} , {multi: true});
-
 
                 await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {especificacionesDesc:req.body.especificacionesDesc}});      
 
 
-                
-
-
-
+                await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {MaterialesProductos:1}} , {multi: true});
 
 
 
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
+     
 
-
-
-        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"MaterialesProductos.$[item]":{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}}, {arrayFilters: [{"item.codigo":req.body['MaterialesProductos[codigo]'][a]}]});
+     if (req.body['MaterialesProductos[cantidad]'][a]> 0){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $push: {MaterialesProductos:{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],Codigo:req.body['MaterialesProductos[Codigo]'][a],Familia:req.body['MaterialesProductos[Familia]'][a]}}});
     
-    
+     }
         
     }
     
-    
-    for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
-        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"PinturaProductos.$[item]":{Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}}, {arrayFilters: [{"item.codigo":req.body['PinturaProductos[codigo]'][b]}]});
-    
-    }
-    
-    for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
+    await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {PinturaProductos:1}} , {multi: true});
 
-        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"InstalacionProductos.$[item]":{Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}}, {arrayFilters: [{"item.codigo":req.body['InstalacionProductos[codigo]'][c]}]});
-    
+    for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
+        if (req.body['PinturaProductos[cantidad]'][b]> 0){
+
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $push: {PinturaProductos:{Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],Codigo:req.body['PinturaProductos[Codigo]'][b],Familia:req.body['PinturaProductos[Familia]'][b]}}});
+        }
+    }
+
+    await Producto.updateOne({nombre:req.body.NombreBusqueda}, {$unset: {InstalacionProductos:1}} , {multi: true});
+
+    for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
+        if (req.body['InstalacionProductos[cantidad]'][c]> 0){
+
+        await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $push: {InstalacionProductos:{Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],Codigo:req.body['InstalacionProductos[Codigo]'][c],Familia:req.body['InstalacionProductos[Familia]'][c]}}});
+        }
     }
     
 
 
 
     const productos = await Producto.find({});
+
+    console.log(productos)
+
     const materiales = await material.find({});
     
     for (let a =0; a< productos.length; a++){
@@ -180,6 +181,3 @@ module.exports =  async (req,res)=>{
  
 }
     
-
-
-

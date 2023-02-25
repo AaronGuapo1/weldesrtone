@@ -68,20 +68,55 @@ module.exports = async (req,res)=>{
         }
     }
 
-    const mateprod= await material.find({});
     const cantidadrespetada = await Producto.find({});
+
+
     for (let i=0; i<cantidadrespetada.length; i++){
+
+    
+    const mateprod= await material.find({});
+    const {MaterialesProductos} = cantidadrespetada[i]
+        for (let j=0; j<MaterialesProductos.length; j++){
+
     for (let a=0; a<mateprod.length; a++){
+    if(cantidadrespetada[i].MaterialesProductos[j].Descripcion ===mateprod[a].Descripcion ){
+   
+        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"MaterialesProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].MaterialesProductos[j].cantidad,Codigo:mateprod[a].Codigo,Familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].MaterialesProductos[j]._id}]});
+      
+    }   
+}
+    }
     
+
+    const {PinturaProductos} = cantidadrespetada[i]
+
+    for (let a=0; a<mateprod.length; a++){
+        for (let j=0; j<PinturaProductos.length; j++){
+    if(cantidadrespetada[i].PinturaProductos[j].Descripcion === mateprod[a].Descripcion ){
     
-        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"MaterialesProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].MaterialesProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].MaterialesProductos[a]._id}]});
-        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"PinturaProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].PinturaProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].PinturaProductos[a]._id}]});
-        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"InstalacionProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].InstalacionProductos[a].cantidad,codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].InstalacionProductos[a]._id}]});
-        
+        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"PinturaProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].PinturaProductos[j].cantidad,Codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].PinturaProductos[j]._id}]});
+      
+    }   
+}
+    }
     
+
+
+    const {InstalacionProductos} = cantidadrespetada[i]
+
+    for (let a=0; a<mateprod.length; a++){
+        for (let j=0; j<InstalacionProductos.length; j++){
+
+    if(cantidadrespetada[i].InstalacionProductos[j].Descripcion ===mateprod[a].Descripcion ){
+    
+        await Producto.updateOne({_id:cantidadrespetada[i]._id}, { $set: {"InstalacionProductos.$[item]":{Descripcion:mateprod[a].Descripcion,cantidad:cantidadrespetada[i].InstalacionProductos[j].cantidad,Codigo:mateprod[a].Codigo,familia:mateprod[a].Familia}}},{arrayFilters: [{"item._id":cantidadrespetada[i].InstalacionProductos[j]._id}]});
+      
+    }   
+}
     }
     }
     
+//await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $set: {"MaterialesProductos.$[item]":{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],Codigo:req.body['MaterialesProductos[Codigo]'][a],Familia:req.body['MaterialesProductos[Familia]'][a]}}}, {arrayFilters: [{"item.Codigo":req.body['MaterialesProductos[Codigo]'][a]}]});
 
 
 const productos = await Producto.find({});
@@ -146,15 +181,3 @@ await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
 
 
 
-
-
-
-/*
-
-
-
-
-
-
-
-*/

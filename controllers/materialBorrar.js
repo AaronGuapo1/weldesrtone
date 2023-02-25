@@ -14,9 +14,9 @@ module.exports = async (req, res) =>{
 
      for (i=0; i<ProductosBorrar.length;i++){
 
-     await Producto.updateOne({_id:ProductosBorrar[i]._id},{ $pull: {MaterialesProductos: {codigo:req.params.id} }});
-     await Producto.updateOne({_id:ProductosBorrar[i]._id},{ $pull: {PinturaProductos: {codigo:req.params.id} }});
-     await Producto.updateOne({_id:ProductosBorrar[i]._id},{ $pull: {InstalacionProductos: {codigo:req.params.id} }});
+     await Producto.updateOne({_id:ProductosBorrar[i]._id},{ $pull: {MaterialesProductos: {Codigo:req.params.id} }});
+     await Producto.updateOne({_id:ProductosBorrar[i]._id},{ $pull: {PinturaProductos: {Codigo:req.params.id} }});
+     await Producto.updateOne({_id:ProductosBorrar[i]._id},{ $pull: {InstalacionProductos: {Codigo:req.params.id} }});
 
 
 }

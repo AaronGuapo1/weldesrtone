@@ -8,47 +8,58 @@ module.exports = async (req, res) =>{
         role = req.session.passport.user.role;
     }
 
-    if(role == "admin"){       
+    if(role == "admin"){   
         const materiales = await Material.find({});
+    
+        const materiales1 = await Material.find({});
+        const materiales2 = await Material.find({});
+        const materiales3 = await Material.find({});
 
         const producto = await Producto.find({_id: req.params.Id});
 
-        for(i=0; i<producto[0].MaterialesProductos.length; i++){
+//insertar todos los maetriales menos los que ya tengo.     
+
 
            for(j=0; j<materiales.length; j++){
-                if(producto[0].MaterialesProductos[i].Descripcion ===materiales[j].Descripcion){
+            for(i=0; i<producto[0].MaterialesProductos.length; i++){
 
-                    producto[0].MaterialesProductos[i].preciounitario =materiales[j].PrecioUnitario
-            
+                if( producto[0].MaterialesProductos[i].Descripcion === materiales[j].Descripcion ){
+                    materiales1[j].cantidad =producto[0].MaterialesProductos[i].cantidad
+
+
 
     }
 }
+
 }
+producto[0].MaterialesProductos= materiales1
+
 
 for(i=0; i<producto[0].PinturaProductos.length; i++){
 
     for(j=0; j<materiales.length; j++){
          if(producto[0].PinturaProductos[i].Descripcion ===materiales[j].Descripcion){
+            materiales2[j].cantidad =producto[0].PinturaProductos[i].cantidad
 
-             producto[0].PinturaProductos[i].preciounitario =materiales[j].PrecioUnitario
      
+}
+}
+}
+producto[0].PinturaProductos= materiales2
 
-}
-}
-}
 
 for(i=0; i<producto[0].InstalacionProductos.length; i++){
 
     for(j=0; j<materiales.length; j++){
          if(producto[0].InstalacionProductos[i].Descripcion ===materiales[j].Descripcion){
+            materiales3[j].cantidad =producto[0].InstalacionProductos[i].cantidad
 
-             producto[0].InstalacionProductos[i].preciounitario =materiales[j].PrecioUnitario
      
 
 }
 }
 }
-
+producto[0].InstalacionProductos= materiales3
 
 
 
@@ -59,7 +70,5 @@ for(i=0; i<producto[0].InstalacionProductos.length; i++){
 }
 
 /*
-
-
 
 */

@@ -67,8 +67,9 @@ passport.deserializeUser(function(user, cb) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone"
+    callbackURL: "http://localhost:3000/auth/google/welderstone"
     //http://localhost:3000/auth/google/welderstone
+    //https://welderstoneprueba.onrender.com/auth/google/welderstone
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, async function (err, user) {
@@ -133,6 +134,7 @@ function(accessToken, refreshToken, profile, done) {
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
+
   //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 //mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
@@ -202,6 +204,12 @@ app.post("/create_preference", async (req, res) => {
   mercadopago.preferences.create(preference)
   .then(async function(response){
 
+    let role = "viewer";
+    let logged = false; 
+    if(req.session?.passport?.user != undefined){
+        role = req.session.passport.user.role;
+        logged = true;
+    }
 
     const Compra = require("./models/compra");
     const IdUsuario = req.session.passport.user.id;
@@ -214,7 +222,7 @@ app.post("/create_preference", async (req, res) => {
     await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:response.body.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
   }
 
-    res.render('mercado', {response,preference});
+    res.render('mercado', {response,preference,roles: role, loggedIn: logged});
   }).catch(function(error){
     console.log(error);
   });

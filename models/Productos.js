@@ -6,10 +6,10 @@ const mongoosePaginate= require('mongoose-paginate-v2')
 
 const ProductoSchema = new Schema({
     IdProducto:{type:String},
-    MaterialesProductos:[{Descripcion:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
-    PinturaProductos:[{Descripcion:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
-    InstalacionProductos:[{Descripcion:{type:String},cantidad:{type:Number},codigo:{type:String},preciounitario:{type:Number},familia:{type:String}}],
-    familia: String,
+    MaterialesProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
+    PinturaProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
+    InstalacionProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
+    Familia: String,
     precio:{type:Number},
     image:{type:String},
     nombre:{type:String},
@@ -23,7 +23,7 @@ const ProductoSchema = new Schema({
     PorcentajeInstalacion:{type:Number},
     especificacionesNombre: Array,
     especificacionesDesc: Array,
-    codigo:{type:String}
+    Codigo:{type:String}
 });
 
 ProductoSchema.plugin(mongoosePaginate);

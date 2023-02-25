@@ -17,16 +17,23 @@ const BusquedaNombre = await Producto
     await Producto.updateOne({familia: req.body.familia}, {familia: req.body.familia.toLowerCase()});
  */
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});      
+        if(req.body['MaterialesProductos[cantidad]'][a] >0){
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});
+        }      
     }
 
     for (b=0; b<req.body['PinturaProductos[cantidad]'].length;b++){
+        if(req.body['PinturaProductos[cantidad]'][b] >0){
+
         await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
-        
+    }      
     }
 
     for (c=0; c<req.body['InstalacionProductos[cantidad]'].length;c++){
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});    
+        if(req.body['PinturaProductos[cantidad]'][c] >0){
+
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});
+        }    
     }
 
 //Obtiene el precio
