@@ -33,8 +33,7 @@ module.exports = async (req, res) =>{
         
            "Precio total:" +" " +PdfDescargar[0].PrecioTotal,
    
-           "Nombre del comprador:" +" " +PdfDescargar[0].Nombre_comprador+" "+PdfDescargar[0].Apellidos_comprador,
-           "Correo del comprador"+ +" " +PdfDescargar[0].Correo_comprador,
+           "Nombre del comprador:" +" " +PdfDescargar[0].Nombre_comprador
        ],
            
            styles:styles

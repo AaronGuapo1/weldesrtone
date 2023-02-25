@@ -22,7 +22,9 @@
 
     <section id="presentation">
 
-  
+        <div class="presentation-cont">
+            <div>
+                <div class="row text-center">
      
 
     <% for (var a = 0; a < compra.length; a++) { %>
@@ -33,25 +35,26 @@
                 <div class="form-group floating-label-form-group controls">
                     
                
-          
-                    <label>Pedido realizado:    <%= compra[a].Fecha_compra%></label>
+          <h1>Pedido realizado: </h1>
+                    <h2><%= compra[a].Fecha_compra%></h2>
 
              
         </div>
     </div>
-
     <div class="control-group">
         <div class="form-group floating-label-form-group controls">
-            <label>Productos compradros: </label>
-            <br>
+           <h1>Productos compradros: </h1>
+    
+
             <% for (var b = 0; b < ProductosComprados.length; b++) { %>
-                
-             <label>Nombre del producto: <%=ProductosComprados[b].nombre%></label>
-         <br>
-             <label>Precio: <%=ProductosComprados[b].precio%></label>
-        <br>
-             <label>Cantidad:  <%=ProductosComprados[b].cantidad%></label>
-<br>
+               
+
+             <h2>Nombre del producto: <%=ProductosComprados[b].nombre%></h2>
+        
+             <h2>Precio: $<%=ProductosComprados[b].precio%></h2>
+       
+             <h2>Cantidad:  <%=ProductosComprados[b].cantidad%></h2>
+
              <% } %> 
         </div>
     </div>
@@ -59,35 +62,42 @@
        
     <div class="control-group">
         <div class="form-group floating-label-form-group controls">
-          Id de la transacción: <%= compra[a].Id_transaccion%>
+         
+
+          <h1>Id de la transacción:</h1>
+           <h2><%= compra[a].Id_transaccion%></h2>
+        
 
         </div>
     </div>
     <div class="control-group">
         <div class="form-group floating-label-form-group controls">
-            Total del pedido: <%= compra[a].PrecioTotal%>
+           
+
+            <h1>Total del pedido: </h1>
+            <h2>$<%= compra[a].PrecioTotal%></h2>
 
         </div>
     </div>
            
     <div class="control-group">
         <div class="form-group floating-label-form-group controls">
-            Información del pago: <br>
-            <label>Nombre del comprador: <%= compra[a].Nombre_comprador%> <%= compra[a].Apellidos_comprador%></label>
+            
+
+            <h1>Información del pago:</h1>
+            <h2>Nombre del comprador: <%= compra[a].Nombre_comprador%> <%= compra[a].Apellidos_comprador%></h2>
         </div>
     </div>
            
-    <div class="control-group">
-        <div class="form-group floating-label-form-group controls">
-            <label>Correo del comprador: <%= compra[a].Correo_comprador%></label>
-        </div>
-    </div>
-    <a href="/pdfDescargar?IdTrans=<%=compra[a].Id_transaccion%>">Descargar pdf</a>
+
+    <a href="/pdfDescargar?IdTrans=<%=compra[a].Id_transaccion%>"><h3>Descargar pdf</h3></a>
 
             <% } %> 
 
         <% } %> 
-
+    </div>
+</div>
+</div>
 
     </section>
 
