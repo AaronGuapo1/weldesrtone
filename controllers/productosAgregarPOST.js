@@ -43,7 +43,7 @@ const BusquedaNombre = await Producto
 //Obtiene el precio
 
 
-const productos = await Producto.find({nombre:req.body.NombreBusqueda});
+const productos = await Producto.find({nombre:req.body.nombre});
 
 
 
