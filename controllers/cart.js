@@ -18,6 +18,7 @@ module.exports = async (req, res) =>{
       SubTotal[i]= Sumas[i].precio * Sumas[i].amount;
       Total = Total + (Sumas[i].precio * Sumas[i].amount);
      }
+     SubTotal = SubTotal.toFixed(2)
 
     res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario,HayProductoUsuario,SubTotal, Total});
 
