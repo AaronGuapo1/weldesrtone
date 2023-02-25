@@ -20,7 +20,6 @@
 </head>
 <body>
     <!-- NAVBAR -->
-    <%- include('layouts/navbar'); -%>
     
     <section id="presentation">
             <div class="presentation-cont">
@@ -33,7 +32,9 @@
                       <br>
                       <br>
                       <!--MercadoPago-->
-                      <div class="cho-container"></div>
+                      <div class="cho-container">
+
+                      </div>
                       
                       <script src="https://sdk.mercadopago.com/js/v2"></script>
                       
@@ -50,6 +51,7 @@
                           description: '<%=preference.items[0].title%>',
                           quantity: '<%=preference.items[0].quantity%>',
                           transactionAmount: '<%=preference.items[0].unit_price * preference.items[0].quantity%>',
+
                         },
                         render: {
                           container: '.cho-container',
@@ -60,7 +62,7 @@
                           description: '<%=preference.items[0].title%>',
                           quantity: '<%=preference.items[0].quantity%>',
                           transactionAmount: '<%=preference.items[0].unit_price * preference.items[0].quantity%>',
-                        }
+                        },
                       });
                       </script>
                                               <!--MercadoPago-->
@@ -75,4 +77,3 @@
 
 </body>
 </html>
-

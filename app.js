@@ -192,24 +192,18 @@ app.post("/create_preference", async (req, res) => {
 		items:compras,
     
 		back_urls: {
-			"success": "http://localhost:3000/feedback",
-			"failure": "http://localhost:3000/feedback",
-			"pending": "http://localhost:3000/feedback"
+			"success": "https://welderstoneprueba.onrender.com/feedback",
+			"failure": "https://welderstoneprueba.onrender.com/feedback",
+			"pending": "https://welderstoneprueba.onrender.com/feedback"
 		},
 		auto_return: "approved",
-    //notification_url: 'http://localhost:3000/feedback' //Por ahora tendrá que ser local, una vez levantado el servidor /feedback al final del URL
+    notification_url: "https://welderstoneprueba.onrender.com/feedback" //Por ahora tendrá que ser local, una vez levantado el servidor /feedback al final del URL
 	};
 
 
   mercadopago.preferences.create(preference)
   .then(async function(response){
 
-    let role = "viewer";
-    let logged = false; 
-    if(req.session?.passport?.user != undefined){
-        role = req.session.passport.user.role;
-        logged = true;
-    }
 
     const Compra = require("./models/compra");
     const IdUsuario = req.session.passport.user.id;
@@ -222,7 +216,7 @@ app.post("/create_preference", async (req, res) => {
     await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:response.body.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
   }
 
-    res.render('mercado', {response,preference,roles: role, loggedIn: logged});
+    res.render('mercado', {response,preference});
   }).catch(function(error){
     console.log(error);
   });
@@ -231,6 +225,7 @@ app.post("/create_preference", async (req, res) => {
 
 
 });
+
 
 
 app.get('/feedback', async function(request, response) {
