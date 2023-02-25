@@ -1,6 +1,6 @@
 const Producto = require('../models/Productos.js');
 const path = require('path');
-const Material = require('../models/materiales.js');
+const material = require('../models/materiales.js');
 
 module.exports = async (req,res)=>{   
 
@@ -19,7 +19,7 @@ const BusquedaNombre = await Producto
     for (a=0; a<req.body['MaterialesProductos[cantidad]'].length;a++){
         if(req.body['MaterialesProductos[cantidad]'][a] >0){
             //console.log(req.body['MaterialesProductos[nombre]'][a])
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],Codigo:req.body['MaterialesProductos[codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {MaterialesProductos: { Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],Codigo:req.body['MaterialesProductos[Codigo]'][a],familia:req.body['MaterialesProductos[Familia]'][a]}}});
         }      
     }
 
@@ -28,7 +28,7 @@ const BusquedaNombre = await Producto
 
             //console.log(req.body['PinturaProductos[nombre]'][b])
 
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],Codigo:req.body['PinturaProductos[codigo]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {PinturaProductos: { Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],Codigo:req.body['PinturaProductos[Codigo]'][b],familia:req.body['PinturaProductos[Familia]'][b]}}});
     }      
     }
 
@@ -36,7 +36,7 @@ const BusquedaNombre = await Producto
         if(req.body['InstalacionProductos[cantidad]'][c] >0){
             //console.log(req.body['InstalacionProductos[nombre]'][c])
 
-        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],Codigo:req.body['InstalacionProductos[codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});
+        await Producto.updateOne({nombre:req.body.nombre}, { $push: {InstalacionProductos: { Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],Codigo:req.body['InstalacionProductos[Codigo]'][c],familia:req.body['InstalacionProductos[Familia]'][c]}}});
         }    
     }
 
