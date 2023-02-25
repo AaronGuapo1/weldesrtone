@@ -130,31 +130,38 @@ const {InstalacionProductos} = productos[a];
 
 
 var suma = 0;
+for (let j=0; j<materiales.length; j++){
 
 for (let i=0; i<MaterialesProductos.length; i++){
-        if (MaterialesProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
-         suma = suma + (MaterialesProductos[i].cantidad *  materiales[i].PrecioUnitario)
+        if (MaterialesProductos[i].Descripcion === materiales[j].Descripcion && materiales[j].PrecioUnitario >= 0 ){
+         suma = suma + (MaterialesProductos[i].cantidad *  materiales[j].PrecioUnitario)
         }
+}
+
 }
 var Suma2Mano= ((suma * productos[a].ManoObMaterial)/100) + suma;
 var Suma3Por= ((Suma2Mano * productos[a].PorcentajeMaterial)/100) +Suma2Mano;
 
 var sumaSolventes = 0;
+for (let j=0; j<materiales.length; j++){
 
 for (let i=0; i<PinturaProductos.length; i++){
-        if (PinturaProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
-            sumaSolventes = sumaSolventes + (PinturaProductos[i].cantidad *  materiales[i].PrecioUnitario)
+        if (PinturaProductos[i].Descripcion === materiales[j].Descripcion && materiales[j].PrecioUnitario >= 0 ){
+            sumaSolventes = sumaSolventes + (PinturaProductos[i].cantidad *  materiales[j].PrecioUnitario)
         }
+}
 }
 var sumaSolventes2Mano= ((sumaSolventes * productos[a].ManoObPintura)/100) + sumaSolventes;
 var sumaSolventes3Por=((sumaSolventes2Mano * productos[a].PorcentajePintura)/100) +sumaSolventes2Mano;
 
 var sumaInsumos = 0;
+for (let j=0; j<materiales.length; j++){
 
 for (let i=0; i<InstalacionProductos.length; i++){
-    if (InstalacionProductos[i].Descripcion === materiales[i].Descripcion && materiales[i].PrecioUnitario >= 0 ){
-        sumaInsumos = sumaInsumos + (InstalacionProductos[i].cantidad *  materiales[i].PrecioUnitario)
+    if (InstalacionProductos[i].Descripcion === materiales[j].Descripcion && materiales[j].PrecioUnitario >= 0 ){
+        sumaInsumos = sumaInsumos + (InstalacionProductos[i].cantidad *  materiales[j].PrecioUnitario)
     }
+}
 }
 var sumaInsumos2Mano = ((sumaInsumos * productos[a].ManoObInstalacion)/100) + sumaInsumos;
 var sumaInsumos3Por = ((sumaInsumos * productos[a].PorcentajeInstalacion)/100) + sumaInsumos2Mano;
