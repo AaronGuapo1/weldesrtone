@@ -67,9 +67,7 @@ passport.deserializeUser(function(user, cb) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone"
-    //http://localhost:3000/auth/google/welderstone
-    //https://welderstoneprueba.onrender.com/auth/google/welderstone
+    callbackURL: "http://localhost:3000/auth/google/welderstone"
   },
   function(accessToken, refreshToken, profile, cb) {
     User.findOrCreate({ googleId: profile.id }, async function (err, user) {
@@ -86,8 +84,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "https://welderstoneprueba.onrender.com/auth/facebook/welderstone"
-  //http://localhost:3000/auth/facebook/welderstone
+  callbackURL: "http://localhost:3000/auth/facebook/welderstone"
 },
 function(accessToken, refreshToken, profile, cb) {
   User.findOrCreate({ facebookId: profile.id }, async function (err, user) {
@@ -105,9 +102,8 @@ passport.use(new MicrosoftStrategy({
   // Standard OAuth2 options
   clientID: process.env.MICROSOFT_APP_ID,
   clientSecret: process.env.MICROSOFT_APP_SECRET,
-  callbackURL: "https://welderstoneprueba.onrender.com/auth/microsoft/welderstone",
+  callbackURL: "ttp://localhost:3000/auth/microsoft/welderstone",
   scope: ['user.read'],
-//http://localhost:3000/auth/microsoft/welderstone
   // Microsoft specific options
 
   // [Optional] The tenant for the application. Defaults to 'common'. 
@@ -133,12 +129,9 @@ function(accessToken, refreshToken, profile, done) {
 
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
-
-  //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
-
-
+// mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
+//mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
+mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
@@ -171,7 +164,6 @@ const FiltrosCompras = require('./controllers/FiltrosCompras');
 const pdfDescargar = require('./controllers/descargar');
 const productoEditarGet = require("./controllers/productoEditarGET");
 const FiltrosCompras2 = require('./controllers/FiltrosCompras2');
-
 
 // MercadoPago
 
@@ -228,8 +220,6 @@ app.post("/create_preference", async (req, res) => {
 
 });
 
-
-
 app.get('/feedback', async function(request, response) {
   
   const Compra = require("./models/compra");
@@ -244,9 +234,6 @@ app.get('/feedback', async function(request, response) {
 app.use('/notificar',(req,res)=>{
 console.log("notificar")
 });
-
-
-
 
 const tiendaBusqueda = require("./controllers/tiendaBusqueda");
 const tiendaFiltros = require("./controllers/tiendaFiltros");
