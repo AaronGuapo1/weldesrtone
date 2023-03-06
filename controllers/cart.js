@@ -18,9 +18,9 @@ module.exports = async (req, res) =>{
       SubTotal[i]= Sumas[i].precio * Sumas[i].amount;
       Total = Total + (Sumas[i].precio * Sumas[i].amount);
      }
-   
 
-    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario,HayProductoUsuario,SubTotal, Total});
+
+    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario,HayProductoUsuario,SubTotal, Total,Sumas});
 
 
 }

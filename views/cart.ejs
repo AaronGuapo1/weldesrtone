@@ -46,32 +46,32 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (var a = 0; a < cart.length; a++) { %>
-                    <% if( IdUsuario === cart[a].UsuarioId){ %>
+                <% for (var a = 0; a < Sumas.length; a++) { %>
+                    <% if( IdUsuario === Sumas[a].UsuarioId){ %>
 
                     <tr>
-                    <td> <%=cart[a].nombre%></td>
-                    <td class="text-center">$ <%=cart[a].precio%></td>
-                    <td class="text-center"> <%=cart[a].amount%></td>
+                    <td> <%=Sumas[a].nombre%></td>
+                    <td class="text-center">$ <%=Sumas[a].precio%></td>
+                    <td class="text-center"> <%=Sumas[a].amount%></td>
                     <td class="text-center">$ <%=SubTotal[a]%></td>
                     <td>
-                        <form action="/products-cart/<%=cart[a].nombre%>?query=add" method="POST">
-                            <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
+                        <form action="/products-cart/<%=Sumas[a].nombre%>?query=add" method="POST">
+                            <input type="hidden" name="amount" value="<%=Sumas[a].amount%>">  
                            
                             <button type="submit"   class="btn btn-info btn-sm"> <i class="fas fa-plus"></i></button>
      
                         </form>
 
-                                <form action="/products-cart/<%=cart[a].nombre%>?query=del" method="POST">
-                                    <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
+                                <form action="/products-cart/<%=Sumas[a].nombre%>?query=del" method="POST">
+                                    <input type="hidden" name="amount" value="<%=Sumas[a].amount%>">  
                                 
                                     <button type="submit" class="btn btn-danger btn-sm" ><i class="fas fa-minus"></i></button>
                 
                                 </form>
 
                                 
-                                <form action="/products-cart/<%=cart[a].nombre%>?query=delete" method="POST">
-                                    <input type="hidden" name="amount" value="<%=cart[a].amount%>">  
+                                <form action="/products-cart/<%=Sumas[a].nombre%>?query=delete" method="POST">
+                                    <input type="hidden" name="amount" value="<%=Sumas[a].amount%>">  
                                 
                                     <button type="submit" class="btn btn-danger btn-sm" ><i class="fa fa-trash-o"></i></button>
                 
@@ -104,15 +104,15 @@
         <% for (var a = 0; a < productos.length; a++) { %>
 
 
-            <% for (var b = 0; b < cart.length; b++) { %>
+            <% for (var b = 0; b < Sumas.length; b++) { %>
 
-                <% if( productos[a].nombre === cart[b].nombre && IdUsuario === cart[b].UsuarioId ){ %>
+                <% if( productos[a].nombre === Sumas[b].nombre && IdUsuario === Sumas[b].UsuarioId ){ %>
       
 
-            <input type="hidden" name="amount" value="<%=cart[b].amount%>">    
-            <input type="hidden" name="precio" value="<%=cart[b].precio%>"> 
-            <input type="hidden" name="nombre" value="<%=cart[b].nombre%>"> 
-            <input type="hidden" name="image" value="<%=cart[b].image%>"> 
+            <input type="hidden" name="amount" value="<%=Sumas[b].amount%>">    
+            <input type="hidden" name="precio" value="<%=Sumas[b].precio%>"> 
+            <input type="hidden" name="nombre" value="<%=Sumas[b].nombre%>"> 
+            <input type="hidden" name="image" value="<%=Sumas[b].image%>"> 
 
        
 
@@ -164,6 +164,7 @@
 
 </body>
 </html>
+
 
 
 
