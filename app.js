@@ -129,9 +129,9 @@ function(accessToken, refreshToken, profile, done) {
 
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
- mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
+//  mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
 //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');

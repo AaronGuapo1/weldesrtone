@@ -304,6 +304,44 @@ img {
   background-color: #d10101;
 }
 
+#whatsapp-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  background-color: #25D366;
+  color: white;
+  border-radius: 2rem;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  font-size: 24px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+#whatsapp-btn i {
+  margin-top: 0px;
+  margin-bottom: 4px;
+}
+
+#whatsapp-btn:hover {
+  width: 180px;
+  border-radius: 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+#whatsapp-btn:hover span {
+  display: block;
+}
+
+#whatsapp-btn span {
+  display: none;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 #filter-buttons {
   margin-top: 150px;
   margin-bottom: 175px;
@@ -365,6 +403,7 @@ img {
   align-items: center;
   margin-bottom: 25px;
   margin-top: 50px;
+  transition: all 0.3s ease-in-out;
 }
 @media (max-width: 1400px) {
   #filter-buttons .filter-button {
