@@ -241,12 +241,12 @@ img {
     }
 
     i {
-        font-size: 4rem;
+        font-size: 6rem;
         color: white;
         margin: auto;
 
         @include mediaMixins.xxl(){
-            font-size: 3rem;
+            font-size: 4.8rem;
         }
     }
 

@@ -56,7 +56,7 @@
                                 <input type="text" class="form-control" placeholder="Unidad" name="unidad">
                             </div>
                             <div>
-                                <h5>Familia: <%= productoEditar.Familia %></h5>
+                                <h5>Familia: <%= productoEditar.familia %></h5>
                                 <input type="text" class="form-control" placeholder="Familia" name="Familia">
                             </div>
                         </div>
@@ -108,7 +108,6 @@
 
                                 <h5>Materiales</h5>
                                 <div>
-                                    <!--<% for (var b = 0; b < materiales.length; b++) { %>  <% } %> -->
                                     <% for (let a = 0; a < productoEditar.MaterialesProductos.length; a++) { %> 
                                         <% if(productoEditar.MaterialesProductos[a].cantidad > 0){ %>
                                             <div hidden class="Material<%=productoEditar.MaterialesProductos[a].Codigo%> editDiv">

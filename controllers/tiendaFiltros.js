@@ -11,9 +11,10 @@ module.exports = async (req, res) => {
     }
 
     let filtro = req.params.filtro.replaceAll("-", " ");
-    console.log(filtro);
 
     let productos = await Producto.find({familia: filtro});
+
+    console.log(productos)
 
     const cart = await Cart.find({});
 

@@ -9,7 +9,7 @@ const ProductoSchema = new Schema({
     MaterialesProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
     PinturaProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
     InstalacionProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
-    Familia: String,
+    familia: String,
     precio:{type:Number},
     image:{type:String},
     nombre:{type:String},
