@@ -134,9 +134,9 @@ function(accessToken, refreshToken, profile, done) {
 
 // ---------------- DATABASE ---------------- // 
 mongoose.set('strictQuery', true);
-//  mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone', {useNewUrlParser: true});
 //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
-mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+//mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 
 const inicioController = require('./controllers/inicio');
 const tiendaController = require('./controllers/tienda');
@@ -158,7 +158,9 @@ const productosEMPOST = require('./controllers/productosEMPost')
 const getProducts = require('./controllers/GetProducts')
 const getProductsCart = require('./controllers/GetProductsCart')
 const addProductCart = require('./controllers/AddProductCart')
-const addProductCart2 = require('.//controllers/AddProductCart2')
+const addProductCart2 = require('./controllers/AddProductCart2')
+const FiltrosUsuarios = require('./controllers/FiltroUsuarios')
+const FiltrosUsuarios2 = require('./controllers/FiltroUsuarios2')
 
 const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
@@ -345,6 +347,10 @@ app.use('/FiltrosCompras2',FiltrosCompras2)
 //usuarios
 app.get('/PanelUsuarios',PanelUsuarios)
 app.use('/Roles',Roles)
+
+//panelusuarios
+app.use('/FiltrosUsuarios', FiltrosUsuarios)
+app.use('/FiltrosUsuarios2', FiltrosUsuarios2)
 
 
 app.use((req, res) => res.render('notfound'));
