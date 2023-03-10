@@ -25,7 +25,7 @@ module.exports = async (req, res) =>{
 
 }
     else {
-        res.redirect('/')
+        res.redirect('/login/welderstone')
     }
     
     } 

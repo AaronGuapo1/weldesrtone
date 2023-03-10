@@ -11,6 +11,7 @@ const FacebookStrategy = require('passport-facebook').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const MicrosoftStrategy = require('passport-microsoft').Strategy;
 const User = require("./models/User.js")
+const Cart = require("./models/Cart.js")
 const cors = require('cors');
 const request = require('request');
 const mercadopago = require("mercadopago");
@@ -57,6 +58,10 @@ passport.serializeUser(function(user, cb) {
       });
     });
 });  
+
+
+
+
 passport.deserializeUser(function(user, cb) {
     process.nextTick(function() {
       return cb(null, user);
@@ -164,8 +169,13 @@ const FiltrosCompras = require('./controllers/FiltrosCompras');
 const pdfDescargar = require('./controllers/descargar');
 const productoEditarGet = require("./controllers/productoEditarGET");
 const FiltrosCompras2 = require('./controllers/FiltrosCompras2');
+const PanelUsuarios = require('./controllers/PanelUsuarios');
+const Roles = require('./controllers/Roles')
 
 // MercadoPago
+
+//global.CantidadCarro = await cart.find({}).count()
+
 
 mercadopago.configure({
   access_token: "APP_USR-3363834709709437-021123-c67d96e1feb214bee0c7a3da3817a59f-1307218136",
@@ -235,6 +245,25 @@ app.use('/notificar',(req,res)=>{
 console.log("notificar")
 });
 
+global.cantidad=null;
+app.use(async(req, res,next)=>{
+
+  if(req.session?.passport?.user != undefined){
+
+
+const IdUsuario = req.session.passport.user.id;
+global.cantidad = await Cart.find({UsuarioId:IdUsuario}).count();  
+//console.log(cantidad)
+  next()
+}else{
+  next()
+}
+  } )
+  //multiplicar por la cantidad del producto
+
+
+
+
 const tiendaBusqueda = require("./controllers/tiendaBusqueda");
 const tiendaFiltros = require("./controllers/tiendaFiltros");
 
@@ -295,6 +324,7 @@ app.use('/productos/borrar/:id', productoBorrar);
 // - Tienda
 app.post("/tienda/busqueda", tiendaBusqueda);
 
+
 //carrito
 app.get("/products", getProducts);
 app.get("/cart", cart);
@@ -310,6 +340,11 @@ app.get('/HistorialCompras', HistorialCompras )
 app.get('/factura', factura)
 app.use('/FiltrosCompras',FiltrosCompras)
 app.use('/FiltrosCompras2',FiltrosCompras2)
+
+
+//usuarios
+app.get('/PanelUsuarios',PanelUsuarios)
+app.use('/Roles',Roles)
 
 
 app.use((req, res) => res.render('notfound'));
