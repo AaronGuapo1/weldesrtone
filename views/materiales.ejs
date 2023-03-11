@@ -25,6 +25,8 @@
                 </div>
             <% } %>
              <!-- Agregar material -->
+             <% if(roles === "admin" || roles === "Cotización"){ %>
+
             <div class="card border-danger mb-4">
                 <div class="card-header">Agregar materiales</div>
                 <div class="card-body">
@@ -73,7 +75,8 @@
                     </form>
                 </div>
             </div>
-        
+            <% } %>
+
             <!-- Edicion de Materiales -->
             <div class="card border-danger">
                 <div class="card-header">Inventario de Materiales</div>
@@ -96,7 +99,10 @@
                     <hr>
 
                     <form action="/materiales/edicion" method="post">
+                        <% if(roles === "admin" || roles === "Cotización"){ %>
+
                         <button class="btn btn-outline-danger btn-lg w-100 mb-3" type="submit" id="sendMessageButton">Guardar Cambios</button>
+                        <% } %>
 
                         <% for (var a = 0; a < materiales.length; a++) { %> 
                      
@@ -110,7 +116,11 @@
                                     </div>
                                     <!-- Boton de edicion -->
                                     <div class="col-1 mb-2 card-btn">
+                                        <% if(roles === "admin" || roles === "Cotización"){ %>
+
                                         <button type="button" class="btn btn-primary w-100 edit" id="<%=materiales[a].Codigo%>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <% } %>
+
                                     </div>
                                     <div class="col-2 card-desc">
                                         <strong>Codigo: </strong><%=materiales[a].Codigo%>
@@ -129,9 +139,13 @@
                                     </div>
                                     <!-- Boton de Borrar -->
                                     <div class="col-1 card-btn">
+                                        <% if(roles === "admin" || roles === "Cotización"){ %>
+
                                         <button type="button" class="btn btn-dark w-100" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales[a].Codigo%>">
                                             <i class="fa-solid fa-trash"></i>
-                                        </button>                                        
+                                        </button>   
+                                        <% } %>
+                                     
                                     </div>
 
                                     <!-- Inputs de Edicion de Material -->

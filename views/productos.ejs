@@ -26,9 +26,13 @@
 
         <main id="productos-page">
             <section id="agregar-producto">
+                <% if(roles === "admin" || roles === "Cotización"){ %>
+
                 <div class="accordion" id="accordion-ap">
                     <div class="accordion-item">
+
                         <h2 class="accordion-header" id="headingOne">
+
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 Agregar Productos
                             </button>
@@ -375,6 +379,9 @@
                         </div>
                     </div>
                 </div>
+
+                <% } %>
+
             </section>
 
             <section id="editar-producto">
@@ -400,6 +407,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-1">
+                                        <% if(roles === "admin" || roles === "Cotización"){ %>
                                         <!-- Editar producto -->
                                         <a href="/productos/editar/<%=productos.docs[a]._id%>"> 
                                             <button type="button" class="btn btn-primary w-100 edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -410,6 +418,8 @@
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </a>
+                                        <% } %>
+
                                     </div>
                                 </div>
                             </div>

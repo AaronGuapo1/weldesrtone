@@ -8,7 +8,7 @@ module.exports = async (req, res) =>{
         role = req.session.passport.user.role;
     }
 
-    if(role == "admin"){   
+    if(role == "admin" || role == "Cotización"){   
         const materiales = await Material.find({});
     
         const materiales1 = await Material.find({});

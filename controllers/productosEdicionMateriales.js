@@ -10,7 +10,7 @@ module.exports = async (req, res) =>{
         role = req.session.passport.user.role;
     }
 
-    if(role == "admin"){
+    if(role == "admin" || role == "Cotización"){
         const ProductoAEditar = await Producto.find({nombre:req.params.id})
 
 
