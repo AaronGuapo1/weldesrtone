@@ -274,8 +274,13 @@ app.post("/create_preference", async (req, res) => {
                     }
                 );
             }
-
-            res.render("mercado", { response, preference });
+            let role = "viewer";
+            let logged = false; 
+            if(req.session?.passport?.user != undefined){
+                role = req.session.passport.user.role;
+                logged = true;
+            }
+            res.render('mercado', {response,preference,roles: role, IdUsuario, loggedIn: logged});
         })
         .catch(function (error) {
             console.log(error);
@@ -283,15 +288,24 @@ app.post("/create_preference", async (req, res) => {
 });
 
 app.get('/feedback', async function(request, response) {
-  
     const Compra = require("./models/compra");
     const Cart = require("./models/Cart");
     const IdUsuario = request.session.passport.user.id;
-  
-      await Compra.updateOne({Id_transaccion:request.query.preference_id}, {$set:{Id_pago:request.query.payment_id,Orden_mercancia:request.query.merchant_order_id,Nombre_comprador:request.user.username,status:request.query.status}})
-      await Cart.deleteMany({UsuarioId:IdUsuario});
-      response.redirect('/');
-  });
+
+    await Compra.updateOne(
+        { Id_transaccion: request.query.preference_id },
+        {
+            $set: {
+                Id_pago: request.query.payment_id,
+                Orden_mercancia: request.query.merchant_order_id,
+                Nombre_comprador: request.user.username,
+                status: request.query.status,
+            },
+        }
+    );
+    await Cart.deleteMany({ UsuarioId: IdUsuario });
+    response.redirect("/");
+});
 
 app.use("/notificar", (req, res) => {
     console.log("notificar");
@@ -336,16 +350,7 @@ app.get(
     "/auth/google/welderstone",
     passport.authenticate("google", { failureRedirect: "/login/false" }),
     function (req, res) {
-        const USER_ID = req.session?.passport?.id;
-
-        const user = User.findById(USER_ID);
-
-        // Make sure the user has a parameter called "FullName" and that it's not empty
-        if (user && user.FullName && user.FullName.length > 0) {
-            res.redirect("/");
-        } else {
-            res.redirect("/data-form");
-        }
+        res.redirect("/");
     }
 );
 
@@ -355,16 +360,7 @@ app.get(
     "/auth/facebook/welderstone",
     passport.authenticate("facebook", { failureRedirect: "/login/false" }),
     function (req, res) {
-        const USER_ID = req.session?.passport?.id;
-
-        const user = User.findById(USER_ID);
-
-        // Make sure the user has a parameter called "FullName" and that it's not empty
-        if (user && user.FullName && user.FullName.length > 0) {
-            res.redirect("/");
-        } else {
-            res.redirect("/data-form");
-        }
+        res.redirect("/");
     }
 );
 
@@ -379,16 +375,7 @@ app.get(
     "/auth/microsoft/welderstone",
     passport.authenticate("microsoft", { failureRedirect: "/login/false" }),
     function (req, res) {
-        const USER_ID = req.session?.passport?.id;
-
-        const user = User.findById(USER_ID);
-
-        // Make sure the user has a parameter called "FullName" and that it's not empty
-        if (user && user.FullName && user.FullName.length > 0) {
-            res.redirect("/");
-        } else {
-            res.redirect("/data-form");
-        }
+        res.redirect("/");
     }
 );
 
@@ -404,7 +391,7 @@ app.post("/materiales/agregar", materialesAgregarPOST);
 app.post("/materiales/busqueda", materialesBusqueda);
 app.use('/material/borrar/:id', materialBorrar);
 app.use('/FamiliaPrecio', FamiliaPrecio)
-app.use("/material/borrar/:id", materialBorrar);
+
 
 // - Productos
 app.post("/productos/edicion", productosEdicionPOST);
