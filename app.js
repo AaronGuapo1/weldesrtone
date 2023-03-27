@@ -344,16 +344,7 @@ app.get(
     "/auth/google/welderstone",
     passport.authenticate("google", { failureRedirect: "/login/false" }),
     function (req, res) {
-        const USER_ID = req.session?.passport?.id;
-
-        const user = User.findById(USER_ID);
-
-        // Make sure the user has a parameter called "FullName" and that it's not empty
-        if (user && user.FullName && user.FullName.length > 0) {
-            res.redirect("/");
-        } else {
-            res.redirect("/data-form");
-        }
+        res.redirect("/");
     }
 );
 
@@ -363,16 +354,7 @@ app.get(
     "/auth/facebook/welderstone",
     passport.authenticate("facebook", { failureRedirect: "/login/false" }),
     function (req, res) {
-        const USER_ID = req.session?.passport?.id;
-
-        const user = User.findById(USER_ID);
-
-        // Make sure the user has a parameter called "FullName" and that it's not empty
-        if (user && user.FullName && user.FullName.length > 0) {
-            res.redirect("/");
-        } else {
-            res.redirect("/data-form");
-        }
+        res.redirect("/");
     }
 );
 
@@ -387,16 +369,7 @@ app.get(
     "/auth/microsoft/welderstone",
     passport.authenticate("microsoft", { failureRedirect: "/login/false" }),
     function (req, res) {
-        const USER_ID = req.session?.passport?.id;
-
-        const user = User.findById(USER_ID);
-
-        // Make sure the user has a parameter called "FullName" and that it's not empty
-        if (user && user.FullName && user.FullName.length > 0) {
-            res.redirect("/");
-        } else {
-            res.redirect("/data-form");
-        }
+        res.redirect("/");
     }
 );
 
