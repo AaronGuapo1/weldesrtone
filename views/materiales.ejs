@@ -77,6 +77,48 @@
             </div>
             <% } %>
 
+            <div class="card border-danger">
+                <div class="card-header">Editar precio unitario por familias.</div>
+                <div class="card-body">
+                    <h5 class="card-title mb-3"></h5>
+
+
+                    <form method="post" action="/FamiliaPrecio" >
+
+                        <select name="FamiliaPrecio" class="BusquedaSelect">
+                            <% for (var a = 0; a < unicos.length; a++) { %> 
+                                <% if(unicos[a] !== undefined){ %>
+
+                                <option value="<%=unicos[a]%>" selected><%=unicos[a]%></option>
+
+                                <% } %>
+
+                                <% } %>
+
+    
+                        </select>
+                        <input type="number" name="porcentaje" class="busquedaInput"placeholder=""  min="0" max="100">
+                        <button class="btn btn-outline-danger" type="reset">Limpiar</button>
+                        <button type="submit" class="btn btn-outline-danger">Actualizar</button>
+
+
+
+
+                <div >
+                    <br>
+                    <label>
+                      <input type="checkbox" class="radio" value="incrementar" name="accion" />Incrementar</label>
+                    <label>
+                      <input type="checkbox" class="radio" value="reducir" name="accion" />Reducir</label>
+
+                  </div>
+                </form>
+
+
+                </div>
+            </div>
+        </div>
+            <br>    
             <!-- Edicion de Materiales -->
             <div class="card border-danger">
                 <div class="card-header">Inventario de Materiales</div>
@@ -173,15 +215,19 @@
                                                 <input type="number" step="any" class="form-control" placeholder="Precio Unitario" id="PrecioUnitario" name="PrecioUnitario" disabled autocomplete="off">
                                                 <label for="PrecioUnitario">Precio Unitario</label>
                                             </div>
-                                            
+
+                                            <div class="form-floating mb-3 col-1 pe-1">
+                                                <input type="number" step="any" class="form-control" placeholder="%" id="PrecioUnitarioPorcentaje" name="PrecioUnitarioPorcentaje" disabled autocomplete="off" width="10px">
+                                                <label for="PrecioUnitarioPorcentaje">%</label>
+                                            </div>
                                             <!-- Familia Input -->
-                                            <div class="form-floating mb-3 col-3 pe-1">
+                                            <div class="form-floating mb-3 col-2 pe-1">
                                                 <input type="text" class="form-control" placeholder="Familia" id="Familia" name="Familia" disabled>
                                                 <label for="Familia">Familia</label>
                                             </div>
         
                                             <!-- Sub Familia Input -->
-                                            <div class="form-floating mb-3 col-3 pe-1">
+                                            <div class="form-floating mb-3 col-2 pe-1">
                                                 <input type="text" class="form-control" placeholder="Sub Familia" id="SubFam" name="SubFam" disabled>
                                                 <label for="SubFam">Sub Familia</label>
                                             </div>
@@ -230,6 +276,31 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
         <script src="/js/materiales.js"></script>
     </body>
 </html>
+
+<script>
+
+
+$("input:checkbox").on('click', function() {
+  // in the handler, 'this' refers to the box clicked on
+  var $box = $(this);
+  if ($box.is(":checked")) {
+    // the name of the box is retrieved using the .attr() method
+    // as it is assumed and expected to be immutable
+    var group = "input:checkbox[name='" + $box.attr("name") + "']";
+    // the checked state of the group/box on the other hand will change
+    // and the current value is retrieved using .prop() method
+    $(group).prop("checked", false);
+    $box.prop("checked", true);
+  } else {
+    $box.prop("checked", false);
+  }
+});
+
+</script>
+
+

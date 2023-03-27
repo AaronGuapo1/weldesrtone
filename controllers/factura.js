@@ -13,7 +13,6 @@ module.exports = async (req, res) =>{
        const {ProductosComprados} =PdfDescargar[0];
        const productos =[];
        for(let i=0; i<ProductosComprados.length; i++){
-           //productos.push("Nombre del producto:"+ " "+ ProductosComprados[i].nombre + " "+"Precio:"  + " " +ProductosComprados[i].precio+ " " + "Cantidad:"+ " "+ ProductosComprados[i].cantidad);
            productos.push("Nombre del producto:"+ " "+ ProductosComprados[i].nombre);
            productos.push("Precio:"  + " " +ProductosComprados[i].precio);
            productos.push("Cantidad:"+ " "+ ProductosComprados[i].cantidad);

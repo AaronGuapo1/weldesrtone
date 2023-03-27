@@ -26,7 +26,7 @@ module.exports = async (req,res)=>{
                 if(req.body.PrecioUnitario[i] != ""){
                     params.PrecioUnitario = parseFloat(req.body.PrecioUnitario[i]);
                 }
-    
+              
                 if(req.body.Familia[i] != ""){
                     params.Familia = req.body.Familia[i];
                 }
