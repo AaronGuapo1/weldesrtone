@@ -1,4 +1,8 @@
+const User = require("../models/User.js");
+
 module.exports = async (req, res) => {
+    var page = req.query.page;
+
     let role = "viewer";
     let logged = false;
     if (req.session?.passport?.user != undefined) {
@@ -6,7 +10,5 @@ module.exports = async (req, res) => {
         logged = true;
     }
 
-    const id = req.session?.passport?.id;
-
-    res.render("inicio", { roles: role, loggedIn: logged });
+    res.render("data_form", { hide: "hidden" });
 };

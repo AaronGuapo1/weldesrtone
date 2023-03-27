@@ -14,6 +14,8 @@ const userSchema = new Schema({
     facebookId: String,
     microsftId: String,
     role: String,
+    fullName: String,
+    tel: String,
     verificationCode: String
 });
 

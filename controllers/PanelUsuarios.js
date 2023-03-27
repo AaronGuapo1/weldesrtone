@@ -28,4 +28,3 @@ module.exports = async (req, res) => {
     }
 }
 
-//db.test.find().sort({ firstName: 1 }).collation({ locale: "en", caseLevel: true })
