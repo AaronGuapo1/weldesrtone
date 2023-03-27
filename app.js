@@ -161,7 +161,7 @@ const addProductCart = require('./controllers/AddProductCart')
 const addProductCart2 = require('./controllers/AddProductCart2')
 const FiltrosUsuarios = require('./controllers/FiltroUsuarios')
 const FiltrosUsuarios2 = require('./controllers/FiltroUsuarios2')
-
+const FamiliaPrecio = require('./controllers/FamiliaPrecio')
 const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
 const url = require('url');
@@ -221,8 +221,13 @@ app.post("/create_preference", async (req, res) => {
     for (a=1; a<req.body.precio.length;a++){
     await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:response.body.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
   }
-
-    res.render('mercado', {response,preference});
+  let role = "viewer";
+  let logged = false; 
+  if(req.session?.passport?.user != undefined){
+      role = req.session.passport.user.role;
+      logged = true;
+  }
+    res.render('mercado', {response,preference,roles: role, IdUsuario, loggedIn: logged});
   }).catch(function(error){
     console.log(error);
   });
@@ -315,6 +320,7 @@ app.post('/materiales/edicion', materialesEdicionPOST);
 app.post('/materiales/agregar', materialesAgregarPOST);
 app.post("/materiales/busqueda", materialesBusqueda);
 app.use('/material/borrar/:id', materialBorrar);
+app.use('/FamiliaPrecio', FamiliaPrecio)
 
 // - Productos
 app.post("/productos/edicion", productosEdicionPOST);
