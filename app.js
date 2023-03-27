@@ -181,25 +181,6 @@ const productosAgregarPOST = require("./controllers/productosAgregarPOST");
 const productosEdicionMaterialesPOST = require("./controllers/productosEdicionMateriales");
 const materialBorrar = require("./controllers/materialBorrar");
 const aboutGET = require("./controllers/about");
-<<<<<<< HEAD
-const productoGET = require("./controllers/productoGET")
-const productoBorrar= require('./controllers/productoBorrar');
-const productosEMPOST = require('./controllers/productosEMPost')
-const getProducts = require('./controllers/GetProducts')
-const getProductsCart = require('./controllers/GetProductsCart')
-const addProductCart = require('./controllers/AddProductCart')
-const addProductCart2 = require('./controllers/AddProductCart2')
-const FiltrosUsuarios = require('./controllers/FiltroUsuarios')
-const FiltrosUsuarios2 = require('./controllers/FiltroUsuarios2')
-const FamiliaPrecio = require('./controllers/FamiliaPrecio')
-const putProduct = require('./controllers/PutProduct')
-const cart = require('./controllers/cart')
-const url = require('url');
-const HistorialCompras = require('./controllers/HistorialCompras');
-const factura = require ('./controllers/factura');
-const FiltrosCompras = require('./controllers/FiltrosCompras');
-const pdfDescargar = require('./controllers/descargar');
-=======
 const productoGET = require("./controllers/productoGET");
 const productoBorrar = require("./controllers/productoBorrar");
 const productosEMPOST = require("./controllers/productosEMPost");
@@ -209,8 +190,7 @@ const addProductCart = require("./controllers/AddProductCart");
 const addProductCart2 = require("./controllers/AddProductCart2");
 const FiltrosUsuarios = require("./controllers/FiltroUsuarios");
 const FiltrosUsuarios2 = require("./controllers/FiltroUsuarios2");
-const dataFormGET = require("./controllers/data_formGet");
-const dataFormPOST = require("./controllers/data_formPost");
+const FamiliaPrecio = require("./controllers/FamiliaPrecio");
 const putProduct = require("./controllers/PutProduct");
 const cart = require("./controllers/cart");
 const url = require("url");
@@ -218,7 +198,6 @@ const HistorialCompras = require("./controllers/HistorialCompras");
 const factura = require("./controllers/factura");
 const FiltrosCompras = require("./controllers/FiltrosCompras");
 const pdfDescargar = require("./controllers/descargar");
->>>>>>> bba4c04d90bb68a47be486d61f79fa1ebe67ac3e
 const productoEditarGet = require("./controllers/productoEditarGET");
 const FiltrosCompras2 = require("./controllers/FiltrosCompras2");
 const PanelUsuarios = require("./controllers/PanelUsuarios");
@@ -303,48 +282,70 @@ app.post("/create_preference", async (req, res) => {
 
 app.get("/feedback", async function (request, response) {
     const Compra = require("./models/compra");
-<<<<<<< HEAD
     const IdUsuario = req.session.passport.user.id;
     var today = new Date();
 
-    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
 
-    await Compra.create({PrecioTotal:suma,Id_usuario:IdUsuario,Id_transaccion:response.body.id,Fecha_compra:date})
-    for (a=1; a<req.body.precio.length;a++){
-    await Compra.updateOne({Id_usuario:IdUsuario,Id_transaccion:response.body.id}, { $push: {ProductosComprados: { nombre:req.body.nombre[a],precio:req.body.precio[a],cantidad:req.body.amount[a],image:req.body.image[a]}}});
-  }
-  let role = "viewer";
-  let logged = false; 
-  if(req.session?.passport?.user != undefined){
-      role = req.session.passport.user.role;
-      logged = true;
-  }
-    res.render('mercado', {response,preference,roles: role, IdUsuario, loggedIn: logged});
-  }).catch(function(error){
+    await Compra.create({
+        PrecioTotal: suma,
+        Id_usuario: IdUsuario,
+        Id_transaccion: response.body.id,
+        Fecha_compra: date,
+    });
+    for (a = 1; a < req.body.precio.length; a++) {
+        await Compra.updateOne(
+            { Id_usuario: IdUsuario, Id_transaccion: response.body.id },
+            {
+                $push: {
+                    ProductosComprados: {
+                        nombre: req.body.nombre[a],
+                        precio: req.body.precio[a],
+                        cantidad: req.body.amount[a],
+                        image: req.body.image[a],
+                    },
+                },
+            }
+        );
+    }
+    let role = "viewer";
+    let logged = false;
+    if (req.session?.passport?.user != undefined) {
+        role = req.session.passport.user.role;
+        logged = true;
+    }
+    res.render("mercado", {
+        response,
+        preference,
+        roles: role,
+        IdUsuario,
+        loggedIn: logged,
+    });
+}).catch(function (error) {
     console.log(error);
-  });
-
-
-
-=======
-    const Cart = require("./models/Cart");
-    const IdUsuario = request.session.passport.user.id;
->>>>>>> bba4c04d90bb68a47be486d61f79fa1ebe67ac3e
-
-    await Compra.updateOne(
-        { Id_transaccion: request.query.preference_id },
-        {
-            $set: {
-                Id_pago: request.query.payment_id,
-                Orden_mercancia: request.query.merchant_order_id,
-                Nombre_comprador: request.user.username,
-                status: request.query.status,
-            },
-        }
-    );
-    await Cart.deleteMany({ UsuarioId: IdUsuario });
-    response.redirect("/");
 });
+
+const Cart = require("./models/Cart");
+const IdUsuario = request.session.passport.user.id;
+
+await Compra.updateOne(
+    { Id_transaccion: request.query.preference_id },
+    {
+        $set: {
+            Id_pago: request.query.payment_id,
+            Orden_mercancia: request.query.merchant_order_id,
+            Nombre_comprador: request.user.username,
+            status: request.query.status,
+        },
+    }
+);
+await Cart.deleteMany({ UsuarioId: IdUsuario });
+response.redirect("/");
 
 app.use("/notificar", (req, res) => {
     console.log("notificar");
@@ -428,12 +429,8 @@ app.post("/data-form", dataFormPOST);
 app.post("/materiales/edicion", materialesEdicionPOST);
 app.post("/materiales/agregar", materialesAgregarPOST);
 app.post("/materiales/busqueda", materialesBusqueda);
-<<<<<<< HEAD
-app.use('/material/borrar/:id', materialBorrar);
-app.use('/FamiliaPrecio', FamiliaPrecio)
-=======
 app.use("/material/borrar/:id", materialBorrar);
->>>>>>> bba4c04d90bb68a47be486d61f79fa1ebe67ac3e
+app.use("/FamiliaPrecio", FamiliaPrecio);
 
 // - Productos
 app.post("/productos/edicion", productosEdicionPOST);
