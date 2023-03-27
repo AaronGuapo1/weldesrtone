@@ -191,6 +191,8 @@ const addProductCart2 = require("./controllers/AddProductCart2");
 const FiltrosUsuarios = require("./controllers/FiltroUsuarios");
 const FiltrosUsuarios2 = require("./controllers/FiltroUsuarios2");
 const FamiliaPrecio = require("./controllers/FamiliaPrecio");
+const dataFormGET = require("./controllers/data_formGET");
+const dataFormPOST = require("./controllers/data_formPOST");
 const putProduct = require("./controllers/PutProduct");
 const cart = require("./controllers/cart");
 const url = require("url");
@@ -282,70 +284,23 @@ app.post("/create_preference", async (req, res) => {
 
 app.get("/feedback", async function (request, response) {
     const Compra = require("./models/compra");
-    const IdUsuario = req.session.passport.user.id;
-    var today = new Date();
+    const Cart = require("./models/Cart");
+    const IdUsuario = request.session.passport.user.id;
 
-    var date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
-
-    await Compra.create({
-        PrecioTotal: suma,
-        Id_usuario: IdUsuario,
-        Id_transaccion: response.body.id,
-        Fecha_compra: date,
-    });
-    for (a = 1; a < req.body.precio.length; a++) {
-        await Compra.updateOne(
-            { Id_usuario: IdUsuario, Id_transaccion: response.body.id },
-            {
-                $push: {
-                    ProductosComprados: {
-                        nombre: req.body.nombre[a],
-                        precio: req.body.precio[a],
-                        cantidad: req.body.amount[a],
-                        image: req.body.image[a],
-                    },
-                },
-            }
-        );
-    }
-    let role = "viewer";
-    let logged = false;
-    if (req.session?.passport?.user != undefined) {
-        role = req.session.passport.user.role;
-        logged = true;
-    }
-    res.render("mercado", {
-        response,
-        preference,
-        roles: role,
-        IdUsuario,
-        loggedIn: logged,
-    });
-}).catch(function (error) {
-    console.log(error);
+    await Compra.updateOne(
+        { Id_transaccion: request.query.preference_id },
+        {
+            $set: {
+                Id_pago: request.query.payment_id,
+                Orden_mercancia: request.query.merchant_order_id,
+                Nombre_comprador: request.user.username,
+                status: request.query.status,
+            },
+        }
+    );
+    await Cart.deleteMany({ UsuarioId: IdUsuario });
+    response.redirect("/");
 });
-
-const Cart = require("./models/Cart");
-const IdUsuario = request.session.passport.user.id;
-
-await Compra.updateOne(
-    { Id_transaccion: request.query.preference_id },
-    {
-        $set: {
-            Id_pago: request.query.payment_id,
-            Orden_mercancia: request.query.merchant_order_id,
-            Nombre_comprador: request.user.username,
-            status: request.query.status,
-        },
-    }
-);
-await Cart.deleteMany({ UsuarioId: IdUsuario });
-response.redirect("/");
 
 app.use("/notificar", (req, res) => {
     console.log("notificar");
