@@ -204,6 +204,7 @@ const productoEditarGet = require("./controllers/productoEditarGET");
 const FiltrosCompras2 = require("./controllers/FiltrosCompras2");
 const PanelUsuarios = require("./controllers/PanelUsuarios");
 const Roles = require("./controllers/Roles");
+const facturaProductos = require('./controllers/facturaProductos');
 
 // MercadoPago
 
@@ -417,6 +418,7 @@ app.get("/HistorialCompras", HistorialCompras);
 app.get("/factura", factura);
 app.use("/FiltrosCompras", FiltrosCompras);
 app.use("/FiltrosCompras2", FiltrosCompras2);
+app.get('/facturaProductos', facturaProductos)
 
 //usuarios
 app.get("/PanelUsuarios", PanelUsuarios);

@@ -11,7 +11,7 @@ const ProductoSchema = new Schema({
     InstalacionProductos:[{Descripcion:{type:String},cantidad:{type:Number},Codigo:{type:String},PrecioUnitario:{type:Number},Familia:{type:String}}],
     familia: String,
     precio:{type:Number},
-    image:{type:String},
+    image:{type:String, default:""},
     nombre:{type:String},
     descripcion:{type:String},
     unidad:{type:String},

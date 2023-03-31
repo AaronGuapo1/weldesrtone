@@ -50,7 +50,8 @@
                
 
              <h2>Nombre del producto: <%=ProductosComprados[b].nombre%></h2>
-        
+             <a href="/facturaProductos?nombre=<%=ProductosComprados[b].nombre%>&amp;IdTrans=<%=compra[a].Id_transaccion%>"><h3>Cotización del producto</h3></a>
+
              <h2>Precio: $<%=ProductosComprados[b].precio%></h2>
        
              <h2>Cantidad:  <%=ProductosComprados[b].cantidad%></h2>
