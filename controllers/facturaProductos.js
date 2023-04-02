@@ -75,7 +75,7 @@ const productosMaterialesDescripcion =[];
 
        for(let i=0; i<ProductosAgregar[0][0].MaterialesProductos.length; i++){
 
-        productosMaterialesDescripcion.push(ProductosAgregar[0][0].MaterialesProductos[i].Descripcion,'\n\'')
+        productosMaterialesDescripcion.push(ProductosAgregar[0][0].MaterialesProductos[i].Descripcion,'\n\n')
 
 
        }
@@ -189,7 +189,7 @@ ImporteMateriales.push(ImporteMaterial[a].toFixed(2), " ")
 
  for(let i=0; i<ProductosAgregar[0][0].PinturaProductos.length; i++){
 
-    productosPinturaDescripcion.push(ProductosAgregar[0][0].PinturaProductos[i].Descripcion, '\n\'')
+    productosPinturaDescripcion.push(ProductosAgregar[0][0].PinturaProductos[i].Descripcion, '\n\n')
 
 
  }
@@ -314,7 +314,7 @@ for (a =0; a<ImportePintura.length; a++ ){
 
  for(let i=0; i<ProductosAgregar[0][0].InstalacionProductos.length; i++){
 
-    productosInstalacionDescripcion.push(ProductosAgregar[0][0].InstalacionProductos[i].Descripcion,'\n\'')
+    productosInstalacionDescripcion.push(ProductosAgregar[0][0].InstalacionProductos[i].Descripcion,'\n\n')
 
 
  }
@@ -485,23 +485,46 @@ if(ProductosAgregar[0][0].PorcentajeInstalacion !== 0){
 
 var ManoObMaterial1 = (ManoObMaterial/100) * MaterialSuma
 
+const ManoObMaterial1R = Number(ManoObMaterial1).toFixed(2)
+
 var ManoObMaterial2 =(PorcentajeMaterial/100) * (MaterialSuma+ManoObMaterial1)
+
+const ManoObMaterial2R = Number(ManoObMaterial2).toFixed(2)
 
 var Total1 = MaterialSuma+ ManoObMaterial1+ManoObMaterial2
 
+const Total1R = Number(Total1).toFixed(2)
+
 var ManoObPintura1 = (ManoObPintura/100) * PinturaSuma
+
+const ManoObPintura1R = Number(ManoObPintura1).toFixed(2)
 
 var ManoObPintura2 =(PorcentajePintura/100) * (PinturaSuma+ManoObPintura1)
 
+const ManoObPintura2R = Number(ManoObPintura2).toFixed(2)
+
 var Total2 = PinturaSuma+ ManoObPintura1+ManoObPintura2
+
+const Total2R = Number(Total2).toFixed(2)
 
 var ManoObInstalacion1 = (ManoObInstalacion/100) * InstalacionSuma
 
+const ManoObInstalacion1R = Number(ManoObInstalacion1).toFixed(2)
+
 var ManoObInstalacion2 =(PorcentajeInstalacion/100) * (InstalacionSuma+ManoObInstalacion1)
 
+const ManoObInstalacion2R = Number(ManoObInstalacion2).toFixed(2)
+
 var Total3 = InstalacionSuma+ ManoObInstalacion1+ManoObInstalacion2
+
+const Total3R = Number(Total3).toFixed(2)
 //.toFixed(2)
-SubTotal = Total1+ Total2 +Total3
+
+
+const SubTotal = Total1+ Total2 +Total3
+
+const SubTotalR = Number(SubTotal).toFixed(2)
+
        let docDefinition ={
     content :[
        
@@ -539,22 +562,22 @@ SubTotal = Total1+ Total2 +Total3
 					[{text: 'Material', style: 'tableHeader'}, {text: 'Codigo', style: 'tableHeader'}, {text: 'Unidad', style: 'tableHeader'}, {text: 'Precio Unitario', style: 'tableHeader'},{text: 'Cantidad', style: 'tableHeader'}, {text: 'importe', style: 'tableHeader'}],
 					[{fontSize:11,text:productosMaterialesDescripcion}, productosMaterialesCodigo,ProductosMaterialesUnidad,PreciosMateriales, productosMaterialesCantidad, ImporteMateriales],
                     [{fontSize:11,text:" "}, " "," ","Material", "Suma", MaterialSuma],
-                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObMaterial+"%", ManoObMaterial1],
-                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeMaterial+"%", ManoObMaterial2],
-                    [{fontSize:11,text:" "}, " "," ","", "Total",Total1 ],
+                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObMaterial+"%", ManoObMaterial1R],
+                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeMaterial+"%", ManoObMaterial2R],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",Total1R ],
 
 					[{fontSize:11,text:productosPinturaDescripcion}, productosPinturaCodigo, ProductosPinturasUnidad,PreciosPintura,productosPinturaCantidad,  ImportePinturas],
                     [{fontSize:11,text:" "}, " "," ","Pintura", "Suma", PinturaSuma],
-                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObPintura+"%",ManoObPintura1],
-                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajePintura+"%", ManoObPintura2],
-                    [{fontSize:11,text:" "}, " "," ","", "Total",Total2 ],
+                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObPintura+"%",ManoObPintura1R],
+                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajePintura+"%", ManoObPintura2R],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",Total2R ],
 
 					[{fontSize:11,text:productosInstalacionDescripcion}, productosInstalacionCodigo,ProductosInstalacionUnidad,PreciosInstalaciones, productosInstalacionCantidad, ImporteInstalaciones],
                     [{fontSize:11,text:" "}, " "," ","Instalación", "Suma", InstalacionSuma],
-                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObInstalacion+"%",ManoObInstalacion1],
-                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeInstalacion+"%",ManoObInstalacion2],
-                    [{fontSize:11,text:" "}, " "," ","", "Total",Total3 ],
-                    [{fontSize:11,text:" "}, " "," ","", "Subtotal",SubTotal ],
+                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObInstalacion+"%",ManoObInstalacion1R],
+                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeInstalacion+"%",ManoObInstalacion2R],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",Total3R ],
+                    [{fontSize:11,text:" "}, " "," ","", "Subtotal",SubTotalR ],
 
 				]
 			},

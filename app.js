@@ -71,7 +71,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://welderstoneprueba.onrender.com/auth/google/welderstone",
+            callbackURL: "http://localhost:3000/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
         function (accessToken, refreshToken, profile, cb) {
