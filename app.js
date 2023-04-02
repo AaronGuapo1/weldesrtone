@@ -237,7 +237,8 @@ app.post("/create_preference", async (req, res) => {
             pending: "https://welderstoneprueba.onrender.com/feedback",
         },
         auto_return: "approved",
-        notification_url: "https://welderstoneprueba.onrender.com/feedback", //Por ahora tendrá que ser local, una vez levantado el servidor /feedback al final del URL
+        //notification_url: "https://welderstoneprueba.onrender.com/feedback", //Por ahora tendrá que ser local, una vez levantado el servidor /feedback al final del URL
+        notification_url:"https://welderstoneprueba.onrender.com/feedback"
     };
 
     mercadopago.preferences

@@ -23,10 +23,43 @@ console.log(req.query.nombre)
     Almacen = await Product.find({nombre:req.query.nombre})
     ProductosAgregar.push(Almacen)
 
-
-//console.log(ProductosAgregar[0][0].MaterialesProductos[0])
-
+//const ProductoDatos = await Compra.find({})
 console.log(ProductosAgregar[0][0])
+
+
+var productodatos =[];
+
+for (d=0; d<ProductosComprados.length; d++){
+if (ProductosComprados[d].nombre ===req.query.nombre ){
+
+    productodatos.push(ProductosComprados[d])
+}
+
+}
+
+
+const NomProd= productodatos[0].nombre
+const CantidadProd= productodatos[0].cantidad
+const precioProd= productodatos[0].precio
+const unidadProd = ProductosAgregar[0][0].unidad
+const Importe = CantidadProd*precioProd
+
+const FechaCompra =PdfDescargar[0].Fecha_compra
+
+var date =
+FechaCompra.getFullYear() +
+"-" +
+(FechaCompra.getMonth() + 1) +
+"-" +
+FechaCompra.getDate();
+
+var caduca =
+FechaCompra.getFullYear() +
+"-" +
+(FechaCompra.getMonth() + 2) +
+"-" +
+FechaCompra.getDate();
+const codigo = ProductosAgregar[0][0].Codigo
 
 var imagen;
 
@@ -204,6 +237,9 @@ ImporteMateriales.push(ImporteMaterial[a].toFixed(2), " ")
 }catch(e){
     console.log(error)
 }
+
+
+console.log(ProductosPinturasPrecio)
 var PreciosPintura =[]
 try{
 
@@ -447,15 +483,41 @@ if(ProductosAgregar[0][0].PorcentajeInstalacion !== 0){
     PorcentajeInstalacion=ProductosAgregar[0][0].PorcentajeInstalacion;
 }
 
+var ManoObMaterial1 = (ManoObMaterial/100) * MaterialSuma
 
+var ManoObMaterial2 =(PorcentajeMaterial/100) * (MaterialSuma+ManoObMaterial1)
 
+var Total1 = MaterialSuma+ ManoObMaterial1+ManoObMaterial2
 
+var ManoObPintura1 = (ManoObPintura/100) * PinturaSuma
 
+var ManoObPintura2 =(PorcentajePintura/100) * (PinturaSuma+ManoObPintura1)
+
+var Total2 = PinturaSuma+ ManoObPintura1+ManoObPintura2
+
+var ManoObInstalacion1 = (ManoObInstalacion/100) * InstalacionSuma
+
+var ManoObInstalacion2 =(PorcentajeInstalacion/100) * (InstalacionSuma+ManoObInstalacion1)
+
+var Total3 = InstalacionSuma+ ManoObInstalacion1+ManoObInstalacion2
+//.toFixed(2)
+SubTotal = Total1+ Total2 +Total3
        let docDefinition ={
     content :[
        
-        {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 120, alignment:'center',fit: [170,170], absolutePosition: {x: 50, y: -25}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
-        
+        {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height:70,alignment:'center',fit: [130,130], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
+        {
+			style: 'tableExample',
+			table: {
+				heights: [20, 20, 20],
+				body: [
+                ['Fecha',date],
+				['Codigo',codigo],
+				['Valido hasta',caduca],
+				]
+			},
+           absolutePosition: {x: 450, y: 80}
+		},
 {text: ['Sitio web: www.Welderstone.com\n','Teléfono: 87-12-64-69-82 \n','E-mail: Welderstone@outlook.com\n'+'Asesor de venta: Arq. Angelica Varela'], margin: [0, 20, 0, 8]},
 
 	{
@@ -477,17 +539,103 @@ if(ProductosAgregar[0][0].PorcentajeInstalacion !== 0){
 					[{text: 'Material', style: 'tableHeader'}, {text: 'Codigo', style: 'tableHeader'}, {text: 'Unidad', style: 'tableHeader'}, {text: 'Precio Unitario', style: 'tableHeader'},{text: 'Cantidad', style: 'tableHeader'}, {text: 'importe', style: 'tableHeader'}],
 					[{fontSize:11,text:productosMaterialesDescripcion}, productosMaterialesCodigo,ProductosMaterialesUnidad,PreciosMateriales, productosMaterialesCantidad, ImporteMateriales],
                     [{fontSize:11,text:" "}, " "," ","Material", "Suma", MaterialSuma],
-                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObMaterial+"%", " "],
-                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeMaterial+"%", " "],
+                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObMaterial+"%", ManoObMaterial1],
+                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeMaterial+"%", ManoObMaterial2],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",Total1 ],
+
 					[{fontSize:11,text:productosPinturaDescripcion}, productosPinturaCodigo, ProductosPinturasUnidad,PreciosPintura,productosPinturaCantidad,  ImportePinturas],
                     [{fontSize:11,text:" "}, " "," ","Pintura", "Suma", PinturaSuma],
-                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObPintura+"%", " "],
-                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajePintura+"%", " "],
+                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObPintura+"%",ManoObPintura1],
+                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajePintura+"%", ManoObPintura2],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",Total2 ],
 
 					[{fontSize:11,text:productosInstalacionDescripcion}, productosInstalacionCodigo,ProductosInstalacionUnidad,PreciosInstalaciones, productosInstalacionCantidad, ImporteInstalaciones],
                     [{fontSize:11,text:" "}, " "," ","Instalación", "Suma", InstalacionSuma],
-                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObInstalacion+"%", " "],
-                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeInstalacion+"%", " "],
+                    [{fontSize:11,text:" "}, " "," ","Mano de obra", ManoObInstalacion+"%",ManoObInstalacion1],
+                    [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeInstalacion+"%",ManoObInstalacion2],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",Total3 ],
+                    [{fontSize:11,text:" "}, " "," ","", "Subtotal",SubTotal ],
+
+				]
+			},
+
+			layout: {
+				hLineWidth: function (i, node) {
+					return (i === 0 || i === node.table.body.length) ? 2 : 1;
+				},
+				vLineWidth: function (i, node) {
+					return (i === 0 || i === node.table.widths.length) ? 2 : 1;
+				},
+				hLineColor: function (i, node) {
+					return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
+				},
+				vLineColor: function (i, node) {
+					return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
+				},
+
+			}
+		},
+        {text: '',pageBreak: 'before'},
+        {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height: 70,alignment:'center',fit: [130,130], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
+        {
+			style: 'tableExample',
+			table: {
+				heights: [20, 20, 20],
+				body: [
+                ['Fecha',date],
+				['Codigo',codigo],
+				['Valido hasta',caduca],
+				]
+			},
+           absolutePosition: {x: 450, y: 80}
+		},
+{text: ['Sitio web: www.Welderstone.com\n','Teléfono: 87-12-64-69-82 \n','E-mail: Welderstone@outlook.com\n'+'Asesor de venta: Arq. Angelica Varela'], margin: [0, 20, 0, 8]},
+
+	{
+			alignment: 'center',
+			columns: [
+				 {  width: 300,
+					text: '',
+					alignment: 'center',
+				}
+			]
+		},
+
+  
+
+        {
+			style: 'tableExample', alignment: 'center',
+			table: {
+				headerRows: 1,
+				alignment: 'center',
+                widths: [150, '*', '*', '*','*','*'],
+
+				body: [
+                    [{text: 'Articulo', style: 'tableHeader'}, {text: 'Codigo', style: 'tableHeader'}, {text: 'Unidad', style: 'tableHeader'}, {text: 'Precio Unitario', style: 'tableHeader'},{text: 'Cantidad', style: 'tableHeader'}, {text: 'importe', style: 'tableHeader'}],
+                    [NomProd,codigo,CantidadProd,precioProd,unidadProd, Importe],
+   
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
 
 				]
 			},
@@ -510,9 +658,6 @@ if(ProductosAgregar[0][0].PorcentajeInstalacion !== 0){
 		},
         {fontSize:11,text: ['1. Precio no incluye entrega a domicilio \n','2. Precio sujeto a cambio sin previo aviso \n','3. Precio no incluye instalación\n '], margin: [0, 20, 0, 8]},
         {fontSize:11,text: ['Si usted tiene alguna pregunta sobre esta cotización, por favor, póngase en contacto con nosotros \n','Sitio web: www.Welderstone.com | Teléfono: 87-12-64-69-82 | E-mail: Welderstone@outlook.com \n'],	alignment: 'center'},
-
-		//{text: 'Column/row spans', pageBreak: 'before', style: 'subheader'}
-
     ],
 	
 	styles: {
@@ -572,3 +717,7 @@ if(ProductosAgregar[0][0].PorcentajeInstalacion !== 0){
 
 
 }
+
+/*
+
+*/
