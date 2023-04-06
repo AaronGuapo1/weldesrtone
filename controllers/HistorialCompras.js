@@ -3,6 +3,7 @@ const Producto = require('../models/Productos.js');
 const Años = require("../models/Años");
 
 module.exports = async (req, res) =>{
+
     let role = "viewer";
     var page = req.query.page;
 
@@ -34,8 +35,8 @@ module.exports = async (req, res) =>{
     }
 const FiltroPaginado= false;
 const Filtro = "ninguno"
-
-    res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro})
+var EstadoFijar="ninguno";
+    res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro,EstadoFijar})
        }else if(page != undefined){
         const compra = await Compra.paginate({},{page,limit:30})
         const añocreado = await Años.find({});
@@ -61,7 +62,9 @@ const Filtro = "ninguno"
     }
     const FiltroPaginado = false;
     const Filtro = "ninguno"
-        res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro})
+    var EstadoFijar="ninguno";
+
+        res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro,EstadoFijar})
 
        }
 }

@@ -104,6 +104,9 @@
         <section id="tienda-productos">
             <div class="row">
                 <% for (var a = 0; a < productos.length; a++) { %> 
+
+                    <% if(productos[a].Activo === true ) { %>
+
                     <div class="col-sm-2">
                         <a href="/productos/<%=productos[a]._id%>">
                             <div class="card line">
@@ -113,11 +116,18 @@
                                 <div class="card-body">
                                     <!-- Nombre del producto -->
                                     <h4 class="card-title"><%=productos[a].nombre%> </h4>
+
                                     <form action="/products-cart" method="POST">
+
+
+                                        
                                         <!-- Precio -->
                                         <input type="hidden" name="nombre" value="<%=productos[a].nombre%>">
                                         <input type="hidden" name="image" value="<%=productos[a].image%>">
                                         <input type="hidden" name="precio" value="<%=productos[a].precio%>">
+
+
+
                                         <% if(loggedIn) { %>
                                             <input type="hidden" name="UsuarioId" value="<%=IdUsuario%>"> 
                                         <% } %>
@@ -154,6 +164,10 @@
                                              
                                      
                 <% } %>
+
+
+                <% } %>
+
 
 
                                     </form>

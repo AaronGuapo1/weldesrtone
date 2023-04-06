@@ -11,7 +11,14 @@ const Product = require("../models/Productos");
 const Material = require('../models/materiales.js');
 
 module.exports = async (req, res) =>{
+const BuscarPrimero =await Product.find({codigo:req.query.codigo}).count()
+if (BuscarPrimero === 0)
+{
+    res.send(`<script>alert("Esta cotización ha caducado")
+    window.location.href='/';
+    </script>`);
 
+}
        const IdTransaccion = req.query.IdTrans
        console.log( req.query.IdTrans)
        const materiales= await Material.find({})
@@ -20,17 +27,18 @@ module.exports = async (req, res) =>{
        var ProductosAgregar = [];
        var Almacen;
 console.log(req.query.nombre)
-    Almacen = await Product.find({nombre:req.query.nombre})
+    Almacen = await Product.find({codigo:req.query.codigo})
+
     ProductosAgregar.push(Almacen)
 
 //const ProductoDatos = await Compra.find({})
-console.log(ProductosAgregar[0][0])
+//console.log(ProductosAgregar[0][0])
 
 
 var productodatos =[];
 
 for (d=0; d<ProductosComprados.length; d++){
-if (ProductosComprados[d].nombre ===req.query.nombre ){
+if (ProductosComprados[d].codigo ===req.query.codigo ){
 
     productodatos.push(ProductosComprados[d])
 }
@@ -41,7 +49,7 @@ if (ProductosComprados[d].nombre ===req.query.nombre ){
 const NomProd= productodatos[0].nombre
 const CantidadProd= productodatos[0].cantidad
 const precioProd= productodatos[0].precio
-const unidadProd = ProductosAgregar[0][0].unidad
+const unidadProd = productodatos[0].unidad
 const Importe = CantidadProd*precioProd
 
 const FechaCompra =PdfDescargar[0].Fecha_compra
@@ -59,12 +67,12 @@ FechaCompra.getFullYear() +
 (FechaCompra.getMonth() + 2) +
 "-" +
 FechaCompra.getDate();
-const codigo = ProductosAgregar[0][0].Codigo
+const codigo = productodatos[0].codigo
 
 var imagen;
 
-if( ProductosAgregar[0][0].image !== ""){
-    imagen = ProductosAgregar[0][0].image.toString()
+if( productodatos[0].image !== ""){
+    imagen = productodatos[0].image.toString()
 
 }else{
      imagen = '/images/productos/PorDefecto.jpg'

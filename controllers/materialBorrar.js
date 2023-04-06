@@ -73,7 +73,9 @@ var sumaInsumos3Por = ((sumaInsumos * productos[a].PorcentajeInstalacion)/100) +
 var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
 var SubTotal=Number(x.toFixed(2))
 
-console.log(SubTotal)
+SubTotal = SubTotal + productos[a].iva
+
+
 
 await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });
 await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });

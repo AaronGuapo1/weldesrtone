@@ -11,7 +11,6 @@ module.exports =  async (req,res)=>{
 
 
 
-
     if(req.body.Familia !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Familia:req.body.Familia}});
 
@@ -45,7 +44,19 @@ module.exports =  async (req,res)=>{
     if(req.body.PorcentajeInstalacion !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{PorcentajeInstalacion:req.body.PorcentajeInstalacion}});
     }
+    console.log(req.body.Activo)
+    if(req.body.Activo === "true" ){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Activo:true}});
+    }else if(req.body.Activo !== "true"){
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Activo:false}});
 
+
+    }
+    if(req.body.Iva !== '' ){
+        const IvaEditar= Number(req.body.Iva)
+
+        await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{iva:IvaEditar}});
+    }
 
 
 
@@ -152,6 +163,7 @@ module.exports =  async (req,res)=>{
     
     var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
     var SubTotal=Number(x.toFixed(2))
+    SubTotal= SubTotal + productos[0].iva
 
 
 await Producto.updateOne({_id:productos[0]._id},{ $set: { precio:SubTotal } });

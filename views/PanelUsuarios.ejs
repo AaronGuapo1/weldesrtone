@@ -32,7 +32,7 @@
         <div class="center">
             Filtrar por rol:
             <form method="POST"  action="/FiltrosUsuarios">
-            <select name="role" id="FiltroHistorial" class="form-select-center" >
+            <select name="role" id="FiltroHistorial" class="custom-select2" >
                 <option value="admin" Selected>Admin</option>
                 <option value="Ventas" >Ventas</option>
                 <option value="Proyectos" >Proyectos </option>
@@ -79,12 +79,12 @@
 
                     <tr>
                     <td> <%= usuarios.docs[a].username%></td>
-                    <td> <%= usuarios.docs[a].googleId%></td>
+                    <td> <%= usuarios.docs[a]._id%></td>
                     <td> 
                     
                     
     <form method="post" action="/Roles" >
-        <select name="Roles" class="form-select-center">
+        <select name="Roles" class="custom-select">
 
             <% if( usuarios.docs[a].role === 'admin' ){ %>
 
@@ -219,6 +219,53 @@
           }
         }
       </script> 
+
+<style>
+    .custom-select {
+      appearance: none;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      color: #555555;
+      font-size: 16px;
+      padding: 10px;
+      width: 25%;
+    }
+    
+    .custom-select:focus {
+      outline: none;
+      border-color: #2196F3;
+      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+    }
+    
+    .custom-select option {
+      background-color: #ffffff;
+      color: #555555;
+    }
+    .custom-select2 {
+      appearance: none;
+      background-color: #ffffff;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      color: #555555;
+      font-size: 16px;
+      padding: 10px;
+      width: 5%;
+    }
+    
+    .custom-select2:focus {
+      outline: none;
+      border-color: #2196F3;
+      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+    }
+    
+    .custom-select2 option {
+      background-color: #ffffff;
+      color: #555555;
+    }
+      </style>
+
+
 
 </body>
 </html>

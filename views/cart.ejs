@@ -108,6 +108,7 @@
             <input type="hidden" name="amount" value="0">  
             <input type="hidden" name="nombre" value="0"> 
             <input type="hidden" name="image" value="0"> 
+            <input type="hidden" name="unidad" value="0"> 
 
         <% for (var a = 0; a < productos.length; a++) { %>
 
@@ -121,6 +122,8 @@
             <input type="hidden" name="precio" value="<%=Sumas[b].precio%>"> 
             <input type="hidden" name="nombre" value="<%=Sumas[b].nombre%>"> 
             <input type="hidden" name="image" value="<%=Sumas[b].image%>"> 
+            <input type="hidden" name="unidad" value="<%=productos[a].unidad%>"> 
+            <input type="hidden" name="codigo" value="<%=productos[a].Codigo%>"> 
 
        
 

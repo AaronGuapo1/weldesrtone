@@ -206,7 +206,10 @@ const FiltrosCompras2 = require("./controllers/FiltrosCompras2");
 const PanelUsuarios = require("./controllers/PanelUsuarios");
 const Roles = require("./controllers/Roles");
 const facturaProductos = require('./controllers/facturaProductos');
-
+const envios = require("./controllers/Envios.js");
+const infoEnvios = require("./controllers/infoEnvios");
+const FiltroEnviosPost = require("./controllers/FiltroEnviosPost")
+const FiltroEnvios = require("./controllers/FiltroEnvios")
 // MercadoPago
 
 //global.CantidadCarro = await cart.find({}).count()
@@ -272,6 +275,8 @@ app.post("/create_preference", async (req, res) => {
                                 precio: req.body.precio[a],
                                 cantidad: req.body.amount[a],
                                 image: req.body.image[a],
+                                unidad: req.body.unidad[a],
+                                codigo: req.body.codigo[a],
                             },
                         },
                     }
@@ -429,8 +434,32 @@ app.use("/Roles", Roles);
 //panelusuarios
 app.use("/FiltrosUsuarios", FiltrosUsuarios);
 app.use("/FiltrosUsuarios2", FiltrosUsuarios2);
+//envios
+app.get("/envios",envios)
+app.use("/FiltroEnvios",FiltroEnvios)
+app.post("/infoEnvios",infoEnvios)
+app.post("/FiltroEnviosPost",FiltroEnviosPost)
+app.get('/popup/:id',async (req, res) => {
+const compra = require('./models/compra')
+let role = "viewer";
+let logged = false; 
+if(req.session?.passport?.user != undefined){
+    role = req.session.passport.user.role;
+    logged = true;
+}
+    const id = req.params.id;
+    const Compra= await compra.find({Id_transaccion:id})
+    const EstadoFijar= Compra[0].Estado
+    const title = `${id}`;
+    const content = `This is popup ${id}`;
+    res.render('popup', { title, content,EstadoFijar,Compra,roles: role, loggedIn: logged });
 
+
+
+  });
 app.use((req, res) => res.render("notfound"));
+
+
 
 app.listen(3000, () => {
     console.log("App listening on port 3000");
