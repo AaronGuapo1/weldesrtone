@@ -19,9 +19,21 @@ const materialBusqueda = document.querySelector("#mm-busqueda");
 const pinturaBusqueda = document.querySelector("#mp-busqueda");
 const instalacionBusqueda = document.querySelector("#mi-busqueda");
 
+const instalacionFiltro = document.querySelector("#instalacion-filtro");
+const pinturaFiltro = document.querySelector("#pintura-filtro");
+const materialesFiltro = document.querySelector("#materiales-filtro");
+
 const modalMateriales = document.querySelectorAll(".modal-materiales");
+const modalMaterialesFamilias = document.querySelectorAll(".modal-materiales-familias");
+const modalMaterialesSubfamilias = document.querySelectorAll(".modal-materiales-subfamilias");
+
 const modalPinturas = document.querySelectorAll(".modal-pintura");
+const modalPinturaFamilias = document.querySelectorAll(".modal-pintura-familias");
+const modalPinturaSubfamilias = document.querySelectorAll(".modal-pintura-subfamilias");
+
 const modalInstalacion = document.querySelectorAll(".modal-instalacion");
+const modalInstalacionFamilias = document.querySelectorAll(".modal-instalacion-familias");
+const modalInstalacionSubfamilias = document.querySelectorAll(".modal-instalacion-subfamilias");
 
 
 
@@ -37,7 +49,7 @@ function setUp(inputs, objetoMateriales, objective){
     inputs.forEach(inp => {
         inp.addEventListener("input", function(){
             if(inp.value != ""){
-                let inp_number = parseInt(inp.value);
+                let inp_number = parseFloat(inp.value);
     
                 if(inp_number >= 0){
                     objetoMateriales[inp.id][1] = inp_number;
@@ -76,7 +88,7 @@ function calculatePrice(objetoMateriales, objective){
     for (const material in objetoMateriales) {
         const inp = objetoMateriales[material][2];
         if(inp.value != ""){
-            let inp_number = parseInt(inp.value);
+            let inp_number = parseFloat(inp.value);
 
             if(inp_number >= 0){
                 objetoMateriales[inp.id][1] = inp_number;
@@ -91,15 +103,28 @@ function calculatePrice(objetoMateriales, objective){
     }
 }
 
-function filtrar(barraBusqueda, matArray){
+function filtrar(barraBusqueda, filterArray, filter){
     const texto = barraBusqueda.value.toLowerCase();
 
-    for(let material of matArray){
-        let nombre = material.id.toLowerCase();
-        if(nombre.indexOf(texto) != -1){
-            material.classList.remove("hide");
-        }  else {
-            material.classList.add("hide");
+    for(let material of filterArray){
+        if(filter == "Descripcion"){
+            let nombre = material.id.toLowerCase();
+
+            if(nombre.indexOf(texto) != -1){
+                material.classList.remove("hide");
+            }  else {
+                material.classList.add("hide");
+            }
+        } else {
+            let nombre = material.value.toLowerCase();
+
+            const parent = material.parentNode;
+
+            if(nombre.indexOf(texto) != -1){
+                parent.classList.remove("hide");
+            }  else {
+                parent.classList.add("hide");
+            }
         }
     }
 }
@@ -263,14 +288,61 @@ minusOneBtn.addEventListener("click", function(){
 })
 
 materialBusqueda.addEventListener("input", function(){
-    filtrar(materialBusqueda, modalMateriales);
+    if(materialesFiltro.value == "Descripcion"){
+        filtrar(materialBusqueda, modalMateriales, materialesFiltro.value);
+    } else if(materialesFiltro.value == "Familia"){
+        filtrar(materialBusqueda, modalMaterialesFamilias, materialesFiltro.value);
+    } else {
+        filtrar(materialBusqueda, modalMaterialesSubfamilias, materialesFiltro.value);
+    }
 });
 
 pinturaBusqueda.addEventListener("input", function(){
-    filtrar(pinturaBusqueda, modalPinturas);
+    if(pinturaFiltro.value == "Descripcion"){
+        filtrar(pinturaBusqueda, modalPinturas, pinturaFiltro.value);
+    } else if(pinturaFiltro.value == "Familia"){
+        filtrar(pinturaBusqueda, modalPinturaFamilias, pinturaFiltro.value);
+    } else {
+        filtrar(pinturaBusqueda, modalPinturaSubfamilias, pinturaFiltro.value);
+    }
 })
 
 instalacionBusqueda.addEventListener("input", function(){
-    filtrar(instalacionBusqueda, modalInstalacion);
+    if(instalacionFiltro.value == "Descripcion"){
+        filtrar(instalacionBusqueda, modalInstalacion, instalacionFiltro.value);
+    } else if(instalacionFiltro.value == "Familia"){
+        filtrar(instalacionBusqueda, modalInstalacionFamilias, instalacionFiltro.value);
+    } else {
+        filtrar(instalacionBusqueda, modalInstalacionSubfamilias, instalacionFiltro.value);
+    }
 })
 
+materialesFiltro.addEventListener("change", function(){
+    if(materialesFiltro.value == "Descripcion"){
+        filtrar(materialBusqueda, modalMateriales, materialesFiltro.value);
+    } else if(materialesFiltro.value == "Familia"){
+        filtrar(materialBusqueda, modalMaterialesFamilias, materialesFiltro.value);
+    } else {
+        filtrar(materialBusqueda, modalMaterialesSubfamilias, materialesFiltro.value);
+    }
+})
+
+pinturaFiltro.addEventListener("change", function(){
+    if(pinturaFiltro.value == "Descripcion"){
+        filtrar(pinturaBusqueda, modalPinturas, pinturaFiltro.value);
+    } else if(pinturaFiltro.value == "Familia"){
+        filtrar(pinturaBusqueda, modalPinturaFamilias, pinturaFiltro.value);
+    } else {
+        filtrar(pinturaBusqueda, modalPinturaSubfamilias, pinturaFiltro.value);
+    }
+})
+
+instalacionFiltro.addEventListener("change", function(){
+    if(instalacionFiltro.value == "Descripcion"){
+        filtrar(instalacionBusqueda, modalInstalacion, instalacionFiltro.value);
+    } else if(instalacionFiltro.value == "Familia"){
+        filtrar(instalacionBusqueda, modalInstalacionFamilias, instalacionFiltro.value);
+    } else {
+        filtrar(instalacionBusqueda, modalInstalacionSubfamilias, instalacionFiltro.value);
+    }
+})

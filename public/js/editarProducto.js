@@ -15,7 +15,7 @@ const instalacionPorcentajes = document.querySelectorAll(".instalacion-porcentaj
 const plusOneBtn = document.querySelector("#plus-one");
 const minusOneBtn = document.querySelector("#minus-one");
 const especsDiv = document.querySelector("#especificaciones");
-const cap = parseInt(document.querySelector("#cap").innerHTML);
+const cap = parseFloat(document.querySelector("#cap").innerHTML);
 
 // - Modals
 const materialBusqueda = document.querySelector("#mm-busqueda");
@@ -37,7 +37,7 @@ function setUp(inputs, objetoMateriales, objective){
     inputs.forEach(inp => {
         inp.addEventListener("input", function(){
             if(inp.value != ""){
-                let inp_number = parseInt(inp.value);
+                let inp_number = parseFloat(inp.value);
     
                 if(inp_number >= 0){
                     objetoMateriales[inp.id][1] = inp_number;
@@ -76,7 +76,7 @@ function calculatePrice(objetoMateriales, objective){
     for (const material in objetoMateriales) {
         const inp = objetoMateriales[material][2];
         if(inp.value != ""){
-            let inp_number = parseInt(inp.value);
+            let inp_number = parseFloat(inp.value);
 
             if(inp_number >= 0){
                 objetoMateriales[inp.id][1] = inp_number;

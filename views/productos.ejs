@@ -100,7 +100,7 @@
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Material<%=materiales[a].Codigo%>">
                                                 <div class="mb-3">
-                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u  </p>
+                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %> </p>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">Cantidad</span>
                                                         <input type="number" step="any" value="0" id="Material<%=materiales[a].Codigo%>" class="form-control material-input" name='MaterialesProductos[cantidad]' min="0">
@@ -131,12 +131,25 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="input-group mb-2">
-                                                        <input type="text" id="mm-busqueda" name="busqueda" class="form-control busquedaInput" placeholder="Busca aqui lo que necesites" autocomplete="off">
+                                                    <div class="row">
+                                                        <div class="col-3" style="padding-right: .2rem;">
+                                                            <select name="filter" id="materiales-filtro" class="form-select">
+                                                                <option value="Descripcion">Descripción</option>
+                                                                <option value="Familia">Familia</option>
+                                                                <option value="SubFam">Subfamilia</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-9" style="padding-left: .2rem;">
+                                                            <div class="input-group mb-2">
+                                                                <input type="text" id="mm-busqueda" name="busqueda" class="form-control busquedaInput" placeholder="Busca aqui lo que necesites" autocomplete="off">
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <% for (var a = 0; a < materiales.length; a++) { %> 
                                                         <div class="row mb-2 modal-materiales" style="padding-right: 5%;" id="<%= materiales[a].Descripcion %>">
+                                                            <input type="hidden" class="modal-materiales-familias" value="<%=materiales[a].Familia%>">
+                                                            <input type="hidden" class="modal-materiales-subfamilias" value="<%=materiales[a].SubFam%>">
                                                             <div class="col-10 cv-flex">
                                                                 <%=materiales[a].Descripcion%> 
                                                             </div>
@@ -183,7 +196,7 @@
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Pintura<%=materiales[a].Codigo%>">
                                                 <div class="mb-3">
-                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u  </p>
+                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %> </p>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">Cantidad</span>
                                                         <input type="number" step="any" value="0" id="Pintura<%=materiales[a].Codigo%>" class="form-control pintura-input" name='PinturaProductos[cantidad]' min="0">
@@ -214,12 +227,25 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="input-group mb-2">
-                                                        <input type="text" id="mp-busqueda" name="busqueda" class="form-control busquedaInput" placeholder="Busca aqui lo que necesites" autocomplete="off">
+                                                    <div class="row">
+                                                        <div class="col-3" style="padding-right: .2rem;">
+                                                            <select name="filter" id="pintura-filtro" class="form-select">
+                                                                <option value="Descripcion">Descripción</option>
+                                                                <option value="Familia">Familia</option>
+                                                                <option value="SubFam">Subfamilia</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-9" style="padding-left: .2rem;">
+                                                            <div class="input-group mb-2">
+                                                                <input type="text" id="mp-busqueda" name="busqueda" class="form-control busquedaInput" placeholder="Busca aqui lo que necesites" autocomplete="off">
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <% for (var a = 0; a < materiales.length; a++) { %> 
                                                         <div class="row mb-2 modal-pintura" id="<%=materiales[a].Descripcion%>" style="padding-right: 5%;">
+                                                            <input type="hidden" class="modal-pintura-familias" value="<%=materiales[a].Familia%>">
+                                                            <input type="hidden" class="modal-pintura-subfamilias" value="<%=materiales[a].SubFam%>">
                                                             <div class="col-10 cv-flex">
                                                                 <%=materiales[a].Descripcion%> 
                                                             </div>
@@ -266,7 +292,7 @@
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Instalacion<%=materiales[a].Codigo%>">
                                                 <div class="mb-3">
-                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u  </p>
+                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %> </p>
                                                     <div class="input-group mb-3">
                                                         <span class="input-group-text">Cantidad</span>
                                                         <input type="number" step="any" value="0" id="Instalacion<%=materiales[a].Codigo%>" class="form-control instalacion-input" name='InstalacionProductos[cantidad]' min="0">
@@ -297,13 +323,25 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="input-group mb-2">
-                                                        <input type="text" id="mi-busqueda" name="busqueda" class="form-control busquedaInput" placeholder="Busca aqui lo que necesites" autocomplete="off">
-
+                                                    <div class="row">
+                                                        <div class="col-3" style="padding-right: .2rem;">
+                                                            <select name="filter" id="instalacion-filtro" class="form-select">
+                                                                <option value="Descripcion">Descripción</option>
+                                                                <option value="Familia">Familia</option>
+                                                                <option value="SubFam">Subfamilia</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-9" style="padding-left: .2rem;">
+                                                            <div class="input-group mb-2">
+                                                                <input type="text" id="mi-busqueda" name="busqueda" class="form-control busquedaInput" placeholder="Busca aqui lo que necesites" autocomplete="off">
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <% for (var a = 0; a < materiales.length; a++) { %> 
                                                         <div class="row mb-2 modal-instalacion" id="<%=materiales[a].Descripcion%>" style="padding-right: 5%;">
+                                                            <input type="hidden" class="modal-instalacion-familias" value="<%=materiales[a].Familia%>">
+                                                            <input type="hidden" class="modal-instalacion-subfamilias" value="<%=materiales[a].SubFam%>">
                                                             <div class="col-10 cv-flex">
                                                                 <%=materiales[a].Descripcion%> 
                                                             </div>
