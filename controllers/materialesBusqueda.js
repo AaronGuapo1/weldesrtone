@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
         role = req.session.passport.user.role;
     }
 
-    if (role == "admin" || role =="Cotización") {
+    if (role == "admin" || role == "Cotización") {
         let materiales = await material.find({});
 
         const texto = req.body.busqueda;
@@ -30,11 +30,20 @@ module.exports = async (req, res) => {
             materiales = filtrado;
         }
 
+        var familias = [];
+
+        for (i = 0; i < materiales.length; i++) {
+            familias.push(materiales[i].Familia);
+        }
+
+        const unicos = [...new Set(familias)];
+
         res.render("materiales", {
+            unicos,
             materiales,
             roles: role,
             loggedIn: true,
-            status: true
+            status: true,
         });
     } else {
         res.redirect("/");

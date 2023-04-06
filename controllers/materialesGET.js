@@ -7,21 +7,20 @@ module.exports = async (req, res) => {
         role = req.session.passport.user.role;
     }
 
-    if (role == "admin" || role == "Cotización" || role == "Ventas" || role == "Proyectos") {
-
-
-
+    if (
+        role == "admin" ||
+        role == "Cotización" ||
+        role == "Ventas" ||
+        role == "Proyectos"
+    ) {
         //console.log(page)
         const materiales = await material.find({});
 
-
-var familias =[];
-        for (i=0; i<materiales.length; i++){
-            familias.push(materiales[i].Familia)
-        
-        
+        var familias = [];
+        for (i = 0; i < materiales.length; i++) {
+            familias.push(materiales[i].Familia);
         }
-const unicos=[...new Set(familias)]
+        const unicos = [...new Set(familias)];
         res.render("materiales", {
             unicos,
             materiales,
@@ -29,10 +28,7 @@ const unicos=[...new Set(familias)]
             loggedIn: true,
             status: req.params.status,
         });
-
-
-
     } else {
         res.redirect("/");
     }
-}
+};
