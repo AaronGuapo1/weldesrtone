@@ -23,7 +23,9 @@ const ProductoSchema = new Schema({
     PorcentajeInstalacion:{type:Number},
     especificacionesNombre: Array,
     especificacionesDesc: Array,
-    Codigo:{type:String}
+    Codigo:{type:String},
+    iva:{type:Number,default:0},
+    Activo:{type:Boolean},
 });
 
 ProductoSchema.plugin(mongoosePaginate);

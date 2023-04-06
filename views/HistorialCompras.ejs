@@ -84,12 +84,13 @@
             <thead>
                 <tr>
                     <th style="width:20%">Nombre del comprador </th>
-                    <th style="width:20%">Fecha de la compra </th>
-                    <th style="width:40%" >Id transacción</th>
-                    <th style="width:10%"> Producto </th>
+                    <th style="width:17%">Fecha de la compra </th>
+                    <th style="width:23%" >Id transacción</th>
+                    <th style="width:10%"> Producto/s </th>
                     <th style="width:10%"> Precio </th>
                     <th style="width:10%"> Cantidad  </th>
                     <th style="width:20%">SubTotal</th>
+                    <th style="width:20%">Envio</th>
                     <th style="width:20%">Factura</th>
 
                     
@@ -115,15 +116,25 @@
 
                   
 
-                        <td>   <% for (var b = 0; b < ProductosComprados.length; b++) { %> <%=ProductosComprados[b].nombre%> <br><% } %> </td>
+                        <td>   <% for (var b = 0; b < ProductosComprados.length; b++) { %><%=[b+1] +":"%> <%=ProductosComprados[b].nombre%> <br><% } %> </td>
                         <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=ProductosComprados[b].precio%> <br><% } %>  </td>
                         <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %><%=ProductosComprados[b].cantidad%><br><% } %></td>
                         
-    
-                    <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=SubTotal[b]%> <% } %> </td>
-                    <td>
-                    
-                            <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
+                        <!--<%=SubTotal[b]%>-->
+                    <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> <% var SubTotal = ProductosComprados[b].precio * ProductosComprados[b].cantidad %> $<%=SubTotal%><% } %>  </td>
+                      <td> 
+                       
+
+                        <button class="edit-btn" onclick="openPopup(`<%= compra.docs[a].Id_transaccion%>`)">Editar</button>
+
+                        <br><br>
+
+<span class="estatus-envio"><%= compra.docs[a].EstatusEnvio %></span>
+                      </td>
+
+                      <td>
+
+                        <a class="factura-link" href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
                             
                         </td>
                 </tr>
@@ -158,6 +169,7 @@
         
 
     <td> <% for (var b = 0; b < ProductosComprados.length; b++) { %> $<%=SubTotal[b]%> <% } %> </td>
+
     <td>
 
         <a href="/factura?IdTrans=<%=compra.docs[a].Id_transaccion%>">Factura</a>
@@ -242,6 +254,95 @@
       }
     }
   </script> 
+ 
+<script>
+  function openPopup(id) {
+  fetch(`/popup/${id}`)
+    .then(response => response.text())
+    .then(html => {
+      const popup = document.createElement('div');
+      popup.innerHTML = html;
+      document.body.appendChild(popup);
+      const closeBtn = popup.querySelector('.close-btn');
+      closeBtn.addEventListener('click', () => {
+        popup.remove();
+      });
+    });
+}
+</script>
+
+<style>
+.estatus-envio {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: #333;
+  background-color: #f7f7f7;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  box-shadow: 0 0 0.3em rgba(0, 0, 0, 0.1);
+  border: 2px solid #f00; /* agregamos un borde sólido rojo de 2 píxeles */
+}
+
+
+  .popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.close-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+}
+.edit-btn, .factura-link {
+  display: inline-block; /* display elements inline */
+  vertical-align: middle; /* align elements vertically */
+  padding: 5px 10px; /* add padding */
+  border-radius: 5px; /* round corners */
+  cursor: pointer; /* add cursor on hover */
+  transition: background-color 0.3s ease; /* add transition effect */
+}
+
+.edit-btn {
+  background-color: #4CAF50; /* set background color */
+  color: white; /* set text color */
+  border: none; /* remove border */
+}
+
+.edit-btn:hover {
+  background-color: #3e8e41; /* change background color on hover */
+}
+
+.factura-link {
+  background-color: #2196F3; /* set background color */
+  color: white; /* set text color */
+  text-decoration: none; /* remove underline */
+}
+
+.factura-link:hover {
+  background-color: #0c7cd5; /* change background color on hover */
+}
+
+</style>
 
 </body>
 </html>
+

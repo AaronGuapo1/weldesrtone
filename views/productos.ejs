@@ -66,6 +66,10 @@
                                                 <input type="text" class="form-control" id="unidad" name="unidad" placeholder="Unidad">
                                                 <label for="unidad">Unidad</label>
                                             </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="number" class="form-control" id="iva" name="iva" placeholder="iva" min="0">
+                                                <label for="iva">Iva</label>
+                                            </div>
                                         </div>
                                         <div class="col-6">
                                             <!-- Familia -->
@@ -85,6 +89,12 @@
                                                 <input class="form-control" type="file" id="image" name="image">
                                             </div>
                                             <div>
+
+                                                <div class="checkbox-wrapper">
+                                                    <input type="checkbox" id="mi-checkbox" name="Activo" value=true>
+                                                    <label for="mi-checkbox">Activo</label>
+                                                  </div>
+                                                  
                                                 <!-- Si puedes aqui abajo haz que aparezca la imagen -->
 
 
@@ -488,5 +498,53 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+        <style>
+            /* estilo para el checkbox */
+            .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: sans-serif;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  appearance: none;
+  outline: none;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+input[type="checkbox"]:checked {
+  border-color: #007bff;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #007bff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+input[type="checkbox"]:checked::before {
+  opacity: 1;
+}
+
+label {
+  cursor: pointer;
+}
+
+        </style>
     </body>
 </html>

@@ -59,8 +59,19 @@
                                 <h5>Familia: <%= productoEditar.familia %></h5>
                                 <input type="text" class="form-control" placeholder="Familia" name="Familia">
                             </div>
+                            <div>
+                                <h5>Iva: $<%= productoEditar.iva %></h5>
+                                <input type="number" class="form-control" placeholder="Iva" name="Iva" min="0">
+                            </div>
+                            <br>
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="mi-checkbox" name="Activo" value="true">
+                                <label for="mi-checkbox">Activo</label>
+                              </div>
                         </div>
-    
+
+
+                          
                         <div class="col-7 ps-5">
                             <div class="mb-3">
                                 <div class="row mb-2">
@@ -473,6 +484,63 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="/js/editarProducto.js"></script>
+        <style>
+                        /* estilo para el checkbox */
+                        .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: sans-serif;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  appearance: none;
+  outline: none;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+input[type="checkbox"]:checked {
+  border-color: #007bff;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #007bff;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+input[type="checkbox"]:checked::before {
+  opacity: 1;
+}
+
+label {
+  cursor: pointer;
+}
+
+        </style>
+        <script>
+            var checkbox = document.getElementById('mi-checkbox');
+var checkboxValue = "<%= productoEditar.Activo %>"
+console.log(checkboxValue)
+// Verificar si el valor del checkbox está presente y marcar el checkbox si es así
+if (checkboxValue === "true" ) {
+  checkbox.checked = true;
+}
+        </script>
     </body>
 </html>
 

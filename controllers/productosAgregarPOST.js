@@ -12,6 +12,8 @@ const BusquedaNombre = await Producto
     if (BusquedaNombre === 0) {
    
     await Producto.create({...req.body});
+
+    
 /*
     await Producto.updateOne({IdProducto: req.body.IdProducto}, {IdProducto: req.body.IdProducto.trim()})
     await Producto.updateOne({familia: req.body.familia}, {familia: req.body.familia.toLowerCase()});
@@ -97,6 +99,7 @@ var sumaInsumos3Por = ((sumaInsumos * productos[0].PorcentajeInstalacion)/100) +
 
 var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
 var SubTotal=Number(x.toFixed(2))
+SubTotal = SubTotal + productos[0].iva
 
 
 await Producto.updateOne({_id:productos[0]._id},{ $set: { precio:SubTotal } });
