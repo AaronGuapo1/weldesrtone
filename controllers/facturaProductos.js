@@ -71,11 +71,12 @@ const codigo = productodatos[0].codigo
 
 var imagen;
 
-if( productodatos[0].image !== ""){
+if(productodatos[0].image === "" || productodatos[0].image === undefined){
+
+    imagen = '/images/productos/PorDefecto.jpg'
+}else{
     imagen = productodatos[0].image.toString()
 
-}else{
-     imagen = '/images/productos/PorDefecto.jpg'
 }
 
 const productosMaterialesDescripcion =[];
@@ -528,10 +529,14 @@ var Total3 = InstalacionSuma+ ManoObInstalacion1+ManoObInstalacion2
 const Total3R = Number(Total3).toFixed(2)
 //.toFixed(2)
 
+const iva = productodatos[0].iva
 
-const SubTotal = Total1+ Total2 +Total3
+const SubTotal = Total1+ Total2 +Total3 
 
 const SubTotalR = Number(SubTotal).toFixed(2)
+
+const TotalFinal = Number(SubTotalR) +Number(iva)
+
 
        let docDefinition ={
     content :[
@@ -586,6 +591,9 @@ const SubTotalR = Number(SubTotal).toFixed(2)
                     [{fontSize:11,text:" "}, " "," ","Porcentaje", PorcentajeInstalacion+"%",ManoObInstalacion2R],
                     [{fontSize:11,text:" "}, " "," ","", "Total",Total3R ],
                     [{fontSize:11,text:" "}, " "," ","", "Subtotal",SubTotalR ],
+                    [{fontSize:11,text:" "}, " "," ","", "Iva",iva],
+                    [{fontSize:11,text:" "}, " "," ","", "Total",TotalFinal ],
+
 
 				]
 			},

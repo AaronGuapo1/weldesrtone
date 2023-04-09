@@ -5,7 +5,7 @@ const mongoosePaginate= require('mongoose-paginate-v2')
 
 const CompraSchema = new Schema({
 
-    ProductosComprados:[{nombre:{type:String},precio:{type:Number},cantidad:{type:Number},image:{type:String},unidad:{type:String},codigo:{type:String}}], //Ok
+    ProductosComprados:[{nombre:{type:String},precio:{type:Number},cantidad:{type:Number},image:{type:String},unidad:{type:String},codigo:{type:String},iva:{type:Number}}], //Ok
     PrecioTotal:{type:Number}, //Ok
     DireccionEnvio:{type:String}, 
     Nombre_comprador:{type:String}, //Ok
@@ -26,7 +26,7 @@ const CompraSchema = new Schema({
     Ciudad:{type:String},
     CodigoPostal:{type:Number},
     Extra:{type:String},
-    EstatusEnvio:{type:String,default:"Pendiente"}
+    EstatusEnvio:{type:String,default:"Pendiente"},
 
 
 

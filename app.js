@@ -11,6 +11,12 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 const MicrosoftStrategy = require("passport-microsoft").Strategy;
 const cors = require("cors");
 const mercadopago = require("mercadopago");
+//Whatsapp
+const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
+const authToken = '151c6e6e8208a322e2bdde2210cf7ee7';
+const client = require('twilio')(accountSid, authToken);
+const path = require('path');
+
 
 // ---------------- MODELS ---------------- //
 const User = require("./models/User.js");
@@ -71,8 +77,9 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/welderstone",
+            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
         },
+        //http://localhost:3000/auth/google/welderstone
         //http://localhost:3000/auth/google/welderstone
         function (accessToken, refreshToken, profile, cb) {
             User.findOrCreate(
@@ -386,6 +393,42 @@ app.get(
         res.redirect("/");
     }
 );
+
+
+/*
+const filePath = 'pdfs/'+IdTransaccion+'.pdf';
+
+// Obtener la ruta absoluta del archivo PDF
+const absolutePath = path.resolve(filePath);
+
+// Generar la URL del archivo PDF
+const fileUrl = url.format({
+  pathname: absolutePath,
+  protocol: 'https', // o 'http', dependiendo del protocolo que esté utilizando
+  slashes: true
+});
+const UrlEnviar = fileUrl.toString();
+console.log(UrlEnviar)
+*/
+
+//Whatsapp
+
+
+const UrlEnviar = 'https://localhost:3000/pdfs/1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf'
+const prueba = 'https://welderstoneprueba.onrender.com/pdfs/1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf'
+app.use("/Whatsapp", async (req,res)=>{
+    client.messages
+    .create({
+        body: prueba,
+        from: 'whatsapp:+14155238886',
+        to: 'whatsapp:+5218715634557'
+    })
+    .then(message => console.log(message.sid))
+.catch(error => console.log(error));
+
+})
+
+
 
 //PDF
 app.use("/pdfDescargar", pdfDescargar);
