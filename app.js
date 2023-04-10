@@ -16,7 +16,8 @@ const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
 const authToken = 'eed9165d3d08b83a10a70deaf64ce594';
 const client = require('twilio')(accountSid, authToken);
 const path = require('path');
-
+const fs = require('fs');
+const nodemailer = require('nodemailer');
 
 // ---------------- MODELS ---------------- //
 const User = require("./models/User.js");
@@ -395,7 +396,7 @@ app.get(
 );
 
 
-
+/*
 //const filePath = 'pdfs/'+IdTransaccion+'.pdf';
 
 const relativePath = '.pdfs\1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf';
@@ -413,23 +414,50 @@ const fileUrl = url.format({
 
 //Whatsapp
 
-/*
-const UrlEnviar = 'https://localhost:3000/pdfs/1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf'
-const prueba = 'https://welderstoneprueba.onrender.com/pdfs/1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf'
+const pdf = fs.readFileSync('./pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf');
 
-*/
+console.log(pdf)
 
-console.log(fileUrl)
 app.use("/Whatsapp", async (req,res)=>{
     client.messages
     .create({
-        body: `${fileUrl}`,
+        body: pdf,
         from: 'whatsapp:+14155238886',
         to: 'whatsapp:+5218715634557'
     })
     .then(message => console.log(message.sid))
 .catch(error => console.log(error));
 
+})
+*/
+
+
+app.use("/Email", async (req,res)=>{
+// Configurar el transporte de correo electrónico
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'mraaronrodriguez373@gmail.com',
+        pass: 'uqoqkszhljdbdjpv'
+    }
+});
+
+// Configurar las opciones del correo electrónico
+const mailOptions = {
+    from: 'mraaronrodriguez373@gmail.com',
+    to: 'juanitperez8c@gmail.com',
+    subject: 'Asunto del correo electrónico',
+    text: 'Contenido del correo electrónico'
+};
+
+// Enviar el correo electrónico
+transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Correo electrónico enviado: ' + info.response);
+    }
+});
 })
 
 
@@ -511,3 +539,24 @@ app.use((req, res) => res.render("notfound"));
 app.listen(3000, () => {
     console.log("App listening on port 3000");
 });
+
+
+/*
+
+  // Leer el archivo PDF en una variable Buffer
+  const pdf = fs.readFileSync('pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf');
+  
+  // Opciones de envío de correo electrónico
+  const mailOptions = {
+    from: 'mraaronrodriguez373@gmail.com',
+    to: 'mraaronrodriguez373@gmail.com',
+    subject: 'Asunto del correo electrónico',
+    text: 'Contenido del correo electrónico',
+    /*
+    attachments: [{
+      filename: 'archivo.pdf',
+      content: pdf
+    }]
+   
+};
+*/
