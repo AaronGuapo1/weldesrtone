@@ -13,7 +13,7 @@ const cors = require("cors");
 const mercadopago = require("mercadopago");
 //Whatsapp
 const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
-const authToken = '151c6e6e8208a322e2bdde2210cf7ee7';
+const authToken = 'eed9165d3d08b83a10a70deaf64ce594';
 const client = require('twilio')(accountSid, authToken);
 const path = require('path');
 
@@ -395,11 +395,13 @@ app.get(
 );
 
 
-/*
-const filePath = 'pdfs/'+IdTransaccion+'.pdf';
+
+//const filePath = 'pdfs/'+IdTransaccion+'.pdf';
+
+const relativePath = '.pdfs\1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf';
 
 // Obtener la ruta absoluta del archivo PDF
-const absolutePath = path.resolve(filePath);
+const absolutePath = path.resolve(relativePath);
 
 // Generar la URL del archivo PDF
 const fileUrl = url.format({
@@ -407,19 +409,21 @@ const fileUrl = url.format({
   protocol: 'https', // o 'http', dependiendo del protocolo que esté utilizando
   slashes: true
 });
-const UrlEnviar = fileUrl.toString();
-console.log(UrlEnviar)
-*/
+
 
 //Whatsapp
 
-
+/*
 const UrlEnviar = 'https://localhost:3000/pdfs/1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf'
 const prueba = 'https://welderstoneprueba.onrender.com/pdfs/1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf'
+
+*/
+
+console.log(fileUrl)
 app.use("/Whatsapp", async (req,res)=>{
     client.messages
     .create({
-        body: prueba,
+        body: `${fileUrl}`,
         from: 'whatsapp:+14155238886',
         to: 'whatsapp:+5218715634557'
     })
