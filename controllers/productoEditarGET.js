@@ -18,7 +18,6 @@ module.exports = async (req, res) => {
         const producto = await Producto.find({ _id: req.params.Id });
 
         //insertar todos los maetriales menos los que ya tengo.
-
         for (j = 0; j < materiales.length; j++) {
             for (i = 0; i < producto[0].MaterialesProductos.length; i++) {
                 if (
@@ -27,6 +26,7 @@ module.exports = async (req, res) => {
                 ) {
                     materiales1[j].cantidad =
                         producto[0].MaterialesProductos[i].cantidad;
+   
                 }
             }
         }
@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
                 ) {
                     materiales2[j].cantidad =
                         producto[0].PinturaProductos[i].cantidad;
+
                 }
             }
         }
@@ -54,13 +55,14 @@ module.exports = async (req, res) => {
                 ) {
                     materiales3[j].cantidad =
                         producto[0].InstalacionProductos[i].cantidad;
+
                 }
             }
         }
 
         producto[0].InstalacionProductos = materiales3;
 
-        console.log(materiales3)
+console.log(producto[0].MaterialesProductos)
 
         res.render("productoEditar", {
             productoEditar: producto[0],

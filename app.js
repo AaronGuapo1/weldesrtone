@@ -78,10 +78,10 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
+            callbackURL: "http://localhost:3000/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
-        //http://localhost:3000/auth/google/welderstone
+        //https://welderstoneprueba.onrender.com/auth/google/welderstone
         function (accessToken, refreshToken, profile, cb) {
             User.findOrCreate(
                 { googleId: profile.id },
@@ -432,22 +432,28 @@ app.use("/Whatsapp", async (req,res)=>{
 */
 
 
-app.get("/Email", async (req,res)=>{
+app.use("/Email", async (req,res)=>{
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 // Configurar el transporte de correo electrónico
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: 'mraaronrodriguez373@gmail.com',
-        pass: 'uqoqkszhljdbdjpv'
+        pass: 'nggokwzynambmfji'
     }
 });
+const pdf = fs.readFileSync('pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf');
 
 // Configurar las opciones del correo electrónico
 const mailOptions = {
     from: 'mraaronrodriguez373@gmail.com',
     to: 'juanitperez8c@gmail.com',
     subject: 'Asunto del correo electrónico',
-    text: 'Contenido del correo electrónico'
+    text: 'Contenido del correo electrónico',
+    attachments: [{
+        filename: 'archivo.pdf',
+        content: pdf
+      }]
 };
 
 // Enviar el correo electrónico
@@ -541,22 +547,3 @@ app.listen(3000, () => {
 });
 
 
-/*
-
-  // Leer el archivo PDF en una variable Buffer
-  const pdf = fs.readFileSync('pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf');
-  
-  // Opciones de envío de correo electrónico
-  const mailOptions = {
-    from: 'mraaronrodriguez373@gmail.com',
-    to: 'mraaronrodriguez373@gmail.com',
-    subject: 'Asunto del correo electrónico',
-    text: 'Contenido del correo electrónico',
-    /*
-    attachments: [{
-      filename: 'archivo.pdf',
-      content: pdf
-    }]
-   
-};
-*/

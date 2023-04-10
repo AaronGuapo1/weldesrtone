@@ -5,7 +5,6 @@ const material = require('../models/materiales.js');
 module.exports = async (req,res)=>{   
 
 
-
 const BusquedaNombre = await Producto
         .find({ nombre: req.body.nombre })
         .count();

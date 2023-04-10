@@ -72,9 +72,11 @@
                                             </div>
                                         </div>
                                         <div class="col-6">
-                                            <!-- Familia -->
-                                            <select class="form-select mb-2" aria-label="Default select example" id="familia" name="familia" required>
-                                                <option selected>Familia</option>
+                                         <div style="position: relative; top: -20px; left: -20px;">
+                                                        <label>
+                                                <input mbsc-input id="demo-multiple-select-input" placeholder="Familias" data-dropdown="true" data-input-style="outline" data-label-style="stacked" data-tags="true" />
+                                            </label>
+                                            <select id="demo-multiple-select" name="familia" multiple size ="2">
                                                 <option value="hogar">Hogar</option>
                                                 <option value="industria">Industria</option>
                                                 <option value="urbanismo">Urbanismo</option>
@@ -82,6 +84,10 @@
                                                 <option value="construccion y reciclados">Construccion y Reciclados</option>
                                                 <option value="especiales">Especiales</option>
                                             </select>
+       
+                                        </div>
+
+ 
 
                                             <!-- Imagen -->
                                             <div class="mb-3">
@@ -498,6 +504,26 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- FontAwesome-->
         <script src="https://kit.fontawesome.com/360b0549be.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/mobiscroll.javascript.min.css">
+
+        <script src="js/multiple.js"></script>
+        <script>
+
+mobiscroll.setOptions({
+        locale: mobiscroll.localeEs,                                         // Specify language like: locale: mobiscroll.localePl or omit setting to use default
+        theme: 'ios',                                                        // Specify theme like: theme: 'ios' or omit setting to use default
+        themeVariant: 'light'                                                // More info about themeVariant: https://docs.mobiscroll.com/5-20-1/javascript/select#opt-themeVariant
+    });
+    
+    mobiscroll.select('#demo-multiple-select', {
+        inputElement: document.getElementById('demo-multiple-select-input')  // More info about inputElement: https://docs.mobiscroll.com/5-20-1/javascript/select#opt-inputElement
+    });
+
+                    </script>
+
+
+
+
         <style>
             /* estilo para el checkbox */
             .checkbox-wrapper {
@@ -545,6 +571,9 @@ label {
   cursor: pointer;
 }
 
+
         </style>
+
+
     </body>
 </html>
