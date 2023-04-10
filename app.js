@@ -432,7 +432,7 @@ app.use("/Whatsapp", async (req,res)=>{
 */
 
 
-app.use("/Email", async (req,res)=>{
+app.get("/Email", async (req,res)=>{
 // Configurar el transporte de correo electrónico
 const transporter = nodemailer.createTransport({
     service: 'gmail',
