@@ -12,10 +12,14 @@ const MicrosoftStrategy = require("passport-microsoft").Strategy;
 const cors = require("cors");
 const mercadopago = require("mercadopago");
 //Whatsapp
+const axios = require('axios');
 const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
-const authToken = 'eed9165d3d08b83a10a70deaf64ce594';
+const authToken = '50916eb37471068f10c54bac8ed9e143';
 const client = require('twilio')(accountSid, authToken);
 const path = require('path');
+
+
+
 const fs = require('fs');
 const nodemailer = require('nodemailer');
 
@@ -78,7 +82,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/welderstone",
+            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
@@ -170,11 +174,12 @@ passport.use(
 // ---------------- DATABASE ---------------- //
 mongoose.set("strictQuery", true);
 mongoose.connect(
-    "mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone",
+    "mongodb://localhost:27017/Woolderstone",
     { useNewUrlParser: true }
 );
 //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 //mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
+//mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone,
 
 const inicioController = require("./controllers/inicio");
 const tiendaController = require("./controllers/tienda");
@@ -223,6 +228,8 @@ const FiltroEnvios = require("./controllers/FiltroEnvios")
 //global.CantidadCarro = await cart.find({}).count()
 
 mercadopago.configure({
+
+
     access_token:
         "APP_USR-3363834709709437-021123-c67d96e1feb214bee0c7a3da3817a59f-1307218136",
 });
@@ -301,6 +308,70 @@ app.post("/create_preference", async (req, res) => {
         .catch(function (error) {
             console.log(error);
         });
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+//Whatsapp
+
+//        from: 'whatsapp:+14155238886',
+
+//pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf
+
+app.use("/Whatsapp", async (req,res)=>{
+
+
+    const FormData = require('form-data');
+    
+    const pdfFilePath = './pdfs/ceguera.pdf';
+    //https://welderstoneprueba.onrender.com/upload'
+    const formData = new FormData();
+    formData.append('pdf', fs.createReadStream(pdfFilePath));
+    axios.post('https://welderstoneprueba.onrender.com/upload', formData, {
+      headers: formData.getHeaders()
+    }).then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.error(error);
+    });
+
+
+    /*
+    client.messages
+    .create({
+      from: 'whatsapp:+14155238886',
+      body: 'Aquí está el archivo PDF',
+      to: 'whatsapp:+5218715634557',
+    })
+    .then((message) => console.log(message.sid))
+    .catch((error) => console.log(error));
+*/
+
+
+
+
+})
+
+
+
+
+app.post("/cotizacion", async (req, res) => {
+
+
+
+
+    console.log(req.body);
+
 });
 
 app.get('/feedback', async function(request, response) {
@@ -396,40 +467,9 @@ app.get(
 );
 
 
-/*
-//const filePath = 'pdfs/'+IdTransaccion+'.pdf';
-
-const relativePath = '.pdfs\1307218136-8bd3d306-4e38-42c7-b724-bb25b7b32cff.pdf';
-
-// Obtener la ruta absoluta del archivo PDF
-const absolutePath = path.resolve(relativePath);
-
-// Generar la URL del archivo PDF
-const fileUrl = url.format({
-  pathname: absolutePath,
-  protocol: 'https', // o 'http', dependiendo del protocolo que esté utilizando
-  slashes: true
-});
 
 
-//Whatsapp
 
-const pdf = fs.readFileSync('./pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf');
-
-console.log(pdf)
-
-app.use("/Whatsapp", async (req,res)=>{
-    client.messages
-    .create({
-        body: pdf,
-        from: 'whatsapp:+14155238886',
-        to: 'whatsapp:+5218715634557'
-    })
-    .then(message => console.log(message.sid))
-.catch(error => console.log(error));
-
-})
-*/
 
 
 app.use("/Email", async (req,res)=>{

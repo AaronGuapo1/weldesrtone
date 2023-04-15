@@ -26,7 +26,7 @@ if (BuscarPrimero === 0)
        const {ProductosComprados} =PdfDescargar[0];
        var ProductosAgregar = [];
        var Almacen;
-console.log(req.query.nombre)
+console.log(req.query.codigo)
     Almacen = await Product.find({codigo:req.query.codigo})
 
     ProductosAgregar.push(Almacen)
