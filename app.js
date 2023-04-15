@@ -12,10 +12,7 @@ const MicrosoftStrategy = require("passport-microsoft").Strategy;
 const cors = require("cors");
 const mercadopago = require("mercadopago");
 //Whatsapp
-const axios = require('axios');
-const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
-const authToken = '50916eb37471068f10c54bac8ed9e143';
-const client = require('twilio')(accountSid, authToken);
+
 const path = require('path');
 
 
@@ -328,35 +325,39 @@ app.post("/create_preference", async (req, res) => {
 
 //pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf
 
-app.use("/Whatsapp", async (req,res)=>{
+app.get("/whatsapp", async (req,res)=>{
+//https://welderstoneprueba.onrender.com
+//http://localhost:3000
+    const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
+    const authToken = '9068439772b7b79b98cb3b1d86e2aa54';
+    const client = require('twilio')(accountSid, authToken);
+
+    const request = require('request');
 
 
-    const FormData = require('form-data');
-    
-    const pdfFilePath = './pdfs/ceguera.pdf';
-    //https://welderstoneprueba.onrender.com/upload'
-    const formData = new FormData();
-    formData.append('pdf', fs.createReadStream(pdfFilePath));
-    axios.post('https://welderstoneprueba.onrender.com/upload', formData, {
-      headers: formData.getHeaders()
-    }).then(response => {
-      console.log(response.data);
-    }).catch(error => {
-      console.error(error);
-    });
+    const archivo = fs.readFileSync('pdfs/ceguera.pdf');
+    const archivoBuffer = Buffer.from(archivo);
+
+    request.post({
+        url: 'https://welderstoneprueba.onrender.com/subir',
+        body: archivoBuffer
+      }, (error, response, body) => {
+        if (error) {
+          console.error(error);
+        } else {
+          console.log(body);
+        }
+      });
 
 
-    /*
     client.messages
-    .create({
-      from: 'whatsapp:+14155238886',
-      body: 'Aquí está el archivo PDF',
-      to: 'whatsapp:+5218715634557',
-    })
-    .then((message) => console.log(message.sid))
-    .catch((error) => console.log(error));
-*/
-
+      .create({
+        from: 'whatsapp:+14155238886',
+        body: 'Aquí está el archivo PDF',
+        to: 'whatsapp:+528715634557'
+      })
+      .then((message) => console.log(message.sid))
+      .catch((error) => console.log(error));
 
 
 

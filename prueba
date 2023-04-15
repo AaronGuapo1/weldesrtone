@@ -366,3 +366,28 @@ client.messages
 .catch(error => console.log(error));
 
 
+const FormData = require('form-data');
+    
+const pdfFilePath = './pdfs/ceguera.pdf';
+//https://welderstoneprueba.onrender.com/upload'
+const formData = new FormData();
+formData.append('pdf', fs.createReadStream(pdfFilePath));
+axios.post('https://welderstoneprueba.onrender.com/upload', formData, {
+  headers: formData.getHeaders()
+}).then(response => {
+  console.log(response.data);
+}).catch(error => {
+  console.error(error);
+});
+
+
+/*
+client.messages
+.create({
+  from: 'whatsapp:+14155238886',
+  body: 'Aquí está el archivo PDF',
+  to: 'whatsapp:+5218715634557',
+})
+.then((message) => console.log(message.sid))
+.catch((error) => console.log(error));
+*/
