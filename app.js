@@ -332,22 +332,34 @@ app.get("/whatsapp", async (req,res)=>{
     const authToken = '9068439772b7b79b98cb3b1d86e2aa54';
     const client = require('twilio')(accountSid, authToken);
 
-    const request = require('request');
 
 
     const archivo = fs.readFileSync('pdfs/ceguera.pdf');
     const archivoBuffer = Buffer.from(archivo);
 
+    const request = require('request');
+
     request.post({
-        url: 'https://welderstoneprueba.onrender.com/subir',
-        body: archivoBuffer
+        url: 'https://welderstoneprueba.onrender.com/whatsapp',
+        formData: {
+          archivo: {
+            value: archivoBuffer,
+            options: {
+              filename: 'archivo.pdf',
+              contentType: 'application/pdf'
+            }
+          }
+        }
       }, (error, response, body) => {
         if (error) {
           console.error(error);
         } else {
-          console.log(body);
+          const urlArchivo = JSON.parse(body).url;
+          console.log(urlArchivo);
+console.log("hola")
         }
       });
+
 
 
     client.messages
@@ -362,9 +374,6 @@ app.get("/whatsapp", async (req,res)=>{
 
 
 })
-
-
-
 
 app.post("/cotizacion", async (req, res) => {
 
