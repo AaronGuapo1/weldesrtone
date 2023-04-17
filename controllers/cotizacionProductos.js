@@ -8,14 +8,7 @@ const Product = require("../models/Productos");
 const Material = require('../models/materiales.js');
 
 module.exports = async (req, res) =>{
-const BuscarPrimero =await Product.find({codigo:req.query.codigo}).count()
-if (BuscarPrimero === 0)
-{
-    res.send(`<script>alert("Esta cotización ha caducado")
-    window.location.href='/';
-    </script>`);
 
-}
        const IdTransaccion = req.query.IdTrans
        console.log( req.query.IdTrans)
        const materiales= await Material.find({})
@@ -23,13 +16,13 @@ if (BuscarPrimero === 0)
        const {ProductosComprados} =PdfDescargar[0];
        var ProductosAgregar = [];
        var Almacen;
-console.log(req.query.codigo)
     Almacen = await Product.find({codigo:req.query.codigo})
 
     ProductosAgregar.push(Almacen)
 
 //const ProductoDatos = await Compra.find({})
-//console.log(ProductosAgregar[0][0])
+
+console.log(ProductosAgregar[0][0])
 
 
 var productodatos =[];
@@ -749,10 +742,12 @@ const TotalFinal = Number(SubTotalR) +Number(iva)
        const IdUsuario = req.session.passport.user.id;
        const IdTransaccion = req.query.IdTrans
        const cotizaciones = await Cotizaciones.find({})
-    res.render('cotizacionProducto',{IdUsuario, cotizaciones, roles: role,loggedIn: true,IdTransaccion})
+const ProductoParaCotizar = ProductosAgregar[0][0]
+    res.render('cotizacionProducto',{IdUsuario, cotizaciones, roles: role,loggedIn: true,IdTransaccion,productodatos,ProductoParaCotizar})
       
 }
 
 
 
 }
+

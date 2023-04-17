@@ -1,5 +1,7 @@
 const Producto = require('../models/Productos.js');
 const Cart = require("../models/Cart");
+const User = require("../models/User.js")
+
 module.exports = async (req, res) =>{
     let role = "viewer";
     let logged = false; 
@@ -19,8 +21,9 @@ module.exports = async (req, res) =>{
       Total = Total + (Sumas[i].precio * Sumas[i].amount);
      }
 
+     const usuarios= await User.find({_id:req.session.passport.user.id})
 
-    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario,HayProductoUsuario,SubTotal, Total,Sumas});
+    res.render('cart',{productos,cart,roles: role, loggedIn: logged,IdUsuario,HayProductoUsuario,SubTotal, Total,Sumas,usuarios});
 
 
 }

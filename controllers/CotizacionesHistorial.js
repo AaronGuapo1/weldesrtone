@@ -1,0 +1,15 @@
+const User = require("../models/User.js")
+
+module.exports = async (req, res) => {
+
+    let role = "viewer";
+    let logged = false; 
+    if(req.session?.passport?.user != undefined){
+        const IdUsuario =req.session.passport.user.id;
+        role = req.session.passport.user.role;
+        logged = true;
+   
+   res.render('CotizacionesHistorial',{roles: role, IdUsuario, loggedIn: logged})
+}
+}
+

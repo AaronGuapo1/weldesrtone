@@ -79,7 +79,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
+            callbackURL: "http://localhost:3000/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
@@ -216,10 +216,14 @@ const FiltrosCompras2 = require("./controllers/FiltrosCompras2");
 const PanelUsuarios = require("./controllers/PanelUsuarios");
 const Roles = require("./controllers/Roles");
 const facturaProductos = require('./controllers/facturaProductos');
+const cotizacionProductos = require('./controllers/cotizacionProductos');
 const envios = require("./controllers/Envios.js");
 const infoEnvios = require("./controllers/infoEnvios");
 const FiltroEnviosPost = require("./controllers/FiltroEnviosPost")
 const FiltroEnvios = require("./controllers/FiltroEnvios")
+const cotizacion = require("./controllers/cotizacion")
+const CotizacionesHistorial = require("./controllers/CotizacionesHistorial")
+
 // MercadoPago
 
 //global.CantidadCarro = await cart.find({}).count()
@@ -289,6 +293,7 @@ app.post("/create_preference", async (req, res) => {
                                 image: req.body.image[a],
                                 unidad: req.body.unidad[a],
                                 codigo: req.body.codigo[a],
+                                iva: req.body.iva[a],
                             },
                         },
                     }
@@ -313,76 +318,52 @@ app.post("/create_preference", async (req, res) => {
 
 
 
-
-
-
-
-
-
-//Whatsapp
-
-//        from: 'whatsapp:+14155238886',
-
-//pdfs/1307218136-2ea5ca3e-db15-4315-a560-8b8779b4eefc.pdf
-
 app.get("/whatsapp", async (req,res)=>{
-//https://welderstoneprueba.onrender.com
-//http://localhost:3000
+
     const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
     const authToken = '9068439772b7b79b98cb3b1d86e2aa54';
     const client = require('twilio')(accountSid, authToken);
 
+    const AWS = require('aws-sdk');
+    const s3 = new AWS.S3({
+      accessKeyId: 'AKIARRM62T4IL5PITGVR',
+      secretAccessKey: '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'
+    });
 
+    const fileContent = fs.readFileSync('./pdfs/ceguera.pdf');  
 
-    const archivo = fs.readFileSync('pdfs/ceguera.pdf');
-    const archivoBuffer = Buffer.from(archivo);
-
-    const request = require('request');
-
-    request.post({
-        url: 'https://welderstoneprueba.onrender.com/whatsapp',
-        formData: {
-          archivo: {
-            value: archivoBuffer,
-            options: {
-              filename: 'archivo.pdf',
-              contentType: 'application/pdf'
-            }
-          }
-        }
-      }, (error, response, body) => {
-        if (error) {
-          console.error(error);
+      const params = {
+        Bucket: 'welderstonebucket',
+        Key: 'ceguera.pdf',
+        Body: fileContent
+      };
+      
+      s3.putObject(params, function(err, data) {
+        if (err) {
+          console.error(err);
         } else {
-          const urlArchivo = JSON.parse(body).url;
-          console.log(urlArchivo);
-console.log("hola")
-        }
-      });
+          const url = s3.getSignedUrl('getObject', { Bucket: 'welderstonebucket', Key: 'ceguera.pdf', Expires: 120 });
+       
+      //console.log(` ${url}`);
 
-
-
-    client.messages
+      client.messages
       .create({
         from: 'whatsapp:+14155238886',
-        body: 'Aquí está el archivo PDF',
-        to: 'whatsapp:+528715634557'
+        body: `${url}`,
+        to: 'whatsapp:+5218715634557',
       })
       .then((message) => console.log(message.sid))
       .catch((error) => console.log(error));
 
+    }
+});
 
+      
 
 })
 
-app.post("/cotizacion", async (req, res) => {
 
-
-
-
-    console.log(req.body);
-
-});
+app.post("/cotizacion", cotizacion)
 
 app.get('/feedback', async function(request, response) {
     const Compra = require("./models/compra");
@@ -558,6 +539,10 @@ app.use("/FiltrosCompras", FiltrosCompras);
 app.use("/FiltrosCompras2", FiltrosCompras2);
 app.get('/facturaProductos', facturaProductos)
 
+//cotizaciones
+app.get("/cotizacionProductos",cotizacionProductos)
+app.get("/CotizacionesHistorial", CotizacionesHistorial);
+
 //usuarios
 app.get("/PanelUsuarios", PanelUsuarios);
 app.use("/Roles", Roles);
@@ -570,6 +555,7 @@ app.get("/envios",envios)
 app.use("/FiltroEnvios",FiltroEnvios)
 app.post("/infoEnvios",infoEnvios)
 app.post("/FiltroEnviosPost",FiltroEnviosPost)
+
 app.get('/popup/:id',async (req, res) => {
 const compra = require('./models/compra')
 let role = "viewer";
@@ -588,6 +574,10 @@ if(req.session?.passport?.user != undefined){
 
 
   });
+
+ 
+
+
 app.use((req, res) => res.render("notfound"));
 
 

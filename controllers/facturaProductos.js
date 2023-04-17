@@ -1,6 +1,3 @@
-
-
-
 const Compra = require("../models/compra");
 const pdfDescargar = require('../controllers/descargar')
 const PdfPrinter = require("pdfmake")

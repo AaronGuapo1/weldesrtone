@@ -46,7 +46,9 @@ a {
 
 }
 
-.btn1{
+.btn{
+
+
 }
 .btn2{
   margin-left:50px;
@@ -58,6 +60,13 @@ a {
   margin-top:-56px;
 
 
+ }
+ .hola{
+  margin-left:380px;
+  margin-top:-53px;
+ }
+ .hola2{
+  margin-left:200px;
  }
  @import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
