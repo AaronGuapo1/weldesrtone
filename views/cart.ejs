@@ -67,7 +67,13 @@
                     <td> <%=Sumas[a].nombre%></td>
                     <td class="text-center">$<%=Sumas[a].precio%></td>
                     <td class="text-center"><%=Sumas[a].amount%></td>
-                    <td class="text-center">$<%=SubTotal[a]%></td>
+                    <td class="text-center">$<% 
+                      var num1 = Sumas[a].precio;
+                      var num2 = Sumas[a].amount;
+                      var resultado = num1 * num2;
+                      var resultadoFixed= resultado.toFixed(2)
+                    %><%= resultadoFixed%>
+                    </td>
                     <td>
                         <form action="/products-cart/<%=Sumas[a].nombre%>?query=add" method="POST">
                             <input type="hidden" name="amount" value="<%=Sumas[a].amount%>">  
@@ -103,7 +109,9 @@
 </div>
 <div class="row mt-5">
     <div class="col-md-8 offset-md-2">
-        <strong>Total: $<%=Total%> </strong>
+        <strong>Total: $<% 
+          var TotalFixed = Total.toFixed(2);
+        %><%= TotalFixed%> </strong>
     </div>
 </div>
 <hr>

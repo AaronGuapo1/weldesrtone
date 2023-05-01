@@ -420,3 +420,63 @@
     </body>
 </html>
 
+
+
+
+<section id="presentation">
+    <div class="container">
+      <div class="row mt-5">
+        <div class="col-md-8 offset-md-2">
+          <div class="card">
+
+
+                    
+            <img width="200px" height="200px" src="<%=productodatos[0].image%>" alt="Product 1">
+      
+
+            <% for (var b = 0; b < ProductoParaCotizar.MaterialesProductos.length; b++) { %>
+              <%=ProductoParaCotizar.MaterialesProductos[b].Descripcion%>
+              <%=ProductoParaCotizar.MaterialesProductos[b].cantidad%>
+
+            <%=ProductoParaCotizar.MaterialesProductos[b].Codigo%>
+            <%=ProductoParaCotizar.MaterialesProductos[b].Familia%>
+
+            <% } %>
+
+            <% for (var b = 0; b < ProductoParaCotizar.PinturaProductos.length; b++) { %>
+              <%=ProductoParaCotizar.PinturaProductos[b].Descripcion%>
+              <%=ProductoParaCotizar.PinturaProductos[b].cantidad%>
+
+            <%=ProductoParaCotizar.PinturaProductos[b].Codigo%>
+            <%=ProductoParaCotizar.PinturaProductos[b].Familia%>
+
+            <% } %>
+
+
+            <% for (var b = 0; b < ProductoParaCotizar.InstalacionProductos.length; b++) { %>
+              <%=ProductoParaCotizar.InstalacionProductos[b].Descripcion%>
+              <%=ProductoParaCotizar.InstalacionProductos[b].cantidad%>
+
+            <%=ProductoParaCotizar.InstalacionProductos[b].Codigo%>
+            <%=ProductoParaCotizar.InstalacionProductos[b].Familia%>
+
+            <% } %>
+
+            <div class="card-body text-center">
+              <h4 class="card-title"><%=productodatos[0].nombre%></h4>
+              <p class="card-text">Precio: <%=productodatos[0].precio%></p>
+              <p class="card-text">Cantidad: <%=productodatos[0].cantidad%></p>
+              <p class="card-text">Unidad: <%=productodatos[0].unidad%></p>
+              <p class="card-text">Codigo: <%=productodatos[0].codigo%></p>
+              <p class="card-text">IVA: <%=productodatos[0].iva%></p>
+              <div class="mt-4">
+                <a href="/pdfDescargar?IdTrans=<%=IdTransaccion%>" class="btn btn-primary mr-3">Download PDF</a>
+                <a href="#" class="btn btn-success">Send via WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

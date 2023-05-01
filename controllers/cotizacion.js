@@ -17,25 +17,8 @@ module.exports = async (req, res) =>{
     const client = require('twilio')(accountSid, authToken);
 
 
-      //console.log(` ${url}`);
-
-
-    
       var Productos =[]
-/*
-              for (a = 1; a < req.body.precio.length; a++) {
-                Productos.push( a+".- "+" Nombre : "+ req.body.nombre[a]+" Precio : "+req.body.precio[a]+" Cantidad : "+req.body.amount[a]+ " Unidad : "+req.body.unidad[a]+" Codigo : "+req.body.codigo[a]+ " Iva : "+req.body.iva[a]+ " ")
 
-
-              }
-
-                      to: 'whatsapp:+5218715634557',
-                              from: 'whatsapp:+14155238886',
-
-
-
-
-*/
 for (let a = 1; a < req.body.precio.length; a++) {
     const productoString = `${a}.- Nombre: ${req.body.nombre[a]} Precio: ${req.body.precio[a]} Cantidad: ${req.body.amount[a]} Unidad: ${req.body.unidad[a]} Código: ${req.body.codigo[a]} IVA: ${req.body.iva[a]} ///`;
     Productos.push(productoString);
@@ -138,8 +121,6 @@ for (let a = 1; a < req.body.precio.length; a++) {
 
 //newId
 
-
-
     const cotizaciones = await Cotizaciones.find({Id_transaccion: newId});
     let role = "viewer";
     let logged = false; 
@@ -148,6 +129,15 @@ for (let a = 1; a < req.body.precio.length; a++) {
         logged = true;
     }
 
-    res.render('cotizacion',{cotizaciones,roles: role, IdUsuario, loggedIn: logged})
+
+
+const NumeroCliente =req.body.Telefono
+    res.render('cotizacion',{cotizaciones,roles: role, IdUsuario, loggedIn: logged,NumeroCliente})
  
     }
+
+
+/* 
+
+
+*/

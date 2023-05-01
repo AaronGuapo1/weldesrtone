@@ -174,6 +174,8 @@ mongoose.connect(
     "mongodb://localhost:27017/Woolderstone",
     { useNewUrlParser: true }
 );
+////mongodb+srv://NoLeDeboANadie:rickygei@noledeboanadie.i6p3wc9.mongodb.net/Woolderstone
+
 //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
 //mongoose.connect("mongodb://0.0.0.0:27017/welderstoneDB");
 //mongodb+srv://Aaron:tamales@aaronproyecto.sfdk1.mongodb.net/Woolderstone,
@@ -209,6 +211,7 @@ const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
 const FiltrosCompras = require('./controllers/FiltrosCompras');
 const pdfDescargar = require('./controllers/descargar');
+const pdfDescargarMultiple = require('./controllers/descargarMultiple');
 const dataFormGET = require("./controllers/data_formGet");
 const dataFormPOST = require("./controllers/data_formPost");
 const productoEditarGet = require("./controllers/productoEditarGET");
@@ -223,6 +226,8 @@ const FiltroEnviosPost = require("./controllers/FiltroEnviosPost")
 const FiltroEnvios = require("./controllers/FiltroEnvios")
 const cotizacion = require("./controllers/cotizacion")
 const CotizacionesHistorial = require("./controllers/CotizacionesHistorial")
+const FiltrosCotizaciones = require("./controllers/FiltrosCotizaciones.js")
+const FiltrosCotizaciones2 = require("./controllers/FiltrosCotizaciones2.js")
 
 // MercadoPago
 
@@ -318,10 +323,13 @@ app.post("/create_preference", async (req, res) => {
 
 
 
-app.get("/whatsapp", async (req,res)=>{
 
+
+app.use("/whatsapp", async (req,res)=>{
+
+    console.log(req.query.Numero)
     const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
-    const authToken = '9068439772b7b79b98cb3b1d86e2aa54';
+    const authToken = '7ae5e6a2688df96fdde5e40025b6f4d1';
     const client = require('twilio')(accountSid, authToken);
 
     const AWS = require('aws-sdk');
@@ -329,12 +337,12 @@ app.get("/whatsapp", async (req,res)=>{
       accessKeyId: 'AKIARRM62T4IL5PITGVR',
       secretAccessKey: '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'
     });
-
-    const fileContent = fs.readFileSync('./pdfs/ceguera.pdf');  
+const NombreLlave= req.query.Codigo
+    const fileContent = fs.readFileSync('./pdfs/'+`${req.query.IdTrans}`+`${req.query.Codigo}`+'.pdf');  
 
       const params = {
         Bucket: 'welderstonebucket',
-        Key: 'ceguera.pdf',
+        Key: NombreLlave+'.pdf',
         Body: fileContent
       };
       
@@ -342,25 +350,32 @@ app.get("/whatsapp", async (req,res)=>{
         if (err) {
           console.error(err);
         } else {
-          const url = s3.getSignedUrl('getObject', { Bucket: 'welderstonebucket', Key: 'ceguera.pdf', Expires: 120 });
+          const url = s3.getSignedUrl('getObject', { Bucket: 'welderstonebucket', Key: NombreLlave+'.pdf', Expires: 120 });
        
       //console.log(` ${url}`);
 
       client.messages
       .create({
         from: 'whatsapp:+14155238886',
-        body: `${url}`,
-        to: 'whatsapp:+5218715634557',
+        body: 'Pdf de la cotización de tu producto solicitado  ' + `${url}`,
+        to: 'whatsapp:+521'+`${req.query.Numero}`,
       })
       .then((message) => console.log(message.sid))
       .catch((error) => console.log(error));
 
     }
+
+    res.redirect('/cotizacionProductos?codigo='+`${req.query.Codigo}`+'&IdTrans='+`${req.query.IdTrans}`)
 });
 
       
 
 })
+
+
+
+
+
 
 
 app.post("/cotizacion", cotizacion)
@@ -370,6 +385,13 @@ app.get('/feedback', async function(request, response) {
     const Cart = require("./models/Cart");
     const IdUsuario = request.session.passport.user.id;
 
+    
+    const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
+    const authToken = '7ae5e6a2688df96fdde5e40025b6f4d1';
+
+
+    const client = require('twilio')(accountSid, authToken);
+    
     await Compra.updateOne(
         { Id_transaccion: request.query.preference_id },
         {
@@ -382,6 +404,25 @@ app.get('/feedback', async function(request, response) {
         }
     );
     await Cart.deleteMany({ UsuarioId: IdUsuario });
+
+      client.messages
+      .create({
+        from: 'whatsapp:+14155238886',
+        body: 
+        
+        `
+        Compra realizada, Id de la transacción: ${request.query.preference_id}
+        
+        ` ,
+        to: 'whatsapp:+5218715634557',
+      })
+      .then((message) => console.log(message.sid))
+      .catch((error) => console.log(error));
+
+
+
+
+
     response.redirect("/");
 });
 
@@ -501,6 +542,7 @@ transporter.sendMail(mailOptions, function(error, info){
 
 //PDF
 app.use("/pdfDescargar", pdfDescargar);
+app.use("/DescargarMultiple",pdfDescargarMultiple)
 
 // - POST METHOD - //
 app.post("/data-form", dataFormPOST);
@@ -542,6 +584,8 @@ app.get('/facturaProductos', facturaProductos)
 //cotizaciones
 app.get("/cotizacionProductos",cotizacionProductos)
 app.get("/CotizacionesHistorial", CotizacionesHistorial);
+app.use("/FiltrosCotizaciones", FiltrosCotizaciones);
+app.use("/FiltrosCotizaciones2", FiltrosCotizaciones2);
 
 //usuarios
 app.get("/PanelUsuarios", PanelUsuarios);
@@ -555,6 +599,9 @@ app.get("/envios",envios)
 app.use("/FiltroEnvios",FiltroEnvios)
 app.post("/infoEnvios",infoEnvios)
 app.post("/FiltroEnviosPost",FiltroEnviosPost)
+
+
+
 
 app.get('/popup/:id',async (req, res) => {
 const compra = require('./models/compra')

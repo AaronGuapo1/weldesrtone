@@ -173,7 +173,10 @@ await Cart.update({nombre:productos[0].nombre},{$set: { precio:SubTotal } });
 
 
         var image = req.files.image;
-        console.log(image)
+
+
+
+        console.log(image.name)
 
         image.mv(path.resolve(__dirname,'..','public/images/productos',image.name),async (error)=>{
 
@@ -184,11 +187,51 @@ await Cart.update({nombre:productos[0].nombre},{$set: { precio:SubTotal } });
     }
     
 
+    catch (error) {
+
+    }
+
+
+    try {
+
+
+        var image2 = req.files.image2;
+
+
+        console.log(image2.name)
+
+        image2.mv(path.resolve(__dirname,'..','public/images/productos',image2.name),async (error)=>{
+
+            await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image2: '/images/productos/' + image2.name}});
+
+        })
+    }
     
 
     catch (error) {
 
     }
+
+    try {
+
+
+        var image3 = req.files.image3;
+        console.log(image3.name)
+
+
+        image3.mv(path.resolve(__dirname,'..','public/images/productos',image3.name),async (error)=>{
+
+            await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image3: '/images/productos/' + image3.name}});
+
+        })
+    }
+    
+
+    catch (error) {
+
+    }
+
+
     finally {
 
         if(req.body.nombre !== '' ){
@@ -204,3 +247,12 @@ await Cart.update({nombre:productos[0].nombre},{$set: { precio:SubTotal } });
  
 }
     
+
+
+/*
+
+        
+
+        
+
+*/

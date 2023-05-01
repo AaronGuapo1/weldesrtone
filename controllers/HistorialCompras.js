@@ -12,7 +12,8 @@ module.exports = async (req, res) =>{
        const IdUsuario = req.session.passport.user.id;
        if (page === undefined  ){
 
-       const compra = await Compra.paginate({},{page:1,limit:30})
+        //solo renderizar las aprobadas y eliminar las no aprobadas
+       const compra = await Compra.paginate({status:"approved"},{page:1,limit:30})
        const añocreado = await Años.find({});
        const {años} = añocreado[0];
        var AñoNuevo = new Date();
@@ -38,7 +39,10 @@ const Filtro = "ninguno"
 var EstadoFijar="ninguno";
     res.render('HistorialCompras',{IdUsuario, compra, roles: role,loggedIn: true,años,SubTotal,FiltroPaginado,Filtro,EstadoFijar})
        }else if(page != undefined){
-        const compra = await Compra.paginate({},{page,limit:30})
+        const compra = await Compra.paginate({status:"approved"},{page,limit:30})
+
+        //solo renderizar las aprobadas y eliminar las no aprobadas
+
         const añocreado = await Años.find({});
         const {años} = añocreado[0];
     

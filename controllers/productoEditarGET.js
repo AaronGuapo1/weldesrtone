@@ -62,7 +62,7 @@ module.exports = async (req, res) => {
 
         producto[0].InstalacionProductos = materiales3;
 
-console.log(producto[0].MaterialesProductos)
+//console.log(producto[0].MaterialesProductos)
 
         res.render("productoEditar", {
             productoEditar: producto[0],

@@ -12,6 +12,8 @@ const ProductoSchema = new Schema({
     familia: Array,
     precio:{type:Number},
     image:{type:String, default:""},
+    image2:{type:String, default:""},
+    image3:{type:String, default:""},
     nombre:{type:String},
     descripcion:{type:String},
     unidad:{type:String},

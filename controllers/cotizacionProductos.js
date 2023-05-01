@@ -10,20 +10,27 @@ const Material = require('../models/materiales.js');
 module.exports = async (req, res) =>{
 
        const IdTransaccion = req.query.IdTrans
-       console.log( req.query.IdTrans)
+       //console.log( req.query.IdTrans)
        const materiales= await Material.find({})
        const PdfDescargar = await Cotizaciones.find({Id_transaccion: req.query.IdTrans})
        const {ProductosComprados} =PdfDescargar[0];
        var ProductosAgregar = [];
        var Almacen;
-    Almacen = await Product.find({codigo:req.query.codigo})
+    Almacen = await Product.find({Codigo:req.query.codigo})
 
     ProductosAgregar.push(Almacen)
 
+
+
+    ProductosAgregar[0][0] === Almacen
+//console.log(ProductosAgregar[0][0])
+
+
 //const ProductoDatos = await Compra.find({})
 
-console.log(ProductosAgregar[0][0])
+//console.log(ProductosAgregar[0][0])
 
+//console.log(ProductosAgregar[0].length)
 
 var productodatos =[];
 
@@ -34,7 +41,7 @@ if (ProductosComprados[d].codigo ===req.query.codigo ){
 }
 
 }
-
+//console.log(productodatos)
 
 const NomProd= productodatos[0].nombre
 const CantidadProd= productodatos[0].cantidad
@@ -136,7 +143,7 @@ for (b=0; b<ProductosMaterialesPrecio.length; b++){
     }
 
 }
- 
+
 }catch(e){
     console.log(error)
 }
@@ -373,7 +380,7 @@ var PreciosInstalaciones =[]
 try{
 
 for (b=0; b<ProductosInstalacionPrecio.length; b++){
-    if (ProductosInstalacionPrecio[b] !== " "){
+    if (ProductosInstalacionPrecio[b] !== '\n\n'){
         PreciosInstalaciones.push(ProductosInstalacionPrecio[b].toFixed(2), '\n\n')
 
     }
@@ -558,7 +565,7 @@ const TotalFinal = Number(SubTotalR) +Number(iva)
 				}
 			]
 		},
-
+        
 		{
 			style: 'tableExample', alignment: 'center',
 			table: {
@@ -731,7 +738,7 @@ const TotalFinal = Number(SubTotalR) +Number(iva)
        const printer = new PdfPrinter(fonts);
    
        let pdfDoc = printer.createPdfKitDocument(docDefinition);
-       pdfDoc.pipe(fs.createWriteStream('pdfs/'+IdTransaccion+'.pdf'));
+       pdfDoc.pipe(fs.createWriteStream('pdfs/'+IdTransaccion+`${req.query.codigo}`+'.pdf'));
        pdfDoc.end();
    
    
@@ -743,7 +750,39 @@ const TotalFinal = Number(SubTotalR) +Number(iva)
        const IdTransaccion = req.query.IdTrans
        const cotizaciones = await Cotizaciones.find({})
 const ProductoParaCotizar = ProductosAgregar[0][0]
-    res.render('cotizacionProducto',{IdUsuario, cotizaciones, roles: role,loggedIn: true,IdTransaccion,productodatos,ProductoParaCotizar})
+
+var MaterialesMostrar = []
+var PinturaMostrar = []
+
+var InstalacionesMostrar = []
+for (b=0; b<PreciosMateriales.length; b++){
+    if (PreciosMateriales[b].text !== '\n\n'){
+        MaterialesMostrar.push(PreciosMateriales[b].text)
+
+    }
+
+}
+for (b=0; b<PreciosPintura.length; b++){
+    if (PreciosPintura[b].text !== '\n\n'){
+        PinturaMostrar.push(PreciosPintura[b].text)
+
+    }
+
+}
+for (b=0; b<PreciosInstalaciones.length; b++){
+    if (PreciosInstalaciones[b].text !== '\n\n'){
+        InstalacionesMostrar.push(PreciosInstalaciones[b].text)
+
+    }
+
+}
+
+
+//console.log(PdfDescargar[0].Telefono)
+const NumeroCliente = PdfDescargar[0].Telefono
+
+    res.render('cotizacionProducto',{IdUsuario, cotizaciones, roles: role,loggedIn: true,IdTransaccion,productodatos,ProductoParaCotizar,MaterialesMostrar,PinturaMostrar,InstalacionesMostrar,MaterialSuma,ManoObMaterial1R,ManoObMaterial2R,Total1R,PinturaSumaRedondeada,ManoObPintura1R,ManoObPintura2R,Total2R,InstalacionSuma,ManoObInstalacion1R,ManoObInstalacion2R,Total3R,SubTotalR,TotalFinal,NumeroCliente
+    })
       
 }
 

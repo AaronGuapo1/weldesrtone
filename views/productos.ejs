@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="css/style.css">
         <!-- Fontawesome CDN Link -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     </head>
     <body>
         <header>
@@ -91,8 +93,11 @@
 
                                             <!-- Imagen -->
                                             <div class="mb-3">
-                                                <label for="formFile" class="form-label">Selecciona una imagen para el producto</label>
+                                                <label for="formFile" class="form-label">Selecciona una o más imagenes para el producto</label>
                                                 <input class="form-control" type="file" id="image" name="image">
+                                                <input class="form-control" type="file" id="image2" name="image2">
+                                                <input class="form-control" type="file" id="image3" name="image3">
+
                                             </div>
                                             <div>
 
@@ -447,7 +452,20 @@
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-2 center-text-xy">
-                                        <img src="<%= productos.docs[a].image %>" class="img-fluid rounded-start" alt="...">
+
+
+
+                                        <!--<img src="<%= productos.docs[a].image %>" class="img-fluid rounded-start" alt="...">-->
+                        <div class="w3-content w3-display-container">
+                            <img class="mySlides" src="<%= productos.docs.image %>" style="width:350px">
+                            <img class="mySlides" src="<%= productos.docs.image2 %>" style="width:350px">
+                            <img class="mySlides" src="<%= productos.docs.image3 %>" style="width:350px">
+                          
+                            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+                            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                          </div>
+
+
                                     </div>
                                     <div class="col-md-9">
                                         <div class="card-body">
@@ -525,6 +543,9 @@ mobiscroll.setOptions({
 
 
         <style>
+
+.mySlides {display:none;}
+
             /* estilo para el checkbox */
             .checkbox-wrapper {
   display: flex;
@@ -574,6 +595,25 @@ label {
 
         </style>
 
+<script>
+    var slideIndex = 1;
+showDivs(slideIndex);
 
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+
+</script>
     </body>
 </html>

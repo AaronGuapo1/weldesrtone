@@ -22,60 +22,231 @@
     <!-- NAVBAR -->
     <%- include('layouts/navbar'); -%>
     
-    <section id="presentation">
+    <section id="presentation" class="mt-5">
+      <h1 class="text-center mb-4">Historial de cotizaciones </h1>
+
+
+      <body class="text-center">
+
+      <form method="POST"  action="/FiltrosCotizaciones">
+        <select name="FiltroHistorial" id="FiltroHistorial" class="form-select-center" >
+            <option value="1mes" >Últimos 30 días.</option>
+            <option value="2meses">Últimos 2 meses</option>
+            <option value="3meses">Últimos 3 meses</option>
+            <% for (var i = 0; i < años.length; i++) { %>
+            <option value="<%=años[i].año%>"><%=años[i].año%></option>
+            <% } %> 
+          </select>
+          <button type="submit" class="btn btn-info btn-sm">Filtrar</button>
+          <br>
+        </form>
+<br>
+    <form method="post" action="/FiltrosCotizaciones2" >
+      <select name="Filtro2" id="FiltroHistorial2"class="BusquedaSelect">
+          <option value="NombreProducto" >Nombre del producto</option>
+          <option value="NombreCliente" >Nombre del cliente</option>
+          <option value="IdTrans" >Id</option>
+
+      </select>
+      <input type="text" name="busqueda" class="busquedaInput" placeholder="Inserte los datos que desea filtrar">
+      <button class="btn btn-outline-danger" type="reset">Limpiar</button>
+      <button type="submit" class="btn btn-outline-danger"><i class="fa-solid fa-magnifying-glass"></i></button>
+</form>
+<% if(roles === 'admin' ){ %>
+
+<form method="post" action="/FiltrosCotizaciones2" >
+  <select name="Filtro2" id="FiltroHistorial3"class="BusquedaSelect">
+      <option value="SubTotal" >Subtotal</option>
+      <option value="Precio" >Precio</option>
+
+  </select>
+  <input type="number" name="BusquedaPrecios" class="busquedaInput2" placeholder="Min">
+  <input type="number" name="BusquedaPrecios2" class="busquedaInput2" placeholder="Max">
+
+  <button class="btn2 btn-outline-danger" type="reset">Limpiar</button>
+  <button type="submit" class="btn2 btn-outline-danger"><i class="fa-solid fa-magnifying-glass"></i></button>
+</form>
+</div>             
+<br>
+
+<% } %> 
+
+      <br>
+       <class="container">
+        <div class="row">
+          <div class="col">
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Información del cliente</th>
+
+                  <th scope="col">Fecha</th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Producto/s</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Cantidad </th>
+                  <th scope="col">Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (var a = 0; a < cotizaciones.docs.length; a++) { %>
+                  <% if( cotizaciones.docs[a].Id_usuario === IdUsuario && roles !== 'admin' ){ %>
+
+                  <% const {ProductosComprados} = cotizaciones.docs[a] %>
+                  <% for (var b = 0; b < ProductosComprados.length; b++) { %>
+                    <% var SubTotal = ProductosComprados[b].precio * ProductosComprados[b].cantidad %>
+                    <tr>
+                      <td><%=cotizaciones.docs[b].NombreYApellidos%></td>
+
+                      <% if (b === 0) { %>
+                        <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Fecha_compra.toDateString()%></td>
+                        <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Id_transaccion%></td>
+                      <% } %>
+                      <td><%=ProductosComprados[b].nombre%></td>
+                      <td>$<%=ProductosComprados[b].precio%></td>
+                      <td><%=ProductosComprados[b].cantidad%></td>
+                      <td>$<%=SubTotal%></td>
+                    </tr>
+                  <% } %> 
+                <% } %> 
+
+                <% if(roles === 'admin' ){ %>
+
+
+                  <% const {ProductosComprados} = cotizaciones.docs[a] %>
+                  <% for (var b = 0; b < ProductosComprados.length; b++) { %>
+                    <% var SubTotal = ProductosComprados[b].precio * ProductosComprados[b].cantidad %>
+                    <tr>
+                      <td><%=cotizaciones.docs[b].NombreYApellidos%></td>
+
+                      <% if (b === 0) { %>
+                        <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Fecha_compra.toDateString()%></td>
+                        <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Id_transaccion%></td>
+                      <% } %>
+                      <td><%=ProductosComprados[b].nombre%></td>
+                      <td>$<%=ProductosComprados[b].precio%></td>
+                      <td><%=ProductosComprados[b].cantidad%></td>
+                      <td>$<%=SubTotal%></td>
+                    </tr>
+                  <% } %> 
+
+                  <% } %> 
+                  <% } %> 
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
 
     </section>
 
     <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 
-<style>
-    .custom-select {
-      appearance: none;
-      background-color: #ffffff;
-      border: 1px solid #cccccc;
-      border-radius: 5px;
-      color: #555555;
-      font-size: 16px;
-      padding: 10px;
-      width: 25%;
-    }
-    
-    .custom-select:focus {
-      outline: none;
-      border-color: #2196F3;
-      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
-    }
-    
-    .custom-select option {
-      background-color: #ffffff;
-      color: #555555;
-    }
-    .custom-select2 {
-      appearance: none;
-      background-color: #ffffff;
-      border: 1px solid #cccccc;
-      border-radius: 5px;
-      color: #555555;
-      font-size: 16px;
-      padding: 10px;
-      width: 5%;
-    }
-    
-    .custom-select2:focus {
-      outline: none;
-      border-color: #2196F3;
-      box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
-    }
-    
-    .custom-select2 option {
-      background-color: #ffffff;
-      color: #555555;
-    }
-      </style>
+    <% if(FiltroPaginado === false){ %>
 
+      <% for (var a = 1; a < cotizaciones.totalPages+1; a++) { %> <a href="/CotizacionesHistorial?page=<%=[a]%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark "><%=[a]%></a><% } %>
+      
+      <% } %> 
+      
+      <% if(FiltroPaginado === true && Filtro !== "IdTrans" && Filtro !== "NombreProducto" && Filtro !== "NombreCliente" && Filtro !== "SubTotal" && Filtro !== "Precio" ){ %>
+          <% for (var a = 1; a < cotizaciones.totalPages+1; a++) { %> <a href="/FiltrosCotizaciones?page=<%=[a]%>&amp;Filtro=<%=Filtro%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
+      
+          <% } %> 
+          <% if(FiltroPaginado === true && Filtro === "IdTrans" || Filtro === "NombreProducto" || Filtro === "NombreCliente" || Filtro === "SubTotal" || Filtro === "Precio"){ %>
+              <% for (var a = 1; a < cotizaciones.totalPages+1; a++) { %> <a href="/FiltrosCotizaciones2?page=<%=[a]%>&amp;Filtro=<%=Filtro%>&amp;consulta=<%=consulta%>&amp;consulta2=<%=consulta2%>" type="submit" id="sendMessageButton" class="botonPaginacion btn-dark"><%=[a]%></a><% } %>
+          
+              <% } %> 
 
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
 </body>
 </html>
+<script>
+  const selectElement = document.getElementById('FiltroHistorial');
+  const FiltroHistorial = "<%=Filtro%>";
+
+  if (FiltroHistorial) {
+    for (let i = 0; i < selectElement.options.length; i++) {
+      if (selectElement.options[i].value === FiltroHistorial) {
+        selectElement.options[i].selected = true;
+        break;
+      }
+    }
+  }
+</script> 
+<script>
+  const selectElement2 = document.getElementById('FiltroHistorial2');
+  const FiltroHistorial2 = "<%=Filtro%>";
+
+  if (FiltroHistorial2) {
+    for (let i = 0; i < selectElement2.options.length; i++) {
+      if (selectElement2.options[i].value === FiltroHistorial2) {
+        selectElement2.options[i].selected = true;
+        break;
+      }
+    }
+  }
+</script> 
+<script>
+  const selectElement3 = document.getElementById('FiltroHistorial3');
+  const FiltroHistorial3 = "<%=Filtro%>";
+
+  if (FiltroHistorial3) {
+    for (let i = 0; i < selectElement3.options.length; i++) {
+      if (selectElement3.options[i].value === FiltroHistorial3) {
+        selectElement3.options[i].selected = true;
+        break;
+      }
+    }
+  }
+</script> 
+<style>
+  .custom-select {
+    appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    color: #555555;
+    font-size: 16px;
+    padding: 10px;
+    width: 25%;
+  }
+  
+  .custom-select:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+  }
+  
+  .custom-select option {
+    background-color: #ffffff;
+    color: #555555;
+  }
+  .custom-select2 {
+    appearance: none;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    color: #555555;
+    font-size: 16px;
+    padding: 10px;
+    width: 5%;
+  }
+  
+  .custom-select2:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.2);
+  }
+  
+  .custom-select2 option {
+    background-color: #ffffff;
+    color: #555555;
+  }
+    </style>
+

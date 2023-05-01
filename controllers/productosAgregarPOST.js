@@ -103,14 +103,42 @@ SubTotal = SubTotal + productos[0].iva
 
 await Producto.updateOne({_id:productos[0]._id},{ $set: { precio:SubTotal } });
 
+try{
+    let image3 = req.files.image3;
 
+    image3.mv(path.resolve(__dirname,'..','public/images/productos', image3.name),async (error)=>{
+        await Producto.updateOne({nombre:req.body.nombre},{ $set:{ image3: '/images/productos/' + image3.name}} )
+
+    })
+}
+catch(error){
+
+}
+
+
+
+
+try{
+    let image2 = req.files.image2;
+    image2.mv(path.resolve(__dirname,'..','public/images/productos', image2.name),async (error)=>{
+        await Producto.updateOne({nombre:req.body.nombre},{ $set:{ image2: '/images/productos/' + image2.name}} )
+
+    })
+
+
+}
+catch(error){
+
+}
         try {
             let image = req.files.image;
-        
+
+             
             image.mv(path.resolve(__dirname,'..','public/images/productos', image.name),async (error)=>{
                 await Producto.updateOne({nombre:req.body.nombre},{ $set:{ image: '/images/productos/' + image.name}} )
         
             })
+
             }
             catch (error) {
         
