@@ -79,7 +79,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/welderstone",
+            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
@@ -171,9 +171,11 @@ passport.use(
 // ---------------- DATABASE ---------------- //
 mongoose.set("strictQuery", true);
 mongoose.connect(
-    "mongodb://localhost:27017/Woolderstone",
+    "mongodb+srv://NoLeDeboANadie:rickygei@noledeboanadie.i6p3wc9.mongodb.net/Woolderstone",
     { useNewUrlParser: true }
 );
+
+//mongodb://localhost:27017/Woolderstone
 ////mongodb+srv://NoLeDeboANadie:rickygei@noledeboanadie.i6p3wc9.mongodb.net/Woolderstone
 
 //mongoose.connect('mongodb://localhost:27017/Woolderstone', {useNewUrlParser: true});
