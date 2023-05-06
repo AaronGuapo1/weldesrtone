@@ -79,7 +79,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
+            callbackURL: "http://localhost:3000/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
@@ -330,14 +330,14 @@ app.post("/create_preference", async (req, res) => {
 app.use("/whatsapp", async (req,res)=>{
 
     console.log(req.query.Numero)
-    const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
-    const authToken = '7ae5e6a2688df96fdde5e40025b6f4d1';
+    const accountSid = process.env.accountSid
+    const authToken = process.env.authToken
     const client = require('twilio')(accountSid, authToken);
 
     const AWS = require('aws-sdk');
     const s3 = new AWS.S3({
-      accessKeyId: 'AKIARRM62T4IL5PITGVR',
-      secretAccessKey: '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'
+      accessKeyId: process.env.accessKeyId,
+      secretAccessKey: process.env.secretAccessKey
     });
 const NombreLlave= req.query.Codigo
     const fileContent = fs.readFileSync('./pdfs/'+`${req.query.IdTrans}`+`${req.query.Codigo}`+'.pdf');  

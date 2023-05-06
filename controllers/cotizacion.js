@@ -11,9 +11,9 @@ const { v4: uuidv4 } = require('uuid');
 
 
 module.exports = async (req, res) =>{
-
-    const accountSid = 'AC87cdadcbcb336292d4906e19e42e1391';
-    const authToken = '7ae5e6a2688df96fdde5e40025b6f4d1';
+    const accountSid = process.env.accountSid
+    const authToken = process.env.authToken
+    
     const client = require('twilio')(accountSid, authToken);
 
 
