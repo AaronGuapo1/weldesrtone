@@ -79,7 +79,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:3000/auth/google/welderstone",
+            callbackURL: "http://welderstone/auth/google/welderstone",
         },
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
@@ -107,7 +107,7 @@ passport.use(
         {
             clientID: process.env.FACEBOOK_APP_ID,
             clientSecret: process.env.FACEBOOK_APP_SECRET,
-            callbackURL: "http://localhost:3000/auth/facebook/welderstone",
+            callbackURL: "http://welderstone/auth/facebook/welderstone",
         },
         function (accessToken, refreshToken, profile, cb) {
             User.findOrCreate(
@@ -134,7 +134,7 @@ passport.use(
             // Standard OAuth2 options
             clientID: process.env.MICROSOFT_APP_ID,
             clientSecret: process.env.MICROSOFT_APP_SECRET,
-            callbackURL: "ttp://localhost:3000/auth/microsoft/welderstone",
+            callbackURL: "ttp://welderstone/auth/microsoft/welderstone",
             scope: ["user.read"],
             // Microsoft specific options
 
