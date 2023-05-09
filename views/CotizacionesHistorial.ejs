@@ -89,8 +89,9 @@
                 </tr>
               </thead>
               <tbody>
+                <% if(roles === 'admin' ){ %>
+
                 <% for (var a = 0; a < cotizaciones.docs.length; a++) { %>
-                  <% if( cotizaciones.docs[a].Id_usuario === IdUsuario && roles !== 'admin' ){ %>
 
                   <% const {ProductosComprados} = cotizaciones.docs[a] %>
                   <% for (var b = 0; b < ProductosComprados.length; b++) { %>
@@ -110,8 +111,15 @@
                   <% } %> 
                 <% } %> 
 
-                <% if(roles === 'admin' ){ %>
+                <% } %> 
 
+
+
+
+
+                  
+                <% for (var a = 0; a < cotizaciones.docs.length; a++) { %>
+                  <% if(roles !== 'admin' && cotizaciones.docs[a].Id_usuario === IdUsuario ){ %>
 
                   <% const {ProductosComprados} = cotizaciones.docs[a] %>
                   <% for (var b = 0; b < ProductosComprados.length; b++) { %>
@@ -129,16 +137,29 @@
                       <td>$<%=SubTotal%></td>
                     </tr>
                   <% } %> 
+                <% } %> 
+                <% } %> 
 
-                  <% } %> 
-                  <% } %> 
+
+                
+
+    
+    
+
 
               </tbody>
             </table>
+
+
+
+
+
+
+
+            
           </div>
         </div>
       </div>
-
 
 
 
