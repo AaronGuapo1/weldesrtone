@@ -7,7 +7,6 @@ const fonts = require("../pdf/fonts")
 const styles = require("../pdf/styles")
 const Product = require("../models/Productos");
 const Material = require('../models/materiales.js');
-const { v4: uuidv4 } = require('uuid');
 
 
 module.exports = async (req, res) =>{
@@ -23,8 +22,10 @@ for (let a = 1; a < req.body.precio.length; a++) {
     const productoString = `${a}.- Nombre: ${req.body.nombre[a]} Precio: ${req.body.precio[a]} Cantidad: ${req.body.amount[a]} Unidad: ${req.body.unidad[a]} Código: ${req.body.codigo[a]} IVA: ${req.body.iva[a]} ///`;
     Productos.push(productoString);
   }
-
-    const newId = uuidv4();
+  var min = Math.pow(10, 11);  // 10 elevado a la potencia de 11
+  var max = Math.pow(10, 12) - 1;  // 10 elevado a la potencia de 12 - 1
+  var numero = Math.floor(Math.random() * (max - min + 1)) + min;
+    const newId = numero;
     var suma = 0;
     for (i = 1; i < req.body.precio.length; i++) {
 
