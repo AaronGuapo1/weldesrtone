@@ -15,6 +15,30 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- FontAwesome-->
     <script src="https://kit.fontawesome.com/c1d78340ca.js" crossorigin="anonymous"></script>  
+    <style>
+    /* Estilos para el modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: -120px;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+    </style>
 </head>
 <body>
     <!-- NAVBAR -->
@@ -71,6 +95,17 @@
 
 
 
+             
+
+
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <span onclick="cerrarModal()" style="float: right; cursor: pointer;">&times;</span>
+                  <img src="./images/productos/welderstone.png" alt="Imagen" style="max-width: 100%;">
+                  <p>¡Cotización exitosa! un vendedor pronto se pondrá en contacto contigo.</p>
+                </div>
+              </div>
+            
               
             </div>
           </div>
@@ -89,7 +124,22 @@
   </style>
   <script>
 
-    alert("¡Cotización exitosa! Un vendedor pronto se pondrá en contacto contigo")
+    //alert("¡Cotización exitosa! Un vendedor pronto se pondrá en contacto contigo")
+    document.addEventListener("DOMContentLoaded", function() {
+      mostrarModal();
+
+      setTimeout(function() {
+        cerrarModal();
+      }, 5000);
+    });
+
+    function mostrarModal() {
+      document.getElementById("myModal").style.display = "block";
+    }
+
+    function cerrarModal() {
+      document.getElementById("myModal").style.display = "none";
+    }
     
   </script>
 

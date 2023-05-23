@@ -79,8 +79,9 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://welderstone/auth/google/welderstone",
+            callbackURL: "http://localhost:3000/auth/google/welderstone",
         },
+        //http://welderstone/auth/google/welderstone
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
         function (accessToken, refreshToken, profile, cb) {
@@ -231,6 +232,10 @@ const CotizacionesHistorial = require("./controllers/CotizacionesHistorial")
 const FiltrosCotizaciones = require("./controllers/FiltrosCotizaciones.js")
 const FiltrosCotizaciones2 = require("./controllers/FiltrosCotizaciones2.js")
 
+const infoCotizaciones = require ("./controllers/infoCotizaciones")
+
+const dinamita = require ("./controllers/Dinamita")
+
 // MercadoPago
 
 //global.CantidadCarro = await cart.find({}).count()
@@ -241,6 +246,9 @@ mercadopago.configure({
     access_token:
         "APP_USR-3363834709709437-021123-c67d96e1feb214bee0c7a3da3817a59f-1307218136",
 });
+
+
+
 //TEST-3839284531017998-020712-ac9e468d300f8fc099e58dfb6672b92b-1050032368
 app.post("/create_preference", async (req, res) => {
     console.log(req.body);
@@ -333,7 +341,6 @@ app.use("/whatsapp", async (req,res)=>{
     const accountSid = process.env.accountSid
     const authToken = process.env.authToken
     const client = require('twilio')(accountSid, authToken);
-
     const AWS = require('aws-sdk');
     const s3 = new AWS.S3({
       accessKeyId: process.env.accessKeyId,
@@ -600,8 +607,11 @@ app.use("/FiltrosUsuarios2", FiltrosUsuarios2);
 app.get("/envios",envios)
 app.use("/FiltroEnvios",FiltroEnvios)
 app.post("/infoEnvios",infoEnvios)
+app.post("/infoCotizaciones", infoCotizaciones)
+
 app.post("/FiltroEnviosPost",FiltroEnviosPost)
 
+app.post("/dinamita",dinamita)
 
 
 
@@ -624,7 +634,25 @@ if(req.session?.passport?.user != undefined){
 
   });
 
- 
+  app.get('/popup3/:id',async (req, res) => {
+    const User = require("./models/User.js")
+const Cotizacion = require("./models/cotizaciones.js")
+const id = req.params.id;
+const title = `${id}`;
+    const cotizaciones = await Cotizacion.find({Id_transaccion:id})
+    let role = "viewer";
+    let logged = false; 
+    if(req.session?.passport?.user != undefined){
+        role = req.session.passport.user.role;
+        logged = true;
+    }
+
+        const content = `This is popup ${id}`;
+        res.render('popup3', { title, content,roles: role, loggedIn: logged,cotizaciones });
+    
+    
+    
+      });
 
 
 app.use((req, res) => res.render("notfound"));

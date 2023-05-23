@@ -27,9 +27,10 @@
                 </div>
             <% } %>
              <!-- Agregar material -->
-             <% if(roles === "admin" || roles === "Cotización"){ %>
+             <% if(roles === "admin" || roles === "Cotizacion"){ %>
 
             <div class="card border-danger mb-4">
+                
                 <div class="card-header">Agregar materiales</div>
                 <div class="card-body">
                     <h5 class="card-title">Agregue aqui las especificaciones del material que desea agregar.</h5>
@@ -79,6 +80,8 @@
             </div>
             <% } %>
 
+            
+            <% if(roles === "admin" || roles === "Cotizacion"){ %>
             <div class="card border-danger">
                 <div class="card-header">Editar precio unitario por familias.</div>
                 <div class="card-body">
@@ -127,6 +130,7 @@
                     </div>
                   </div>
                 </form>
+                <% } %>
 
 
                 </div>
@@ -155,7 +159,7 @@
                     <hr>
 
                     <form action="/materiales/edicion" method="post">
-                        <% if(roles === "admin" || roles === "Cotización"){ %>
+                        <% if(roles === "admin" || roles === "Cotizacion"){ %>
 
                         <button class="btn btn-outline-danger btn-lg w-100 mb-3" type="submit" id="sendMessageButton">Guardar Cambios</button>
                         <% } %>
@@ -199,8 +203,12 @@
                                                     <i class="fa-solid fa-bars"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-end">
+                                                    <% if(roles === "admin" || roles === "Cotizacion"){ %>
                                                   <li style=" cursor: pointer;"><a class="dropdown-item edit" id="<%=materiales[a].Codigo%>"> <i class="fa-solid fa-pen-to-square"></i> Editar</a></li>
+
                                                   <li style="  cursor: pointer;"><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#backdrop<%=materiales[a].Codigo%>"> <i class="fa-solid fa-trash"></i> Eliminar</a></li>
+                                                  <% } %>
+
                                                 </ul>
                                               </div>
                                         </td>
@@ -239,12 +247,8 @@
                                                 <label for="SubFam">Sub Familia</label>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="form-floating">
-                                                <input type="number" step="any" class="form-control" placeholder="%" id="PrecioUnitarioPorcentaje" name="PrecioUnitarioPorcentaje" disabled autocomplete="off" width="10px">
-                                                <label for="PrecioUnitarioPorcentaje">%</label>
-                                            </div>
-                                        </td>
+                                        <input type="hidden" class="form-control" name="id" value="<%= materiales[a]._id %>" disabled>
+
                                     </tr>
                             
                                     <!-- Modal -->

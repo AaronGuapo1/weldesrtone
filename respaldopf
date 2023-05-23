@@ -23,6 +23,14 @@ module.exports = async (req, res) =>{
 
 
     ProductosAgregar[0][0] === Almacen
+//console.log(ProductosAgregar[0][0])
+
+
+//const ProductoDatos = await Compra.find({})
+
+//console.log(ProductosAgregar[0][0])
+
+//console.log(ProductosAgregar[0].length)
 
 var productodatos =[];
 
@@ -33,6 +41,7 @@ if (ProductosComprados[d].codigo ===req.query.codigo ){
 }
 
 }
+//console.log(productodatos)
 
 const NomProd= productodatos[0].nombre
 const CantidadProd= productodatos[0].cantidad
@@ -530,9 +539,7 @@ const TotalFinal = Number(SubTotalR) +Number(iva)
 
 
        let docDefinition ={
-
     content :[
-        /*
        
         {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height:70,alignment:'center',fit: [130,130], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
         {
@@ -608,9 +615,6 @@ const TotalFinal = Number(SubTotalR) +Number(iva)
 			}
 		},
         {text: '',pageBreak: 'before'},
-        */
-
-        
         {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height: 70,alignment:'center',fit: [130,130], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
         {
 			style: 'tableExample',

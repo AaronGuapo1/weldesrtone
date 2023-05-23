@@ -34,8 +34,8 @@ module.exports = async (req, res) => {
         res.render('PanelUsuarios',{usuarios, roles: role,loggedIn: true,FiltroPaginado,Filtro})
 
     }
-    if(Filtro ==="Cotización"){
-        const usuarios = await User.paginate({role:"Cotización"},{page:1,limit:50});
+    if(Filtro ==="Cotizacion"){
+        const usuarios = await User.paginate({role:"Cotizacion"},{page:1,limit:50});
         const FiltroPaginado = true;
 
         res.render('PanelUsuarios',{usuarios, roles: role,loggedIn: true,FiltroPaginado,Filtro})
@@ -79,8 +79,8 @@ module.exports = async (req, res) => {
             res.render('PanelUsuarios',{usuarios, roles: role,loggedIn: true,FiltroPaginado,Filtro})
 
         }
-        if(Filtro ==="Cotización"){
-            const usuarios = await User.paginate({role:"Cotización"},{page,limit:50});
+        if(Filtro ==="Cotizacion"){
+            const usuarios = await User.paginate({role:"Cotizacion"},{page,limit:50});
             const FiltroPaginado = true;
 
             res.render('PanelUsuarios',{usuarios, roles: role,loggedIn: true,FiltroPaginado,Filtro})

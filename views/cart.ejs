@@ -65,15 +65,14 @@
                         <td class="text-center"><img class="card-img-top mx-auto d-block" width="200px" height="130px" src="<%=Sumas[a].image%>" alt="Product 1"></td>
 
                     <td> <%=Sumas[a].nombre%></td>
-                    <td class="text-center">$<%=Sumas[a].precio%></td>
-                    <td class="text-center"><%=Sumas[a].amount%></td>
+                    <td class="text-center">$<%= Sumas[a].precio.toLocaleString() %></td>
+                    <td class="text-center"><%= Sumas[a].amount %></td>
                     <td class="text-center">$<% 
                       var num1 = Sumas[a].precio;
                       var num2 = Sumas[a].amount;
                       var resultado = num1 * num2;
-                      var resultadoFixed= resultado.toFixed(2)
-                    %><%= resultadoFixed%>
-                    </td>
+                      var resultadoFixed = resultado.toFixed(2);
+                    %><%= new Intl.NumberFormat('en-US').format(resultadoFixed) %></td>
                     <td>
                         <form action="/products-cart/<%=Sumas[a].nombre%>?query=add" method="POST">
                             <input type="hidden" name="amount" value="<%=Sumas[a].amount%>">  
@@ -111,7 +110,8 @@
     <div class="col-md-8 offset-md-2">
         <strong>Total: $<% 
           var TotalFixed = Total.toFixed(2);
-        %><%= TotalFixed%> </strong>
+        %><%=new Intl.NumberFormat('en-US').format(TotalFixed)%>
+      </strong>
     </div>
 </div>
 <hr>

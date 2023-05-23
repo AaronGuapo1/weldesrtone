@@ -72,7 +72,7 @@ for (let a = 1; a < req.body.precio.length; a++) {
       })
       .then((message) => console.log(message.sid))
       .catch((error) => console.log(error));
-
+//        to: 'whatsapp:+5218715634557',
     await Cotizaciones.create({
         PrecioTotal: suma,
         Id_usuario: IdUsuario,

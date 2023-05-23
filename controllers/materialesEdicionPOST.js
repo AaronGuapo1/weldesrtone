@@ -6,6 +6,7 @@ const Cart = require("../models/Cart");
 
 module.exports = async (req,res)=>{        
     const obj_ids = req.body.id;
+    
     //console.log(req.body);
 
 
@@ -35,7 +36,6 @@ module.exports = async (req,res)=>{
                     params.SubFam = req.body.SubFam[i];
                 }
     
-                //console.log(params);
     
                 await material.findByIdAndUpdate(obj_ids[i], params);
             }

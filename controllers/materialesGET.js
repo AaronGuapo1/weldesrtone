@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
 
     if (
         role == "admin" ||
-        role == "Cotización" ||
+        role == "Cotizacion" ||
         role == "Ventas" ||
         role == "Proyectos"
     ) {

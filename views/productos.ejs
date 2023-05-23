@@ -28,7 +28,7 @@
 
         <main id="productos-page">
             <section id="agregar-producto">
-                <% if(roles === "admin" || roles === "Cotización"){ %>
+                <% if(roles === "admin" || roles === "Cotizacion"){ %>
 
                 <div class="accordion" id="accordion-ap">
                     <div class="accordion-item">
@@ -482,7 +482,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-1">
-                                        <% if(roles === "admin" || roles === "Cotización"){ %>
+                                        <% if(roles === "admin" || roles === "Cotizacion"){ %>
                                         <!-- Editar producto -->
                                         <a href="/productos/editar/<%=productos.docs[a]._id%>"> 
                                             <button type="button" class="btn btn-primary w-100 edit-button"><i class="fa-solid fa-pen-to-square"></i></button>

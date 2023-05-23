@@ -97,9 +97,11 @@
                   <% for (var b = 0; b < ProductosComprados.length; b++) { %>
                     <% var SubTotal = ProductosComprados[b].precio * ProductosComprados[b].cantidad %>
                     <tr>
-                      <td><%=cotizaciones.docs[b].NombreYApellidos%></td>
-
                       <% if (b === 0) { %>
+
+                      <td rowspan="<%=ProductosComprados.length%>"><button class="edit-btn" onclick="openPopup3(`<%= cotizaciones.docs[a].Id_transaccion%>`)">Info</button>
+                        <!--<%=cotizaciones.docs[a].NombreYApellidos%></td>-->
+
                         <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Fecha_compra.toDateString()%></td>
                         <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Id_transaccion%></td>
                       <% } %>
@@ -125,9 +127,11 @@
                   <% for (var b = 0; b < ProductosComprados.length; b++) { %>
                     <% var SubTotal = ProductosComprados[b].precio * ProductosComprados[b].cantidad %>
                     <tr>
-                      <td><%=cotizaciones.docs[b].NombreYApellidos%></td>
 
                       <% if (b === 0) { %>
+
+                      <td rowspan="<%=ProductosComprados.length%>"><button class="edit-btn" onclick="openPopup3(`<%= cotizaciones.docs[a].Id_transaccion%>`)">Info</button></td>
+<!--<%=cotizaciones.docs[a].NombreYApellidos%>-->
                         <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Fecha_compra.toDateString()%></td>
                         <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Id_transaccion%></td>
                       <% } %>
@@ -226,6 +230,24 @@
     }
   }
 </script> 
+
+
+<script>
+  function openPopup3(id) {
+  fetch(`/popup3/${id}`)
+    .then(response => response.text())
+    .then(html => {
+      const popup3 = document.createElement('div');
+      popup3.innerHTML = html;
+      document.body.appendChild(popup3);
+      const closeBtn = popup3.querySelector('.close-btn');
+      closeBtn.addEventListener('click', () => {
+        popup3.remove();
+      });
+    });
+}
+</script>
+
 <style>
   .custom-select {
     appearance: none;
@@ -269,5 +291,152 @@
     background-color: #ffffff;
     color: #555555;
   }
+
+  
+    .popup3 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+.close-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 100px;
+  height: 100px;
+}
+.edit-btn, .factura-link {
+  display: inline-block; /* display elements inline */
+  vertical-align: middle; /* align elements vertically */
+  padding: 5px 10px; /* add padding */
+  border-radius: 5px; /* round corners */
+  cursor: pointer; /* add cursor on hover */
+  transition: background-color 0.3s ease; /* add transition effect */
+}
+
+.edit-btn {
+  background-color: #4CAF50; /* set background color */
+  color: white; /* set text color */
+  border: none; /* remove border */
+}
+
+.edit-btn:hover {
+  background-color: #3e8e41; /* change background color on hover */
+}
+    .select2-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 63%;
+  max-width: 400px;
+}
+
+.select2-wrapper select {
+  width: 63%;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  cursor: pointer;
+}
+
+.select2-wrapper i {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.btn2 {
+  font-size: 1.0rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn2:hover {
+  background-color: #0069d9;
+}
+    .center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+}
+
+.select-wrapper select {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  cursor: pointer;
+}
+
+.select-wrapper i {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0069d9;
+}
+
+
     </style>
 

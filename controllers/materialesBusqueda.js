@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
         role = req.session.passport.user.role;
     }
 
-    if (role == "admin" || role == "Cotización") {
+    if (role == "admin" || role == "Cotizacion") {
         let materiales = await material.find({});
 
         const texto = req.body.busqueda;
