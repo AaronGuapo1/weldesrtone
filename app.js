@@ -234,7 +234,6 @@ const FiltrosCotizaciones2 = require("./controllers/FiltrosCotizaciones2.js")
 
 const infoCotizaciones = require ("./controllers/infoCotizaciones")
 
-const dinamita = require ("./controllers/Dinamita")
 
 // MercadoPago
 
@@ -611,7 +610,6 @@ app.post("/infoCotizaciones", infoCotizaciones)
 
 app.post("/FiltroEnviosPost",FiltroEnviosPost)
 
-app.post("/dinamita",dinamita)
 
 
 
