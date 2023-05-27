@@ -790,3 +790,19 @@ const NumeroCliente = PdfDescargar[0].Telefono
 
 }
 
+
+
+
+
+
+GOOGLE_CLIENT_ID=183268981578-ahl90pksia6jm9k34uqlekstc4t31tti.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+SECRET=bktup fjldu zik
+FACEBOOK_APP_ID=906201867248168
+FACEBOOK_APP_SECRET=8329f1170ca3c0f3f35e6edf2d60affe
+MICROSOFT_APP_ID=8c2ae7aa-d994-468d-8458-6027f891e1d4
+MICROSOFT_APP_SECRET=HoU8Q~W2k~sqiQPDY_JODgy_XNU2yJO1g6ljxb_T
+accountSid=AC87cdadcbcb336292d4906e19e42e1391
+authToken=35f98a23dd62b77059cb26e4c6727a9f
+accessKeyId=AKIARRM62T4IL5PITGVR
+secretAccessKey=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
