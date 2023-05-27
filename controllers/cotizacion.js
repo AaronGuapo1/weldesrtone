@@ -22,8 +22,8 @@ for (let a = 1; a < req.body.precio.length; a++) {
     const productoString = `${a}.- Nombre: ${req.body.nombre[a]} Precio: ${req.body.precio[a]} Cantidad: ${req.body.amount[a]} Unidad: ${req.body.unidad[a]} Código: ${req.body.codigo[a]} IVA: ${req.body.iva[a]} ///`;
     Productos.push(productoString);
   }
-  var min = Math.pow(10, 11);  // 10 elevado a la potencia de 11
-  var max = Math.pow(10, 12) - 1;  // 10 elevado a la potencia de 12 - 1
+  var min = Math.pow(10, 11);  
+  var max = Math.pow(10, 12) - 1;  
   var numero = Math.floor(Math.random() * (max - min + 1)) + min;
     const newId = numero;
     var suma = 0;

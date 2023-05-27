@@ -44,7 +44,7 @@ module.exports =  async (req,res)=>{
     if(req.body.PorcentajeInstalacion !== '' ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{PorcentajeInstalacion:req.body.PorcentajeInstalacion}});
     }
-    console.log(req.body.Activo)
+    //console.log(req.body.Activo)
     if(req.body.Activo === "true" ){
         await Producto.updateOne({nombre:req.body.NombreBusqueda},{$set:{Activo:true}});
     }else if(req.body.Activo !== "true"){
@@ -80,7 +80,7 @@ module.exports =  async (req,res)=>{
      
 
      if (req.body['MaterialesProductos[cantidad]'][a]> 0){
-        console.log(req.body['MaterialesProductos[nombre]'][a])
+        //console.log(req.body['MaterialesProductos[nombre]'][a])
         await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $push: {MaterialesProductos:{Descripcion:req.body['MaterialesProductos[nombre]'][a],cantidad:req.body['MaterialesProductos[cantidad]'][a],Codigo:req.body['MaterialesProductos[Codigo]'][a],Familia:req.body['MaterialesProductos[Familia]'][a]}}});
     
      }
@@ -91,7 +91,7 @@ module.exports =  async (req,res)=>{
 
     for (b=1; b<req.body['PinturaProductos[cantidad]'].length;b++){
         if (req.body['PinturaProductos[cantidad]'][b]> 0){
-            console.log(req.body['PinturaProductos[nombre]'][b])
+            //console.log(req.body['PinturaProductos[nombre]'][b])
 
         await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $push: {PinturaProductos:{Descripcion:req.body['PinturaProductos[nombre]'][b],cantidad:req.body['PinturaProductos[cantidad]'][b],Codigo:req.body['PinturaProductos[Codigo]'][b],Familia:req.body['PinturaProductos[Familia]'][b]}}});
         }
@@ -101,7 +101,7 @@ module.exports =  async (req,res)=>{
 
     for (c=1; c<req.body['InstalacionProductos[cantidad]'].length;c++){
         if (req.body['InstalacionProductos[cantidad]'][c]> 0){
-            console.log(req.body['InstalacionProductos[nombre]'][c])
+            //console.log(req.body['InstalacionProductos[nombre]'][c])
         await Producto.updateOne({nombre:req.body.NombreBusqueda}, { $push: {InstalacionProductos:{Descripcion:req.body['InstalacionProductos[nombre]'][c],cantidad:req.body['InstalacionProductos[cantidad]'][c],Codigo:req.body['InstalacionProductos[Codigo]'][c],Familia:req.body['InstalacionProductos[Familia]'][c]}}});
         }
     }
@@ -111,7 +111,7 @@ module.exports =  async (req,res)=>{
 
     const productos = await Producto.find({nombre:req.body.NombreBusqueda});
 
-    console.log(productos)
+    //console.log(productos)
 
     const materiales = await material.find({});
     
@@ -163,7 +163,7 @@ module.exports =  async (req,res)=>{
     
     var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
     var SubTotal=Number(x.toFixed(2))
-    SubTotal= SubTotal + productos[0].iva
+    SubTotal = SubTotal + (SubTotal*(productos[0].iva/100))
 
 
 await Producto.updateOne({_id:productos[0]._id},{ $set: { precio:SubTotal } });
@@ -176,7 +176,7 @@ await Cart.update({nombre:productos[0].nombre},{$set: { precio:SubTotal } });
 
 
 
-        console.log(image.name)
+        //console.log(image.name)
 
         image.mv(path.resolve(__dirname,'..','public/images/productos',image.name),async (error)=>{
 
@@ -190,47 +190,64 @@ await Cart.update({nombre:productos[0].nombre},{$set: { precio:SubTotal } });
     catch (error) {
 
     }
-
-
     try {
 
+        //console.log(productos[0].image2.length)
 
-        var image2 = req.files.image2;
+        if (req.body.image2 === undefined){
+            await Producto.updateMany({ nombre: req.body.NombreBusqueda }, { $set: { image2: [] } });
 
+        }
 
-        console.log(image2.name)
-
-        image2.mv(path.resolve(__dirname,'..','public/images/productos',image2.name),async (error)=>{
-
-            await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image2: '/images/productos/' + image2.name}});
-
-        })
-    }
-    
-
-    catch (error) {
-
-    }
-
-    try {
-
-
-        var image3 = req.files.image3;
-        console.log(image3.name)
+      
+        if (req.body.image2 !== undefined) {
+            await Producto.updateMany({ nombre: req.body.NombreBusqueda }, { $set: { image2: [] } });
+            //console.log(req.body.image2);
+          
+            const images = Array.isArray(req.body.image2) ? req.body.image2 : [req.body.image2];
+          
+            await Producto.updateOne(
+              { nombre: req.body.NombreBusqueda },
+              { $push: { image2: { $each: images } } }
+            );
+          }
+          
 
 
-        image3.mv(path.resolve(__dirname,'..','public/images/productos',image3.name),async (error)=>{
+        if (req.files !== undefined) {
 
-            await Producto.updateOne({nombre:req.body.NombreBusqueda},{ $set:{ image3: '/images/productos/' + image3.name}});
-
-        })
-    }
-    
-
-    catch (error) {
-
-    }
-
+          const updatedFiles = req.files;
+          //console.log(req.files);
+      
+          const images = [];
+          if (Array.isArray(updatedFiles.image2)) {
+            // Caso de múltiples imágenes
+            for (let i = 0; i < updatedFiles.image2.length; i++) {
+              let image = updatedFiles.image2[i];
+              if (image.data !== null) {
+                await image.mv(path.resolve(__dirname, '..', 'public/images/productos', image.name));
+                images.push('/images/productos/' + image.name);
+              }
+            }
+          } else {
+            // Caso de una sola imagen
+            let image = updatedFiles.image2;
+            if (image.data !== null) {
+              await image.mv(path.resolve(__dirname, '..', 'public/images/productos', image.name));
+              images.push('/images/productos/' + image.name);
+            }
+          }
+      
+          await Producto.updateOne(
+            { nombre: req.body.NombreBusqueda },
+            { $push: { image2: { $each: images } } }
+          );
+          await Cart.update({ nombre: req.body.NombreBusqueda }, { $push: { image2: { $each: images } } });
+        }
+      } catch (error) {
+        
+      }
+      
 
     finally {
 

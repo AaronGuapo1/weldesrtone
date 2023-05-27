@@ -32,12 +32,21 @@
 
 
                         <div class="w3-content w3-display-container">
-                            <img class="mySlides" src="<%= productoDoc.image %>" style="width:350px">
-                            <img class="mySlides" src="<%= productoDoc.image2 %>" style="width:350px">
-                            <img class="mySlides" src="<%= productoDoc.image3 %>" style="width:350px">
-                          
+                            <img class="mySlides" src="<%= productoDoc.image %>" style="width:350px; height:350px">
+
+
+
+                            <% for (var a = 0; a < productoDoc.image2.length; a++) { %> 
+
+                            <img class="mySlides" src="<%= productoDoc.image2[a] %>" style="width:350px; height:350px">
+                            <% } %>
+
+                            <% if(productoDoc.image2.length > 0){ %>
+
                             <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
                             <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                            <% } %>
+
                           </div>
 
 

@@ -72,8 +72,7 @@ var sumaInsumos3Por = ((sumaInsumos * productos[a].PorcentajeInstalacion)/100) +
 
 var x = Suma3Por+sumaSolventes3Por+sumaInsumos3Por;
 var SubTotal=Number(x.toFixed(2))
-
-SubTotal = SubTotal + productos[a].iva
+SubTotal = SubTotal + (SubTotal*(productos[a].iva/100))
 
 
 

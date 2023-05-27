@@ -83,7 +83,7 @@
             
             <% if(roles === "admin" || roles === "Cotizacion"){ %>
             <div class="card border-danger">
-                <div class="card-header">Editar precio unitario por familias.</div>
+                <div class="card-header">Editar precio unitario por Familias.</div>
                 <div class="card-body">
                     <h5 class="card-title mb-3"></h5>
 
@@ -106,7 +106,7 @@
                                 </select>
                             </div>
                             <div class="col-10" style="padding-left: .2rem;">
-                                <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder=""  min="0" max="100">
+                                <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder="%"  min="0" max="100">
                             </div>
                         </div>
                         <button class="btn btn-outline-danger" type="reset">Limpiar</button>
@@ -132,11 +132,62 @@
                 </form>
                 <% } %>
 
-
                 </div>
             </div>
         </div>
             <br>    
+
+            <% if(roles === "admin" || roles === "Cotizacion"){ %>
+                <div class="card border-danger">
+                    <div class="card-header">Editar precio unitario por Sub Familias.</div>
+                    <div class="card-body">
+                        <h5 class="card-title mb-3"></h5>
+
+                        <form method="post" action="/SubFamiliaPrecio" >
+    
+                            <div class="row" style="margin-bottom: 1rem;">
+                                <div class="col-2" style="padding-right: .2rem;">
+                                    <select  name="SubFamiliaPrecio" class="BusquedaSelect form-select">
+                                        <% for (var a = 0; a < unicos2.length; a++) { %> 
+                                            <% if(unicos2[a] !== undefined){ %>
+            
+                                            <option value="<%=unicos2[a]%>" selected><%=unicos2[a]%></option>
+            
+                                            <% } %>
+            
+                                            <% } %>
+
+                                    </select>
+                                </div>
+                                <div class="col-10" style="padding-left: .2rem;">
+                                    <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder="%"  min="0" max="100">
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-danger" type="reset">Limpiar</button>
+                            <button type="submit" class="btn btn-outline-danger">Actualizar</button>
+                    <div style="padding-top: 1rem;">
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="radio form-check-input" value="incrementar" name="accion" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Incrementar
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="checkbox" class="radio form-check-input" value="reducir" name="accion" />
+                            <label class="form-check-label" for="flexCheckDefault">
+                              Reducir
+                            </label>
+                        </div>
+                      </div>
+                    </form>
+                    <% } %>
+    
+                    </div>
+                </div>
+            </div>
+
+<br>
+
             <!-- Edicion de Materiales -->
             <div class="card border-danger">
                 <div class="card-header">Inventario de Materiales</div>

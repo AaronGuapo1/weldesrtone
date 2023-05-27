@@ -21,8 +21,19 @@ module.exports = async (req, res) => {
             familias.push(materiales[i].Familia);
         }
         const unicos = [...new Set(familias)];
+
+        var SubFamilias=[];
+        for (j=0; j<materiales.length; j++){
+       
+                SubFamilias.push(materiales[j].SubFam);
+
+
+        }
+        const unicos2 = [...new Set(SubFamilias)];
+
         res.render("materiales", {
             unicos,
+            unicos2,
             materiales,
             roles: role,
             loggedIn: true,

@@ -207,6 +207,8 @@ const addProductCart2 = require('./controllers/AddProductCart2')
 const FiltrosUsuarios = require('./controllers/FiltroUsuarios')
 const FiltrosUsuarios2 = require('./controllers/FiltroUsuarios2')
 const FamiliaPrecio = require('./controllers/FamiliaPrecio')
+const SubFamiliaPrecio = require('./controllers/SubFamiliaPrecio')
+
 const putProduct = require('./controllers/PutProduct')
 const cart = require('./controllers/cart')
 const url = require('url');
@@ -561,6 +563,8 @@ app.post("/materiales/agregar", materialesAgregarPOST);
 app.post("/materiales/busqueda", materialesBusqueda);
 app.use('/material/borrar/:id', materialBorrar);
 app.use('/FamiliaPrecio', FamiliaPrecio)
+app.use('/SubFamiliaPrecio', SubFamiliaPrecio)
+
 
 
 // - Productos

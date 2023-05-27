@@ -13,20 +13,20 @@ module.exports = async (req, res) =>{
 
 if(req.body.porcentaje >0 && req.body.accion ==='incrementar'){
 
-    await material.updateMany({Familia:req.body.FamiliaPrecio }, { $mul: { PrecioUnitario: porcentaje }});
+    await material.updateMany({SubFam:req.body.SubFamiliaPrecio }, { $mul: { PrecioUnitario: porcentaje }});
 
 
 
 }else if (req.body.porcentaje >0 && req.body.accion ==='reducir')
 {
 
-    await material.update({Familia:req.body.FamiliaPrecio},{$mul:{PrecioUnitario:porcentajeRed}})
+    await material.update({SubFam:req.body.SubFamiliaPrecio},{$mul:{PrecioUnitario:porcentajeRed}})
+
 
 }
 
-
 // Obtener todos los materiales
-const materials = await material.find({ Familia: req.body.FamiliaPrecio });
+const materials = await material.find({ SubFam: req.body.SubFamiliaPrecio });
 
 // Crear una lista de operaciones de actualización
 const updateOperations = materials.map((material) => ({
@@ -38,8 +38,6 @@ const updateOperations = materials.map((material) => ({
 
 // Ejecutar las operaciones de actualización en masa
 await material.bulkWrite(updateOperations);
-
-
 
 
 
@@ -163,3 +161,28 @@ await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
 res.redirect('/materiales/true')
 }
 
+
+
+/*
+
+
+module.exports = async (req, res) =>{
+    var porcentaje= (req.body.porcentaje/100)+1
+
+    var porcentajeRed= 1-(req.body.porcentaje/100)
+
+
+
+if(req.body.porcentaje >0 && req.body.accion ==='incrementar'){
+
+    await material.updateMany({SubFam:req.body.SubFamiliaPrecio }, { $mul: { PrecioUnitario: porcentaje }});
+
+
+
+}else if (req.body.porcentaje >0 && req.body.accion ==='reducir')
+{
+
+    await material.update({SubFam:req.body.SubFamiliaPrecio},{$mul:{PrecioUnitario:porcentajeRed}})
+
+}
+*/

@@ -20,6 +20,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+        <!--Imagenes-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     </head>
     <body>
         <header>
@@ -91,14 +95,21 @@
 
  
 
+                             
                                             <!-- Imagen -->
                                             <div class="mb-3">
                                                 <label for="formFile" class="form-label">Selecciona una o más imagenes para el producto</label>
-                                                <input class="form-control" type="file" id="image" name="image">
-                                                <input class="form-control" type="file" id="image2" name="image2">
-                                                <input class="form-control" type="file" id="image3" name="image3">
+                                                <div id="fileInputsContainer">
+                                                    <div class="file-input-group">
+
+                                                    <input class="form-control" type="file" id="image" name="image">
+
+                                                </div>
+                                            </div>
+                                                <button type="button" onclick="addFileInput()" class="btn btn-danger" ><i class="fa-solid fa-plus"></i></button> <button type="button" class="remove-file-input btn btn-secondary" onclick="removeFileInput(this)" ><i class="fa-solid fa-minus"></i></button>
 
                                             </div>
+                                            
                                             <div>
 
                                                 <div class="checkbox-wrapper">
@@ -543,7 +554,42 @@ mobiscroll.setOptions({
                     </script>
 
 
+<script>
+      var fileInputIndex = 2;
+    var removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.textContent = "Eliminar";
+    removeButton.onclick = function() {
+      removeFileInput();
+    };
 
+    function addFileInput() {
+      var container = document.getElementById("fileInputsContainer");
+
+      var fileInputGroup = document.createElement("div");
+      fileInputGroup.className = "file-input-group";
+
+      var newInput = document.createElement("input");
+      newInput.type = "file";
+      newInput.setAttribute("id", "image" + fileInputIndex);
+      newInput.setAttribute("class", "form-control");
+      newInput.name = "image" + fileInputIndex;
+
+      fileInputGroup.appendChild(newInput);
+      container.appendChild(fileInputGroup);
+
+      fileInputIndex++;
+    }
+
+    function removeFileInput() {
+      var container = document.getElementById("fileInputsContainer");
+      var fileInputGroups = container.getElementsByClassName("file-input-group");
+
+      if (fileInputGroups.length > 1) {
+        container.removeChild(fileInputGroups[fileInputGroups.length - 1]);
+      }
+    }
+  </script>
 
         <style>
 
@@ -595,7 +641,9 @@ label {
   cursor: pointer;
 }
 
-
+.file-input-group {
+      margin-bottom: 10px;
+    }
         </style>
 
 <script>
