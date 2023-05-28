@@ -18,11 +18,8 @@ module.exports = async (req, res) => {
         //console.log(page)
         if (page === undefined) {
             const materiales = await Material.find({ PrecioUnitario: { $gt: 0 } });
-            const productos = await Producto.paginate(
-                {},
-                { page: 1, limit: 10 }
-            );
-            //console.log(productos)
+            const productos = await Producto.find({});
+            
             res.render("productos", {
                 productos,
                 materiales,
@@ -31,8 +28,8 @@ module.exports = async (req, res) => {
             });
         } else {
             const materiales = await Material.find({ PrecioUnitario: { $gt: 0 } });
-            const productos = await Producto.paginate({}, { page, limit: 10 });
-            //console.log(productos)
+            const productos = await Producto.find({})
+            
             res.render("productos", {
                 productos,
                 materiales,

@@ -40,7 +40,7 @@
                         <h2 class="accordion-header" id="headingOne">
 
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Agregar Productos
+                                Agregar Artículos
                             </button>
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -127,7 +127,7 @@
 
                                     <hr>
 
-                                    <h5>Materiales</h5>
+                                    <h5 style="font-weight: bold;">Materiales</h5>
                                     <div>
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Material<%=materiales[a].Codigo%>">
@@ -223,7 +223,7 @@
 
                                     <hr>
 
-                                    <h5>Pintura</h5>
+                                    <h5 style="font-weight: bold;">Pintura</h5>
                                     <div>
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Pintura<%=materiales[a].Codigo%>">
@@ -319,7 +319,7 @@
 
                                     <hr>
 
-                                    <h5>Instalación</h5>
+                                    <h5 style="font-weight: bold;">Instalación</h5>
                                     <div>
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Instalacion<%=materiales[a].Codigo%>">
@@ -441,7 +441,7 @@
                                             <button type="button" class="btn btn-dark" id="calculate-subtotal">Calcular Subtotal</button>
                                         </div>
                                         <div class="col-6" style="text-align: end;">
-                                            <button type="submit" class="btn btn-danger" id="sendMessageButton">Agregar Producto</button>
+                                            <button type="submit" class="btn btn-danger" id="sendMessageButton">Agregar Artículo</button>
                                         </div>
                                     </div>
                                 </form>
@@ -456,7 +456,7 @@
 
             <section id="editar-producto">
                 <div class="card border-danger">
-                    <div class="card-header">Inventario de Productos</div>
+                    <div class="card-header">Inventario de Artículos</div>
 
                     <div class="card-body px-5 py-4">
                         <% for (var a = 0; a < productos.docs.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
@@ -470,10 +470,10 @@
                             
 
                             <!--
-                                <img class="mySlides" src="<%= productos.docs.image %>" style="width:350px">
+                                <img class="mySlides" src="<%= //productos.docs.image %>" style="width:350px">
                             <div class="w3-content w3-display-container">
-                            <img class="mySlides" src="<%= productos.docs.image2 %>" style="width:350px">
-                            <img class="mySlides" src="<%= productos.docs.image3 %>" style="width:350px">
+                            <img class="mySlides" src="<%= //productos.docs.image2 %>" style="width:350px">
+                            <img class="mySlides" src="<%= //productos.docs.image3 %>" style="width:350px">
                             <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
                             <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
                           </div>
@@ -515,13 +515,7 @@
             </section>
         </main>
 
-        
-        
-
-            <!--
-                            </div></div>
                         
-                    --><% for (var a = 1; a < productos.totalPages+1; a++) { %> <a href="/productos?page=<%=[a]%>" type="submit" id="sendMessageButton" class="btn btn-dark"><%=[a]%> </a><% } %>
         </section>
 
         <!-- Bootstrap core JS-->
