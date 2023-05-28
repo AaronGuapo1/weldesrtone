@@ -209,7 +209,7 @@
 
                     <hr>
 
-                    <form action="/materiales/edicion" method="post">
+                    <form action="/materiales/edicion" method="post" id="form">
                         <% if(roles === "admin" || roles === "Cotizacion"){ %>
 
                         <button class="btn btn-outline-danger btn-lg w-100 mb-3" type="submit" id="sendMessageButton">Guardar Cambios</button>
@@ -231,16 +231,16 @@
                                 <% for (let a = 0; a < materiales.length; a++) { %>
                                     <tr>
                                         <td>
-                                            <%=materiales[a].Descripcion%>
+                                            <%=materiales[a].Codigo%>
                                         </td>
                                         <td>
-                                            <%=materiales[a].Codigo%>
+                                            <%=materiales[a].Descripcion%>
                                         </td>
                                         <td>
                                             <%=materiales[a].Unidad%>
                                         </td>
-                                        <td>
-                                            <%=materiales[a].PrecioUnitario%>
+                                        <td style="text-align: right">
+                                            $<%=parseInt(materiales[a].PrecioUnitario).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%>
                                         </td>
                                         <td>
                                             <%=materiales[a].Familia%>
@@ -334,11 +334,11 @@
 
         <div class="go-top-container">
             <div class="go-top-button">
-                <i class="fas fa-chevron-up"></i>
+                <i class="fa-solid fa-floppy-disk"></i>
             </div>
         </div>
 
-        <script src="/js/gotop.js"></script>
+        <script src="/js/saveFormButton.js"></script>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
