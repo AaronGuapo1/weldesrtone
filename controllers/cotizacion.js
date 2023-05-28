@@ -16,10 +16,12 @@ module.exports = async (req, res) =>{
     const client = require('twilio')(accountSid, authToken);
 
 
-      var Productos =[]
 
-for (let a = 1; a < req.body.precio.length; a++) {
-    const productoString = `${a}.- Nombre: ${req.body.nombre[a]} Precio: ${req.body.precio[a]} Cantidad: ${req.body.amount[a]} Unidad: ${req.body.unidad[a]} Código: ${req.body.codigo[a]} IVA: ${req.body.iva[a]} ///`;
+  // Código para crear el array Productos
+  const Productos = [];
+  
+  for (let a = 1; a < req.body.precio.length; a++) {
+    const productoString = `${a}.- Nombre: ${req.body.nombre[a]} Precio: ${req.body.precio[a]} Código: ${req.body.codigo[a]} Cantidad: ${req.body.amount[a]}`;
     Productos.push(productoString);
   }
   var min = Math.pow(10, 11);  
@@ -51,21 +53,23 @@ for (let a = 1; a < req.body.precio.length; a++) {
         body: 
         
         `
-        Cotización generada, favor de ponerse en contacto con el cliente 
-        PrecioTotal: ${suma},
-        Id_usuario: ${IdUsuario},
-        Fecha_compra: ${date},
-        Id_transaccion: ${newId},
-        Estado:${req.body.EstadoSelect},
-        Telefono:${req.body.Telefono},
-        NombreYApellidos:${req.body.NombreYApellidos},
-        Direccion:${req.body.Direccion},
-        Departamento:${req.body.Departamento},
-        Ciudad:${req.body.Ciudad},
-        CodigoPostal:${req.body.CodigoPostal},
-        Extra:${req.body.Extra},
-        Productos Cotizados: ,
-        ${Productos}
+
+        *Cotización generada por favor ponte en contacto con el cliente*
+
+*Nombre y Apellidos:* ${req.body.NombreYApellidos}
+*Estado:* ${req.body.EstadoSelect}
+*Domicilio:* ${req.body.Direccion}, ${req.body.Departamento}, ${req.body.Ciudad}, ${req.body.CodigoPostal}
+*Información adicional:* ${req.body.Extra}
+*ID de Usuario:* ${IdUsuario}
+*Teléfono:* ${req.body.Telefono}
+
+*Fecha de compra:* ${date}
+*ID de transacción:* ${newId}
+*Productos Cotizados:*
+${Productos.join('\n')}
+
+*Precio Total:* ${suma}
+        
 
         
         ` ,

@@ -79,9 +79,9 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://welderstoneprueba.onrender.com/auth/google/welderstone",
+            callbackURL: "http://localhost:3000/auth/google/welderstone",
         },
-        //http://welderstone/auth/google/welderstone
+        //http://welderstone.com/auth/google/welderstone
         //http://localhost:3000/auth/google/welderstone
         //https://welderstoneprueba.onrender.com/auth/google/welderstone
         function (accessToken, refreshToken, profile, cb) {
@@ -235,7 +235,7 @@ const FiltrosCotizaciones = require("./controllers/FiltrosCotizaciones.js")
 const FiltrosCotizaciones2 = require("./controllers/FiltrosCotizaciones2.js")
 
 const infoCotizaciones = require ("./controllers/infoCotizaciones")
-
+const AuthArticulos = require('./controllers/AuthArticulos')
 
 // MercadoPago
 
@@ -573,6 +573,7 @@ app.post("/productos/agregar", productosAgregarPOST);
 app.post("/productos/EditarMateriales", productosEMPOST);
 app.get("/productos/MaterialesEdicion/:id", productosEdicionMaterialesPOST);
 app.use("/productos/borrar/:id", productoBorrar);
+app.get('/AuthArticulos',AuthArticulos)
 
 // - Tienda
 app.post("/tienda/busqueda", tiendaBusqueda);

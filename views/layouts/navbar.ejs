@@ -65,16 +65,20 @@
                     <a class="nav-link ms-4 me-2 right-icons" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="#"><i class="f-icon fa-solid fa-gear"></i></a>
         
                     <ul class="dropdown-menu dropdown-menu-end" id="dropdown-custom">
-                        <% if(roles  === "admin" || roles  === "Cotizacion" || roles  === "Ventas"  || roles  === "Proyectos") { %>
+                        <% if(roles  === "admin" || roles  === "Ventas"  || roles  === "Proyectos") { %>
                             <li><a class="dropdown-item" href="/productos">Productos</a></li>
+                            <% } %>
+                            
+                            <% if(roles  === "admin" || roles  === "Cotizacion" || roles  === "Ventas") { %>
+
                             <li><a class="dropdown-item" href="/materiales/true">Materiales</a></li>
                             <% } %>
-
 
                             <% if(roles  === "admin") { %>
 
                             <li><a class="dropdown-item" href="/PanelUsuarios">Usuarios</a></li>
                             <li><a class="dropdown-item" href="/envios">Envios </a></li>
+                            <li><a class="dropdown-item" href="/AuthArticulos">Autorizar Articulos </a></li>
 
                         <% } %>
 
