@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
         role == "Proyectos"
     ) {
         //console.log(page)
-        const materiales = await material.find({});
+        const materiales = await material.find({}).sort({ Familia: 1 });
 
         var familias = [];
         for (i = 0; i < materiales.length; i++) {
