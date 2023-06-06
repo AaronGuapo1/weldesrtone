@@ -216,7 +216,9 @@ const HistorialCompras = require('./controllers/HistorialCompras');
 const factura = require ('./controllers/factura');
 const FiltrosCompras = require('./controllers/FiltrosCompras');
 const pdfDescargar = require('./controllers/descargar');
+const pdfCotizacion = require('./controllers/descargarCotizacion');
 const pdfDescargarMultiple = require('./controllers/descargarMultiple');
+const DesplieguePdf = require('./controllers/pdfPost')
 const dataFormGET = require("./controllers/data_formGet");
 const dataFormPOST = require("./controllers/data_formPost");
 const productoEditarGet = require("./controllers/productoEditarGET");
@@ -236,6 +238,7 @@ const FiltrosCotizaciones2 = require("./controllers/FiltrosCotizaciones2.js")
 
 const infoCotizaciones = require ("./controllers/infoCotizaciones")
 const AuthArticulos = require('./controllers/AuthArticulos')
+const AuthArticulosPost = require('./controllers/AuthPost')
 
 // MercadoPago
 
@@ -552,6 +555,8 @@ transporter.sendMail(mailOptions, function(error, info){
 
 //PDF
 app.use("/pdfDescargar", pdfDescargar);
+app.use("/pdfCotizacion", pdfCotizacion);
+
 app.use("/DescargarMultiple",pdfDescargarMultiple)
 
 // - POST METHOD - //
@@ -574,6 +579,8 @@ app.post("/productos/EditarMateriales", productosEMPOST);
 app.get("/productos/MaterialesEdicion/:id", productosEdicionMaterialesPOST);
 app.use("/productos/borrar/:id", productoBorrar);
 app.get('/AuthArticulos',AuthArticulos)
+app.post('/AuthArticulosPost',AuthArticulosPost)
+app.use('/DesplieguePdf',DesplieguePdf)
 
 // - Tienda
 app.post("/tienda/busqueda", tiendaBusqueda);

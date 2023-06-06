@@ -1,4 +1,3 @@
-const Cotizaciones = require("../models/cotizaciones");
 const pdfDescargar = require('../controllers/descargar')
 const PdfPrinter = require("pdfmake")
 const fs = require("fs")
@@ -9,59 +8,23 @@ const Material = require('../models/materiales.js');
 
 module.exports = async (req, res) =>{
 
-       const IdTransaccion = req.query.IdTrans
        //console.log( req.query.IdTrans)
+       const IdTransaccion = req.query.IdTrans
        const materiales= await Material.find({})
-       const PdfDescargar = await Cotizaciones.find({Id_transaccion: req.query.IdTrans})
- 
-
-       //var Almacen;
-       const { ProductosComprados } = PdfDescargar[0];
-       const body = [];
-       
-       // Iterar sobre cada objeto en ProductosComprados
-       for (const producto of ProductosComprados) {
-         const { nombre, codigo, unidad, precio, cantidad, iva } = producto;
-       
-         // Crear una fila con las propiedades del objeto
-         const fila = [
-           { text: nombre, fontSize: 11 },
-           { text: codigo, fontSize: 11 },
-           { text: unidad, fontSize: 11 },
-           { text: precio.toString(), fontSize: 11 },
-           { text: cantidad.toString(), fontSize: 11 },
-           { text: (precio * cantidad).toString(), fontSize: 11 },
-         ];
-       
-         // Agregar la fila al cuerpo de la tabla
-         body.push(fila);
-       }
-       
-
-
-
-/*
+       var ProductosAgregar = [];
+       var Almacen;
     Almacen = await Product.find({Codigo:req.query.codigo})
 
     ProductosAgregar.push(Almacen)
-var productodatos =[];
 
-for (d=0; d<ProductosComprados.length; d++){
-if (ProductosComprados[d].codigo ===req.query.codigo ){
 
-    productodatos.push(ProductosComprados[d])
-}
 
-}
+    ProductosAgregar[0][0] === Almacen
 
-const NomProd= productodatos[0].nombre
-const CantidadProd= productodatos[0].cantidad
-const precioProd= productodatos[0].precio
-const unidadProd = productodatos[0].unidad
-const Importe = CantidadProd*precioProd
-const codigo = productodatos[0].codigo
-*/
-const FechaCompra =PdfDescargar[0].Fecha_compra
+var productodatos = Almacen;
+console.log(productodatos[0])
+
+const FechaCompra =new Date();
 
 var date =
 FechaCompra.getFullYear() +
@@ -70,6 +33,7 @@ FechaCompra.getFullYear() +
 "-" +
 FechaCompra.getDate();
 
+
 var caduca =
 FechaCompra.getFullYear() +
 "-" +
@@ -77,14 +41,15 @@ FechaCompra.getFullYear() +
 "-" +
 FechaCompra.getDate();
 
+const NomProd= productodatos[0].nombre
+const CantidadProd= productodatos[0].cantidad
+const precioProd= productodatos[0].precio
+const unidadProd = productodatos[0].unidad
+const Importe = CantidadProd*precioProd
 
 
+const codigo = productodatos[0].Codigo
 
-
-
-
-
-/*
 var imagen;
 
 if(productodatos[0].image === "" || productodatos[0].image === undefined){
@@ -94,7 +59,6 @@ if(productodatos[0].image === "" || productodatos[0].image === undefined){
     imagen = productodatos[0].image.toString()
 
 }
-
 
 const productosMaterialesDescripcion =[];
        try{
@@ -559,13 +523,13 @@ const SubTotalR = Number(SubTotal).toFixed(2)
 const TotalFinal = Number(SubTotalR) +(Number(SubTotalR)*(Number(iva)/100))
 
 var TotalFinalR = Number(TotalFinal).toFixed(2)
-*/
+
 
        let docDefinition ={
 
     content :[
       
-       /*
+       
         {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height:70,alignment:'center',fit: [200,200], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
         {
 			style: 'tableExample',
@@ -614,7 +578,7 @@ var TotalFinalR = Number(TotalFinal).toFixed(2)
                     [{fontSize:9,text:" "}, " "," ","", {fontSize:9,text:"Total"},{fontSize:9,text:Total2R} ],
 
 					[{fontSize:9,text:productosInstalacionDescripcion}, {fontSize:9,text:productosInstalacionCodigo},{fontSize:9,text:ProductosInstalacionUnidad},{fontSize:9,text:PreciosInstalaciones}, {fontSize:9,text:productosInstalacionCantidad}, {fontSize:9,text:ImporteInstalaciones}],
-                    [{fontSize:9,text:" "}, " "," ",{fontSize:9,text:"Instalación"}, {fontSize:9,text:"Suma"}, {fontSize:9,text:InstalacionSuma}],
+                    [{fontSize:9,text:" "}, " "," ",{fontSize:9,text:"Instalación"}, {fontSize:9,text:"Suma"}, {fontSize:9,text:InstalacionSuma.toFixed(2)}],
                     [{fontSize:9,text:" "}, " "," ",{fontSize:9,text:"Mano de obra"}, {fontSize:9,text:ManoObInstalacion+"%"},{fontSize:9,text:ManoObInstalacion1R}],
                     [{fontSize:9,text:" "}, " "," ",{fontSize:9,text:"Porcentaje"}, {fontSize:9,text:PorcentajeInstalacion+"%"},{fontSize:9,text:ManoObInstalacion2R}],
                     [{fontSize:9,text:" "}, " "," ","", {fontSize:9,text:"Total"},{fontSize:9,text:Total3R} ],
@@ -643,17 +607,17 @@ var TotalFinalR = Number(TotalFinal).toFixed(2)
 			}
 		},
         {text: '',pageBreak: 'before'},
-     */
+     
 
 
-        //{columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height: 70,alignment:'center',fit: [200,200], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
+        {columns:[{image:'./public/images/productos/welderstone.png',width: 150, alignment:'left'},{},{image:'./public'+imagen,width: 70, height: 70,alignment:'center',fit: [200,200], absolutePosition: {x: 50, y: -5}},{text: 'Cotización', style: 'header',	alignment: 'right'}]},
         {
 			style: 'tableExample',
 			table: {
 				heights: [20, 20, 20],
 				body: [
                 ['Fecha',date],
-				['Codigo', 'a'],
+				['Codigo',codigo],
 				['Valido hasta',caduca],
 				]
 			},
@@ -686,11 +650,41 @@ var TotalFinalR = Number(TotalFinal).toFixed(2)
 
 				body: [
                     [{text: 'Articulo', style: 'tableHeader'}, {text: 'Codigo', style: 'tableHeader'}, {text: 'Unidad', style: 'tableHeader'}, {text: 'Precio Unitario', style: 'tableHeader'},{text: 'Cantidad', style: 'tableHeader'}, {text: 'importe', style: 'tableHeader'}],
+                    [{fontSize:11,text:NomProd},{fontSize:11,text:codigo},{fontSize:11,text:unidadProd},{fontSize:11,text:precioProd},{fontSize:11,text:CantidadProd},{fontSize:11,text:Importe}],
    
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
 
-       
-				],
-                ...body,
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+                    [" "," "," "," "," ", " "],
+				]
 			},
 
 			layout: {
@@ -758,7 +752,7 @@ var TotalFinalR = Number(TotalFinal).toFixed(2)
        const printer = new PdfPrinter(fonts);
    
        let pdfDoc = printer.createPdfKitDocument(docDefinition);
-       pdfDoc.pipe(fs.createWriteStream('pdfs/'+IdTransaccion+'.pdf'));
+       pdfDoc.pipe(fs.createWriteStream('pdfs/'+IdTransaccion+`${req.query.codigo}`+'.pdf'));
        pdfDoc.end();
    
    
@@ -768,8 +762,6 @@ var TotalFinalR = Number(TotalFinal).toFixed(2)
         role = req.session.passport.user.role;
        const IdUsuario = req.session.passport.user.id;
        const IdTransaccion = req.query.IdTrans
-       const cotizaciones = await Cotizaciones.find({})
-       /*
 const ProductoParaCotizar = ProductosAgregar[0][0]
 
 var MaterialesMostrar = []
@@ -798,13 +790,13 @@ for (b=0; b<PreciosInstalaciones.length; b++){
 
 }
 
-*/
-//console.log(PdfDescargar[0].Telefono)
-const NumeroCliente = PdfDescargar[0].Telefono
 
-    res.render('cotizacionProducto',{IdUsuario, cotizaciones, roles: role,loggedIn: true,IdTransaccion,NumeroCliente
-    })
-      
+
+    res.render('pdfProducto',{IdUsuario, roles: role,loggedIn: true,IdTransaccion,productodatos,ProductoParaCotizar,MaterialesMostrar,PinturaMostrar,InstalacionesMostrar,MaterialSuma,ManoObMaterial1R,ManoObMaterial2R,Total1R,PinturaSumaRedondeada,ManoObPintura1R,ManoObPintura2R,Total2R,InstalacionSuma,ManoObInstalacion1R,ManoObInstalacion2R,Total3R,SubTotalR,TotalFinal,TotalFinalR})
+
+
+
+
 }
 
 

@@ -45,6 +45,7 @@
     <%- include('layouts/navbar'); -%>
 
     <section id="presentation">
+
         <div class="presentation-cont">
           <div>
             <div class="row text-center">
@@ -57,7 +58,6 @@
                 <thead>
                   <tr>
                     <th>Nombre del producto/s</th>
-                    <th>Cotización del producto</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
                   </tr>
@@ -66,7 +66,6 @@
                   <% for (var b = 0; b < ProductosComprados.length; b++) { %>
                   <tr>
                     <td><%=ProductosComprados[b].nombre%></td>
-                    <td><a href="/cotizacionProductos?codigo=<%=ProductosComprados[b].codigo%>&amp;IdTrans=<%=cotizaciones[0].Id_transaccion%>">Ver cotización</a></td>
                     <td>$<%=ProductosComprados[b].precio%></td>
                     <td><%=ProductosComprados[b].cantidad%></td>
                   </tr>
@@ -91,10 +90,12 @@
               </div>
             </div>
             <div class="row">
+              <div class="mt-4 text-center">
+
+             <a href="/cotizacionProductos?IdTrans=<%=cotizaciones[0].Id_transaccion%>" class="btn btn-primary mr-3">Descargar cotización</a>
 
 
-
-
+</div>
              
 
 
@@ -110,6 +111,7 @@
             </div>
           </div>
         </div>
+      -->
       </section>
       
     <!-- Bootstrap core JS-->

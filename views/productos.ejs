@@ -459,14 +459,14 @@
                     <div class="card-header">Inventario de Artículos</div>
 
                     <div class="card-body px-5 py-4">
-                        <% for (var a = 0; a < productos.docs.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
+                        <% for (var a = 0; a < productos.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
                             <div class="card mb-3">
                                 <div class="row g-0">
                                     <div class="col-md-2 center-text-xy">
 
 
 
-                                       <img src="<%= productos.docs[a].image %>" class="img-fluid rounded-start" alt="...">
+                                       <img src="<%= productos[a].image %>" class="img-fluid rounded-start" alt="...">
                             
 
                             <!--
@@ -483,23 +483,23 @@
                                     </div>
                                     <div class="col-md-9">
                                         <div class="card-body">
-                                            <h5 class="card-title"><%=productos.docs[a].nombre%> <span class="ms-1" style="font-size: 0.8rem; color:gray"><%=productos.docs[a].IdProducto%></span></h5>
+                                            <h5 class="card-title"><%=productos[a].nombre%> <span class="ms-1" style="font-size: 0.8rem; color:gray"><%=productos[a].IdProducto%></span></h5>
                                             
-                                            <p class="card-text mb-2"><%=productos.docs[a].descripcion%></p>
+                                            <p class="card-text mb-2"><%=productos[a].descripcion%></p>
 
-                                            <p class="card-text mb-2"><strong>Familia:</strong> <%=productos.docs[a].familia%></p>
+                                            <p class="card-text mb-2"><strong>Familia:</strong> <%=productos[a].familia%></p>
 
-                                            <p class="card-text resaltar-rojo"><strong>Precio: $<%=productos.docs[a].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%> mxn</strong></p>
+                                            <p class="card-text resaltar-rojo"><strong>Precio: $<%=productos[a].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%> mxn</strong></p>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
                                         <% if(roles === "admin" || roles === "Cotizacion"){ %>
                                         <!-- Editar producto -->
-                                        <a href="/productos/editar/<%=productos.docs[a]._id%>"> 
+                                        <a href="/productos/editar/<%=productos[a]._id%>"> 
                                             <button type="button" class="btn btn-primary w-100 edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
                                         </a>
                                         <!-- Borrar Producto -->
-                                        <a href="/productos/borrar/<%=productos.docs[a].nombre%>" id="sendMessageButton">
+                                        <a href="/productos/borrar/<%=productos[a].nombre%>" id="sendMessageButton">
                                             <button type="button" class="btn btn-dark w-100 trash-button">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>

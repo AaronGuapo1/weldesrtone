@@ -74,6 +74,8 @@ var SubTotal=Number(x.toFixed(2))
 
 SubTotal = SubTotal + (SubTotal*(productos[a].iva/100))
 
+SubTotal = SubTotal.toFixed(2)
+
 await Producto.updateOne({_id:productos[a]._id},{ $set: { precio:SubTotal } });
 await Cart.update({nombre:productos[a].nombre},{$set: { precio:SubTotal } });
 

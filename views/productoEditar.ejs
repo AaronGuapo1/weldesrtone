@@ -114,10 +114,14 @@
                                 <input type="number" class="form-control" placeholder="Iva" name="Iva" min="0">
                             </div>
                             <br>
+                            <% if(roles === "admin" ){ %>
+
                             <div class="checkbox-wrapper">
                                 <input type="checkbox" id="mi-checkbox" name="Activo" value="true">
                                 <label for="mi-checkbox">Activo</label>
                               </div>
+                              <% } %>
+
                         </div>
 
 

@@ -165,7 +165,7 @@ module.exports =  async (req,res)=>{
     var SubTotal=Number(x.toFixed(2))
     SubTotal = SubTotal + (SubTotal*(productos[0].iva/100))
 
-
+    SubTotal= SubTotal.toFixed(2)
 await Producto.updateOne({_id:productos[0]._id},{ $set: { precio:SubTotal } });
 await Cart.update({nombre:productos[0].nombre},{$set: { precio:SubTotal } });
 
