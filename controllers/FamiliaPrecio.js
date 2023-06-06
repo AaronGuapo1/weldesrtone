@@ -5,6 +5,12 @@ const Cart = require("../models/Cart");
 
 
 module.exports = async (req, res) =>{
+
+    console.log(req.body)
+if(req.body.FamiliaPrecioEleccion === 'PorcentajeEleccion'){
+
+
+
     var porcentaje= (req.body.porcentaje/100)+1
 
     var porcentajeRed= 1-(req.body.porcentaje/100)
@@ -40,7 +46,29 @@ const updateOperations = materials.map((material) => ({
 await material.bulkWrite(updateOperations);
 
 
+}else if(req.body.FamiliaPrecioEleccion === 'FijoEleccion'){
+    var ValorASumar = req.body.porcentaje
 
+    var ValorARestar = req.body.porcentaje
+
+    if (req.body.porcentaje > 0 && req.body.accion === 'incrementar') {
+        await material.updateMany({ Familia: req.body.FamiliaPrecio }, { $inc: { PrecioUnitario: ValorASumar } });
+      } else if (req.body.porcentaje > 0 && req.body.accion === 'reducir') {
+        await material.updateMany({ Familia: req.body.FamiliaPrecio }, { $inc: { PrecioUnitario: -ValorARestar } });
+      }
+    const materials = await material.find({ Familia: req.body.FamiliaPrecio });
+
+    // Crear una lista de operaciones de actualización
+    const updateOperations = materials.map((material) => ({
+      updateOne: {
+        filter: { _id: material._id },
+        update: { $set: { PrecioUnitario: Math.round(material.PrecioUnitario * 100) / 100 } },
+      },
+    }));
+// Ejecutar las operaciones de actualización en masa
+await material.bulkWrite(updateOperations);
+
+}
 
 
 const cantidadrespetada = await Producto.find({});

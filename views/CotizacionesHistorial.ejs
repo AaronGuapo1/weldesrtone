@@ -130,8 +130,14 @@
 
                       <% if (b === 0) { %>
 
-                      <td rowspan="<%=ProductosComprados.length%>"><button class="edit-btn" onclick="openPopup3(`<%= cotizaciones.docs[a].Id_transaccion%>`)">Info</button></td>
-<!--<%=cotizaciones.docs[a].NombreYApellidos%>-->
+                      <td rowspan="<%=ProductosComprados.length%>"><button class="edit-btn" onclick="openPopup3(`<%= cotizaciones.docs[a].Id_transaccion%>`)">Info</button>
+                        <br>
+                        <br>
+
+                        <a href="/cotizacionProductos?IdTrans=<%= cotizaciones.docs[a].Id_transaccion%>" class="edit-btn">Despliegue</a>
+
+                      </td>
+
                         <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Fecha_compra.toDateString()%></td>
                         <td rowspan="<%=ProductosComprados.length%>"><%=cotizaciones.docs[a].Id_transaccion%></td>
                       <% } %>
@@ -437,6 +443,27 @@ label {
   background-color: #647587;
 }
 
+    /* Estilos para el modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: -10px;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
 
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
     </style>
 

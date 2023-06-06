@@ -5,7 +5,10 @@ const Cart = require("../models/Cart");
 
 
 module.exports = async (req, res) =>{
-    var porcentaje= (req.body.porcentaje/100)+1
+
+
+    if(req.body.SubFamiliaPrecioEleccion === 'PorcentajeEleccion'){
+        var porcentaje= (req.body.porcentaje/100)+1
 
     var porcentajeRed= 1-(req.body.porcentaje/100)
 
@@ -38,6 +41,25 @@ const updateOperations = materials.map((material) => ({
 
 // Ejecutar las operaciones de actualización en masa
 await material.bulkWrite(updateOperations);
+
+    }else if(req.body.SubFamiliaPrecioEleccion === 'FijoEleccion'){
+
+var ValorASumar = req.body.porcentaje
+
+var ValorARestar = req.body.porcentaje
+
+if (req.body.porcentaje > 0 && req.body.accion === 'incrementar') {
+    await material.updateMany({ SubFam: req.body.SubFamiliaPrecio }, { $inc: { PrecioUnitario: ValorASumar } });
+  } else if (req.body.porcentaje > 0 && req.body.accion === 'reducir') {
+    await material.updateMany({ SubFam: req.body.SubFamiliaPrecio }, { $inc: { PrecioUnitario: -ValorARestar } });
+  }
+        
+
+    }
+
+
+
+
 
 
 

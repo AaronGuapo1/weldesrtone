@@ -90,25 +90,39 @@
 
                     <form method="post" action="/FamiliaPrecio" >
 
-                        <div class="row" style="margin-bottom: 1rem;">
-                            <div class="col-2" style="padding-right: .2rem;">
-                                <select  name="FamiliaPrecio" class="BusquedaSelect form-select">
-                                    <% for (var a = 0; a < unicos.length; a++) { %> 
-                                        <% if(unicos[a] !== undefined){ %>
-        
-                                        <option value="<%=unicos[a]%>" selected><%=unicos[a]%></option>
-        
-                                        <% } %>
-        
-                                        <% } %>
-        
+                        <div class="mt-4 text-center">
+                                <select  name="FamiliaPrecioEleccion" class="BusquedaSelect form-select">
+
+                                        <option value="PorcentajeEleccion" selected>Porcentaje</option>
+
+                                        <option value="FijoEleccion">Fijo</option>
+
             
                                 </select>
+
+                          </div>
+                          <br>
+
+
+
+
+                        <div class="row" style="margin-bottom: 1rem;">
+                            <div class="col-2" style="padding-right: .2rem;">
+                                <select name="FamiliaPrecio" class="BusquedaSelect form-select" id="select2">
+                                    <option value="" selected>Seleccionar opción</option>
+                                    <% for (var a = 0; a < unicos.length; a++) { %>
+                                      <% if (unicos[a] !== undefined) { %>
+                                        <option value="<%= unicos[a] %>"><%= unicos[a] %></option>
+                                      <% } %>
+                                    <% } %>
+                                  </select>
                             </div>
                             <div class="col-10" style="padding-left: .2rem;">
-                                <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder="%"  min="0" max="100">
+                                <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder="%"  min="0">
                             </div>
                         </div>
+                        <div class="mt-4 text-center">
+
                         <button class="btn btn-outline-danger" type="reset">Limpiar</button>
                         <button type="submit" class="btn btn-outline-danger">Actualizar</button>
 
@@ -129,6 +143,8 @@
                         </label>
                     </div>
                   </div>
+                </div>
+
                 </form>
                 <% } %>
 
@@ -144,25 +160,42 @@
                         <h5 class="card-title mb-3"></h5>
 
                         <form method="post" action="/SubFamiliaPrecio" >
-    
-                            <div class="row" style="margin-bottom: 1rem;">
-                                <div class="col-2" style="padding-right: .2rem;">
-                                    <select  name="SubFamiliaPrecio" class="BusquedaSelect form-select">
-                                        <% for (var a = 0; a < unicos2.length; a++) { %> 
-                                            <% if(unicos2[a] !== undefined){ %>
-            
-                                            <option value="<%=unicos2[a]%>" selected><%=unicos2[a]%></option>
-            
-                                            <% } %>
-            
-                                            <% } %>
 
-                                    </select>
+                            <div class="mt-4 text-center">
+
+                                        <select  name="SubFamiliaPrecioEleccion" class="BusquedaSelect form-select">
+        
+                                                <option value="PorcentajeEleccion" selected>Porcentaje</option>
+        
+                                                <option value="FijoEleccion">Fijo</option>
+        
+                    
+                                        </select>
+        
+</div>
+
+
+
+<br>
+                            <div class="row" style="margin-bottom: 1rem;">
+
+                                
+                                <div class="col-2" style="padding-right: .2rem;">
+                                    <select name="SubFamiliaPrecio" class="BusquedaSelect form-select" id="select2-subfamilia">
+                                        <option value="" selected>Seleccionar opción</option>
+                                        <% for (var a = 0; a < unicos2.length; a++) { %>
+                                          <% if (unicos2[a] !== undefined) { %>
+                                            <option value="<%= unicos2[a] %>"><%= unicos2[a] %></option>
+                                          <% } %>
+                                        <% } %>
+                                      </select>
                                 </div>
                                 <div class="col-10" style="padding-left: .2rem;">
-                                    <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder="%"  min="0" max="100">
+                                    <input class="form-control" type="number" name="porcentaje" class="busquedaInput" placeholder="%"  min="0">
                                 </div>
                             </div>
+                            <div class="mt-4 text-center">
+
                             <button class="btn btn-outline-danger" type="reset">Limpiar</button>
                             <button type="submit" class="btn btn-outline-danger">Actualizar</button>
                     <div style="padding-top: 1rem;">
@@ -179,6 +212,8 @@
                             </label>
                         </div>
                       </div>
+                    </div>
+
                     </form>
                     <% } %>
     
@@ -231,10 +266,12 @@
                                 <% for (let a = 0; a < materiales.length; a++) { %>
                                     <tr>
                                         <td>
-                                            <%=materiales[a].Codigo%>
+                                            <%=materiales[a].Descripcion%>
+
                                         </td>
                                         <td>
-                                            <%=materiales[a].Descripcion%>
+                                            <%=materiales[a].Codigo%>
+
                                         </td>
                                         <td>
                                             <%=materiales[a].Unidad%>
@@ -368,4 +405,34 @@ $("input:checkbox").on('click', function() {
 
 </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/js/select2.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-rc.0/css/select2.min.css" />
 
+<script>
+  $(document).ready(function() {
+    $('#select2').select2();
+
+    $('#select2').on('select2:open', function() {
+      $('.select2-search__field').attr('placeholder', 'Buscar...');
+    });
+
+    $('#select2').on('select2:close', function() {
+      $('.select2-search__field').attr('placeholder', null);
+    });
+  });
+</script>
+
+<script>
+    $(document).ready(function() {
+      $('#select2-subfamilia').select2();
+  
+      $('#select2-subfamilia').on('select2:open', function() {
+        $('.select2-search__field').attr('placeholder', 'Buscar...');
+      });
+  
+      $('#select2-subfamilia').on('select2:close', function() {
+        $('.select2-search__field').attr('placeholder', null);
+      });
+    });
+  </script>
