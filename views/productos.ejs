@@ -74,7 +74,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input type="number" class="form-control" id="iva" name="iva" placeholder="iva" min="0">
-                                                <label for="iva">Iva</label>
+                                                <label for="iva">Iva (%)</label>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -459,57 +459,51 @@
                     <div class="card-header">Inventario de Artículos</div>
 
                     <div class="card-body px-5 py-4">
-                        <% for (var a = 0; a < productos.length; a++) { %> <form action="/productos/edicion" method="POST" enctype="multipart/form-data">
-                            <div class="card mb-3">
-                                <div class="row g-0">
-                                    <div class="col-md-2 center-text-xy">
+                        <div class="row">
+                            <% for (var a = 0; a < productos.length; a++) { %> 
+                                <div class="col-6" style="height: auto;">
+                                    <form action="/productos/edicion" method="POST" enctype="multipart/form-data">                                    
+                                        <div class="card mb-3">
+                                            <div class="row g-0">
+                                                <div class="col-md-3 center-text-xy">
+            
+                                                    <img src="<%= productos[a].image %>" class="img-fluid rounded-start" alt="...">
+            
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title"><%=productos[a].nombre%> <span class="ms-1" style="font-size: 0.8rem; color:gray"><%=productos[a].IdProducto%></span></h5>
+                                                        
+                                                        <div style="height: 75px; overflow-y: scroll;">
+                                                            <p class="card-text mb-2"><strong>Descripción:</strong> <%=productos[a].descripcion%></p>
+                                                        </div>
 
-
-
-                                       <img src="<%= productos[a].image %>" class="img-fluid rounded-start" alt="...">
-                            
-
-                            <!--
-                                <img class="mySlides" src="<%= //productos.docs.image %>" style="width:350px">
-                            <div class="w3-content w3-display-container">
-                            <img class="mySlides" src="<%= //productos.docs.image2 %>" style="width:350px">
-                            <img class="mySlides" src="<%= //productos.docs.image3 %>" style="width:350px">
-                            <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                            <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-                          </div>
-
-                          -->
-
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="card-body">
-                                            <h5 class="card-title"><%=productos[a].nombre%> <span class="ms-1" style="font-size: 0.8rem; color:gray"><%=productos[a].IdProducto%></span></h5>
-                                            
-                                            <p class="card-text mb-2"><%=productos[a].descripcion%></p>
-
-                                            <p class="card-text mb-2"><strong>Familia:</strong> <%=productos[a].familia%></p>
-
-                                            <p class="card-text resaltar-rojo"><strong>Precio: $<%=productos[a].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%> mxn</strong></p>
+                                                        <p class="card-text mb-2"><strong>Familia:</strong> <%=productos[a].familia%></p>
+            
+                                                        <p class="card-text resaltar-rojo"><strong>Precio: $<%=productos[a].precio.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%> mxn</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <% if(roles === "admin" || roles === "Cotizacion"){ %>
+                                                    <!-- Editar producto -->
+                                                    <a href="/productos/editar/<%=productos[a]._id%>"> 
+                                                        <button type="button" class="btn btn-primary w-100 edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
+                                                    </a>
+                                                    <!-- Borrar Producto -->
+                                                    <a href="/productos/borrar/<%=productos[a].nombre%>" id="sendMessageButton">
+                                                        <button type="button" class="btn btn-dark w-100 trash-button">
+                                                            <i class="fa-solid fa-trash"></i>
+                                                        </button>
+                                                    </a>
+                                                    <% } %>
+            
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <% if(roles === "admin" || roles === "Cotizacion"){ %>
-                                        <!-- Editar producto -->
-                                        <a href="/productos/editar/<%=productos[a]._id%>"> 
-                                            <button type="button" class="btn btn-primary w-100 edit-button"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        </a>
-                                        <!-- Borrar Producto -->
-                                        <a href="/productos/borrar/<%=productos[a].nombre%>" id="sendMessageButton">
-                                            <button type="button" class="btn btn-dark w-100 trash-button">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </a>
-                                        <% } %>
-
-                                    </div>
-                                </div>
-                            </div>
-                        <% } %>
+                                    </form>     
+                                </div>                                                   
+                            <% } %>
+                        </div>                        
                     </div>
                 </div>
             </section>
