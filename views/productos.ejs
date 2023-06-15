@@ -132,9 +132,8 @@
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Material<%=materiales[a].Codigo%>">
                                                 <div class="mb-3">
-                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %> </p>
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Cantidad</span>
+                                                        <span class="input-group-text"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %></span>
                                                         <input type="number" step="any" value="0" id="Material<%=materiales[a].Codigo%>" class="form-control material-input" name='MaterialesProductos[cantidad]' min="0">
                                                         <button type="button" class="btn btn-primary edit agregar-Material<%=materiales[a].Codigo%>" id="Material<%=materiales[a].Codigo%>">Quitar</button>
                                                     </div>
@@ -214,7 +213,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="input-group">
-                                                <span class="input-group-text">Porcentaje</span>
+                                                <span class="input-group-text">Indirectos y Honorarios</span>
                                                 <input type="number" value="0" min="0" step="any" class="form-control material-porcentaje" id="PorcentajeMaterial" name="PorcentajeMaterial">
                                                 <span class="input-group-text">%</span>
                                             </div>
@@ -228,9 +227,8 @@
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Pintura<%=materiales[a].Codigo%>">
                                                 <div class="mb-3">
-                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %> </p>
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Cantidad</span>
+                                                        <span class="input-group-text"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %></span>
                                                         <input type="number" step="any" value="0" id="Pintura<%=materiales[a].Codigo%>" class="form-control pintura-input" name='PinturaProductos[cantidad]' min="0">
                                                         <button type="button" class="btn btn-primary edit agregar-Pintura<%=materiales[a].Codigo%>" id="Pintura<%=materiales[a].Codigo%>">Quitar</button>
                                                     </div>
@@ -310,7 +308,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="input-group">
-                                                <span class="input-group-text">Porcentaje</span>
+                                                <span class="input-group-text">Indirectos y Honorarios</span>
                                                 <input type="number" value="0" min="0" step="any" class="form-control pintura-porcentaje" id="PorcentajePintura" name="PorcentajePintura">
                                                 <span class="input-group-text">%</span>
                                             </div>
@@ -324,9 +322,8 @@
                                         <% for (var a = 0; a < materiales.length; a++) { %> 
                                             <div hidden class="Instalacion<%=materiales[a].Codigo%>">
                                                 <div class="mb-3">
-                                                    <p class="mb-1"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %> </p>
                                                     <div class="input-group mb-3">
-                                                        <span class="input-group-text">Cantidad</span>
+                                                        <span class="input-group-text"><%=materiales[a].Descripcion%> $<%= materiales[a].PrecioUnitario %>/u Unidad: <%= materiales[a].Unidad %></span>
                                                         <input type="number" step="any" value="0" id="Instalacion<%=materiales[a].Codigo%>" class="form-control instalacion-input" name='InstalacionProductos[cantidad]' min="0">
                                                         <button type="button" class="btn btn-primary edit agregar-Instalacion<%=materiales[a].Codigo%>" id="Instalacion<%=materiales[a].Codigo%>">Quitar</button>
                                                     </div>
@@ -406,7 +403,7 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="input-group">
-                                                <span class="input-group-text">Porcentaje</span>
+                                                <span class="input-group-text">Indirectos y Honorarios</span>
                                                 <input type="number" value="0" min="0" step="any" class="form-control instalacion-porcentaje" id="PorcentajeInstalacion" name="PorcentajeInstalacion">
                                                 <span class="input-group-text">%</span>
                                             </div>
